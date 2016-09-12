@@ -4,9 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import easyaccept.EasyAccept;
+import excecoes.AtributoInvalidoException;
 import excecoes.CadastroInvalidoException;
 import excecoes.EmailInvalidoException;
 import excecoes.StringInvalidaException;
+import excecoes.ValorInvalidoException;
 
 /**
  * O Hotel representa uma entidade de gerenciamento. Ele contem um set de Hospedes, utilizado
@@ -48,8 +50,8 @@ public class Hotel {
 	 * @return Um hospede, caso encontre. Null, caso nao encontre.
 	 * @throws EmailInvalidoException 
 	 */
-	private Hospede buscaHospede(String email) throws EmailInvalidoException {
-		if (email == null){
+	private Hospede buscaHospede(String email) throws StringInvalidaException {
+		if (email.trim().isEmpty() || email == null){
 			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
 		}
 		for (Hospede hospede : this.getHospedes()) {
@@ -63,8 +65,13 @@ public class Hotel {
 	 * Verifica se existe um hospede com determinado email no set de hospedes
 	 * @param email Email do hospede
 	 * @return True caso exista o hospede, null caso nao exista
+	 * @throws EmailInvalidoException 
 	 */
-	private boolean isCadastrado(String email) {
+	private boolean isCadastrado(String email) throws StringInvalidaException {
+		if (email.trim().isEmpty() || email == null){
+			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
+		}
+		
 		for (Hospede hospede : this.getHospedes()) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return true;
@@ -99,6 +106,10 @@ public class Hotel {
 	 * @throws StringInvalidaException
 	 */
 	public void removeHospede(String email) throws StringInvalidaException {
+		if (email.trim().isEmpty() || email == null){
+			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
+		}
+		
 		if (this.isCadastrado(email)) {
 			Hospede hospede = this.buscaHospede(email);
 			this.getHospedes().remove(hospede);
@@ -117,8 +128,12 @@ public class Hotel {
 	 * @param atributo Uma string representando qual informacao do hospede esta sendo requisitada
 	 * @return A informacao requisitada
 	 * @throws EmailInvalidoException 
+	 * @throws AtributoInvalidoException 
 	 */
-	public String getInfoHospede(String email, String atributo) throws EmailInvalidoException {
+	public String getInfoHospede(String email, String atributo) throws StringInvalidaException {
+		if (atributo.trim().isEmpty() || atributo == null){
+			throw new AtributoInvalidoException("O atributo nao pode ser nulo ou vazio.");
+		}
 		if (atributo.equalsIgnoreCase("nome")) {
 			Hospede hospede = this.buscaHospede(email);
 			return hospede.getNome();
@@ -140,8 +155,16 @@ public class Hotel {
 	 * @param atributo O atributo que se deseja alterar (ex.: nome)
 	 * @param valor Novo valor do atributo
 	 * @throws EmailInvalidoException 
+	 * @throws AtributoInvalidoException 
+	 * @throws ValorInvalidoException 
 	 */
-	public void atualizaCadastro(String email, String atributo, String valor) throws EmailInvalidoException {
+	public void atualizaCadastro(String email, String atributo, String valor) throws StringInvalidaException {
+		if (atributo.trim().isEmpty() || atributo == null){
+			throw new AtributoInvalidoException("O atributo nao pode ser nulo ou vazio.");
+		}
+		if (valor.trim().isEmpty() || valor == null){
+			throw new ValorInvalidoException("O valor nao pode ser nulo ou vazio.");
+		}
 		if (atributo.equalsIgnoreCase("nome")) {
 			Hospede hospede = this.buscaHospede(email);
 			hospede.setNome(valor);
