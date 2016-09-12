@@ -1,5 +1,9 @@
 package hospede;
 
+import excecoes.AnoNascInvalidoException;
+import excecoes.EmailInvalidoException;
+import excecoes.NomeInvalidoException;
+
 public class Hospede {
 
 	private String nome;
@@ -7,16 +11,17 @@ public class Hospede {
 	private String anoNascimento;
 
 	public Hospede(String nomeHospede, String emailHospede, String anoNascHospede) throws Exception {
+		
 		if (nomeHospede.equals(null) || nomeHospede.trim().isEmpty()) {
-			throw new Exception("Nome do hospode nao pode ser vazio ou nulo.");
+			throw new NomeInvalidoException("Nome do hospode nao pode ser vazio ou nulo.");
 		}
 
 		if (emailHospede.equals(null) || emailHospede.trim().isEmpty()) {
-			throw new Exception("Email do hospede nao pode ser vazio ou nulo.");
+			throw new EmailInvalidoException("Email do hospede nao pode ser vazio ou nulo.");
 		}
 
 		if (anoNascHospede.equals(null) || anoNascHospede.trim().isEmpty()) {
-			throw new Exception("Ano de Nascimento do hospede nao pode ser vazio ou nulo.");
+			throw new AnoNascInvalidoException("Ano de Nascimento do hospede nao pode ser vazio ou nulo.");
 		}
 
 		this.nome = nomeHospede;
