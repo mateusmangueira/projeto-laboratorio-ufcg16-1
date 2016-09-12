@@ -53,12 +53,4 @@ public class Hospede {
 	public void setAnoNascimento(String anoNascimento) {
 		this.anoNascimento = anoNascimento;
 	}
-	
-	public String toStringNome() {
-		return this.getNome();
-	}
-	
-	public String toStringData() {
-		return this.getAnoNascimento();
-	}
 }

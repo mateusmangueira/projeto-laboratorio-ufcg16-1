@@ -41,37 +41,52 @@ public class Hotel {
 		return false;
 	}
 
-	public void cadastraHospede(String nome, String email, String ano) throws StringInvalidaException {
+	public String cadastraHospede(String nome, String email, String ano) throws StringInvalidaException {
 		if (this.isCadastrado(email)) {
 			throw new StringInvalidaException("Hospede ja existente.");
 		}
 		Hospede hospede = this.criaHospede(nome, email, ano);
 		this.getHospedes().add(hospede);
+		return email;
 	}
 
-	public void removeHospede(String email) {
+	public void removeHospede(String email) throws StringInvalidaException {
 		if (this.isCadastrado(email)) {
 			Hospede hospede = this.buscaHospede(email);
 			this.getHospedes().remove(hospede);
 		}
-
 	}
 
-	// Implementei esse metodo pra buscar o hospede pelo email, mas nos teste
-	// esta pelo ID. nao entendi como seria esta busca.
+	// O monitor Gustavo me explicou que o ID eh o email e o metodo cadastra
+	// retorna o ID que seria o email do hospede, entao modifiquei o metodo
+	// cadastra para retorna o email e aqui ele vai pesquisar pelo email para
+	// pegar informacoes sobre o hospede.
 
 	public String getInfoHospede(String email, String atributo) {
 		if (atributo.equalsIgnoreCase("nome")) {
 			Hospede hospede = this.buscaHospede(email);
-			return hospede.toStringNome();
+			return hospede.getNome();
 		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
 			Hospede hospede = this.buscaHospede(email);
-			return hospede.toStringData();
+			return hospede.getAnoNascimento();
+		} else if (atributo.equalsIgnoreCase("email")) {
+			Hospede hospede = this.buscaHospede(email);
+			return hospede.getEmail();
 		}
 		return null;
 	}
 
-	public void atualizaCadastro(String id, String atributo, String valor) {
+	public void atualizaCadastro(String email, String atributo, String valor) {
+		if (atributo.equalsIgnoreCase("nome")) {
+			Hospede hospede = this.buscaHospede(email);
+			hospede.setNome(valor);
+		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
+			Hospede hospede = this.buscaHospede(email);
+			hospede.setAnoNascimento(valor);
+		} else if (atributo.equalsIgnoreCase("email")) {
+			Hospede hospede = this.buscaHospede(email);
+			hospede.setEmail(valor);
+		}
 	}
 
 	public static void main(String[] args) {
