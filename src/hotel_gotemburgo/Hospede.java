@@ -5,6 +5,11 @@ import excecoes.EmailInvalidoException;
 import excecoes.NomeInvalidoException;
 import excecoes.StringInvalidaException;
 
+/**
+ * Classe responsavel por um objeto que representa um hospede do Hotel. O hospede possui atributos
+ * (nome, email e ano de nascimento) e metodos que retornam e alteram esses atributos.
+ *
+ */
 public class Hospede {
 
 	private String nome;
@@ -13,17 +18,17 @@ public class Hospede {
 
 	public Hospede(String nomeHospede, String emailHospede, String anoNascHospede) throws StringInvalidaException {
 
-		if (nomeHospede.equals(null) || nomeHospede.trim().isEmpty()) {
+		if (nomeHospede.equals(null) || nomeHospede.trim().isEmpty())
 			throw new NomeInvalidoException("Nome do hospode nao pode ser vazio ou nulo.");
-		}
 
-		if (emailHospede.equals(null) || emailHospede.trim().isEmpty()) {
+
+		if (emailHospede.equals(null) || emailHospede.trim().isEmpty())
 			throw new EmailInvalidoException("Email do hospede nao pode ser vazio ou nulo.");
-		}
 
-		if (anoNascHospede.equals(null) || anoNascHospede.trim().isEmpty()) {
+
+		if (anoNascHospede.equals(null) || anoNascHospede.trim().isEmpty())
 			throw new AnoNascInvalidoException("Ano de Nascimento do hospede nao pode ser vazio ou nulo.");
-		}
+
 
 		this.nome = nomeHospede;
 		this.email = emailHospede;
