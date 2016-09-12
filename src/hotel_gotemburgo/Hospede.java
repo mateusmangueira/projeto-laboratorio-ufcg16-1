@@ -1,8 +1,9 @@
-package hospede;
+package hotel_gotemburgo;
 
 import excecoes.AnoNascInvalidoException;
 import excecoes.EmailInvalidoException;
 import excecoes.NomeInvalidoException;
+import excecoes.StringInvalidaException;
 
 public class Hospede {
 
@@ -10,8 +11,8 @@ public class Hospede {
 	private String email;
 	private String anoNascimento;
 
-	public Hospede(String nomeHospede, String emailHospede, String anoNascHospede) throws Exception {
-		
+	public Hospede(String nomeHospede, String emailHospede, String anoNascHospede) throws StringInvalidaException {
+
 		if (nomeHospede.equals(null) || nomeHospede.trim().isEmpty()) {
 			throw new NomeInvalidoException("Nome do hospode nao pode ser vazio ou nulo.");
 		}
@@ -52,5 +53,12 @@ public class Hospede {
 	public void setAnoNascimento(String anoNascimento) {
 		this.anoNascimento = anoNascimento;
 	}
-
+	
+	public String toStringNome() {
+		return this.getNome();
+	}
+	
+	public String toStringData() {
+		return this.getAnoNascimento();
+	}
 }
