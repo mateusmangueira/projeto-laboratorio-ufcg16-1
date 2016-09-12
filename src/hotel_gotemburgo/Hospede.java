@@ -71,4 +71,5 @@ public class Hospede {
 		Hospede outro = (Hospede) anotherObject;
 		return outro.getEmail().equals(this.getEmail() );
 	}
+	
 }
