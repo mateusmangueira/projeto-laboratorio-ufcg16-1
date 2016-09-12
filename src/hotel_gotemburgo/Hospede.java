@@ -58,4 +58,17 @@ public class Hospede {
 	public void setAnoNascimento(String anoNascimento) {
 		this.anoNascimento = anoNascimento;
 	}
+	
+	/**
+	 * Dois objetos do tipo Hospede sao iguais caso possuam o mesmo email
+	 */
+	@Override
+	public boolean equals(Object anotherObject) {
+		if (anotherObject == null)
+			return false;
+		if (!anotherObject.getClass().equals(this.getClass()))
+			return false;
+		Hospede outro = (Hospede) anotherObject;
+		return outro.getEmail().equals(this.getEmail() );
+	}
 }
