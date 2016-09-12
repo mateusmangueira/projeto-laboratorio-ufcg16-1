@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import easyaccept.EasyAccept;
+import excecoes.CadastroInvalidoException;
+import excecoes.EmailInvalidoException;
 import excecoes.StringInvalidaException;
 
 /**
@@ -44,8 +46,12 @@ public class Hotel {
 	 * Caso nao existam hospedes com esse email, o retorno eh null.
 	 * @param email Email do hospede
 	 * @return Um hospede, caso encontre. Null, caso nao encontre.
+	 * @throws EmailInvalidoException 
 	 */
-	private Hospede buscaHospede(String email) {
+	private Hospede buscaHospede(String email) throws EmailInvalidoException {
+		if (email == null){
+			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
+		}
 		for (Hospede hospede : this.getHospedes()) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
@@ -79,7 +85,7 @@ public class Hotel {
 	 */
 	public String cadastraHospede(String nome, String email, String ano) throws StringInvalidaException {
 		if (this.isCadastrado(email)) {
-			throw new StringInvalidaException("Hospede ja existente.");
+			throw new CadastroInvalidoException("Hospede jah existente.");
 		}
 		Hospede hospede = this.criaHospede(nome, email, ano);
 		this.getHospedes().add(hospede);
@@ -110,8 +116,9 @@ public class Hotel {
 	 * @param email Email do hospede
 	 * @param atributo Uma string representando qual informacao do hospede esta sendo requisitada
 	 * @return A informacao requisitada
+	 * @throws EmailInvalidoException 
 	 */
-	public String getInfoHospede(String email, String atributo) {
+	public String getInfoHospede(String email, String atributo) throws EmailInvalidoException {
 		if (atributo.equalsIgnoreCase("nome")) {
 			Hospede hospede = this.buscaHospede(email);
 			return hospede.getNome();
@@ -132,8 +139,9 @@ public class Hotel {
 	 * @param email Email do hospede que tera o cadastro alterado
 	 * @param atributo O atributo que se deseja alterar (ex.: nome)
 	 * @param valor Novo valor do atributo
+	 * @throws EmailInvalidoException 
 	 */
-	public void atualizaCadastro(String email, String atributo, String valor) {
+	public void atualizaCadastro(String email, String atributo, String valor) throws EmailInvalidoException {
 		if (atributo.equalsIgnoreCase("nome")) {
 			Hospede hospede = this.buscaHospede(email);
 			hospede.setNome(valor);

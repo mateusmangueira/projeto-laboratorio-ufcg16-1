@@ -19,15 +19,15 @@ public class Hospede {
 	public Hospede(String nomeHospede, String emailHospede, String anoNascHospede) throws StringInvalidaException {
 
 		if (nomeHospede.equals(null) || nomeHospede.trim().isEmpty())
-			throw new NomeInvalidoException("Nome do hospode nao pode ser vazio ou nulo.");
+			throw new NomeInvalidoException("O nome do hospode nao pode ser nulo ou vazio.");
 
 
 		if (emailHospede.equals(null) || emailHospede.trim().isEmpty())
-			throw new EmailInvalidoException("Email do hospede nao pode ser vazio ou nulo.");
+			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
 
 
 		if (anoNascHospede.equals(null) || anoNascHospede.trim().isEmpty())
-			throw new AnoNascInvalidoException("Ano de Nascimento do hospede nao pode ser vazio ou nulo.");
+			throw new AnoNascInvalidoException("O ano de Nascimento do hospede nao pode ser nulo ou vazio.");
 
 
 		this.nome = nomeHospede;
