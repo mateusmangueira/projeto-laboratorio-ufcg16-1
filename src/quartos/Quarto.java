@@ -1,15 +1,15 @@
 package quartos;
 
-import excecoes.StringInvalidaException;
+import excecoes.*;
 
 public abstract class Quarto {
 	
 	private String id;
 	//private double valorDiaria;
 	
-	public Quarto(String idQuarto) throws Exception {
+	public Quarto(String idQuarto) throws HotelException {
 		if(idQuarto.equals(null) || idQuarto.trim().isEmpty()) {
-			throw new StringInvalidaException("Id do quarto nao pode ser nulo ou vazio.");
+			throw new IdInvalidoException("O Id do quarto nao pode ser nulo ou vazio.");
 		}
 	
 		this.id = idQuarto;
