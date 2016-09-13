@@ -1,9 +1,6 @@
 package hotel_gotemburgo;
 
-import excecoes.AnoNascInvalidoException;
-import excecoes.EmailInvalidoException;
-import excecoes.NomeInvalidoException;
-import excecoes.StringInvalidaException;
+import excecoes.*;
 
 /**
  * Classe responsavel por um objeto que representa um hospede do Hotel. O hospede possui atributos
@@ -16,19 +13,16 @@ public class Hospede {
 	private String email;
 	private String anoNascimento;
 
-	public Hospede(String nomeHospede, String emailHospede, String anoNascHospede) throws StringInvalidaException {
+	public Hospede(String nomeHospede, String emailHospede, String anoNascHospede) throws HotelException {
 
 		if (nomeHospede.equals(null) || nomeHospede.trim().isEmpty())
 			throw new NomeInvalidoException("O nome do hospode nao pode ser nulo ou vazio.");
 
-
 		if (emailHospede.equals(null) || emailHospede.trim().isEmpty())
 			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
 
-
 		if (anoNascHospede.equals(null) || anoNascHospede.trim().isEmpty())
 			throw new AnoNascInvalidoException("O ano de Nascimento do hospede nao pode ser nulo ou vazio.");
-
 
 		this.nome = nomeHospede;
 		this.email = emailHospede;
@@ -66,7 +60,10 @@ public class Hospede {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		return result;
 	}
-
+	
+	/**
+	 * Dois objetos do tipo Hospede sao iguais caso possuam o mesmo email.
+	 */
 	@Override
 	public boolean equals(Object anotherObject) {
 		if (anotherObject == null)
@@ -76,10 +73,5 @@ public class Hospede {
 		Hospede outro = (Hospede) anotherObject;
 		return outro.getEmail().equals(this.getEmail() );
 	}
-	
-	
-	/**
-	 * Dois objetos do tipo Hospede sao iguais caso possuam o mesmo email
-	 */
 	
 }

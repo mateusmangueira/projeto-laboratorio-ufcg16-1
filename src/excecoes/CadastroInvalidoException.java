@@ -1,6 +1,6 @@
 package excecoes;
 
-public class CadastroInvalidoException extends StringInvalidaException{
+public class CadastroInvalidoException extends LogicaExceptions {
 	
 	public static final long SerialVersionUID = 1L;
 	
