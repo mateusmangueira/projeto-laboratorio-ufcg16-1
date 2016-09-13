@@ -3,10 +3,19 @@ package hotel_gotemburgo;
 import excecoes.*;
 
 /**
- * Classe responsavel por um objeto que representa um hospede do Hotel. O hospede possui atributos
- * (nome, email e ano de nascimento) e metodos que retornam e alteram esses atributos.
+ * Classe responsavel por um objeto que representa um hospede do Hotel. O
+ * hospede possui atributos (nome, email e ano de nascimento) e metodos que
+ * retornam e alteram esses atributos.
  *
+ * Criada em 12 de Setembro, 2016
+ * 
+ * @author Anderson Vital matricula <anderson.vital@ccc.ufcg.edu.br>
+ * @author Kleber Diogo matricula <kleber.albuquerque@ccc.ufcg.edu.br>
+ * @author Lucas Christhoper Matricula <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Mateus Pinto Mangueira 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
+ * 
  */
+
 public class Hospede {
 
 	private String nome;
@@ -60,7 +69,7 @@ public class Hospede {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		return result;
 	}
-	
+
 	/**
 	 * Dois objetos do tipo Hospede sao iguais caso possuam o mesmo email.
 	 */
@@ -71,7 +80,7 @@ public class Hospede {
 		if (!anotherObject.getClass().equals(this.getClass()))
 			return false;
 		Hospede outro = (Hospede) anotherObject;
-		return outro.getEmail().equals(this.getEmail() );
+		return outro.getEmail().equals(this.getEmail());
 	}
-	
+
 }

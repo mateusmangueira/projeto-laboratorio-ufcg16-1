@@ -11,8 +11,16 @@ import excecoes.*;
  * Hospedes, utilizado para armazenamento desses hospedes no sistema. Metodos
  * sao utilizados para operar sobre esse set e realizar operacoes, como busca,
  * consulta e remocoes.
- *
+ * 
+ * Criada em 12 de Setembro, 2016
+ * 
+ * @author Anderson Vital matricula <anderson.vital@ccc.ufcg.edu.br>
+ * @author Kleber Diogo matricula <kleber.albuquerque@ccc.ufcg.edu.br>
+ * @author Lucas Christhoper Matricula <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Mateus Pinto Mangueira 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
+ * 
  */
+
 public class Hotel {
 
 	private Set<Hospede> hospedes;
@@ -50,7 +58,7 @@ public class Hotel {
 	 * @throws EmailInvalidoException
 	 */
 	private Hospede buscaHospede(String email) throws HotelException {
-		
+
 		if (email.trim().isEmpty() || email == null) {
 			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
 		}
@@ -58,7 +66,8 @@ public class Hotel {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
 		}
-		throw new BuscaInvalidaException("Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
+		throw new BuscaInvalidaException(
+				"Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
 	}
 
 	/**
@@ -69,7 +78,7 @@ public class Hotel {
 	 * @throws EmailInvalidoException
 	 */
 	private boolean isCadastrado(String email) throws HotelException {
-		
+
 		if (email.trim().isEmpty() || email == null) {
 			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
 		}
@@ -93,7 +102,7 @@ public class Hotel {
 	 * @throws StringInvalidaException
 	 */
 	public String cadastraHospede(String nome, String email, String ano) throws HotelException {
-		
+
 		if (this.isCadastrado(email)) {
 			throw new CadastroInvalidoException("Hospede jah existente.");
 		}
@@ -115,7 +124,8 @@ public class Hotel {
 		}
 
 		if (!this.isCadastrado(email)) {
-			throw new CadastroInvalidoException("Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
+			throw new CadastroInvalidoException(
+					"Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
 		}
 		Hospede hospede = this.buscaHospede(email);
 		this.getHospedes().remove(hospede);
@@ -167,12 +177,13 @@ public class Hotel {
 			throw new ValorInvalidoException("O valor nao pode ser nulo ou vazio.");
 		}
 		if (atributo.equalsIgnoreCase("nome")) {
-			this.buscaHospede(email).setNome(valor);// o busca email ja retorna um hospede
+			this.buscaHospede(email).setNome(valor);// o busca email ja retorna
+													// um hospede
 		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
 			this.buscaHospede(email).setAnoNascimento(valor);
 		} else if (atributo.equalsIgnoreCase("email")) {
 			this.buscaHospede(email).setEmail(valor);
-			
+
 		}
 	}
 

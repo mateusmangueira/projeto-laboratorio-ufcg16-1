@@ -4,7 +4,7 @@
 
 #iniciaSistema e fechaSistema serao usados para carregar/armazenar os dados do sistema nos arquivos de dados.
 
-iniciaSistema
+#iniciaSistema
 
 ###############################
 #    Cadastro de Hospedes     #
@@ -55,7 +55,7 @@ expectError "Erro na consulta de hospede. Hospede de email robyn@sverige.se nao 
 expectError "Erro na consulta de hospede. Hospede de email robyn@sverige.se nao foi cadastrado(a)." getInfoHospede id=${id4} atributo="Email"
 expectError "Erro na consulta de hospede. Hospede de email robyn@sverige.se nao foi cadastrado(a)." getInfoHospede id=${id4} atributo="Data de Nascimento"
 
-fechaSistema
+#fechaSistema
 
 
 
