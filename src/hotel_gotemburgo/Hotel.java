@@ -11,9 +11,10 @@ import excecoes.StringInvalidaException;
 import excecoes.ValorInvalidoException;
 
 /**
- * O Hotel representa uma entidade de gerenciamento. Ele contem um set de Hospedes, utilizado
- * para armazenamento desses hospedes no sistema. Metodos sao utilizados para operar sobre esse
- * set e realizar operacoes, como busca, consulta e remocoes.
+ * O Hotel representa uma entidade de gerenciamento. Ele contem um set de
+ * Hospedes, utilizado para armazenamento desses hospedes no sistema. Metodos
+ * sao utilizados para operar sobre esse set e realizar operacoes, como busca,
+ * consulta e remocoes.
  *
  */
 public class Hotel {
@@ -29,49 +30,60 @@ public class Hotel {
 	}
 
 	/**
-	 * Esse metodo cria e retorna um objeto do tipo Hospede, com base nos parametros
-	 * recebidos de entrada
+	 * Esse metodo cria e retorna um objeto do tipo Hospede, com base nos
+	 * parametros recebidos de entrada
+	 * 
 	 * @param nome
 	 * @param email
 	 * @param anoNascimento
 	 * @return O Hospede criado
-	 * @throws StringInvalidaException Caso a string seja nula ou vazia
+	 * @throws StringInvalidaException
+	 *             Caso a string seja nula ou vazia
 	 */
-	public Hospede criaHospede(String nome, String email, String anoNascimento) throws StringInvalidaException {
+	public Hospede criaHospede(String nome, String email, String anoNascimento)
+			throws StringInvalidaException {
 		Hospede hospede = new Hospede(nome, email, anoNascimento);
 		return hospede;
 	}
 
 	/**
-	 * Com base no email recebido de entrada, realiza uma busca no set de hospedes.
-	 * Caso um dos hospedes possua esse mesmo email, esse hospede eh retornado. 
-	 * Caso nao existam hospedes com esse email, o retorno eh null.
-	 * @param email Email do hospede
+	 * Com base no email recebido de entrada, realiza uma busca no set de
+	 * hospedes. Caso um dos hospedes possua esse mesmo email, esse hospede eh
+	 * retornado. Caso nao existam hospedes com esse email, o retorno eh null.
+	 * 
+	 * @param email
+	 *            Email do hospede
 	 * @return Um hospede, caso encontre. Null, caso nao encontre.
-	 * @throws EmailInvalidoException 
+	 * @throws EmailInvalidoException
 	 */
 	private Hospede buscaHospede(String email) throws StringInvalidaException {
-		if (email.trim().isEmpty() || email == null){
-			throw new StringInvalidaException("O email do hospede nao pode ser nulo ou vazio.");
+		if (email.trim().isEmpty() || email == null) {
+			throw new StringInvalidaException(
+					"O email do hospede nao pode ser nulo ou vazio.");
 		}
 		for (Hospede hospede : this.getHospedes()) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
 		}
-		return null;
+		throw new StringInvalidaException(
+				"Erro na consulta de hospede. Hospede de email " + email
+						+ " nao foi cadastrado(a).");
 	}
 
 	/**
 	 * Verifica se existe um hospede com determinado email no set de hospedes
-	 * @param email Email do hospede
+	 * 
+	 * @param email
+	 *            Email do hospede
 	 * @return True caso exista o hospede, null caso nao exista
-	 * @throws EmailInvalidoException 
+	 * @throws EmailInvalidoException
 	 */
 	private boolean isCadastrado(String email) throws StringInvalidaException {
-		if (email.trim().isEmpty() || email == null){
-			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
+		if (email.trim().isEmpty() || email == null) {
+			throw new EmailInvalidoException(
+					"O email do hospede nao pode ser nulo ou vazio.");
 		}
-		
+
 		for (Hospede hospede : this.getHospedes()) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return true;
@@ -80,17 +92,22 @@ public class Hotel {
 	}
 
 	/**
-	 * Recebe atributos de criacao de um hospede como entrada. Realiza uma verificaco
-	 * para saber se ja existe um hospede com o email recebido. Caso negativo, cria
-	 * um novo objeto Hospede com os valores recebidos como parametros, em seguida
-	 * adiciona-o ao set de hospedes.
-	 * @param nome Nome do hospede
-	 * @param email Email do hospede
-	 * @param ano Ano de nascimento do hospede
-	 * @return 
+	 * Recebe atributos de criacao de um hospede como entrada. Realiza uma
+	 * verificaco para saber se ja existe um hospede com o email recebido. Caso
+	 * negativo, cria um novo objeto Hospede com os valores recebidos como
+	 * parametros, em seguida adiciona-o ao set de hospedes.
+	 * 
+	 * @param nome
+	 *            Nome do hospede
+	 * @param email
+	 *            Email do hospede
+	 * @param ano
+	 *            Ano de nascimento do hospede
+	 * @return
 	 * @throws StringInvalidaException
 	 */
-	public String cadastraHospede(String nome, String email, String ano) throws StringInvalidaException {
+	public String cadastraHospede(String nome, String email, String ano)
+			throws StringInvalidaException {
 		if (this.isCadastrado(email)) {
 			throw new CadastroInvalidoException("Hospede jah existente.");
 		}
@@ -100,41 +117,46 @@ public class Hotel {
 	}
 
 	/**
-	 * Caso um hospede com esse email esteja cadastrado (presente no set
-	 * de hospedes), ele eh removido.
-	 * @param email Email do hospede
+	 * Caso um hospede com esse email esteja cadastrado (presente no set de
+	 * hospedes), ele eh removido.
+	 * 
+	 * @param email
+	 *            Email do hospede
 	 * @throws StringInvalidaException
 	 */
 	public void removeHospede(String email) throws StringInvalidaException {
-		if (email.trim().isEmpty() || email == null){
-			throw new StringInvalidaException("O email do hospede nao pode ser nulo ou vazio.");
+		if (email.trim().isEmpty() || email == null) {
+			throw new StringInvalidaException(
+					"O email do hospede nao pode ser nulo ou vazio.");
 		}
-		
-		else if (this.isCadastrado(email)) {
-			Hospede hospede = this.buscaHospede(email);
-			this.getHospedes().remove(hospede);
+
+		if (!this.isCadastrado(email)) {
+			throw new CadastroInvalidoException(
+					"Erro na consulta de hospede. Hospede de email " + email
+							+ " nao foi cadastrado(a).");
 		}
-		
-	
+		Hospede hospede = this.buscaHospede(email);
+		this.getHospedes().remove(hospede);
 	}
 
-	// O monitor Gustavo me explicou que o ID eh o email e o metodo cadastra
-	// retorna o ID que seria o email do hospede, entao modifiquei o metodo
-	// cadastra para retorna o email e aqui ele vai pesquisar pelo email para
-	// pegar informacoes sobre o hospede.
-
 	/**
-	 * Retorna informacoes relativas a um hospede (pesquisado atraves do email) 
+	 * Retorna informacoes relativas a um hospede (pesquisado atraves do email)
 	 * de acordo com o atributo recebido na entrada.
-	 * @param email Email do hospede
-	 * @param atributo Uma string representando qual informacao do hospede esta sendo requisitada
+	 * 
+	 * @param email
+	 *            Email do hospede
+	 * @param atributo
+	 *            Uma string representando qual informacao do hospede esta sendo
+	 *            requisitada
 	 * @return A informacao requisitada
-	 * @throws EmailInvalidoException 
-	 * @throws AtributoInvalidoException 
+	 * @throws EmailInvalidoException
+	 * @throws AtributoInvalidoException
 	 */
-	public String getInfoHospede(String email, String atributo) throws StringInvalidaException {
-		if (atributo.trim().isEmpty() || atributo == null){
-			throw new AtributoInvalidoException("O atributo nao pode ser nulo ou vazio.");
+	public String getInfoHospede(String email, String atributo)
+			throws StringInvalidaException {
+		if (atributo.trim().isEmpty() || atributo == null) {
+			throw new AtributoInvalidoException(
+					"O atributo nao pode ser nulo ou vazio.");
 		}
 		if (atributo.equalsIgnoreCase("nome")) {
 			Hospede hospede = this.buscaHospede(email);
@@ -150,22 +172,28 @@ public class Hotel {
 	}
 
 	/**
-	 * Atualiza um atributo do cadastro de um hospede, de acordo com uma nova informacao (valor)
-	 * recebido na entrada.
-
-	 * @param email Email do hospede que tera o cadastro alterado
-	 * @param atributo O atributo que se deseja alterar (ex.: nome)
-	 * @param valor Novo valor do atributo
-	 * @throws EmailInvalidoException 
-	 * @throws AtributoInvalidoException 
-	 * @throws ValorInvalidoException 
+	 * Atualiza um atributo do cadastro de um hospede, de acordo com uma nova
+	 * informacao (valor) recebido na entrada.
+	 * 
+	 * @param email
+	 *            Email do hospede que tera o cadastro alterado
+	 * @param atributo
+	 *            O atributo que se deseja alterar (ex.: nome)
+	 * @param valor
+	 *            Novo valor do atributo
+	 * @throws EmailInvalidoException
+	 * @throws AtributoInvalidoException
+	 * @throws ValorInvalidoException
 	 */
-	public void atualizaCadastro(String email, String atributo, String valor) throws StringInvalidaException {
-		if (atributo.trim().isEmpty() || atributo == null){
-			throw new AtributoInvalidoException("O atributo nao pode ser nulo ou vazio.");
+	public void atualizaCadastro(String email, String atributo, String valor)
+			throws StringInvalidaException {
+		if (atributo.equals(null) || atributo.trim().isEmpty()) {
+			throw new AtributoInvalidoException(
+					"O atributo nao pode ser nulo ou vazio.");
 		}
-		if (valor.trim().isEmpty() || valor == null){
-			throw new ValorInvalidoException("O valor nao pode ser nulo ou vazio.");
+		if (valor.equals(null) || valor.trim().isEmpty()) {
+			throw new ValorInvalidoException(
+					"O valor nao pode ser nulo ou vazio.");
 		}
 		if (atributo.equalsIgnoreCase("nome")) {
 			Hospede hospede = this.buscaHospede(email);
@@ -180,7 +208,8 @@ public class Hotel {
 	}
 
 	public static void main(String[] args) {
-		args = new String[] { "hotel_gotemburgo.Hotel", "diretorio_testes/testes_uc1.txt" };
+		args = new String[] { "hotel_gotemburgo.Hotel",
+				"diretorio_testes/testes_uc1.txt" };
 		EasyAccept.main(args);
 	}
 
