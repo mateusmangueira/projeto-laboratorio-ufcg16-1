@@ -167,14 +167,12 @@ public class Hotel {
 			throw new ValorInvalidoException("O valor nao pode ser nulo ou vazio.");
 		}
 		if (atributo.equalsIgnoreCase("nome")) {
-			Hospede hospede = this.buscaHospede(email);
-			hospede.setNome(valor);
+			this.buscaHospede(email).setNome(valor);// o busca email ja retorna um hospede
 		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
-			Hospede hospede = this.buscaHospede(email);
-			hospede.setAnoNascimento(valor);
+			this.buscaHospede(email).setAnoNascimento(valor);
 		} else if (atributo.equalsIgnoreCase("email")) {
-			Hospede hospede = this.buscaHospede(email);
-			hospede.setEmail(valor);
+			this.buscaHospede(email).setEmail(valor);
+			
 		}
 	}
 
