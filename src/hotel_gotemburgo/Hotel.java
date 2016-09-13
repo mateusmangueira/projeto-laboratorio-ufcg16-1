@@ -52,7 +52,7 @@ public class Hotel {
 	 */
 	private Hospede buscaHospede(String email) throws StringInvalidaException {
 		if (email.trim().isEmpty() || email == null){
-			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
+			throw new StringInvalidaException("O email do hospede nao pode ser nulo ou vazio.");
 		}
 		for (Hospede hospede : this.getHospedes()) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
@@ -107,13 +107,15 @@ public class Hotel {
 	 */
 	public void removeHospede(String email) throws StringInvalidaException {
 		if (email.trim().isEmpty() || email == null){
-			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
+			throw new StringInvalidaException("O email do hospede nao pode ser nulo ou vazio.");
 		}
 		
-		if (this.isCadastrado(email)) {
+		else if (this.isCadastrado(email)) {
 			Hospede hospede = this.buscaHospede(email);
 			this.getHospedes().remove(hospede);
 		}
+		
+	
 	}
 
 	// O monitor Gustavo me explicou que o ID eh o email e o metodo cadastra
