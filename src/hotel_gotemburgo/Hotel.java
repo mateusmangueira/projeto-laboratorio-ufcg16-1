@@ -2,13 +2,9 @@ package hotel_gotemburgo;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import easyaccept.EasyAccept;
-import excecoes.AtributoInvalidoException;
-import excecoes.CadastroInvalidoException;
-import excecoes.EmailInvalidoException;
-import excecoes.StringInvalidaException;
-import excecoes.ValorInvalidoException;
+import excecoes.*;
+
 
 /**
  * O Hotel representa uma entidade de gerenciamento. Ele contem um set de
@@ -65,9 +61,7 @@ public class Hotel {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
 		}
-		throw new StringInvalidaException(
-				"Erro na consulta de hospede. Hospede de email " + email
-						+ " nao foi cadastrado(a).");
+		throw new StringInvalidaException("Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
 	}
 
 	/**
@@ -187,7 +181,7 @@ public class Hotel {
 	 */
 	public void atualizaCadastro(String email, String atributo, String valor)
 			throws StringInvalidaException {
-		if (atributo.equals(null) || atributo.trim().isEmpty()) {
+		if (atributo.equals(null) || atributo.trim().isEmpty())  {
 			throw new AtributoInvalidoException(
 					"O atributo nao pode ser nulo ou vazio.");
 		}
