@@ -8,7 +8,7 @@ public class Presidencial extends Quarto {
 
 	public Presidencial(String idQuarto) throws HotelException {
 		super(idQuarto);
-		this.DIARIA_PRESIDENCIAL = 400.0;
+		this.DIARIA_PRESIDENCIAL = 450.0;
 	}
 
 	@Override
