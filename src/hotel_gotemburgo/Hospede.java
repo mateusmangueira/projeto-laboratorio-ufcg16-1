@@ -24,7 +24,7 @@ public class Hospede {
 	private String dataNascimento;
 
 	/**
-	 * O construtor recebe 3 parâmetros, descritos abaixo, e realiza chechagem de exceção
+	 * O construtor recebe 3 parametros, descritos abaixo, e realiza chechagem de excecao
 	 * em todos eles
 	 * @param nomeHospede
 	 * @param emailHospede
@@ -48,7 +48,7 @@ public class Hospede {
 	}
 
 	/**
-	 * Retorna o atributo nome do hóspede
+	 * Retorna o atributo nome do hospede
 	 * @return nome
 	 */
 	public String getNome() {
@@ -56,8 +56,8 @@ public class Hospede {
 	}
 
 	/**
-	 * Recebe um novo nome como parametro e altera o nome atual do hóspede, realizando
-	 * checagem de exceção.
+	 * Recebe um novo nome como parametro e altera o nome atual do hospede, realizando
+	 * checagem de excecao
 	 * @param nome
 	 * @throws StringException
 	 */
@@ -68,7 +68,7 @@ public class Hospede {
 	}
 
 	/**
-	 * Retorna o atributo email do hóspede
+	 * Retorna o atributo email do hospede
 	 * @return email
 	 */
 	public String getEmail() {
@@ -76,8 +76,8 @@ public class Hospede {
 	}
 
 	/**
-	 * Recebe um novo email como parametro e altera o email atual do hóspede, realizando
-	 * checagem de exceção.
+	 * Recebe um novo email como parametro e altera o email atual do hospede, realizando
+	 * checagem de excecao
 	 * @param email 
 	 * @throws StringException
 	 */
@@ -86,6 +86,7 @@ public class Hospede {
 			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
 		this.email = email;
 	}
+	
 	/**
 	 * @return data de nascimento
 	 */
@@ -93,10 +94,15 @@ public class Hospede {
 		return dataNascimento;
 	}
 
+	/**
+	 * Recebe uma nova data de nascimento como parametro e altera o email atual do hospede, 
+	 * realizando checagem de excecao
+	 * @param dataNascimento
+	 * @throws ValoresException
+	 */
 	public void setDataNascimento(String dataNascimento) throws ValoresException {
-		if (dataNascimento == null || dataNascimento.trim().isEmpty()) {
+		if (dataNascimento == null || dataNascimento.trim().isEmpty())
 			throw new StringException("A data de nascimento do hospede nao pode ser nula ou vazia.");
-		}
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -105,7 +111,7 @@ public class Hospede {
 	 * <Nome_hospede>: <email_hospede> (data_nascimento).
 	 */
 	/**
-	 * Representação em String de um Hóspede
+	 * Representacao em String de um Hospede
 	 */
 	@Override
 	public String toString(){
@@ -126,7 +132,7 @@ public class Hospede {
 	}
 	
 	/**
-	 * Código hash de um objeto do tipo hóspede
+	 * Codigo hash de um objeto do tipo Hospede
 	 */
 	@Override
 	public int hashCode() {
