@@ -7,7 +7,7 @@ public abstract class Quarto {
 	private String id;
 	
 	public Quarto(String idQuarto) throws StringException {
-		if(idQuarto.equals(null) || idQuarto.trim().isEmpty()) {
+		if(idQuarto == null || idQuarto.trim().isEmpty()) {
 			throw new StringException("O Id do quarto nao pode ser nulo ou vazio.");
 		}
 	

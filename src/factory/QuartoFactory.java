@@ -20,8 +20,7 @@ public class QuartoFactory {
 	 * Construtor padrao da classe, sem nenhum parametro ou instacia.
 	 * 
 	 */
-	public QuartoFactory() {
-	}
+	public QuartoFactory() {}
 
 	/**
 	 * Metodo que cria um quarto do tipo Simples
@@ -33,10 +32,10 @@ public class QuartoFactory {
 	 */
 	public Quarto criaQuartoSimples(String id, String tipo) throws ValoresException {
 
-		if (id.equals(null) || id.trim().isEmpty()) {
+		if (id == null || id.trim().isEmpty()) {
 			throw new StringException("Id do quarto nao pode ser vazio ou nulo.");
 		}
-		if (tipo.equals(null) || tipo.trim().isEmpty()) {
+		if (tipo == null || tipo.trim().isEmpty()) {
 			throw new StringException("Tipo nao pode ser vazio ou nulo.");
 		}
 		if (tipo.equalsIgnoreCase("simples")) {
@@ -56,10 +55,10 @@ public class QuartoFactory {
 	 */
 	public Quarto criaQuartoLuxo(String id, String tipo) throws ValoresException {
 
-		if (id.equals(null) || id.trim().isEmpty()) {
+		if (id == null || id.trim().isEmpty()) {
 			throw new StringException("Id do quarto nao pode ser vazio ou nulo.");
 		}
-		if (tipo.equals(null) || tipo.trim().isEmpty()) {
+		if (tipo == null || tipo.trim().isEmpty()) {
 			throw new StringException("Tipo nao pode ser vazio ou nulo.");
 		}
 		if (tipo.equalsIgnoreCase("luxo")) {
@@ -80,10 +79,10 @@ public class QuartoFactory {
 
 	public Quarto criaQuartoPresidencial(String id, String tipo) throws ValoresException {
 
-		if (id.equals(null) || id.trim().isEmpty()) {
+		if (id == null || id.trim().isEmpty()) {
 			throw new StringException("Id do quarto nao pode ser vazio ou nulo.");
 		}
-		if (tipo.equals(null) || tipo.trim().isEmpty()) {
+		if (tipo == null || tipo.trim().isEmpty()) {
 			throw new StringException("Tipo nao pode ser vazio ou nulo.");
 		}
 		if (tipo.equalsIgnoreCase("presidencial")) {

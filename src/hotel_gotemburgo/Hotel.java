@@ -59,7 +59,7 @@ public class Hotel {
 	 */
 	public Hospede buscaHospede(String email) throws HotelException {
 
-		if (email.trim().isEmpty() || email == null) {
+		if (email == null || email.trim().isEmpty()) {
 			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
 		}
 		for (Hospede hospede : this.getHospedes()) {
@@ -78,7 +78,7 @@ public class Hotel {
 	 */
 	public boolean isCadastrado(String email) throws HotelException {
 
-		if (email.trim().isEmpty() || email == null) {
+		if (email == null || email.trim().isEmpty()) {
 			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
 		}
 		for (Hospede hospede : this.getHospedes()) {
@@ -118,7 +118,7 @@ public class Hotel {
 	 * @throws StringException
 	 */
 	public void removeHospede(String email) throws HotelException {
-		if (email.trim().isEmpty() || email == null) {
+		if (email == null || email.trim().isEmpty()) {
 			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
 		}
 
@@ -140,7 +140,7 @@ public class Hotel {
 	 * @throws AtributoInvalidoException
 	 */
 	public String getInfoHospede(String email, String atributo) throws HotelException {
-		if (atributo.trim().isEmpty() || atributo == null) {
+		if (atributo == null || atributo.trim().isEmpty()) {
 			throw new StringException("O atributo nao pode ser nulo ou vazio.");
 		}
 		if (atributo.equalsIgnoreCase("nome")) {
@@ -168,10 +168,10 @@ public class Hotel {
 	 * @throws ValorException
 	 */
 	public void atualizaCadastro(String email, String atributo, String valor) throws HotelException {
-		if (atributo.equals(null) || atributo.trim().isEmpty()) {
+		if (atributo == null || atributo.trim().isEmpty()) {
 			throw new StringException("O atributo nao pode ser nulo ou vazio.");
 		}
-		if (valor.equals(null) || valor.trim().isEmpty()) {
+		if (valor == null || valor.trim().isEmpty()) {
 			throw new StringException("O valor nao pode ser nulo ou vazio.");
 		}
 		if (atributo.equalsIgnoreCase("nome")) {
