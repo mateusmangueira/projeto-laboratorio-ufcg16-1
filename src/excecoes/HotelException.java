@@ -2,7 +2,7 @@ package excecoes;
 
 public class HotelException extends Exception {
 	
-	public static final long SerialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	public HotelException(String mensagem){
 		super(mensagem);

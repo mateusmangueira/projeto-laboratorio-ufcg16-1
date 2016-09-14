@@ -14,10 +14,10 @@ import excecoes.*;
  * 
  * Criada em 12 de Setembro, 2016
  * 
- * @author Anderson Vital matricula <anderson.vital@ccc.ufcg.edu.br>
- * @author Kleber Diogo matricula <kleber.albuquerque@ccc.ufcg.edu.br>
- * @author Lucas Christhoper Matricula <lucas.christopher.silva@ccc.ufcg.edu.br>
- * @author Mateus Pinto Mangueira 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
+ * @author Anderson Vital - matricula <anderson.vital@ccc.ufcg.edu.br>
+ * @author Kleber Diogo - matricula <kleber.albuquerque@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
 
@@ -43,8 +43,8 @@ public class Hotel {
 	 * @return O Hospede criado.
 	 * @throws StringInvalidaException
 	 */
-	public Hospede criaHospede(String nome, String email, String anoNascimento) throws HotelException {
-		Hospede hospede = new Hospede(nome, email, anoNascimento);
+	public Hospede criaHospede(String nome, String email, String dataNascimento) throws HotelException {
+		Hospede hospede = new Hospede(nome, email, dataNascimento);
 		return hospede;
 	}
 
@@ -150,7 +150,7 @@ public class Hotel {
 			return hospede.getNome();
 		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
 			Hospede hospede = this.buscaHospede(email);
-			return hospede.getAnoNascimento();
+			return hospede.getDataNascimento();
 		} else if (atributo.equalsIgnoreCase("email")) {
 			Hospede hospede = this.buscaHospede(email);
 			return hospede.getEmail();
@@ -180,7 +180,7 @@ public class Hotel {
 			this.buscaHospede(email).setNome(valor);// o busca email ja retorna
 													// um hospede
 		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
-			this.buscaHospede(email).setAnoNascimento(valor);
+			this.buscaHospede(email).setDataNascimento(valor);
 		} else if (atributo.equalsIgnoreCase("email")) {
 			this.buscaHospede(email).setEmail(valor);
 

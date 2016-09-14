@@ -2,7 +2,7 @@ package excecoes;
 
 public class TipoInvalidoException extends ValorInvalidoException {
 	
-	public static final long SerialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	public TipoInvalidoException(String mensagem){
 		super(mensagem);

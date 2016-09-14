@@ -1,8 +1,8 @@
 package excecoes;
 
 public class ValoresExceptions extends HotelException {
-	
-	public static final long SerialVersionUID = 1L;
+
+	private static final long serialVersionUID = 1L;
 
 	public ValoresExceptions(String mensagem){
 		super(mensagem);

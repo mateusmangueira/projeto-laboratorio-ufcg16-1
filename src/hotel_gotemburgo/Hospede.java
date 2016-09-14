@@ -9,10 +9,10 @@ import excecoes.*;
  *
  * Criada em 12 de Setembro, 2016
  * 
- * @author Anderson Vital matricula <anderson.vital@ccc.ufcg.edu.br>
- * @author Kleber Diogo matricula <kleber.albuquerque@ccc.ufcg.edu.br>
- * @author Lucas Christhoper Matricula <lucas.christopher.silva@ccc.ufcg.edu.br>
- * @author Mateus Pinto Mangueira 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
+ * @author Anderson Vital - matricula <anderson.vital@ccc.ufcg.edu.br>
+ * @author Kleber Diogo - matricula <kleber.albuquerque@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
 
@@ -20,22 +20,22 @@ public class Hospede {
 
 	private String nome;
 	private String email;
-	private String anoNascimento;
+	private String dataNascimento;
 
-	public Hospede(String nomeHospede, String emailHospede, String anoNascHospede) throws HotelException {
+	public Hospede(String nomeHospede, String emailHospede, String dataNascHospede) throws HotelException {
 
-		if (nomeHospede.equals(null) || nomeHospede.trim().isEmpty())
-			throw new NomeInvalidoException("O nome do hospode nao pode ser nulo ou vazio.");
+		if (nomeHospede == null || nomeHospede.trim().isEmpty())
+			throw new NomeInvalidoException("O nome do hospede nao pode ser nulo ou vazio.");
 
-		if (emailHospede.equals(null) || emailHospede.trim().isEmpty())
+		if (emailHospede == null || emailHospede.trim().isEmpty())
 			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
 
-		if (anoNascHospede.equals(null) || anoNascHospede.trim().isEmpty())
-			throw new AnoNascInvalidoException("O ano de Nascimento do hospede nao pode ser nulo ou vazio.");
+		if (dataNascHospede == null || dataNascHospede.trim().isEmpty())
+			throw new AnoNascInvalidoException("A data de nascimento do hospede nao pode ser nula ou vazia.");
 
 		this.nome = nomeHospede;
 		this.email = emailHospede;
-		this.anoNascimento = anoNascHospede;
+		this.dataNascimento = dataNascHospede;
 	}
 
 	public String getNome() {
@@ -54,12 +54,12 @@ public class Hospede {
 		this.email = email;
 	}
 
-	public String getAnoNascimento() {
-		return anoNascimento;
+	public String getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setAnoNascimento(String anoNascimento) {
-		this.anoNascimento = anoNascimento;
+	public void setDataNascimento(String anoNascimento) {
+		this.dataNascimento = anoNascimento;
 	}
 
 	@Override
