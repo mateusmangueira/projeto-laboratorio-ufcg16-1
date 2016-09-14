@@ -12,15 +12,14 @@ import excecoes.*;
  * sao utilizados para operar sobre esse set e realizar operacoes, como busca,
  * consulta e remocoes.
  * 
- * Criada em 12 de Setembro, 2016
+ * @since 12 de Setembro de 2016
  * 
- * @author Anderson Vital - matricula <anderson.vital@ccc.ufcg.edu.br>
+ * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
  * @author Kleber Diogo - matricula <kleber.albuquerque@ccc.ufcg.edu.br>
  * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
-
 public class Hotel {
 
 	private Set<Hospede> hospedes; //VERIFICAR O USO DE UM HASHMAP. mapa eh melhor :3 - Aramis!
@@ -44,24 +43,23 @@ public class Hotel {
 	 * @throws StringException
 	 */
 	public Hospede criaHospede(String nome, String email, String dataNascimento) throws HotelException {
-		Hospede hospede = new Hospede(nome, email, dataNascimento);
-		return hospede;
+		return new Hospede(nome, email, dataNascimento);
 	}
 
 	/**
 	 * Com base no email recebido de entrada, realiza uma busca no set de
-	 * hospedes. Caso um dos hospedes possua esse mesmo email, esse hospede eh
-	 * retornado. Caso nao existam hospedes com esse email, o retorno eh null.
+	 * hospedes. Caso um dos hospedes possua esse email, o hospede em questao
+	 * eh retornado. Caso nao exista um hospede com esse email, o retorno eh null.
 	 * 
 	 * @param email
-	 * @return Um hospede, caso encontre. Null, caso nao encontre.
+	 * @return Um hospede, caso encontrado. Null, caso nao encontrado.
 	 * @throws EmailInvalidoException
 	 */
 	public Hospede buscaHospede(String email) throws HotelException {
 
-		if (email == null || email.trim().isEmpty()) {
+		if (email == null || email.trim().isEmpty())
 			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
-		}
+		
 		for (Hospede hospede : this.getHospedes()) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
@@ -78,9 +76,9 @@ public class Hotel {
 	 */
 	public boolean isCadastrado(String email) throws HotelException {
 
-		if (email == null || email.trim().isEmpty()) {
+		if (email == null || email.trim().isEmpty())
 			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
-		}
+
 		for (Hospede hospede : this.getHospedes()) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return true;
@@ -91,20 +89,20 @@ public class Hotel {
 	/**
 	 * Recebe atributos de criacao de um hospede como entrada. Realiza uma
 	 * verificaco para saber se ja existe um hospede com o email recebido. Caso
-	 * negativo, cria um novo objeto Hospede com os valores recebidos como
+	 * nao exista, cria um novo objeto Hospede com os valores recebidos como
 	 * parametros, em seguida adiciona-o ao set de hospedes.
 	 * 
 	 * @param nome
 	 * @param email
 	 * @param ano
-	 * @return
+	 * @return O email do hospede recem-cadastrado
 	 * @throws StringException
 	 */
 	public String cadastraHospede(String nome, String email, String ano) throws HotelException {
 
-		if (this.isCadastrado(email)) {
+		if (this.isCadastrado(email))
 			throw new CadastroException("Hospede jah existente.");
-		}
+		
 		Hospede hospede = this.criaHospede(nome, email, ano);
 		this.getHospedes().add(hospede);
 		return email;
@@ -118,13 +116,13 @@ public class Hotel {
 	 * @throws StringException
 	 */
 	public void removeHospede(String email) throws HotelException {
-		if (email == null || email.trim().isEmpty()) {
+		if (email == null || email.trim().isEmpty())
 			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
-		}
 
-		if (!this.isCadastrado(email)) {
-			throw new ConsultaException("Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
-		}
+		if (!this.isCadastrado(email))
+			throw new ConsultaException("Erro na consulta de hospede. Hospede de email " 
+					+ email + " nao foi cadastrado(a).");
+		
 		Hospede hospede = this.buscaHospede(email);
 		this.getHospedes().remove(hospede);
 	}
@@ -140,9 +138,10 @@ public class Hotel {
 	 * @throws AtributoInvalidoException
 	 */
 	public String getInfoHospede(String email, String atributo) throws HotelException {
-		if (atributo == null || atributo.trim().isEmpty()) {
+		
+		if (atributo == null || atributo.trim().isEmpty())
 			throw new StringException("O atributo nao pode ser nulo ou vazio.");
-		}
+
 		if (atributo.equalsIgnoreCase("nome")) {
 			Hospede hospede = this.buscaHospede(email);
 			return hospede.getNome();
@@ -161,26 +160,23 @@ public class Hotel {
 	 * informacao (valor) recebido na entrada.
 	 * 
 	 * @param email
-	 * @param atributo
-	 * @param valor
-	 * @throws EmailInvalidoException
-	 * @throws AtributoInvalidoException
-	 * @throws ValorException
+	 * @param atributo Uma string representando qual atributo deseja-se alterar
+	 * @param valor A nova informacao
+	 * @throws HotelException
 	 */
 	public void atualizaCadastro(String email, String atributo, String valor) throws HotelException {
-		if (atributo == null || atributo.trim().isEmpty()) {
+		
+		if (atributo == null || atributo.trim().isEmpty())
 			throw new StringException("O atributo nao pode ser nulo ou vazio.");
-		}
-		if (valor == null || valor.trim().isEmpty()) {
+		if (valor == null || valor.trim().isEmpty())
 			throw new StringException("O valor nao pode ser nulo ou vazio.");
-		}
+		
 		if (atributo.equalsIgnoreCase("nome")) {
 			this.buscaHospede(email).setNome(valor);// o busca email ja retorna um hospede
 		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
 			this.buscaHospede(email).setDataNascimento(valor);
 		} else if (atributo.equalsIgnoreCase("email")) {
 			this.buscaHospede(email).setEmail(valor);
-
 		}
 	}
 

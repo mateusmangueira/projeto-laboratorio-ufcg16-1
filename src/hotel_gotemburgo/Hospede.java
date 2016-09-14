@@ -16,7 +16,6 @@ import excecoes.ValoresException;
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
-
 public class Hospede {
 
 	private String nome;
