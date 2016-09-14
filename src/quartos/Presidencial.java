@@ -1,12 +1,12 @@
 package quartos;
 
-import excecoes.*;
+import excecoes.StringException;
 
 public class Presidencial extends Quarto {
 	
 	private final double DIARIA_PRESIDENCIAL;
 
-	public Presidencial(String idQuarto) throws HotelException {
+	public Presidencial(String idQuarto) throws StringException {
 		super(idQuarto);
 		this.DIARIA_PRESIDENCIAL = 450.0;
 	}

@@ -1,12 +1,12 @@
 package quartos;
 
-import excecoes.*;
+import excecoes.StringException;
 
 public class Simples extends Quarto {
 	
 	private final double DIARIA_SIMPLES;
 	
-	public Simples(String idQuarto) throws HotelException {
+	public Simples(String idQuarto) throws StringException {
 		super(idQuarto);
 		this.DIARIA_SIMPLES = 100.0;
 	}

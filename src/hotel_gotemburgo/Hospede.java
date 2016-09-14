@@ -1,6 +1,7 @@
 package hotel_gotemburgo;
 
-import excecoes.*;
+import excecoes.StringException;
+import excecoes.ValoresException;
 
 /**
  * Classe responsavel por um objeto que representa um hospede do Hotel. O
@@ -22,17 +23,17 @@ public class Hospede {
 	private String email;
 	private String dataNascimento;
 
-	public Hospede(String nomeHospede, String emailHospede, String dataNascHospede) throws HotelException {
+	public Hospede(String nomeHospede, String emailHospede, String dataNascHospede) throws StringException {
 
 		if (nomeHospede == null || nomeHospede.trim().isEmpty())
-			throw new NomeInvalidoException("O nome do hospede nao pode ser nulo ou vazio.");
+			throw new StringException("O nome do hospede nao pode ser nulo ou vazio.");
 
 		if (emailHospede == null || emailHospede.trim().isEmpty())
-			throw new EmailInvalidoException("O email do hospede nao pode ser nulo ou vazio.");
+			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
 
 		if (dataNascHospede == null || dataNascHospede.trim().isEmpty())
-			throw new AnoNascInvalidoException("A data de nascimento do hospede nao pode ser nula ou vazia.");
-
+			throw new StringException("A data de nascimento do hospede nao pode ser nula ou vazia.");
+		
 		this.nome = nomeHospede;
 		this.email = emailHospede;
 		this.dataNascimento = dataNascHospede;
@@ -42,7 +43,10 @@ public class Hospede {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(String nome) throws ValoresException {
+		if (nome == null || nome.trim().isEmpty()) {
+			throw new StringException("O nome do hospede nao pode ser nulo ou vazio.");
+		}
 		this.nome = nome;
 	}
 
@@ -50,7 +54,10 @@ public class Hospede {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) throws ValoresException {
+		if (email == null || email.trim().isEmpty()) {
+			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
+		}
 		this.email = email;
 	}
 
@@ -58,10 +65,22 @@ public class Hospede {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(String anoNascimento) {
-		this.dataNascimento = anoNascimento;
+	public void setDataNascimento(String dataNascimento) throws ValoresException {
+		if (dataNascimento == null || dataNascimento.trim().isEmpty()) {
+			throw new StringException("A data de nascimento do hospede nao pode ser nula ou vazia.");
+		}
+		this.dataNascimento = dataNascimento;
 	}
 
+	/*
+	 * ToString que fiz apenas para os testes JUnit. Se quiserem, podemos mudar sua forma:
+	 * <Nome_hospede>: <email_hospede> (data_nascimento).
+	 */
+	
+	@Override
+	public String toString(){
+		return String.format("%s: %s (%s).", this.getNome(), this.getEmail(), this.getDataNascimento());
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

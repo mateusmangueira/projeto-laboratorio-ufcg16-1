@@ -31,19 +31,19 @@ public class QuartoFactory {
 	 * @return Quarto Simples
 	 * @throws HotelException
 	 */
-	public Quarto criaQuartoSimples(String id, String tipo) throws HotelException {
+	public Quarto criaQuartoSimples(String id, String tipo) throws ValoresException {
 
 		if (id.equals(null) || id.trim().isEmpty()) {
-			throw new IdInvalidoException("Id do quarto nao pode ser vazio ou nulo.");
+			throw new StringException("Id do quarto nao pode ser vazio ou nulo.");
 		}
 		if (tipo.equals(null) || tipo.trim().isEmpty()) {
-			throw new TipoInvalidoException("Tipo nao pode ser vazio ou nulo.");
+			throw new StringException("Tipo nao pode ser vazio ou nulo.");
 		}
 		if (tipo.equalsIgnoreCase("simples")) {
 			Quarto quarto = new Simples(id);
 			return quarto;
 		}
-		throw new QuartoInvalidoException("Erro ao criar o quarto Simples.");
+		throw new StringException("Erro ao criar o quarto Simples.");
 	}
 
 	/**
@@ -54,19 +54,19 @@ public class QuartoFactory {
 	 * @return Quarto Luxo
 	 * @throws HotelException
 	 */
-	public Quarto criaQuartoLuxo(String id, String tipo) throws HotelException {
+	public Quarto criaQuartoLuxo(String id, String tipo) throws ValoresException {
 
 		if (id.equals(null) || id.trim().isEmpty()) {
-			throw new IdInvalidoException("Id do quarto nao pode ser vazio ou nulo.");
+			throw new StringException("Id do quarto nao pode ser vazio ou nulo.");
 		}
 		if (tipo.equals(null) || tipo.trim().isEmpty()) {
-			throw new TipoInvalidoException("Tipo nao pode ser vazio ou nulo.");
+			throw new StringException("Tipo nao pode ser vazio ou nulo.");
 		}
 		if (tipo.equalsIgnoreCase("luxo")) {
 			Quarto quarto = new Luxo(id);
 			return quarto;
 		}
-		throw new QuartoInvalidoException("Erro ao criar o quarto de Luxo.");
+		throw new StringException("Erro ao criar o quarto de Luxo.");
 	}
 
 	/**
@@ -78,19 +78,19 @@ public class QuartoFactory {
 	 * @throws HotelException
 	 */
 
-	public Quarto criaQuartoPresidencial(String id, String tipo) throws HotelException {
+	public Quarto criaQuartoPresidencial(String id, String tipo) throws ValoresException {
 
 		if (id.equals(null) || id.trim().isEmpty()) {
-			throw new IdInvalidoException("Id do quarto nao pode ser vazio ou nulo.");
+			throw new StringException("Id do quarto nao pode ser vazio ou nulo.");
 		}
 		if (tipo.equals(null) || tipo.trim().isEmpty()) {
-			throw new TipoInvalidoException("Tipo nao pode ser vazio ou nulo.");
+			throw new StringException("Tipo nao pode ser vazio ou nulo.");
 		}
 		if (tipo.equalsIgnoreCase("presidencial")) {
 			Quarto quarto = new Presidencial(id);
 			return quarto;
 		}
-		throw new QuartoInvalidoException("Erro ao criar o quarto de Luxo.");
+		throw new StringException("Erro ao criar o quarto de Luxo.");
 	}
 
 }
