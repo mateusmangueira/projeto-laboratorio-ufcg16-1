@@ -11,8 +11,8 @@ import excecoes.*;
  * 
  * @author Anderson Vital matricula <anderson.vital@ccc.ufcg.edu.br>
  * @author Kleber Diogo matricula <kleber.albuquerque@ccc.ufcg.edu.br>
- * @author Lucas Christhoper Matricula <lucas.christopher.silva@ccc.ufcg.edu.br>
- * @author Mateus Pinto Mangueira 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  */
 
 public class QuartoFactory {

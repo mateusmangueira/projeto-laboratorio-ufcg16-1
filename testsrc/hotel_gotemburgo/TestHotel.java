@@ -10,7 +10,7 @@ import excecoes.*;
 
 public class TestHotel {
 
-	private Hotel hotel;
+	private HotelController hotel;
 	private Hospede cliente_1;
 	private Hospede cliente_2;
 	private Hospede cliente_3;
@@ -18,7 +18,7 @@ public class TestHotel {
 	
 	@Before
 	public void test() throws HotelException {
-		hotel = new Hotel();
+		hotel = new HotelController();
 		cliente_1 = new Hospede("Lo Porco Voador", "resenhas_del_porco@lol.com", "13/10/2013");
 		cliente_2 = new Hospede("Insano Bubassalto", "altos_assalto@hotmail.com", "13/10/2013");
 		cliente_3 = new Hospede("Wisla Canibal", "toda_calibalesca@bol.com", "31/01/1970");

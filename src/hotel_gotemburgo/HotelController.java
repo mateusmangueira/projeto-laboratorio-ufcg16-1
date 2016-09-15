@@ -5,6 +5,7 @@ import java.util.Set;
 
 import easyaccept.EasyAccept;
 import excecoes.*;
+import factory.QuartoFactory;
 
 /**
  * O Hotel representa uma entidade de gerenciamento. Ele contem um set de
@@ -20,12 +21,15 @@ import excecoes.*;
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
-public class Hotel {
+public class HotelController {
 
-	private Set<Hospede> hospedes; //VERIFICAR O USO DE UM HASHMAP. mapa eh melhor :3 - Aramis!
+	private Set<Hospede> hospedes;
+	private QuartoFactory fabricaQuartos;
+	
 
-	public Hotel() {
+	public HotelController() {
 		this.hospedes = new HashSet<Hospede>();
+		this.fabricaQuartos = new QuartoFactory();
 	}
 
 	public Set<Hospede> getHospedes() {
