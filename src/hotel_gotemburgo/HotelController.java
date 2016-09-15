@@ -5,7 +5,6 @@ import java.util.Set;
 
 import easyaccept.EasyAccept;
 import excecoes.*;
-import factory.QuartoFactory;
 
 /**
  * O Hotel representa uma entidade de gerenciamento. Ele contem um set de
@@ -24,12 +23,10 @@ import factory.QuartoFactory;
 public class HotelController {
 
 	private Set<Hospede> hospedes;
-	private QuartoFactory fabricaQuartos;
 	
 
 	public HotelController() {
 		this.hospedes = new HashSet<Hospede>();
-		this.fabricaQuartos = new QuartoFactory();
 	}
 
 	public Set<Hospede> getHospedes() {
@@ -185,7 +182,7 @@ public class HotelController {
 	}
 
 	public static void main(String[] args) {
-		args = new String[] { "hotel_gotemburgo.Hotel", "diretorio_testes/testes_uc1.txt" };
+		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt" };
 		EasyAccept.main(args);
 	}
 

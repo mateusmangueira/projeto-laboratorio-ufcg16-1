@@ -1,5 +1,8 @@
 package hotel_gotemburgo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import excecoes.StringException;
 import excecoes.ValoresException;
 
@@ -21,6 +24,7 @@ public class Hospede {
 	private String nome;
 	private String email;
 	private String dataNascimento;
+	private Set<Estadia> estadias;
 
 	/**
 	 * O construtor recebe 3 parametros, descritos abaixo, e realiza chechagem de excecao
@@ -44,6 +48,7 @@ public class Hospede {
 		this.nome = nomeHospede;
 		this.email = emailHospede;
 		this.dataNascimento = dataNascHospede;
+		this.setEstadias(new HashSet<Estadia>());
 	}
 
 	/**
@@ -103,6 +108,14 @@ public class Hospede {
 		if (dataNascimento == null || dataNascimento.trim().isEmpty())
 			throw new StringException("A data de nascimento do hospede nao pode ser nula ou vazia.");
 		this.dataNascimento = dataNascimento;
+	}
+
+	public Set<Estadia> getEstadias() {
+		return estadias;
+	}
+
+	public void setEstadias(Set<Estadia> estadias) {
+		this.estadias = estadias;
 	}
 
 	/*

@@ -2,17 +2,18 @@ package quartos;
 
 import excecoes.StringException;
 
-public abstract class Quarto {
+public class Quarto {
 
 	private String id;
-	// private int
+	private TipoDeQuarto tipoQuarto;
 
-	public Quarto(String idQuarto) throws StringException {
+	public Quarto(String idQuarto, TipoDeQuarto tipoQuarto) throws StringException {
 		if (idQuarto == null || idQuarto.trim().isEmpty()) {
 			throw new StringException("O Id do quarto nao pode ser nulo ou vazio.");
 		}
 
 		this.id = idQuarto;
+		this.tipoQuarto = tipoQuarto;
 	}
 
 	public String getId() {
@@ -23,7 +24,15 @@ public abstract class Quarto {
 		this.id = id;
 	}
 
-	public abstract double getValorDiaria();
+	public TipoDeQuarto getTipoQuarto() {
+		return tipoQuarto;
+	}
+
+	public void setTipoQuarto(TipoDeQuarto tipoQuarto) {
+		this.tipoQuarto = tipoQuarto;
+	}
+	
+	//public abstract double getValorDiaria();
 
 	// https://www.edestinos.com.br/dicas-de-viagem/hoteis/estadia-no-hotel/o-que-e-uma-diaria-de-hotel
 	/*
