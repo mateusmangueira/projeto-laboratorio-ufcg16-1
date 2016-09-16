@@ -2,6 +2,7 @@ package hotel_gotemburgo;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import easyaccept.EasyAccept;
 import excecoes.*;
@@ -21,6 +22,8 @@ import excecoes.*;
  * 
  */
 public class HotelController {
+	
+	Pattern SearchPattern = Pattern.compile("[a-z]");
 
 	private Set<Hospede> hospedes;
 	
@@ -100,12 +103,31 @@ public class HotelController {
 	 * @throws StringException
 	 */
 	public String cadastraHospede(String nome, String email, String ano) throws HotelException {
-
-		if (this.isCadastrado(email))
+		if(nome.trim().isEmpty()){
+			throw new HotelException("Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+		}
+		if(email.trim().isEmpty()){
+			throw new HotelException("Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
+		}
+		if(ano.trim().isEmpty()){
+			throw new HotelException("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
+		}
+		if(!Pattern.matches(nome, "A-Z{1}+a-z + A-Z{1}+a-z")){
+			throw new HotelException("Erro no cadastro de Hospede. Nome do(a) hospede esta invalido.");
+		}
+		else if(!Pattern.matches(email, "a-z+@+a-z+.com")){
+			throw new HotelException("Erro no cadastro de Hospede. Email do(a) hospede esta invalido.");
+		}
+		else if(!Pattern.matches(ano, "12/05/1996")){// Esse metodo define uma regra para o nome, se nao for desse estilo ele retorna a exception
+			throw new HotelException("Erro no cadastro de Hospede. Formato de data invalido.");
+		}
+		if (this.isCadastrado(email)){
 			throw new CadastroException("Hospede jah existente.");
+		}
 		
 		Hospede hospede = this.criaHospede(nome, email, ano);
 		this.getHospedes().add(hospede);
+		
 		return email;
 	}
 
@@ -178,11 +200,12 @@ public class HotelController {
 			this.buscaHospede(email).setDataNascimento(valor);
 		} else if (atributo.equalsIgnoreCase("email")) {
 			this.buscaHospede(email).setEmail(valor);
+			
 		}
 	}
 
 	public static void main(String[] args) {
-		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt" };
+		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1_exception.txt" };
 		EasyAccept.main(args);
 	}
 

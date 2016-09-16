@@ -25,7 +25,7 @@ public class Hospede {
 	private String email;
 	private String dataNascimento;
 	private Set<Estadia> estadias;
-
+	;
 	/**
 	 * O construtor recebe 3 parametros, descritos abaixo, e realiza chechagem de excecao
 	 * em todos eles

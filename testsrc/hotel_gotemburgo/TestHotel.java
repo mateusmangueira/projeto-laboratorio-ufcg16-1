@@ -57,6 +57,8 @@ public class TestHotel {
 		Assert.assertNotEquals("12/10/2013", cliente_1.getDataNascimento());
 		Assert.assertNotEquals("13/02/1998", cliente_4.getDataNascimento());
 	}
+	
+	
 
 	/**
 	 * Esse teste serah mais util quando for decidido a hierarquia de Pessoa e
@@ -89,6 +91,10 @@ public class TestHotel {
 		Assert.assertNotEquals("Meio Besta: o_incorruptivel@lol.com (03/33/2019)", hotel.buscaHospede("jubileu_max@outlook.com").toString());
 		
 	}
+	public void testAtualizaCadastro() throws HotelException{
+		hotel.atualizaCadastro("kleber@bol.com", "Email", "kleber1@bol.com");
+		hotel.atualizaCadastro("EanesMoral@yahoo.com", "Email", "EanesMoral123@yahoo.com");
+	}	
 	/*
 	 * O metodo como eh void, creio eu que para testa-lo, eh bom deixa-lo boolean.
 	 */
