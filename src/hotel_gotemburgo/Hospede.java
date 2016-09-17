@@ -66,8 +66,8 @@ public class Hospede {
 	 * @throws StringException
 	 */
 	public void setNome(String nome) throws StringException {
-		if (nome == null || nome.trim().isEmpty())
-			throw new StringException("O nome do hospede nao pode ser nulo ou vazio.");
+		if (email == null || email.trim().isEmpty())
+			throw new StringException("Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 		this.nome = nome;
 	}
 
@@ -87,14 +87,17 @@ public class Hospede {
 	 */
 	public void setEmail(String email) throws StringException {
 		if (email == null || email.trim().isEmpty())
-			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
+			throw new StringException("Erro na atualizacao do cadastro de Hospede. Email do(a) hospede esta invalido.");
 		this.email = email;
 	}
 	
 	/**
 	 * @return data de nascimento
+	 * @throws StringException 
 	 */
-	public String getDataNascimento() {
+	public String getDataNascimento(){
+		
+		
 		return dataNascimento;
 	}
 
@@ -106,7 +109,7 @@ public class Hospede {
 	 */
 	public void setDataNascimento(String dataNascimento) throws ValoresException {
 		if (dataNascimento == null || dataNascimento.trim().isEmpty())
-			throw new StringException("A data de nascimento do hospede nao pode ser nula ou vazia.");
+			throw new StringException("Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		this.dataNascimento = dataNascimento;
 	}
 

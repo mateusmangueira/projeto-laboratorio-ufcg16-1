@@ -23,19 +23,53 @@ import excecoes.*;
  */
 public class HotelController {
 	
-	Pattern SearchPattern = Pattern.compile("[a-z]");
+	
 
 	private Set<Hospede> hospedes;
 	
 
 	public HotelController() {
 		this.hospedes = new HashSet<Hospede>();
+		
 	}
 
 	public Set<Hospede> getHospedes() {
 		return hospedes;
 	}
-
+	
+	
+	
+	/**
+	 * Esse metodo determina um padrao de data para nao ocorrer erros
+	 * @param data
+	 * @return boolean
+	 */
+	public boolean validaData(String data){
+		String regex = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}$"; //Expressao regular/REGEX para data.
+		return data.matches(regex);
+	}
+	
+	/**
+	 * Esse metodo determina um padrao de email para nao ocorrer erros
+	 * @param email
+	 * @return boolean
+	 */
+	public boolean validaEmail(String email){
+		String regex = "\\b[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}\\b"; 
+		return email.matches(regex);
+		 
+	}
+	
+	/**
+	 * Esse metodo determina um padrao de nome para nao ocorrer erros
+	 * @param nome
+	 * @return boolean
+	 */
+	public boolean validaNome(String nome){
+		String regex = "A-Z{1}+a-z + A-Z{1}+a-z";
+		return nome.matches(regex);
+	}
+	
 	/**
 	 * Esse metodo cria e retorna um objeto do tipo Hospede, com base nos
 	 * parametros recebidos de entrada.
@@ -57,13 +91,12 @@ public class HotelController {
 	 * 
 	 * @param email
 	 * @return Um hospede, caso encontrado. Null, caso nao encontrado.
+	 * @throws ConsultaException 
 	 * @throws EmailInvalidoException
 	 */
-	public Hospede buscaHospede(String email) throws HotelException {
-
-		if (email == null || email.trim().isEmpty())
-			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
+	public Hospede buscaHospede(String email) throws ConsultaException{
 		
+	
 		for (Hospede hospede : this.getHospedes()) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
@@ -112,18 +145,17 @@ public class HotelController {
 		if(ano.trim().isEmpty()){
 			throw new HotelException("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		}
-		if(!Pattern.matches(nome, "A-Z{1}+a-z + A-Z{1}+a-z")){
-			throw new HotelException("Erro no cadastro de Hospede. Nome do(a) hospede esta invalido.");
-		}
-		else if(!Pattern.matches(email, "a-z+@+a-z+.com")){
-			throw new HotelException("Erro no cadastro de Hospede. Email do(a) hospede esta invalido.");
-		}
-		else if(!Pattern.matches(ano, "12/05/1996")){// Esse metodo define uma regra para o nome, se nao for desse estilo ele retorna a exception
+		if(this.validaData(ano) == false){
 			throw new HotelException("Erro no cadastro de Hospede. Formato de data invalido.");
 		}
-		if (this.isCadastrado(email)){
-			throw new CadastroException("Hospede jah existente.");
+		if(this.validaEmail(email) == false){
+			throw new HotelException("Erro no cadastro de Hospede. Email do(a) hospede esta invalido.");
+			
 		}
+		if(this.validaNome(nome) == false){
+			throw new HotelException("Erro no cadastro de Hospede. Nome do(a) hospede esta invalido.");
+		}
+		
 		
 		Hospede hospede = this.criaHospede(nome, email, ano);
 		this.getHospedes().add(hospede);
@@ -143,8 +175,7 @@ public class HotelController {
 			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
 
 		if (!this.isCadastrado(email))
-			throw new ConsultaException("Erro na consulta de hospede. Hospede de email " 
-					+ email + " nao foi cadastrado(a).");
+			throw new ConsultaException("Erro na remocao do Hospede. Formato de email invalido.");
 		
 		Hospede hospede = this.buscaHospede(email);
 		this.getHospedes().remove(hospede);
@@ -188,20 +219,36 @@ public class HotelController {
 	 * @throws HotelException
 	 */
 	public void atualizaCadastro(String email, String atributo, String valor) throws HotelException {
-		
-		if (atributo == null || atributo.trim().isEmpty())
-			throw new StringException("O atributo nao pode ser nulo ou vazio.");
-		if (valor == null || valor.trim().isEmpty())
-			throw new StringException("O valor nao pode ser nulo ou vazio.");
-		
-		if (atributo.equalsIgnoreCase("nome")) {
-			this.buscaHospede(email).setNome(valor);// o busca email ja retorna um hospede
-		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
-			this.buscaHospede(email).setDataNascimento(valor);
-		} else if (atributo.equalsIgnoreCase("email")) {
-			this.buscaHospede(email).setEmail(valor);
-			
+	
+		if(atributo.equalsIgnoreCase("email") && this.validaEmail(valor)){ // se o hospede passar o atributo como email e esse email nao for validadado ele lanca uma exception
+			throw new HotelException("Erro na atualizacao do cadastro de Hospede. Email do(a) hospede esta invalido.");
 		}
+		else if(atributo.equalsIgnoreCase("nome") && this.validaNome(valor)){//(o mesmo aqui)
+			throw new HotelException("Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede esta invalido.");
+		}
+		else if(atributo.equalsIgnoreCase("data") && this.validaData(valor)){//(o mesmo aqui)
+			throw new HotelException("Erro na atualizacao do cadastro de Hospede. Formato de data invalido.");
+		}
+		
+		if (atributo.equalsIgnoreCase("nome") && valor.trim().isEmpty()) {
+			throw new HotelException("Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+		}
+		else{
+			this.buscaHospede(email).setNome(valor);// o busca email ja retorna um hospede
+		}
+		if (atributo.equalsIgnoreCase("data de nascimento") && valor.trim().isEmpty()) {
+			throw new HotelException("Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+		}
+		else{
+			this.buscaHospede(email).setDataNascimento(valor);
+		}
+		if (atributo.equalsIgnoreCase("email") && valor.trim().isEmpty()) {
+			throw new HotelException("Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
+		}
+		else{	
+			this.buscaHospede(email).setEmail(valor);
+		}	
+		
 	}
 
 	public static void main(String[] args) {
