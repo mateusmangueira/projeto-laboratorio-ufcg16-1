@@ -1,5 +1,7 @@
 package hotel_gotemburgo.restaurante;
 
+import hotel_gotemburgo.Hospede;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -11,12 +13,14 @@ import excecoes.ValoresException;
  * O Restaurante deve ser responsavel por cadastrar, atualizar
  * e remover pratos e refeicoes para oferece-los a hospedes
  * do hotel.
+ * 
  * @since 18 de Setembro de 2016
- * @see Prato.java, Refeicao.java
+ * @see Prato.java, Refeicao.java, Hospede.java
  */
 public class Restaurante {
 
-	// Optei por implementar com HashSet, passivel de HashMap
+	/* OBS1: Optei por implementar com HashSet, passivel de HashMap #anderson
+	 */
 	private HashSet<Prato> pratos;
 	private HashSet<Refeicao> refeicoes;
 	
@@ -209,6 +213,37 @@ public class Restaurante {
 		if (removeRefeicao(nome))
 			cadastraRefeicao(nome, descricao, pratosDaRefeicao);
 	}
+
+	/**
+	 * Esse metodo vende um prato solto a um hospede cliente do restaurante,
+	 * e adiciona o valor desse prato aos seus gastos no hotel.
+	 * @param prato Prato a ser vendido
+	 * @param cliente Um hospede que esta consumindo esse prato
+	 * @throws Exception
+	 */
+	public void vendePrato(String prato, Hospede cliente) throws Exception
+	{
+		if (!contemPrato(prato))
+			throw new Exception("Esse prato nao existe no restaurante"); // trocar por uma subclasse de LogicaException
+		
+		double valor = buscaPrato(prato).getPreco();
+		//cliente.addGastos(valor);     // esse metodo nao foi implementado na classe Hospede ainda
+	}
 	
+	/**
+	 * Esse metodo vende um prato solto a um hospede cliente do restaurante,
+	 * e adiciona o valor desse prato aos seus gastos no hotel.
+	 * @param prato Prato a ser vendido
+	 * @param cliente Um hospede que esta consumindo esse prato
+	 * @throws Exception
+	 */
+	public void vendeRefeicao(String refeicao, Hospede cliente) throws Exception
+	{
+		if (!contemRefeicao(refeicao))
+			throw new Exception("Essa refeicao nao existe no restaurante");  // trocar por uma subclasse de LogicaException
+		
+		double valor = buscaRefeicao(refeicao).getValor();
+		//cliente.addGastos(valor);     // esse metodo nao foi implementado na classe Hospede ainda
+	}
 	
 }

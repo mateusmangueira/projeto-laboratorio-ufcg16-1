@@ -63,7 +63,7 @@ public class Refeicao {
 	 * a soma total dos pratos dessa refeicao.
 	 * @return valor total da refeicao
 	 */
-	public double calculaValor()
+	public double getValor()
 	{
 		double soma = 0;
 		final double DESCONTO = 0.1;
@@ -82,7 +82,7 @@ public class Refeicao {
 		for (Prato prato: pratos)
 			toString += "\n-> " + prato;
 		
-		toString += "\nValor total: " + calculaValor();
+		toString += "\nValor total: " + getValor();
 		return toString;
 	}
 	
