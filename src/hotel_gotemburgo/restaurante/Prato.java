@@ -15,9 +15,9 @@ public class Prato {
 	
 	public Prato(String nome, double preco, String descricao) throws ValoresException {
 		
-		if (nome == null || nome.trim().equals(""))
+		if (nome == null || nome.trim().isEmpty())
 			throw new StringException("Nome nao pode ser nulo ou vazio");
-		if (descricao == null || descricao.trim().equals(""))
+		if (descricao == null || descricao.trim().isEmpty())
 			throw new StringException("Descricao nao pode ser vazia ou nula");
 		if (preco < 0)
 			throw new ValorException("Preco do prato nao pode ser negativo");
@@ -60,7 +60,7 @@ public class Prato {
 		if (!anotherObject.getClass().equals( this.getClass() ) )
 			return false;
 		Prato outro = (Prato) anotherObject;
-		return this.getNome().equals(outro.getNome());
+		return this.getNome().equalsIgnoreCase(outro.getNome());
 	}
 	
 	@Override

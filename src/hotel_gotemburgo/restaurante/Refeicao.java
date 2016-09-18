@@ -22,9 +22,9 @@ public class Refeicao {
 	
 	public Refeicao(String nome, String descricao, ArrayList<Prato> pratos) throws Exception {
 		
-		if (nome == null || nome.trim().equals(""))
+		if (nome == null || nome.trim().isEmpty())
 			throw new StringException("Nome nao pode ser nulo ou vazio");
-		if (descricao == null || descricao.trim().equals(""))
+		if (descricao == null || descricao.trim().isEmpty())
 			throw new StringException("Descricao nao pode ser vazia ou nula");
 		if (pratos == null || pratos.size() < 3 || pratos.size() > 4)
 			throw new Exception("Uma refeicao deve ser composta de 3 ou 4 pratos"); // adicionar uma nova Exception na hierarquia
