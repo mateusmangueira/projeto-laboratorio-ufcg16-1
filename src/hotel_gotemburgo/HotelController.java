@@ -66,7 +66,7 @@ public class HotelController {
 	 * @return boolean
 	 */
 	public boolean validaNome(String nome){
-		String regex = "A-Z{1}+a-z + A-Z{1}+a-z";
+		String regex = "([a-zA-Z]*)(.*)";
 		return nome.matches(regex);
 	}
 	
@@ -131,21 +131,21 @@ public class HotelController {
 	 * 
 	 * @param nome
 	 * @param email
-	 * @param ano
+	 * @param anoNascimento
 	 * @return O email do hospede recem-cadastrado
 	 * @throws StringException
 	 */
-	public String cadastraHospede(String nome, String email, String ano) throws HotelException {
-		if(nome.trim().isEmpty()){
+	public String cadastraHospede(String nome, String email, String anoNascimento) throws HotelException {
+		if(nome == null || nome.trim().isEmpty()){
 			throw new HotelException("Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 		}
-		if(email.trim().isEmpty()){
+		if(email == null || email.trim().isEmpty()){
 			throw new HotelException("Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
 		}
-		if(ano.trim().isEmpty()){
+		if(anoNascimento == null || anoNascimento.trim().isEmpty()){
 			throw new HotelException("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		}
-		if(this.validaData(ano) == false){
+		if(this.validaData(anoNascimento) == false){
 			throw new HotelException("Erro no cadastro de Hospede. Formato de data invalido.");
 		}
 		if(this.validaEmail(email) == false){
@@ -157,7 +157,7 @@ public class HotelController {
 		}
 		
 		
-		Hospede hospede = this.criaHospede(nome, email, ano);
+		Hospede hospede = this.criaHospede(nome, email, anoNascimento);
 		this.getHospedes().add(hospede);
 		
 		return email;

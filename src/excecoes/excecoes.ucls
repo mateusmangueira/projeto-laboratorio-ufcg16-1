@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.10" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="excecoes.StringException" project="ProjetoLP22016.1" 
-    file="/ProjetoLP22016.1/src/excecoes/StringException.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="excecoes.StringException" project="Projeto_Lp2" 
+    file="/Projeto_Lp2/src/excecoes/StringException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="95" width="175" x="685" y="298"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="excecoes.ConsultaException" project="ProjetoLP22016.1" 
-    file="/ProjetoLP22016.1/src/excecoes/ConsultaException.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="excecoes.ConsultaException" project="Projeto_Lp2" 
+    file="/Projeto_Lp2/src/excecoes/ConsultaException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="95" width="178" x="235" y="298"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="excecoes.CadastroException" project="ProjetoLP22016.1" 
-    file="/ProjetoLP22016.1/src/excecoes/CadastroException.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="excecoes.CadastroException" project="Projeto_Lp2" 
+    file="/Projeto_Lp2/src/excecoes/CadastroException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="534" y="343"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -28,8 +28,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="excecoes.HotelException" project="ProjetoLP22016.1" 
-    file="/ProjetoLP22016.1/src/excecoes/HotelException.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="excecoes.HotelException" project="Projeto_Lp2" 
+    file="/Projeto_Lp2/src/excecoes/HotelException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="95" width="135" x="569" y="28"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -37,8 +37,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="excecoes.ValorException" project="ProjetoLP22016.1" 
-    file="/ProjetoLP22016.1/src/excecoes/ValorException.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="excecoes.ValorException" project="Projeto_Lp2" 
+    file="/Projeto_Lp2/src/excecoes/ValorException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="967" y="343"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -46,8 +46,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="excecoes.ValoresException" project="ProjetoLP22016.1" 
-    file="/ProjetoLP22016.1/src/excecoes/ValoresException.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="excecoes.ValoresException" project="Projeto_Lp2" 
+    file="/Projeto_Lp2/src/excecoes/ValoresException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="95" width="153" x="685" y="163"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -55,8 +55,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="excecoes.LogicaExceptions" project="ProjetoLP22016.1" 
-    file="/ProjetoLP22016.1/src/excecoes/LogicaExceptions.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="excecoes.LogicaExceptions" project="Projeto_Lp2" 
+    file="/Projeto_Lp2/src/excecoes/LogicaExceptions.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="95" width="148" x="453" y="163"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -65,11 +65,11 @@
     </display>  
   </class>  
   <generalization id="8">    
-    <end type="SOURCE" refId="3"/>    
+    <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="7"/>  
   </generalization>  
   <generalization id="9">    
-    <end type="SOURCE" refId="2"/>    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="7"/>  
   </generalization>  
   <generalization id="10">    

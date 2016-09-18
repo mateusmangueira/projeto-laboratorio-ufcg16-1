@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.10" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="hotel_gotemburgo.HotelController" project="ProjetoLP22016.1" 
-    file="/ProjetoLP22016.1/src/hotel_gotemburgo/HotelController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="hotel_gotemburgo.HotelController" project="Projeto_Lp2" 
+    file="/Projeto_Lp2/src/hotel_gotemburgo/HotelController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="234" y="309"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="hotel_gotemburgo.Estadia" project="ProjetoLP22016.1" 
-    file="/ProjetoLP22016.1/src/hotel_gotemburgo/Estadia.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="hotel_gotemburgo.Estadia" project="Projeto_Lp2" 
+    file="/Projeto_Lp2/src/hotel_gotemburgo/Estadia.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="956" y="293"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="hotel_gotemburgo.Hospede" project="ProjetoLP22016.1" 
-    file="/ProjetoLP22016.1/src/hotel_gotemburgo/Hospede.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="hotel_gotemburgo.Hospede" project="Projeto_Lp2" 
+    file="/Projeto_Lp2/src/hotel_gotemburgo/Hospede.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="585" y="303"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -30,16 +30,24 @@
   </class>  
   <association id="4">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="5" name="estadias"/>      
-      <multiplicity id="6" minimum="0" maximum="2147483647"/>    
+      <attribute id="5" name="estadias">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="6" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="7">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="8" name="hospedes"/>      
-      <multiplicity id="9" minimum="0" maximum="2147483647"/>    
+      <attribute id="8" name="hospedes">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="9" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
