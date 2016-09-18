@@ -3,6 +3,7 @@ package hotel_gotemburgo.restaurante;
 import java.util.HashSet;
 
 import excecoes.StringException;
+import excecoes.ValorException;
 import excecoes.ValoresException;
 
 /**
@@ -101,6 +102,13 @@ public class Restaurante {
 	 */
 	public void atualizaPrato(String nome, double preco, String descricao) throws Exception 
 	{
+		if (nome == null || nome.trim().isEmpty())
+			throw new StringException("Nome nao pode ser nulo ou vazio");
+		if (descricao == null || descricao.trim().isEmpty())
+			throw new StringException("Descricao nao pode ser vazia ou nula");
+		if (preco < 0)
+			throw new ValorException("Preco do prato nao pode ser negativo");
+		
 		if (removePrato(nome))
 			cadastraPrato(nome, preco, descricao);
 	}
