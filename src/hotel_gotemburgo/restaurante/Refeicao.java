@@ -61,7 +61,7 @@ public class Refeicao {
 	/**
 	 * Calcula o valor total da refeicao. Eh oferecido um desconto sobre
 	 * a soma total dos pratos dessa refeicao.
-	 * @return
+	 * @return valor total da refeicao
 	 */
 	public double calculaValor()
 	{
@@ -86,6 +86,10 @@ public class Refeicao {
 		return toString;
 	}
 	
+	/**
+	 * Dois objetos do tipo Refeicao sao iguais se possuirem
+	 * o mesmo conjunto de pratos
+	 */
 	@Override
 	public boolean equals(Object anotherObject)
 	{
