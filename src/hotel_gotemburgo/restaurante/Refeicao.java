@@ -88,7 +88,7 @@ public class Refeicao {
 	
 	/**
 	 * Dois objetos do tipo Refeicao sao iguais se possuirem
-	 * o mesmo conjunto de pratos
+	 * o mesmo nome ou o mesmo conjunto de pratos
 	 */
 	@Override
 	public boolean equals(Object anotherObject)
@@ -99,7 +99,8 @@ public class Refeicao {
 			return false;
 		
 		Refeicao outra = (Refeicao) anotherObject;
-		return this.getPratos().equals(outra.getPratos());
+		return this.getNome().equalsIgnoreCase(outra.getNome()) 
+				|| this.getPratos().equals(outra.getPratos());
 	}
 	
 	@Override
