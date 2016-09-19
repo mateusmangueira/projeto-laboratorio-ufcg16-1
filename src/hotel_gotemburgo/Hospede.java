@@ -102,8 +102,6 @@ public class Hospede {
 	 * @throws StringException 
 	 */
 	public String getDataNascimento(){
-		
-		
 		return dataNascimento;
 	}
 
@@ -137,6 +135,10 @@ public class Hospede {
 		}
 	 return info.replaceFirst(",", "");
 	
+	}
+	
+	public int getQtdEstadias() {
+		return estadias.size();
 	}
 
 	/**

@@ -130,6 +130,25 @@ public class HotelController {
 		}
 		return false;
 	}
+	
+	/**
+	 * Verifica se um hospede esta hospedado no hotel, pela quantidade
+	 * de estadias que ele possui (0 = nao esta hospedado)
+	 * @param email Email do hospede
+	 * @return Boolean
+	 * @throws Exception
+	 */
+	public boolean isHospedado(String email) throws Exception 
+	{
+		if (!isCadastrado(email))
+			throw new Exception("Esse hospede nao esta cadastrado"); // criar uma classe de exception aqui
+		
+		Hospede hospede = buscaHospede(email);
+		if (hospede.getQtdEstadias() == 0)
+			return false;
+		
+		return true;
+	}
 
 	/**
 	 * Recebe atributos de criacao de um hospede como entrada. Realiza uma
@@ -224,7 +243,7 @@ public class HotelController {
 		}
 		return null;
 	}
-
+	
 	public String getInfoHospedagem(String email, String atributo) throws Exception {
 
 		final String HOSPEDAGEM_ATIVA = "Hospedagens ativas";
