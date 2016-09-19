@@ -120,6 +120,7 @@ public class Hospede {
 		if(estadia == null){
 			throw new Exception("Estadia nao pode ser null");
 		}
+		adicionaGasto(estadia.calculaDiaria());
 		estadias.add(estadia);
 	}
 	

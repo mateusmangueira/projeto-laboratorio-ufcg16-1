@@ -40,9 +40,6 @@ public class Estadia {
 		this.dias = dias;
 	}
 	
-	
-	
-	
 	/**
 	 * Retorna o atributo quarto da Estadia
 	 * @return quarto
@@ -81,8 +78,8 @@ public class Estadia {
 	 * @param quarto
 	 * @return double
 	 */
-	public double calculaDiaria(Quarto quarto) {
-		return this.dias * quarto.getTipoQuarto().getValor();
+	public double calculaDiaria() {
+		return this.dias * this.quarto.getTipoQuarto().getValor();
 	}
 	
 	
