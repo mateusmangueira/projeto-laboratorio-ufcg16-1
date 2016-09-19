@@ -250,7 +250,13 @@ public class HotelController {
 		final String QUARTO = "Quarto";
 		final String TOTAL = "Total";
 		
+		if (!isCadastrado(email))
+			throw new Exception("Esse hospede nao existe");
+		
 		Hospede hospede = this.buscaHospede(email);
+
+		if (!isHospedado(email))
+			throw new Exception(String.format("Hospede %s nao esta hospedado(a).", hospede.getNome() ));
 		
 		switch (atributo) {
 		case HOSPEDAGEM_ATIVA:
