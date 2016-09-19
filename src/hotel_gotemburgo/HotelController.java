@@ -225,17 +225,21 @@ public class HotelController {
 		return null;
 	}
 
-	public String getInfoHospedagem(String email, String atributo) throws HotelException {
+	public String getInfoHospedagem(String email, String atributo) throws Exception {
 
 		final String HOSPEDAGEM_ATIVA = "Hospedagens ativas";
 		final String QUARTO = "Quarto";
 		final String TOTAL = "Total";
+		
 		Hospede hospede = this.buscaHospede(email);
+		
 		switch (atributo) {
 		case HOSPEDAGEM_ATIVA:
 			return String.format("%d", hospede.getQuantidadeDeEstadias());
 		case QUARTO:
 			return hospede.getEstadias();
+		case TOTAL:
+			return String.format("R$%.2f", hospede.getGastos());
 		default:
 			return "erro";
 		}
@@ -327,7 +331,7 @@ public class HotelController {
 
 	public static void main(String[] args) {
 		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
-				"diretorio_testes/testes_uc2.txt", "diretorio_testes/testes_uc1_exception.txt" };
+				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt"};
 		EasyAccept.main(args);
 	}
 

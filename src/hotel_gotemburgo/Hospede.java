@@ -7,6 +7,7 @@ import java.util.Set;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import excecoes.StringException;
+import excecoes.ValorException;
 import excecoes.ValoresException;
 
 /**
@@ -28,7 +29,8 @@ public class Hospede {
 	private String email;
 	private String dataNascimento;
 	private ArrayList<Estadia> estadias;
-	;
+	private double gastos;
+	
 	/**
 	 * O construtor recebe 3 parametros, descritos abaixo, e realiza chechagem de excecao
 	 * em todos eles
@@ -52,6 +54,7 @@ public class Hospede {
 		this.email = emailHospede;
 		this.dataNascimento = dataNascHospede;
 		this.estadias = new ArrayList<Estadia>();
+		this.gastos = 0.0;
 	}
 
 	/**
@@ -122,9 +125,10 @@ public class Hospede {
 		estadias.add(estadia);
 	}
 	
-
-	
-	
+	/**
+	 * Cria e retorna uma string com o ID dos quartos das estadias do hospede
+	 * @return uma string com o ID dos quartos das estadias do hospede
+	 */
 	public String getEstadias() {
 		
 		String info = "";
@@ -135,6 +139,29 @@ public class Hospede {
 	
 	}
 
+	/**
+	 * Retorna os gastos do hospede no hotel
+	 * @return gastos do hospede no hotel
+	 */
+	public double getGastos() {
+		return this.gastos;
+	}
+	
+	/**
+	 * Recebe um double representando o valor gasto pelo Hospede em 
+	 * alguma atividade no hotel, e atualiza o seu atributo que
+	 * guarda os seus gastos totais
+	 * @param valor Valor gasto pelo Hospede na operacao
+	 * @throws ValorException
+	 */
+	public void adicionaGasto(double valor) throws ValorException 
+	{
+		if (valor < 0)
+			throw new ValorException("Valor nao pode ser negativo");
+		
+		this.gastos = this.gastos + valor;
+	}
+	
 	/*
 	 * ToString que fiz apenas para os testes JUnit. Se quiserem, podemos mudar sua forma:
 	 * <Nome_hospede>: <email_hospede> (data_nascimento).
