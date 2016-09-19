@@ -108,7 +108,8 @@ public class Refeicao {
 	{
 		final int PRIME = 7;
 		int result = 1;
-		return PRIME * result + (this.pratos == null ? 0 : this.pratos.hashCode());
+		return PRIME * result + (this.nome == null? 0 : this.nome.hashCode())
+				+ (this.pratos == null ? 0 : this.pratos.hashCode());
 	}
 	
 	
