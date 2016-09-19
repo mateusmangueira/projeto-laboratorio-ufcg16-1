@@ -29,12 +29,11 @@ public class HotelController {
 	private final int MAIORIDADE;
 	private Set<Hospede> hospedes;
 	private Set<Quarto> quartos;
+
 	public HotelController() {
+
 		this.hospedes = new HashSet<Hospede>();
-		
 		this.quartos = new HashSet<Quarto>();
-		
-		
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
 	}
@@ -167,6 +166,15 @@ public class HotelController {
 		if (!this.validaNome(nome)) {
 			throw new HotelException("Erro no cadastro de Hospede. Nome do(a) hospede esta invalido.");
 		}
+
+		String[] data = dataNascimento.split("/");
+		int anoNascimento = Integer.parseInt(data[2]);
+		int idade = this.ANO_ATUAL - anoNascimento;
+		if (idade < this.MAIORIDADE) {
+			throw new CadastroException(
+					"Erro no cadastro de Hospede. A idade do(a) hospede deve ser maior que 18 anos.");
+		}
+
 		Hospede hospede = this.criaHospede(nome, email, dataNascimento);
 		this.getHospedes().add(hospede);
 		return email;
@@ -180,13 +188,9 @@ public class HotelController {
 	 * @throws StringException
 	 */
 	public void removeHospede(String email) throws HotelException {
-		if (email == null || email.trim().isEmpty())
-			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
-
-		if (!this.isCadastrado(email))
-			throw new ConsultaException(
-					"Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
-
+		if (!this.validaEmail(email)) {
+			throw new HotelException("Erro na remocao do Hospede. Formato de email invalido.");
+		}
 		Hospede hospede = this.buscaHospede(email);
 		this.getHospedes().remove(hospede);
 	}
@@ -221,22 +225,19 @@ public class HotelController {
 		return null;
 	}
 
-	// Esse metodo eh oq pede nos teste, mas nao esta correto ainda. by: Mateus
-
 	public String getInfoHospedagem(String email, String atributo) throws HotelException {
-		
+
 		final String HOSPEDAGEM_ATIVA = "Hospedagens ativas";
 		final String QUARTO = "Quarto";
 		final String TOTAL = "Total";
 		Hospede hospede = this.buscaHospede(email);
-		switch(atributo){
+		switch (atributo) {
 		case HOSPEDAGEM_ATIVA:
 			return String.format("%d", hospede.getQuantidadeDeEstadias());
 		case QUARTO:
 			return hospede.getEstadias();
-		
-			
-		default: return "erro";
+		default:
+			return "erro";
 		}
 	}
 
@@ -252,53 +253,76 @@ public class HotelController {
 	 * @throws HotelException
 	 */
 	public void atualizaCadastro(String email, String atributo, String valor) throws HotelException {
-		if (email == null || email.trim().isEmpty()) {
-			throw new StringException("Erro na atualizacao do cadastro de Hospede. Email do(a) hospede esta invalido.");
-		}
-		if (atributo == null || atributo.trim().isEmpty() && atributo.equals("Nome")) {
-			throw new StringException("O atributo nao pode ser nulo ou vazio.");
-		}
-
-		if (valor == null || valor.trim().isEmpty()) {
-			throw new StringException("O valor nao pode ser nulo ou vazio.");
-		}
 
 		if (atributo.equalsIgnoreCase("nome")) {
+			if (valor == null || valor.trim().isEmpty()) {
+				throw new StringException(
+						"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+			}
+			if (!this.validaNome(valor)) {
+				throw new HotelException(
+						"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede esta invalido.");
+			}
 			this.buscaHospede(email).setNome(valor);
+
 		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
+			if (valor == null || valor.trim().isEmpty()) {
+				throw new StringException(
+						"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
+			}
+			if (!this.validaData(valor)) {
+				throw new HotelException("Erro na atualizacao do cadastro de Hospede. Formato de data invalido.");
+			}
+
+			String[] data = valor.split("/");
+			int anoNascimento = Integer.parseInt(data[2]);
+			int idade = this.ANO_ATUAL - anoNascimento;
+			if (idade < this.MAIORIDADE) {
+				throw new CadastroException(
+						"Erro na atualizacao do cadastro de Hospede. A idade do(a) hospede deve ser maior que 18 anos.");
+			}
 			this.buscaHospede(email).setDataNascimento(valor);
+
 		} else if (atributo.equalsIgnoreCase("email")) {
+			if (valor == null || valor.trim().isEmpty()) {
+				throw new StringException(
+						"Erro na atualizacao do cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
+			}
+			if (!this.validaEmail(valor)) {
+				throw new HotelException(
+						"Erro na atualizacao do cadastro de Hospede. Email do(a) hospede esta invalido.");
+			}
 			this.buscaHospede(email).setEmail(valor);
 		}
 	}
-	public Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws StringException{
+
+	public Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws StringException {
 		Quarto quarto = new Quarto(idQuarto, tipoQuarto);
-		
 		quartos.add(quarto);
 		return quarto;
 	}
-	public TipoDeQuarto getTipo(String tipoQuarto){
-		if(tipoQuarto.equals("Presidencial")){
+
+	public TipoDeQuarto getTipo(String tipoQuarto) {
+		if (tipoQuarto.equals("Presidencial")) {
 			return TipoDeQuarto.PRESIDENCIAL;
 		}
-		if(tipoQuarto.equals("Simples")){
+		if (tipoQuarto.equals("Simples")) {
 			return TipoDeQuarto.SIMPLES;
 		}
-		if(tipoQuarto.equals("Luxo")){
+		if (tipoQuarto.equals("Luxo")) {
 			return TipoDeQuarto.LUXO;
 		}
 		return null;
-	
+
 	}
-	
+
 	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws Exception {
 		Hospede hospede = this.buscaHospede(email);
 		TipoDeQuarto tipo = this.getTipo(tipoQuarto);
 		Quarto quarto = this.criaQuartos(idQuarto, tipo);
 		Estadia estadia = new Estadia(quarto, qntDias);
 		hospede.addEstadia(estadia);
-		
-	
+
 	}
 
 	public static void main(String[] args) {
