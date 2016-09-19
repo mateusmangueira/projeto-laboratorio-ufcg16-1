@@ -1,7 +1,10 @@
 package hotel_gotemburgo;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import excecoes.StringException;
 import excecoes.ValoresException;
@@ -24,7 +27,7 @@ public class Hospede {
 	private String nome;
 	private String email;
 	private String dataNascimento;
-	private Set<Estadia> estadias;
+	private ArrayList<Estadia> estadias;
 	;
 	/**
 	 * O construtor recebe 3 parametros, descritos abaixo, e realiza chechagem de excecao
@@ -48,7 +51,7 @@ public class Hospede {
 		this.nome = nomeHospede;
 		this.email = emailHospede;
 		this.dataNascimento = dataNascHospede;
-		this.setEstadias(new HashSet<Estadia>());
+		this.estadias = new ArrayList<Estadia>();
 	}
 
 	/**
@@ -112,13 +115,24 @@ public class Hospede {
 			throw new StringException("Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		this.dataNascimento = dataNascimento;
 	}
-
-	public Set<Estadia> getEstadias() {
-		return estadias;
+	public void addEstadia(Estadia estadia) throws Exception{
+		if(estadia == null){
+			throw new Exception("Estadia nao pode ser null");
+		}
+		estadias.add(estadia);
 	}
+	
 
-	public void setEstadias(Set<Estadia> estadias) {
-		this.estadias = estadias;
+	
+	
+	public String getEstadias() {
+		
+		String info = "";
+		for (Estadia estadia : estadias) {
+			info += "," + estadia.getQuarto().getId();		
+		}
+	 return info.replaceFirst(",", "");
+	
 	}
 
 	/*
@@ -146,6 +160,9 @@ public class Hospede {
 		return outro.getEmail().equals(this.getEmail());
 	}
 	
+	public int getQuantidadeDeEstadias(){
+		return estadias.size();
+	}
 	/**
 	 * Codigo hash de um objeto do tipo Hospede
 	 */

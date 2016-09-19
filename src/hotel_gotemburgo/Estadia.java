@@ -40,6 +40,9 @@ public class Estadia {
 		this.dias = dias;
 	}
 	
+	
+	
+	
 	/**
 	 * Retorna o atributo quarto da Estadia
 	 * @return quarto

@@ -28,9 +28,13 @@ public class HotelController {
 	private final int ANO_ATUAL;
 	private final int MAIORIDADE;
 	private Set<Hospede> hospedes;
-
+	private Set<Quarto> quartos;
 	public HotelController() {
 		this.hospedes = new HashSet<Hospede>();
+		
+		this.quartos = new HashSet<Quarto>();
+		
+		
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
 	}
@@ -220,17 +224,20 @@ public class HotelController {
 	// Esse metodo eh oq pede nos teste, mas nao esta correto ainda. by: Mateus
 
 	public String getInfoHospedagem(String email, String atributo) throws HotelException {
-		if (email == null || email.trim().isEmpty()) {
-			throw new StringException("Email nao pode ser nulo ou vazio.");
+		
+		final String HOSPEDAGEM_ATIVA = "Hospedagens ativas";
+		final String QUARTO = "Quarto";
+		final String TOTAL = "Total";
+		Hospede hospede = this.buscaHospede(email);
+		switch(atributo){
+		case HOSPEDAGEM_ATIVA:
+			return String.format("%d", hospede.getQuantidadeDeEstadias());
+		case QUARTO:
+			return hospede.getEstadias();
+		
+			
+		default: return "erro";
 		}
-		if (atributo == null || atributo.trim().isEmpty())
-			throw new StringException("O atributo nao pode ser nulo ou vazio.");
-
-		if (atributo.equalsIgnoreCase("hospedagem ativas")) {
-			Hospede hospede = this.buscaHospede(email);
-			return hospede.getEstadias().toString();
-		}
-		return null;
 	}
 
 	/**
@@ -264,14 +271,39 @@ public class HotelController {
 			this.buscaHospede(email).setEmail(valor);
 		}
 	}
-
-	public void realizaCheckin(String email, int qntDias, String quarto, String tipoQuarto) throws HotelException {
-		// Falta implementar o metodo
+	public Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws StringException{
+		Quarto quarto = new Quarto(idQuarto, tipoQuarto);
+		
+		quartos.add(quarto);
+		return quarto;
+	}
+	public TipoDeQuarto getTipo(String tipoQuarto){
+		if(tipoQuarto.equals("Presidencial")){
+			return TipoDeQuarto.PRESIDENCIAL;
+		}
+		if(tipoQuarto.equals("Simples")){
+			return TipoDeQuarto.SIMPLES;
+		}
+		if(tipoQuarto.equals("Luxo")){
+			return TipoDeQuarto.LUXO;
+		}
+		return null;
+	
+	}
+	
+	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws Exception {
+		Hospede hospede = this.buscaHospede(email);
+		TipoDeQuarto tipo = this.getTipo(tipoQuarto);
+		Quarto quarto = this.criaQuartos(idQuarto, tipo);
+		Estadia estadia = new Estadia(quarto, qntDias);
+		hospede.addEstadia(estadia);
+		
+	
 	}
 
 	public static void main(String[] args) {
 		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
-				"diretorio_testes/testes_uc2.txt" };
+				"diretorio_testes/testes_uc2.txt", "diretorio_testes/testes_uc1_exception.txt" };
 		EasyAccept.main(args);
 	}
 
