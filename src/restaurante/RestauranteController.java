@@ -1,12 +1,10 @@
 package restaurante;
 
-import hotel_gotemburgo.hospedagem.Hospede;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import easyaccept.EasyAccept;
-import excecoes.CadastroException;
+
 import excecoes.ConsultaException;
 import excecoes.LogicaException;
 import excecoes.StringException;
@@ -62,7 +60,7 @@ public class RestauranteController {
 	}
 
 	/**
-	 * Varre o Set de pratos procurando um prato com um nome especÃ­ficoÃ§ Caso
+	 * Varre o Set de pratos procurando um prato com um nome específicoç Caso
 	 * encontrado, retorna true.
 	 * 
 	 * @param nome
@@ -78,7 +76,7 @@ public class RestauranteController {
 	}
 
 	/**
-	 * Varre o Set de pratos procurando um prato com um nome especÃ­fico. Caso
+	 * Varre o Set de pratos procurando um prato com um nome específico. Caso
 	 * encontrado, retorna a referencia ao objeto.
 	 * 
 	 * @param nome
@@ -170,28 +168,25 @@ public class RestauranteController {
 
 		ArrayList<Prato> pratos = new ArrayList<Prato>();
 
+		if ((nomeDosPratos.length < 3) || (nomeDosPratos.length > 4))
+			throw new Exception(
+					"Erro no cadastro de refeicao completa. Uma refeicao completa deve possuir no minimo 3 e no maximo 4 pratos.");
+
 		for (int i = 0; i < nomeDosPratos.length; i++) {
 			if (!this.contemPrato(nomeDosPratos[i])) {
 				throw new Exception(
 						"Erro no cadastro de refeicao. So eh possivel cadastrar refeicoes com pratos ja cadastrados.");
 			}
-			if (nomeDosPratos[i].equals(this.buscaPrato((nomeDosPratos[i])))) {
-				Prato prato = this.buscaPrato(nome);
-				pratos.add(prato);
-			}
+			Prato prato = this.buscaPrato(nomeDosPratos[i]);
+			pratos.add(prato);
 		}
-		if (this.pratos.size() >= 3 && this.pratos.size() <= 4) {
-			Refeicao refeicao = new Refeicao(nome, descricao, pratos);
-			this.refeicoes.add(refeicao);
-		} else {
-			throw new Exception(
-					"Erro no cadastro de refeicao completa. Uma refeicao completa deve possuir no minimo 3 e no maximo 4 pratos.");
-		}
+		Refeicao refeicao = new Refeicao(nome, descricao, pratos);
+		this.refeicoes.add(refeicao);
 
 	}
 
 	/**
-	 * Varre o Set de refeicoes procurando uma refeicao com um nome especÃ­fico.
+	 * Varre o Set de refeicoes procurando uma refeicao com um nome específico.
 	 * Caso encontrada, retorna true.
 	 * 
 	 * @param nome
@@ -207,7 +202,7 @@ public class RestauranteController {
 	}
 
 	/**
-	 * Varre o Set de refeicoes procurando uma refeicao com um nome especÃ­fico.
+	 * Varre o Set de refeicoes procurando uma refeicao com um nome específico.
 	 * Caso encontrada, retorna a referencia ao objeto.
 	 * 
 	 * @param nome
