@@ -107,7 +107,7 @@ public class HotelController {
 	 * @param tipo
 	 * @return boolean
 	 */
-	public boolean validaQuarto(String quarto, TipoDeQuarto tipo) {
+	public boolean validaQuarto(String quarto) {
 		String regex = "[[0-9]]*[[A-Z]]*";
 		return quarto.matches(regex);
 	}
@@ -387,6 +387,19 @@ public class HotelController {
 	}
 
 	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelException {
+		if (email == null || email.trim().isEmpty()) {
+			throw new HotelException("Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
+		}
+		if (!this.validaEmail(email)) {
+			throw new HotelException("Erro ao realizar checkin. Email do(a) hospede esta invalido.");
+		}
+		if (qntDias < 0) {
+			throw new HotelException("Erro ao realizar checkin. Quantidade de dias esta invalida.");
+		}
+		if (idQuarto.trim().isEmpty() || !this.validaQuarto(idQuarto)) {
+			throw new HotelException("Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
+		}
+
 		Hospede hospede = this.buscaHospede(email);
 		TipoDeQuarto tipo = this.getTipo(tipoQuarto);
 		if (this.verificaOcupacao(idQuarto)) {
@@ -399,7 +412,8 @@ public class HotelController {
 
 	public static void main(String[] args) {
 		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
-				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt" };
+				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
+				"diretorio_testes/testes_uc2_exception.txt" };
 		EasyAccept.main(args);
 	}
 
