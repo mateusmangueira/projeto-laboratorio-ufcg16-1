@@ -286,7 +286,7 @@ public class HotelController {
 		case "EMAIL":
 			return hospede.getEmail();
 		default:
-			return "erro";
+			throw new HotelException("Erro na busca de informacoes de hospede.");
 		}
 	}
 
@@ -316,7 +316,7 @@ public class HotelController {
 		case TOTAL:
 			return String.format("R$%.2f", hospede.getGastos());
 		default:
-			return "erro";
+			return "Erro na busca de informacoes da hospedagem.";
 		}
 	}
 
@@ -431,6 +431,11 @@ public class HotelController {
 		}
 
 		Hospede hospede = this.buscaHospede(email);
+		if (!this.isCadastrado(email)) {
+			throw new HotelException(
+					"Erro ao realizar checkin. Hospede de email " + email
+							+ " nao foi cadastrado(a).");
+		}
 		TipoDeQuarto tipo = this.getTipo(tipoQuarto);
 		if (this.verificaOcupacao(idQuarto)) {
 			throw new ConsultaException("Erro ao realizar checkin. Quarto "
