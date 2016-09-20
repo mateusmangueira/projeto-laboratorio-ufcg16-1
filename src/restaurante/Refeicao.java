@@ -1,7 +1,6 @@
 package restaurante;
 
 import java.util.ArrayList;
-
 import excecoes.StringException;
 import excecoes.ValorException;
 import excecoes.ValoresException;
@@ -53,7 +52,13 @@ public class Refeicao {
 	}
 
 	public String getDescricao() {
-		return descricao;
+		String retorno = this.descricao + " Serao servidos: ";
+		for (int i = 0; i < this.getPratos().size(); i++) {
+			retorno += "(" + (i + 1) + ") " + this.getPratos().get(i).getNome() + ", ";
+		}
+
+		return retorno.substring(0, retorno.length() - 1) + ".";
+
 	}
 
 	public void setDescricao(String descricao) throws ValoresException {
