@@ -571,7 +571,8 @@ public class HotelController {
 	public static void main(String[] args) {
 		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
 				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
-				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt" };
+				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
+				"diretorio_testes/testes_uc4.txt", "diretorio_testes/testes_uc4_exception.txt"};
 		EasyAccept.main(args);
 	}
 
