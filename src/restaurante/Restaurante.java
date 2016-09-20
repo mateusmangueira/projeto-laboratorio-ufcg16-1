@@ -1,6 +1,6 @@
-package hotel_gotemburgo.restaurante;
+package restaurante;
 
-import hotel_gotemburgo.Hospede;
+import hotel_gotemburgo.hospedagem.Hospede;
 
 import java.util.ArrayList;
 import java.util.HashSet;

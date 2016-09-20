@@ -1,4 +1,4 @@
-package hotel_gotemburgo;
+package excecoes;
 
 import excecoes.HotelException;
 import excecoes.StringException;
@@ -52,6 +52,14 @@ public class Excecoes {
 	public static void checaAttCadastroEmail(String valor) throws StringException {
 		if (valor == null || valor.trim().isEmpty()) {
 			throw new StringException("Erro na atualizacao do cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
+		}
+	}
+	
+	/* Realiza Checkin */
+	
+	public static void checaEmailCheckin(String valor) throws HotelException {
+		if(valor == null || valor.trim().isEmpty()) {
+			throw new HotelException("Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
 		}
 	}
 	

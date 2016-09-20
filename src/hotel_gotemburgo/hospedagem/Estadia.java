@@ -1,6 +1,6 @@
-package hotel_gotemburgo;
+package hotel_gotemburgo.hospedagem;
 
-import quartos.Quarto;
+import hotel_gotemburgo.quartos.Quarto;
 import excecoes.*;
 
 /**
