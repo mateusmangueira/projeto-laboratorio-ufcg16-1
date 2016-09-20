@@ -50,6 +50,22 @@ public class HotelController {
 		return hospedes;
 	}
 
+	public void setHospedes(Set<Hospede> hospedes) {
+		this.hospedes = hospedes;
+	}
+	
+	public Set<Quarto> getQuartos() {
+		return quartos;
+	}
+
+	public void setQuartos(Set<Quarto> quartos) throws HotelException {
+		if (quartos == null) {
+			throw new ValorException("O conjunto de quartos nao pode ser nulo.");
+		}
+		this.quartos = quartos;
+	}
+
+
 	/**
 	 * Esse metodo determina um padrao de data para nao ocorrer erros
 	 * de data
@@ -261,19 +277,19 @@ public class HotelController {
 		return null;
 	}
 	
-	public String getInfoHospedagem(String email, String atributo) throws Exception {
+	public String getInfoHospedagem(String email, String atributo) throws HotelException {
 
 		final String HOSPEDAGEM_ATIVA = "Hospedagens ativas";
 		final String QUARTO = "Quarto";
 		final String TOTAL = "Total";
 		
 		if (!isCadastrado(email))
-			throw new Exception("Esse hospede nao existe");
+			throw new ConsultaException("Esse hospede nao existe");
 		
 		Hospede hospede = this.buscaHospede(email);
 
 		if (!isHospedado(email))
-			throw new Exception(String.format("Hospede %s nao esta hospedado(a).", hospede.getNome() ));
+			throw new ConsultaException(String.format("Erro na consulta de hospedagem. Hospede %s nao esta hospedado(a).", hospede.getNome() ));
 		
 		switch (atributo) {
 		case HOSPEDAGEM_ATIVA:
@@ -355,14 +371,25 @@ public class HotelController {
 		return null;
 
 	}
+	
+	public boolean verificaOcupacao(String id) {
+		for (Quarto quartosOcupados : this.getQuartos()) {
+			if (quartosOcupados.getId().equalsIgnoreCase(id)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelException {
 		Hospede hospede = this.buscaHospede(email);
 		TipoDeQuarto tipo = this.getTipo(tipoQuarto);
+		if (this.verificaOcupacao(idQuarto)) {
+			throw new ConsultaException("Erro ao realizar checkin. Quarto " + idQuarto + " ja esta ocupado.");
+		}
 		Quarto quarto = this.criaQuartos(idQuarto, tipo);
 		Estadia estadia = new Estadia(quarto, qntDias);
 		hospede.addEstadia(estadia);
-
 	}
 
 	public static void main(String[] args) {
