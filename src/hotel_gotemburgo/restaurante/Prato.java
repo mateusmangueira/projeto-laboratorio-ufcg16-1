@@ -16,18 +16,21 @@ public class Prato {
 	public Prato(String nome, double preco, String descricao) throws ValoresException {
 		
 		if (nome == null || nome.trim().isEmpty())
-			throw new StringException("Nome nao pode ser nulo ou vazio");
+			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
 		if (descricao == null || descricao.trim().isEmpty())
-			throw new StringException("Descricao nao pode ser vazia ou nula");
+			throw new StringException("A descricao do prato nao pode ser vazia ou nula.");
 		if (preco < 0)
-			throw new ValorException("Preco do prato nao pode ser negativo");
+			throw new ValorException("O preco do prato nao pode ser negativo.");
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(String nome) throws ValoresException {
+		if (nome == null || nome.trim().isEmpty()) {
+			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
+		}
 		this.nome = nome;
 	}
 
@@ -35,7 +38,10 @@ public class Prato {
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
+	public void setDescricao(String descricao) throws ValoresException {
+		if (descricao == null || nome.trim().isEmpty()) {
+			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
+		}
 		this.descricao = descricao;
 	}
 
@@ -43,7 +49,10 @@ public class Prato {
 		return preco;
 	}
 
-	public void setPreco(double preco) {
+	public void setPreco(double preco) throws ValoresException {
+		if (preco < 0) {
+			throw new ValorException("O preco do prato nao pode ser negativo.");
+		}
 		this.preco = preco;
 	}
 	
