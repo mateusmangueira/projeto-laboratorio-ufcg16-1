@@ -1,4 +1,4 @@
-package quartos;
+package hotel_gotemburgo.quartos;
 
 public enum TipoDeQuarto {
 	

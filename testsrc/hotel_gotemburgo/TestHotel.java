@@ -1,14 +1,15 @@
 package hotel_gotemburgo;
 
 import static org.junit.Assert.*;
+import hotel_gotemburgo.hospedagem.Hospede;
+import hotel_gotemburgo.quartos.Quarto;
+import hotel_gotemburgo.quartos.TipoDeQuarto;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import excecoes.*;
-import quartos.Quarto;
-import quartos.TipoDeQuarto;
 
 public class TestHotel {
 

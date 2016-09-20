@@ -1,4 +1,4 @@
-package hotel_gotemburgo;
+package excecoes;
 
 import excecoes.HotelException;
 import excecoes.StringException;
@@ -54,12 +54,20 @@ public class Excecoes {
 		}
 	}
 	
+<<<<<<< HEAD:src/hotel_gotemburgo/Excecoes.java
 	/* GetInfoHospedagem */
 	
 	public static void checaGetInfoHospedagemEmail (String email) throws StringException {
 		if (email == null || email.trim().isEmpty()) {
 			throw new StringException("Erro ao checar hospedagem ativa. Email do(a) hospede nao pode ser vazio.");
 			
+=======
+	/* Realiza Checkin */
+	
+	public static void checaEmailCheckin(String valor) throws HotelException {
+		if(valor == null || valor.trim().isEmpty()) {
+			throw new HotelException("Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
+>>>>>>> ee196e4c5934b99477a06e47eb179ac36fa730d0:src/excecoes/Excecoes.java
 		}
 	}
 	

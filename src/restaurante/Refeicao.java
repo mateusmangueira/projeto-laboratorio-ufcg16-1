@@ -1,4 +1,4 @@
-package hotel_gotemburgo.restaurante;
+package restaurante;
 
 import java.util.ArrayList;
 
