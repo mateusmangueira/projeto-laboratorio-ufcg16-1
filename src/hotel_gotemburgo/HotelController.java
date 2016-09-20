@@ -278,7 +278,7 @@ public class HotelController {
 		case "EMAIL":
 			return hospede.getEmail();
 		default:
-			return "erro";
+			throw new ConsultaException("Erro na consulta de hospede. Opcao invalida.");
 		}
 	}
 
@@ -306,7 +306,7 @@ public class HotelController {
 		case TOTAL:
 			return String.format("R$%.2f", hospede.getGastos());
 		default:
-			return "erro";
+			throw new ConsultaException("Erro na consulta de hospedagem. Opcao invalida.");
 		}
 	}
 
