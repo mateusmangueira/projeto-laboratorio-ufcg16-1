@@ -30,6 +30,10 @@ public class HotelController {
 	private Set<Hospede> hospedes;
 	private Set<Quarto> quartos;
 
+	/**
+	 * O construtor do HotelController inicia o Set de hospedes, de quartos,
+	 * define o ano atual e também qual a idade que se atinge a maioridade.
+	 */
 	public HotelController() {
 
 		this.hospedes = new HashSet<Hospede>();
@@ -38,13 +42,10 @@ public class HotelController {
 		this.MAIORIDADE = 18;
 	}
 
-	public Set<Hospede> getHospedes() {
-		return hospedes;
-	}
 
 	/**
 	 * Esse metodo determina um padrao de data para nao ocorrer erros
-	 * 
+	 * de data
 	 * @param data
 	 * @return boolean
 	 */
@@ -55,20 +56,20 @@ public class HotelController {
 
 	/**
 	 * Esse metodo determina um padrao de email para nao ocorrer erros
+	 * de email
 	 * 
 	 * @param email
 	 * @return boolean
 	 */
-
 	private boolean validaEmail(String email) {
 		String regex = "\\b[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}\\b";
 		return email.matches(regex);
-
 	}
 
 	/**
-	 * + * Esse metodo determina um padrao de nome para nao ocorrer erros +
-	 * * @param nome + * @return boolean +
+	 * Esse metodo determina um padrao de nome para nao ocorrer erros +
+	 * @param nome 
+	 * @return boolean
 	 */
 
 	private boolean validaNome(String nome) {
@@ -76,6 +77,20 @@ public class HotelController {
 		return nome.matches(regex);
 	}
 
+	/**
+	 * Esse metodo determina um padrao de nome para nao ocorrer erros
+	 * de criacao de Quartos
+	 * 
+	 * @param quarto
+	 * @param tipo
+	 * @return boolean
+	 */
+	public boolean validaQuarto(String quarto, TipoDeQuarto tipo) {
+		  String regex = "[[0-9]]*[[A-Z]]*";
+		  return quarto.matches(regex);  
+	}
+
+	
 	/**
 	 * Esse metodo cria e retorna um objeto do tipo Hospede, com base nos
 	 * parametros recebidos de entrada.
@@ -110,6 +125,14 @@ public class HotelController {
 		}
 		throw new ConsultaException(
 				"Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
+	}
+
+	/**
+	 * Retorna o set de hospedes do hotel
+	 * @return set de hospedes do hotel
+	 */
+	public Set<Hospede> getHospedes() {
+		return hospedes;
 	}
 
 	/**
