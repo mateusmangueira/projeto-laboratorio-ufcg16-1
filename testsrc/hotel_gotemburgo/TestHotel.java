@@ -7,22 +7,38 @@ import org.junit.Before;
 import org.junit.Test;
 
 import excecoes.*;
+import quartos.Quarto;
+import quartos.TipoDeQuarto;
 
 public class TestHotel {
 
 	private HotelController hotel;
+	
 	private Hospede cliente_1;
 	private Hospede cliente_2;
 	private Hospede cliente_3;
 	private Hospede cliente_4;
 	
+	private Quarto quarto_1;
+	private Quarto quarto_2;
+	private Quarto quarto_3;
+	
+	
 	@Before
 	public void test() throws HotelException {
 		hotel = new HotelController();
-		cliente_1 = new Hospede("Lo Porco Voador", "resenhas_del_porco@lol.com", "13/10/2013");
-		cliente_2 = new Hospede("Insano Bubassalto", "altos_assalto@hotmail.com", "13/10/2013");
-		cliente_3 = new Hospede("Wisla Canibal", "toda_calibalesca@bol.com", "31/01/1970");
-		cliente_4 = new Hospede("Amigao Calinfon", "amigao98@yahoo.com.br", "12/02/1998");
+		
+		// Criando clientes.
+		cliente_1 = hotel.criaHospede("Lo Porco Voador", "resenhas_del_porco@lol.com", "13/10/2013");
+		cliente_2 = hotel.criaHospede("Insano Bubassalto", "altos_assalto@hotmail.com", "13/10/2013");
+		cliente_3 = hotel.criaHospede("Wisla Canibal", "toda_calibalesca@bol.com", "31/01/1970");
+		cliente_4 = hotel.criaHospede("Amigao Calinfon", "amigao98@yahoo.com.br", "12/02/1998");
+		
+		// Criando hospedes.
+		quarto_1 = hotel.criaQuartos("100D", TipoDeQuarto.SIMPLES);
+		quarto_2 = hotel.criaQuartos("607B", TipoDeQuarto.LUXO);
+		quarto_3 = hotel.criaQuartos("1001A", TipoDeQuarto.PRESIDENCIAL);
+		
 	}
 
 	@Test
@@ -58,28 +74,13 @@ public class TestHotel {
 		Assert.assertNotEquals("13/02/1998", cliente_4.getDataNascimento());
 	}
 	
-	
-
-	/**
-	 * Esse teste serah mais util quando for decidido a hierarquia de Pessoa e
-	 * Hospede, para que, no caso, verificaremos futuramente se realmente o
-	 * cliente eh um hospede, ou uma pessoa que estah apenas cadastrada.
-	 */
-	@Test
-	public void testEquals() {
-		Assert.assertEquals(Hospede.class, cliente_1.getClass());
-		Assert.assertEquals(Hospede.class, cliente_2.getClass());
-		Assert.assertEquals(Hospede.class, cliente_3.getClass());
-		Assert.assertEquals(Hospede.class, cliente_4.getClass());
-	}
-	
 	@Test
 	public void testCadastraHospede() throws HotelException {
 		hotel.cadastraHospede("Jubileu Maxista", "jubileu_max@outlook.com", "25/06/1969");
 		hotel.cadastraHospede("Francisco Maxssuel Padre Cicero", "maxssuel_padre@yahoo.com.br", "31/08/1949");
 		hotel.cadastraHospede("Antonio Natan Dias", "antonio_natan@live.com", "06/09/1987");
 	}
-	
+		
 	@Test
 	public void testBuscaHospede() throws HotelException {
 		
@@ -91,56 +92,61 @@ public class TestHotel {
 		Assert.assertNotEquals("Meio Besta: o_incorruptivel@lol.com (03/33/2019)", hotel.buscaHospede("jubileu_max@outlook.com").toString());
 		
 	}
-	public void testAtualizaCadastro() throws HotelException{
+	
+	/*
+	public void testAtualizaCadastro() throws HotelException {
+		
 		hotel.atualizaCadastro("kleber@bol.com", "Email", "kleber1@bol.com");
 		hotel.atualizaCadastro("EanesMoral@yahoo.com", "Email", "EanesMoral123@yahoo.com");
 	}	
-	/*
-	 * O metodo como eh void, creio eu que para testa-lo, eh bom deixa-lo boolean.
 	 */
-	/*@Test
-	public void testRemoveHospede() throws HotelException {
-		
-		this.testCadastraHospede();
-		hotel.removeHospede("jubileu_max@outlook.com");
-		hotel.removeHospede("antonio_natan@live.com");
-	}*/
 	
+	@Test
+	public void testGetQuaetoID() {
+
+		Assert.assertEquals("100D", quarto_1.getId());
+		Assert.assertEquals("607B", quarto_2.getId());
+		Assert.assertEquals("1001A", quarto_3.getId());
+
+		Assert.assertNotEquals("10A", quarto_1.getId());
+		Assert.assertNotEquals("5010HH", quarto_2.getId());
+	}
+		
 	@Test
 	public void testCriaHospedeWithException() {
 
 		// Teste: Nome do hospede vazio/null.
 		try {
-			Hospede hospede = new Hospede("  ", "InvisibleGame@loja.com", "03/04/1995");
+			hotel.cadastraHospede("  ", "InvisibleGame@loja.com", "03/04/1995");
 			Assert.fail("Lancamento de Exception com Nome de Usuario vazio.");
 
-		} catch (StringException exception) {
-			Assert.assertEquals("O nome do hospede nao pode ser nulo ou vazio.", exception.getMessage());
+		} catch (HotelException exception) {
+			Assert.assertEquals("Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.", exception.getMessage());
 		}
 
 		try {
-			Hospede hospede = new Hospede(null, "InvisibleGame@loja.com", "03/04/1995");
+			hotel.cadastraHospede(null, "InvisibleGame@loja.com", "03/04/1995");
 			Assert.fail("Lancamento de Exception com Nome de Usuario vazio.");
 
-		} catch (StringException exception) {
-			Assert.assertEquals("O nome do hospede nao pode ser nulo ou vazio.", exception.getMessage());
+		} catch (HotelException exception) {
+			Assert.assertEquals("Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.", exception.getMessage());
 		}
 
 		// Teste: Email do hospede vazio/null.
 		try {
-			Hospede hospede = new Hospede("Tiberuis Carlos Sanchez", "", "07/08/2009");
+			hotel.cadastraHospede("Tiberuis Carlos Sanchez", "", "07/08/2009");
 			Assert.fail("Lancamento de Exception com Login vazio.");
 
-		} catch (StringException exception) {
-			Assert.assertEquals("O email do hospede nao pode ser nulo ou vazio.", exception.getMessage());
+		} catch (HotelException exception) {
+			Assert.assertEquals("Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.", exception.getMessage());
 		}
 
 		try {
-			Hospede hospede = new Hospede("Tiberuis Carlos Sanchez", null, "07/08/2009");
+			hotel.cadastraHospede("Tiberuis Carlos Sanchez", null, "07/08/2009");
 			Assert.fail("Lancamento de Exception com Login vazio.");
 
-		} catch (StringException exception) {
-			Assert.assertEquals("O email do hospede nao pode ser nulo ou vazio.", exception.getMessage());
+		} catch (HotelException exception) {
+			Assert.assertEquals("Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.", exception.getMessage());
 		}
 		
 		// Teste: Data de nascimento do hospede vazio/null.
@@ -151,19 +157,19 @@ public class TestHotel {
 		 * e ainda tem alguns outros problemas. POr enquanto, nao vamos nos preocupar com isso a pedido dele, okay?
 		 */
 		try {
-			Hospede hospede = new Hospede("Cleomar Santos Rocha", "cleomarsr@gmail.com", "  ");
+			hotel.cadastraHospede("Cleomar Santos Rocha", "cleomarsr@gmail.com", "  ");
 			Assert.fail("Lancamento de Exception com Login vazio.");
 
-		} catch (StringException exception) {
-			Assert.assertEquals("A data de nascimento do hospede nao pode ser nula ou vazia.", exception.getMessage());
+		} catch (HotelException exception) {
+			Assert.assertEquals("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.", exception.getMessage());
 		}
 
 		try {
-			Hospede hospede = new Hospede("Cleomar Santos Rocha", "cleomarsr@gmail.com", null);
+			hotel.cadastraHospede("Cleomar Santos Rocha", "cleomarsr@gmail.com", null);
 			Assert.fail("Lancamento de Exception com Login vazio.");
 
-		} catch (StringException exception) {
-			Assert.assertEquals("A data de nascimento do hospede nao pode ser nula ou vazia.", exception.getMessage());
+		} catch (HotelException exception) {
+			Assert.assertEquals("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.", exception.getMessage());
 		}
 	}
 
