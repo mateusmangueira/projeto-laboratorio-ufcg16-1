@@ -122,6 +122,13 @@ public class Hospede {
 		estadias.add(estadia);
 	}
 	
+	public void removeEstadia(String idQuarto) {
+		for (Estadia estadia : this.getEstadias()) {
+			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto))
+				this.getEstadias().remove(estadia);
+		}
+	}
+	
 	/**
 	 * Cria e retorna uma string com o ID dos quartos das estadias do hospede
 	 * @return uma string com o ID dos quartos das estadias do hospede
