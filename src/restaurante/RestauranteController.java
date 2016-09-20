@@ -165,27 +165,29 @@ public class RestauranteController {
 		if (componentes == null || componentes.trim().isEmpty()) {
 			throw new Exception("Erro no cadastro de refeicao. Componente(s) esta(o) vazio(s).");
 		}
-		if (!this.contemPrato(nome)) {
-			throw new Exception(
-					"Erro no cadastro de refeicao. So eh possivel cadastrar refeicoes com pratos ja cadastrados.");
-		}
-		if (this.pratos.size() < 3 && this.pratos.size() > 4) {
-			throw new Exception(
-					"Erro no cadastro de refeicao completa. Uma refeicao completa deve possuir no minimo 3 e no maximo 4 pratos.");
-		}
 
 		String[] nomeDosPratos = componentes.split(";");
+
 		ArrayList<Prato> pratos = new ArrayList<Prato>();
 
 		for (int i = 0; i < nomeDosPratos.length; i++) {
-			if (nomeDosPratos[i].equals((this.buscaPrato(nomeDosPratos[i])))) {
+			if (!this.contemPrato(nomeDosPratos[i])) {
+				throw new Exception(
+						"Erro no cadastro de refeicao. So eh possivel cadastrar refeicoes com pratos ja cadastrados.");
+			}
+			if (nomeDosPratos[i].equals(this.buscaPrato((nomeDosPratos[i])))) {
 				Prato prato = this.buscaPrato(nome);
 				pratos.add(prato);
 			}
 		}
+		if (this.pratos.size() >= 3 && this.pratos.size() <= 4) {
+			Refeicao refeicao = new Refeicao(nome, descricao, pratos);
+			this.refeicoes.add(refeicao);
+		} else {
+			throw new Exception(
+					"Erro no cadastro de refeicao completa. Uma refeicao completa deve possuir no minimo 3 e no maximo 4 pratos.");
+		}
 
-		Refeicao refeicao = new Refeicao(nome, descricao, pratos);
-		this.refeicoes.add(refeicao);
 	}
 
 	/**
