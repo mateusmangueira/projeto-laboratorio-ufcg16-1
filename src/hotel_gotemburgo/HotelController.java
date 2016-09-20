@@ -19,8 +19,7 @@ import hotel_gotemburgo.quartos.*;
  * 
  * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
  * @author Kleber Diogo - 115211239 <kleber.albuquerque@ccc.ufcg.edu.br>
- * @author Lucas Christopher - 115210934
- *         <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
@@ -29,7 +28,7 @@ public class HotelController {
 	private final int ANO_ATUAL;
 	private final int MAIORIDADE;
 	private Set<Hospede> hospedes;
-	private Set<Quarto> quartos;
+	private Set<Quarto> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
 
 	/**
@@ -39,7 +38,7 @@ public class HotelController {
 	public HotelController() {
 
 		this.hospedes = new HashSet<Hospede>();
-		this.quartos = new HashSet<Quarto>();
+		this.quartosOcupados = new HashSet<Quarto>();
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
 		this.initializaMapa();
@@ -58,15 +57,15 @@ public class HotelController {
 		this.hospedes = hospedes;
 	}
 
-	public Set<Quarto> getQuartos() {
-		return quartos;
+	public Set<Quarto> getQuartosOcupados() {
+		return quartosOcupados;
 	}
 
-	public void setQuartos(Set<Quarto> quartos) throws HotelException {
+	public void setQuartosOcupados(Set<Quarto> quartos) throws HotelException {
 		if (quartos == null) {
 			throw new ValorException("O conjunto de quartos nao pode ser nulo.");
 		}
-		this.quartos = quartos;
+		this.quartosOcupados = quartos;
 	}
 
 	public HashMap<String, TipoDeQuarto> getTiposQuartos() {
@@ -157,8 +156,7 @@ public class HotelController {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
 		}
-		throw new ConsultaException(
-				"Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
+		throw new ConsultaException("Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
 	}
 
 	/**
@@ -304,7 +302,7 @@ public class HotelController {
 		case HOSPEDAGEM_ATIVA:
 			return String.format("%d", hospede.getQuantidadeDeEstadias());
 		case QUARTO:
-			return hospede.getEstadias();
+			return hospede.getRepresentaEstadias();
 		case TOTAL:
 			return String.format("R$%.2f", hospede.getGastos());
 		default:
@@ -369,7 +367,7 @@ public class HotelController {
 
 	public Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws StringException {
 		Quarto quarto = new Quarto(idQuarto, tipoQuarto);
-		quartos.add(quarto);
+		quartosOcupados.add(quarto);
 		return quarto;
 	}
 
@@ -400,7 +398,7 @@ public class HotelController {
 	}
 
 	public boolean verificaOcupacao(String id) {
-		for (Quarto quartosOcupados : this.getQuartos()) {
+		for (Quarto quartosOcupados : this.getQuartosOcupados()) {
 			if (quartosOcupados.getId().equalsIgnoreCase(id)) {
 				return true;
 			}
@@ -439,11 +437,23 @@ public class HotelController {
 		Estadia estadia = new Estadia(quarto, qntDias);
 		hospede.addEstadia(estadia);
 	}
+	
+	public String realizaCheckout(String email, String idQuarto) throws HotelException {
+		Hospede hospedeDeSaida = this.buscaHospede(email);
+		double valorTotal = 0.0;
+				
+		for (Estadia estadia : hospedeDeSaida.getEstadias()) {
+			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto)) {
+				valorTotal += estadia.calculaEstadia();
+			}
+		}
+		return String.format("R$%.2f", valorTotal);
+	}
 
 	public static void main(String[] args) {
 		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
 				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
-				"diretorio_testes/testes_uc2_exception.txt" };
+				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt" };
 		EasyAccept.main(args);
 	}
 

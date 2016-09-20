@@ -1,6 +1,7 @@
 package hotel_gotemburgo.hospedagem;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import excecoes.StringException;
 import excecoes.ValorException;
@@ -117,7 +118,7 @@ public class Hospede {
 		if (estadia == null) {
 			throw new ValorException("Estadia nao pode ser null");
 		}
-		adicionaGasto(estadia.calculaDiaria());
+		adicionaGasto(estadia.calculaEstadia());
 		estadias.add(estadia);
 	}
 	
@@ -125,7 +126,7 @@ public class Hospede {
 	 * Cria e retorna uma string com o ID dos quartos das estadias do hospede
 	 * @return uma string com o ID dos quartos das estadias do hospede
 	 */
-	public String getEstadias() {
+	public String getRepresentaEstadias() {
 		
 		String info = "";
 		for (Estadia estadia : estadias) {
@@ -135,6 +136,10 @@ public class Hospede {
 	
 	}
 	
+	public ArrayList<Estadia> getEstadias() {
+		return estadias;
+	}
+
 	public int getQtdEstadias() {
 		return estadias.size();
 	}
