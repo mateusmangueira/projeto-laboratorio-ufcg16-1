@@ -1,6 +1,8 @@
 package quartos;
 
 import excecoes.StringException;
+import excecoes.ValorException;
+import excecoes.ValoresException;
 
 public class Quarto {
 
@@ -20,7 +22,10 @@ public class Quarto {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(String id) throws ValoresException {
+		if (id == null || id.trim().isEmpty()) {
+			throw new StringException("O id nao pode ser nulo ou vazio.");
+		}
 		this.id = id;
 	}
 
@@ -28,7 +33,10 @@ public class Quarto {
 		return tipoQuarto;
 	}
 
-	public void setTipoQuarto(TipoDeQuarto tipoQuarto) {
+	public void setTipoQuarto(TipoDeQuarto tipoQuarto) throws ValoresException {
+		if (tipoQuarto == null) {
+			throw new ValorException("O tipo de quarto nao pode ser nulo.");
+		}
 		this.tipoQuarto = tipoQuarto;
 	}
 	
