@@ -35,5 +35,24 @@ public class Excecoes {
 		}
 	}
 	
+	/* Atualiza cadastro */
+	
+	public static void checaAttCadastroNome(String valor) throws StringException {
+		if (valor == null || valor.trim().isEmpty()) {
+			throw new StringException("Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+		}
+	}
+	
+	public static void checaAttCadastroDataNascimento(String valor) throws StringException {
+		if (valor == null || valor.trim().isEmpty()) {
+			throw new StringException("Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
+		}
+	}
+	
+	public static void checaAttCadastroEmail(String valor) throws StringException {
+		if (valor == null || valor.trim().isEmpty()) {
+			throw new StringException("Erro na atualizacao do cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
+		}
+	}
 	
 }
