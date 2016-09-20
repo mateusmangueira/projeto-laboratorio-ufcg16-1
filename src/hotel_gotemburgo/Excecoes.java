@@ -30,8 +30,7 @@ public class Excecoes {
 	
 	public static void checaCadastroDataNascimento(String dataNascimento) throws HotelException {
 		if (dataNascimento == null || dataNascimento.trim().isEmpty()) {
-			throw new HotelException(
-					"Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
+			throw new HotelException("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		}
 	}
 	
@@ -52,6 +51,15 @@ public class Excecoes {
 	public static void checaAttCadastroEmail(String valor) throws StringException {
 		if (valor == null || valor.trim().isEmpty()) {
 			throw new StringException("Erro na atualizacao do cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
+		}
+	}
+	
+	/* GetInfoHospedagem */
+	
+	public static void checaGetInfoHospedagemEmail (String email) throws StringException {
+		if (email == null || email.trim().isEmpty()) {
+			throw new StringException("Erro ao checar hospedagem ativa. Email do(a) hospede nao pode ser vazio.");
+			
 		}
 	}
 	

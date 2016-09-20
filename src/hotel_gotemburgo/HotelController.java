@@ -1,5 +1,6 @@
 package hotel_gotemburgo;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,6 +30,7 @@ public class HotelController {
 	private final int MAIORIDADE;
 	private Set<Hospede> hospedes;
 	private Set<Quarto> quartos;
+	private HashMap<String, TipoDeQuarto> tiposQuartos;
 
 	/**
 	 * O construtor do HotelController inicia o Set de hospedes, de quartos,
@@ -40,6 +42,7 @@ public class HotelController {
 		this.quartos = new HashSet<Quarto>();
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
+		this.initializaMapa();
 	}
 
 	/**
@@ -64,6 +67,17 @@ public class HotelController {
 			throw new ValorException("O conjunto de quartos nao pode ser nulo.");
 		}
 		this.quartos = quartos;
+	}
+
+	public HashMap<String, TipoDeQuarto> getTiposQuartos() {
+		return tiposQuartos;
+	}
+
+	public void setTiposQuartos(HashMap<String, TipoDeQuarto> tiposQuartos) throws ValoresException {
+		if (tiposQuartos == null) {
+			throw new ValorException("O mapa nao pode ser nulo.");
+		}
+		this.tiposQuartos = tiposQuartos;
 	}
 
 	/**
@@ -176,12 +190,7 @@ public class HotelController {
 	 */
 	public boolean isHospedado(String email) throws HotelException {
 		if (!isCadastrado(email))
-			throw new CadastroException("Este hospede nao estah cadastrado."); // criar
-																				// uma
-																				// classe
-																				// de
-																				// exception
-																				// aqui
+			throw new CadastroException("Este hospede nao estah cadastrado.");
 
 		Hospede hospede = buscaHospede(email);
 		if (hospede.getQtdEstadias() == 0)
@@ -223,8 +232,7 @@ public class HotelController {
 		int anoNascimento = Integer.parseInt(data[2]);
 		int idade = this.ANO_ATUAL - anoNascimento;
 		if (idade < this.MAIORIDADE) {
-			throw new CadastroException(
-					"Erro no cadastro de Hospede. A idade do(a) hospede deve ser maior que 18 anos.");
+			throw new CadastroException("Erro no cadastro de Hospede. A idade do(a) hospede deve ser maior que 18 anos.");
 		}
 
 		Hospede hospede = this.criaHospede(nome, email, dataNascimento);
@@ -277,19 +285,20 @@ public class HotelController {
 	}
 
 	public String getInfoHospedagem(String email, String atributo) throws HotelException {
-
+		
 		final String HOSPEDAGEM_ATIVA = "Hospedagens ativas";
 		final String QUARTO = "Quarto";
 		final String TOTAL = "Total";
 
+		Excecoes.checaGetInfoHospedagemEmail(email);
+		
 		if (!isCadastrado(email))
-			throw new ConsultaException("Esse hospede nao existe");
+			throw new ConsultaException("Erro ao checar hospedagem ativa. Email do(a) hospede esta invalido.");
 
 		Hospede hospede = this.buscaHospede(email);
 
 		if (!isHospedado(email))
-			throw new ConsultaException(String
-					.format("Erro na consulta de hospedagem. Hospede %s nao esta hospedado(a).", hospede.getNome()));
+			throw new ConsultaException(String.format("Erro na consulta de hospedagem. Hospede %s nao esta hospedado(a).", hospede.getNome()));
 
 		switch (atributo) {
 		case HOSPEDAGEM_ATIVA:
@@ -376,6 +385,19 @@ public class HotelController {
 		}
 		return null;
 	}
+	
+	private void initializaMapa() {
+		
+		this.tiposQuartos = new HashMap<String, TipoDeQuarto>();
+		tiposQuartos.put("SIMPLES", TipoDeQuarto.SIMPLES);
+		tiposQuartos.put("LUXO", TipoDeQuarto.LUXO);
+		tiposQuartos.put("PRESIDENCIAL", TipoDeQuarto.PRESIDENCIAL);
+		
+	}
+	
+	public boolean verificaTipoQuarto(String tipo) {
+		return this.getTiposQuartos().containsKey(tipo);
+	}
 
 	public boolean verificaOcupacao(String id) {
 		for (Quarto quartosOcupados : this.getQuartos()) {
@@ -385,7 +407,7 @@ public class HotelController {
 		}
 		return false;
 	}
-
+	
 	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelException {
 		if (email == null || email.trim().isEmpty()) {
 			throw new HotelException("Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
@@ -400,11 +422,19 @@ public class HotelController {
 			throw new HotelException("Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 		}
 
+		if (!isCadastrado(email))
+			throw new ConsultaException("Erro ao realizar checkin. Hospede de email " + email + " nao foi cadastrado(a).");
+			
 		Hospede hospede = this.buscaHospede(email);
+		
+		if (!verificaTipoQuarto(tipoQuarto.toUpperCase()))
+			throw new VerificacaoException("Erro ao realizar checkin. Tipo de quarto invalido.");
+		
 		TipoDeQuarto tipo = this.getTipo(tipoQuarto);
-		if (this.verificaOcupacao(idQuarto)) {
+		
+		if (this.verificaOcupacao(idQuarto))
 			throw new ConsultaException("Erro ao realizar checkin. Quarto " + idQuarto + " ja esta ocupado.");
-		}
+		
 		Quarto quarto = this.criaQuartos(idQuarto, tipo);
 		Estadia estadia = new Estadia(quarto, qntDias);
 		hospede.addEstadia(estadia);
