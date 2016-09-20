@@ -285,7 +285,19 @@ public class HotelController {
 			throw new ConsultaException("Erro na consulta de hospede. Opcao invalida.");
 		}
 	}
-
+	
+	/**
+	 * Retorna informacoes sobre um hospede que possua pelo menos uma estadia
+	 * no Hotel. A informacao que sera retornada eh determinada pelo parametro
+	 * atributo, podendo ser: "Hospedagem ativa" - retorna a quantidade de estadias
+	 * do hospede; "Quarto" - retorna uma string com o id dos quartos de suas estadias;
+	 * "Total" - retorna os gastos com estadia do hospede
+	 * 
+	 * @param email Email do hospede
+	 * @param atributo Hospedagem ativa, Quarto ou Total
+	 * @return A informacao desejada
+	 * @throws HotelException
+	 */
 	public String getInfoHospedagem(String email, String atributo) throws HotelException {
 		
 		final String HOSPEDAGEM_ATIVA = "Hospedagens ativas";
@@ -369,9 +381,17 @@ public class HotelController {
 		}
 	}
 
+	/**
+	 * Metodo responsavel por criar um objeto quarto e adiciona-lo no set de quartos do hotel.
+	 * O quarto criado eh retornado.
+	 * @param idQuarto ID (uma string unica representando o quarto)
+	 * @param tipoQuarto (O tipo do quarto, podendo ser "Simples", "Luxo" ou "Presidencial".
+	 * @return O Quarto que foi criado
+	 * @throws StringException
+	 */
 	public Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws StringException {
 		Quarto quarto = new Quarto(idQuarto, tipoQuarto);
-		quartosOcupados.add(quarto);
+		quartosOcupados.add(quarto);    // Nao faz sentido essa parte
 		return quarto;
 	}
 
@@ -388,6 +408,11 @@ public class HotelController {
 		return null;
 	}
 	
+	/**
+	 * Metodo utilizado no construtor para iniciar o mapa que associa uma String
+	 * que representa um Enum de TipoDeQuarto, a uma constante desse Enum.
+	 * Ex: key- "SIMPLES" value- TipoDeQuarto.SIMPLES 
+	 */
 	private void initializaMapa() {
 		
 		this.tiposQuartos = new HashMap<String, TipoDeQuarto>();
@@ -397,10 +422,24 @@ public class HotelController {
 		
 	}
 	
+	/**
+	 * Metodo utilizado para garantir que uma string que supostamente
+	 * representa um Tipo de Quarto esta de acordo com o esperado.
+	 * 
+	 * @param tipo String representando o tipo de quarto
+	 * @return boolean
+	 */
 	public boolean verificaTipoQuarto(String tipo) {
 		return this.getTiposQuartos().containsKey(tipo);
 	}
 
+	/**
+	 * Metodo utilizado para verificar se um determinado quarto - que sera
+	 * buscado atraves do ID - esta ou nao ocupado.
+	 * 
+	 * @param id ID do quarto a ser verificado
+	 * @return boolean
+	 */
 	public boolean verificaOcupacao(String id) {
 		for (Quarto quartosOcupados : this.getQuartosOcupados()) {
 			if (quartosOcupados.getId().equalsIgnoreCase(id)) {
@@ -410,6 +449,20 @@ public class HotelController {
 		return false;
 	}
 	
+	/**
+	 * Esse metodo eh responsavel por realizar o checkin de um hospede no Hotel.
+	 * O hospede precisa previamente estar cadastrado no sistema, entao ele sera
+	 * procurado. Caso esteja cadastrado, eh adicionada uma Estadia a esse hospede.
+	 * A Estadia eh composta de um quarto (que eh criado com base nos atributos 
+	 * recebidos como parametro) e uma quantidade de dias (tambem recebida como
+	 * parametro).
+	 * 
+	 * @param email Email do hospede
+	 * @param qntDias Quantidade de dias hospedado na estadia
+	 * @param idQuarto ID do quarto da estadia
+	 * @param tipoQuarto Tipo do quarto da estadia
+	 * @throws HotelException
+	 */
 	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelException {
 		if (email == null || email.trim().isEmpty()) {
 			throw new HotelException("Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
