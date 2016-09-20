@@ -6,8 +6,8 @@ import java.util.Set;
 
 import easyaccept.EasyAccept;
 import excecoes.*;
-import quartos.Quarto;
-import quartos.TipoDeQuarto;
+import hotel_gotemburgo.hospedagem.*;
+import hotel_gotemburgo.quartos.*;
 
 /**
  * O Hotel representa uma entidade de gerenciamento. Ele contem um set de
