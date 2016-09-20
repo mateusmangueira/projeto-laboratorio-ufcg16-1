@@ -121,8 +121,7 @@ public class HotelController {
 	 */
 	public Hospede buscaHospede(String email) throws HotelException {
 
-		if (email == null || email.trim().isEmpty())
-			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
+		Excecoes.checaEmail(email);
 
 		for (Hospede hospede : this.getHospedes()) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
@@ -140,8 +139,7 @@ public class HotelController {
 	 */
 	public boolean isCadastrado(String email) throws HotelException {
 
-		if (email == null || email.trim().isEmpty())
-			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
+		Excecoes.checaEmail(email);
 
 		for (Hospede hospede : this.getHospedes()) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
@@ -184,15 +182,9 @@ public class HotelController {
 	 */
 	public String cadastraHospede(String nome, String email, String dataNascimento) throws HotelException {
 
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new StringException("Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
-		}
-		if (email == null || email.trim().isEmpty()) {
-			throw new StringException("Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
-		}
-		if (dataNascimento == null || dataNascimento.trim().isEmpty()) {
-			throw new StringException("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
-		}
+		Excecoes.checaCadastroNome(nome);
+		Excecoes.checaCadastroEmail(email);
+		Excecoes.checaCadastroDataNascimento(dataNascimento);
 
 		if (!this.validaData(dataNascimento)) {
 			throw new HotelException("Erro no cadastro de Hospede. Formato de data invalido.");
@@ -242,11 +234,8 @@ public class HotelController {
 	 * @throws AtributoInvalidoException
 	 */
 	public String getInfoHospede(String email, String atributo) throws HotelException {
-		if (email == null || email.trim().isEmpty()) {
-			throw new StringException("Email nao pode ser nulo ou vazio.");
-		}
-		if (atributo == null || atributo.trim().isEmpty())
-			throw new StringException("O atributo nao pode ser nulo ou vazio.");
+		Excecoes.checaEmail(email);
+		Excecoes.checaAtributo(atributo);
 
 		if (atributo.equalsIgnoreCase("nome")) {
 			Hospede hospede = this.buscaHospede(email);

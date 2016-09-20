@@ -30,7 +30,7 @@ public class Estadia {
 	 */
 	public Estadia(Quarto quarto, int dias) throws ValoresException {
 
-		if (quarto.equals(null))
+		if (quarto == null)
 			throw new StringException("O quarto nao pode ser nulo.");
 
 		if (dias <= 0)
