@@ -2,7 +2,7 @@
 # Caso de Uso 4 #
 #################
 
-iniciaSistema
+#iniciaSistema
 
 ###############################
 #    Cadastro de Pratos       #
@@ -56,4 +56,4 @@ expect "R$97,65" consultaRestaurante nome="Svensk mat" atributo="Preco"
 expect "Varios pratos italianos para saborear. Serao servidos: (1) Bruschetta, (2) Bresaola com rucula e parmesao, (3) Penne ao pesto, (4) Tiramisu." consultaRestaurante nome="Pasto italiano" atributo="Descricao"
 expect "Uma selecao de pratos da culinaria regional nordestina. Serao servidos: (1) Tapioca, (2) Carne de sol com fritas, (3) Rapadura." consultaRestaurante nome="Delicia da serra" atributo="Descricao"
 
-fechaSistema
+#fechaSistema

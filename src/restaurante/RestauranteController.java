@@ -5,6 +5,7 @@ import hotel_gotemburgo.hospedagem.Hospede;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import easyaccept.EasyAccept;
 import excecoes.CadastroException;
 import excecoes.ConsultaException;
 import excecoes.LogicaException;
@@ -20,10 +21,8 @@ import excecoes.ValoresException;
  * @since 18 de Setembro de 2016
  * @see Prato.java, Refeicao.java, Hospede.java
  */
-public class Restaurante {
+public class RestauranteController {
 
-	/* OBS1: Optei por implementar com HashSet, passivel de HashMap #anderson
-	 */
 	private HashSet<Prato> pratos;
 	private HashSet<Refeicao> refeicoes;
 	
@@ -31,7 +30,7 @@ public class Restaurante {
 	 * O restaurante nao recebe parametros no construtor, apenas inicializa
 	 * suas colecoes de pratos e de refeicoes
 	 */
-	public Restaurante() {
+	public RestauranteController() {
 		pratos = new HashSet<Prato>();
 		refeicoes = new HashSet<Refeicao>();
 	}
@@ -139,14 +138,20 @@ public class Restaurante {
 	 * @throws ValoresException 
 	 * @throws Exception
 	 */
-	public boolean cadastraRefeicao(String nome, String descricao, ArrayList<Prato> pratosDaRefeicao) throws LogicaException, ValoresException {
-		for (Prato prato : pratosDaRefeicao) {
-			if (!contemPrato(prato.getNome()))
-				throw new CadastroException("Nao foi possivel cadastrar a refeicao," +
-						" pois um ou mais pratos nao estavam previamente cadastrados"); // Criar uma subclasse LogicaException
+	public void cadastraRefeicao(String nome, String descricao, String componentes) throws LogicaException, ValoresException {
+
+		String[] nomeDosPratos = componentes.split(";");
+		ArrayList<Prato> pratos = null;
+		
+		for (int i=0 ; i<nomeDosPratos.length ; i++) {
+			if (nomeDosPratos[i].equalsIgnoreCase(this.buscaPrato(nome).getNome())){
+				Prato prato = this.buscaPrato(nome);
+				pratos.add(prato);
+			}
 		}
-		Refeicao refeicao = new Refeicao(nome, descricao, pratosDaRefeicao);
-		return this.refeicoes.add(refeicao);
+		Refeicao refeicao = new Refeicao(nome, descricao, pratos);
+		this.refeicoes.add(refeicao);
+		
 	}
 	
 	/**
@@ -197,59 +202,72 @@ public class Restaurante {
 		return (pratos.remove(buscaPrato(nome)));
 	}
 	
-	/**
-	 * Atualiza o cadastro de uma refeicao. Caso seja possivel remove-la do set,
-	 * significa que essa refeicao esta cadastrada. Logo, apos remove-la, cria-se
-	 * um novo objeto com o mesmo nome e os outros atributos recebidos como parametros
-	 * @param nome Nome da refeicao
-	 * @param descricao Descricao da refeicao
-	 * @param pratosDaRefeicao Array de pratos da refeicao
-	 * @throws ValoresException 
-	 * @throws LogicaException 
-	 * @throws Exception
-	 */
-	public void atualizaRefeicao(String nome, String descricao, ArrayList<Prato> pratosDaRefeicao) throws ValoresException, LogicaException {
+//	/**
+//	 * Atualiza o cadastro de uma refeicao. Caso seja possivel remove-la do set,
+//	 * significa que essa refeicao esta cadastrada. Logo, apos remove-la, cria-se
+//	 * um novo objeto com o mesmo nome e os outros atributos recebidos como parametros
+//	 * @param nome Nome da refeicao
+//	 * @param descricao Descricao da refeicao
+//	 * @param pratosDaRefeicao Array de pratos da refeicao
+//	 * @throws ValoresException 
+//	 * @throws LogicaException 
+//	 * @throws Exception
+//	 */
+//	public void atualizaRefeicao(String nome, String descricao, ArrayList<Prato> pratosDaRefeicao) throws ValoresException, LogicaException {
+//		if (nome == null || nome.trim().isEmpty())
+//			throw new StringException("Nome nao pode ser nulo ou vazio");
+//		if (descricao == null || descricao.trim().isEmpty())
+//			throw new StringException("Descricao nao pode ser vazia ou nula");
+//		if (pratos == null || pratos.size() < 3 || pratos.size() > 4)
+//			throw new ValoresException("Uma refeicao deve ser composta de 3 ou 4 pratos"); // adicionar uma nova Exception na hierarquia
+//	
+//		if (removeRefeicao(nome))
+//			cadastraRefeicao(nome, descricao, pratosDaRefeicao);
+//	}
+	
+	 
+	public String consultaRestaurante(String nome, String atributo) throws Exception { // Criar RestauranteException
+		
 		if (nome == null || nome.trim().isEmpty())
-			throw new StringException("Nome nao pode ser nulo ou vazio");
-		if (descricao == null || descricao.trim().isEmpty())
-			throw new StringException("Descricao nao pode ser vazia ou nula");
-		if (pratos == null || pratos.size() < 3 || pratos.size() > 4)
-			throw new ValoresException("Uma refeicao deve ser composta de 3 ou 4 pratos"); // adicionar uma nova Exception na hierarquia
-	
-		if (removeRefeicao(nome))
-			cadastraRefeicao(nome, descricao, pratosDaRefeicao);
-	}
-
-	/**
-	 * Esse metodo vende um prato solto a um hospede cliente do restaurante,
-	 * e adiciona o valor desse prato aos seus gastos no hotel.
-	 * @param prato Prato a ser vendido
-	 * @param cliente Um hospede que esta consumindo esse prato
-	 * @throws LogicaException 
-	 * @throws Exception
-	 */
-	public void vendePrato(String prato, Hospede cliente) throws LogicaException {
-		if (!contemPrato(prato))
-			throw new ConsultaException("Este prato nao existe no restaurante."); // trocar por uma subclasse de LogicaException
+			throw new ConsultaException("Erro na consulta do restaurante. Nome do prato esto vazio.");
 		
-		double valor = buscaPrato(prato).getPreco();
-		//cliente.addGastos(valor);     // esse metodo nao foi implementado na classe Hospede ainda
+		if (atributo == null || atributo.trim().isEmpty())
+			throw new ConsultaException("Erro na consulta do restaurante. Atributo do prato esta vazio.");
+		
+		switch(atributo.toUpperCase()) 
+		{
+			case "PRECO":
+				for(Prato prato : pratos) {
+					if(prato.getNome().equalsIgnoreCase(nome)) {
+						return String.format("R$%.2f", prato.getPreco());
+					}
+				} for (Refeicao refeicao : refeicoes) {
+					if(refeicao.getNome().equalsIgnoreCase(nome)){
+						return String.format("R$%.2f", refeicao.getValor());
+					}
+				}
+				
+			case "DESCRICAO":
+				for(Prato prato : pratos) {
+					if(prato.getNome().equalsIgnoreCase(nome)) {
+						return prato.getDescricao();
+					}
+				} for (Refeicao refeicao : refeicoes) {
+					if(refeicao.getNome().equalsIgnoreCase(nome)){
+						return refeicao.getDescricao();
+					}
+				}
+				
+			default:
+				throw new Exception("Erro na consulta ao restaurante: opcao invalida");
+		}
+		
 	}
 	
-	/**
-	 * Esse metodo vende um prato solto a um hospede cliente do restaurante,
-	 * e adiciona o valor desse prato aos seus gastos no hotel.
-	 * @param prato Prato a ser vendido
-	 * @param cliente Um hospede que esta consumindo esse prato
-	 * @throws LogicaException 
-	 * @throws Exception
-	 */
-	public void vendeRefeicao(String refeicao, Hospede cliente) throws LogicaException {
-		if (!contemRefeicao(refeicao))
-			throw new ConsultaException("Essa refeicao nao existe no restaurante");  // trocar por uma subclasse de LogicaException
-		
-		double valor = buscaRefeicao(refeicao).getValor();
-		//cliente.addGastos(valor);     // esse metodo nao foi implementado na classe Hospede ainda
+	public static void main(String[] args) {
+		args = new String[] { "restaurante.RestauranteController", 
+				"diretorio_testes/testes_uc4.txt", "diretorio_testes/testes_uc4_exception.txt"};
+		EasyAccept.main(args);
 	}
 	
 }

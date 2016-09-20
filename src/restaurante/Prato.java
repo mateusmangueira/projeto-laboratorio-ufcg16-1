@@ -21,6 +21,10 @@ public class Prato {
 			throw new StringException("A descricao do prato nao pode ser vazia ou nula.");
 		if (preco < 0)
 			throw new ValorException("O preco do prato nao pode ser negativo.");
+		
+		this.nome = nome;
+		this.preco = preco;
+		this.descricao = descricao;
 	}
 
 	public String getNome() {
