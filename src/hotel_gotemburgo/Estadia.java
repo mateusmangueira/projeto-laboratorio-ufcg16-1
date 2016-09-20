@@ -51,8 +51,12 @@ public class Estadia {
 	/**
 	 * Altera o atributo quarto da Estadia com uma nova referencia recebida como parametro
 	 * @param quarto
+	 * @throws ValoresException 
 	 */
-	public void setQuarto(Quarto quarto) {
+	public void setQuarto(Quarto quarto) throws ValoresException {
+		if (quarto == null) {
+			throw new ValorException("O quarto nao pode ser nulo.");
+		}
 		this.quarto = quarto;
 	}
 
@@ -66,8 +70,12 @@ public class Estadia {
 	/**
 	 * Altera o atributo dias da Estadia com uma nova quantia recebida como parametro
 	 * @param dias
+	 * @throws ValoresException 
 	 */
-	public void setDias(int dias) {
+	public void setDias(int dias) throws ValoresException {
+		if (dias < 0) {
+			throw new ValorException("A quantidade de dias nao pode ser negativa.");
+		}
 		this.dias = dias;
 	}
 

@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="excecoes.StringException" project="Projeto_Lp2" 
     file="/Projeto_Lp2/src/excecoes/StringException.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="95" width="175" x="685" y="298"/>    
+    <position height="-1" width="-1" x="668" y="363"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="excecoes.ConsultaException" project="Projeto_Lp2" 
     file="/Projeto_Lp2/src/excecoes/ConsultaException.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="95" width="178" x="235" y="298"/>    
+    <position height="-1" width="-1" x="232" y="362"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="excecoes.CadastroException" project="Projeto_Lp2" 
     file="/Projeto_Lp2/src/excecoes/CadastroException.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="534" y="343"/>    
+    <position height="-1" width="-1" x="444" y="364"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="excecoes.HotelException" project="Projeto_Lp2" 
     file="/Projeto_Lp2/src/excecoes/HotelException.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="95" width="135" x="569" y="28"/>    
+    <position height="-1" width="-1" x="507" y="84"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="excecoes.ValorException" project="Projeto_Lp2" 
     file="/Projeto_Lp2/src/excecoes/ValorException.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="967" y="343"/>    
+    <position height="-1" width="-1" x="877" y="364"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,16 +48,16 @@
   </class>  
   <class id="6" language="java" name="excecoes.ValoresException" project="Projeto_Lp2" 
     file="/Projeto_Lp2/src/excecoes/ValoresException.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="95" width="153" x="685" y="163"/>    
+    <position height="-1" width="-1" x="586" y="213"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="excecoes.LogicaExceptions" project="Projeto_Lp2" 
-    file="/Projeto_Lp2/src/excecoes/LogicaExceptions.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="95" width="148" x="453" y="163"/>    
+  <class id="7" language="java" name="excecoes.LogicaException" project="Projeto_Lp2" 
+    file="/Projeto_Lp2/src/excecoes/LogicaException.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="360" y="212"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -65,28 +65,28 @@
     </display>  
   </class>  
   <generalization id="8">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <generalization id="9">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <generalization id="10">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <generalization id="11">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <generalization id="12">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="6"/>  
   </generalization>  
-  <generalization id="13">    
+  <generalization id="9">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="10">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="11">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="12">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="13">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

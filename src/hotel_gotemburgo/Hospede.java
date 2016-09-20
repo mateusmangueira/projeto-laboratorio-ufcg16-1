@@ -1,10 +1,6 @@
 package hotel_gotemburgo;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import excecoes.StringException;
 import excecoes.ValorException;
@@ -116,9 +112,10 @@ public class Hospede {
 			throw new StringException("Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		this.dataNascimento = dataNascimento;
 	}
-	public void addEstadia(Estadia estadia) throws Exception{
-		if(estadia == null){
-			throw new Exception("Estadia nao pode ser null");
+	
+	public void addEstadia(Estadia estadia) throws ValoresException {
+		if (estadia == null) {
+			throw new ValorException("Estadia nao pode ser null");
 		}
 		adicionaGasto(estadia.calculaDiaria());
 		estadias.add(estadia);
@@ -157,8 +154,7 @@ public class Hospede {
 	 * @param valor Valor gasto pelo Hospede na operacao
 	 * @throws ValorException
 	 */
-	public void adicionaGasto(double valor) throws ValorException 
-	{
+	public void adicionaGasto(double valor) throws ValorException {
 		if (valor < 0)
 			throw new ValorException("Valor nao pode ser negativo");
 		
@@ -173,7 +169,7 @@ public class Hospede {
 	 * Representacao em String de um Hospede
 	 */
 	@Override
-	public String toString(){
+	public String toString() {
 		return String.format("%s: %s (%s).", this.getNome(), this.getEmail(), this.getDataNascimento());
 	}
 	

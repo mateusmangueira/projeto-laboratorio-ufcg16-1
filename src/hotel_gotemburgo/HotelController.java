@@ -41,7 +41,14 @@ public class HotelController {
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
 	}
-
+	
+	/**
+	 * Retorna o set de hospedes do hotel
+	 * @return set de hospedes do hotel
+	 */
+	public Set<Hospede> getHospedes() {
+		return hospedes;
+	}
 
 	/**
 	 * Esse metodo determina um padrao de data para nao ocorrer erros
@@ -71,7 +78,6 @@ public class HotelController {
 	 * @param nome 
 	 * @return boolean
 	 */
-
 	private boolean validaNome(String nome) {
 		String regex = "[A-Z][a-z]+[[ ][A-Z][a-z]+]*";
 		return nome.matches(regex);
@@ -89,7 +95,6 @@ public class HotelController {
 		  String regex = "[[0-9]]*[[A-Z]]*";
 		  return quarto.matches(regex);  
 	}
-
 	
 	/**
 	 * Esse metodo cria e retorna um objeto do tipo Hospede, com base nos
@@ -123,16 +128,7 @@ public class HotelController {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
 		}
-		throw new ConsultaException(
-				"Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
-	}
-
-	/**
-	 * Retorna o set de hospedes do hotel
-	 * @return set de hospedes do hotel
-	 */
-	public Set<Hospede> getHospedes() {
-		return hospedes;
+		throw new ConsultaException("Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
 	}
 
 	/**
@@ -161,10 +157,10 @@ public class HotelController {
 	 * @return Boolean
 	 * @throws Exception
 	 */
-	public boolean isHospedado(String email) throws Exception 
+	public boolean isHospedado(String email) throws HotelException 
 	{
 		if (!isCadastrado(email))
-			throw new Exception("Esse hospede nao esta cadastrado"); // criar uma classe de exception aqui
+			throw new CadastroException("Este hospede nao estah cadastrado."); // criar uma classe de exception aqui
 		
 		Hospede hospede = buscaHospede(email);
 		if (hospede.getQtdEstadias() == 0)
@@ -189,14 +185,13 @@ public class HotelController {
 	public String cadastraHospede(String nome, String email, String dataNascimento) throws HotelException {
 
 		if (nome == null || nome.trim().isEmpty()) {
-			throw new HotelException("Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+			throw new StringException("Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 		}
 		if (email == null || email.trim().isEmpty()) {
-			throw new HotelException("Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
+			throw new StringException("Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
 		}
 		if (dataNascimento == null || dataNascimento.trim().isEmpty()) {
-			throw new HotelException(
-					"Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
+			throw new StringException("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		}
 
 		if (!this.validaData(dataNascimento)) {
@@ -213,8 +208,7 @@ public class HotelController {
 		int anoNascimento = Integer.parseInt(data[2]);
 		int idade = this.ANO_ATUAL - anoNascimento;
 		if (idade < this.MAIORIDADE) {
-			throw new CadastroException(
-					"Erro no cadastro de Hospede. A idade do(a) hospede deve ser maior que 18 anos.");
+			throw new CadastroException("Erro no cadastro de Hospede. A idade do(a) hospede deve ser maior que 18 anos.");
 		}
 
 		Hospede hospede = this.criaHospede(nome, email, dataNascimento);
@@ -308,41 +302,35 @@ public class HotelController {
 
 		if (atributo.equalsIgnoreCase("nome")) {
 			if (valor == null || valor.trim().isEmpty()) {
-				throw new StringException(
-						"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+				throw new StringException("Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 			}
 			if (!this.validaNome(valor)) {
-				throw new HotelException(
-						"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede esta invalido.");
+				throw new ValidacaoException("Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede esta invalido.");
 			}
 			this.buscaHospede(email).setNome(valor);
 
 		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
 			if (valor == null || valor.trim().isEmpty()) {
-				throw new StringException(
-						"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
+				throw new StringException("Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 			}
 			if (!this.validaData(valor)) {
-				throw new HotelException("Erro na atualizacao do cadastro de Hospede. Formato de data invalido.");
+				throw new ValidacaoException("Erro na atualizacao do cadastro de Hospede. Formato de data invalido.");
 			}
 
 			String[] data = valor.split("/");
 			int anoNascimento = Integer.parseInt(data[2]);
 			int idade = this.ANO_ATUAL - anoNascimento;
 			if (idade < this.MAIORIDADE) {
-				throw new CadastroException(
-						"Erro na atualizacao do cadastro de Hospede. A idade do(a) hospede deve ser maior que 18 anos.");
+				throw new CadastroException("Erro na atualizacao do cadastro de Hospede. A idade do(a) hospede deve ser maior que 18 anos.");
 			}
 			this.buscaHospede(email).setDataNascimento(valor);
 
 		} else if (atributo.equalsIgnoreCase("email")) {
 			if (valor == null || valor.trim().isEmpty()) {
-				throw new StringException(
-						"Erro na atualizacao do cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
+				throw new StringException("Erro na atualizacao do cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
 			}
 			if (!this.validaEmail(valor)) {
-				throw new HotelException(
-						"Erro na atualizacao do cadastro de Hospede. Email do(a) hospede esta invalido.");
+				throw new ValidacaoException("Erro na atualizacao do cadastro de Hospede. Email do(a) hospede esta invalido.");
 			}
 			this.buscaHospede(email).setEmail(valor);
 		}
@@ -368,7 +356,7 @@ public class HotelController {
 
 	}
 
-	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws Exception {
+	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelException {
 		Hospede hospede = this.buscaHospede(email);
 		TipoDeQuarto tipo = this.getTipo(tipoQuarto);
 		Quarto quarto = this.criaQuartos(idQuarto, tipo);

@@ -1,6 +1,6 @@
 package excecoes;
 
-public class CadastroException extends LogicaExceptions {
+public class CadastroException extends LogicaException {
 	
 	private static final long serialVersionUID = 1L;
 	

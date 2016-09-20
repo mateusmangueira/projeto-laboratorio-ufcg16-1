@@ -1,6 +1,6 @@
 package excecoes;
 
-public class ConsultaException extends LogicaExceptions {
+public class ConsultaException extends LogicaException {
 	
 	private static final long serialVersionUID = 1L;
 	
