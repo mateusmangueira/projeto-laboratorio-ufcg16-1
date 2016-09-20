@@ -1,5 +1,6 @@
 package hotel_gotemburgo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +31,8 @@ public class HotelController {
 	private Set<Hospede> hospedes;
 	private Set<Quarto> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
-
+	private ArrayList<Hospede> Checkouts;
+	
 	/**
 	 * O construtor do HotelController inicia o Set de hospedes, de quartos,
 	 * define o ano atual e também qual a idade que se atinge a maioridade.
@@ -39,6 +41,8 @@ public class HotelController {
 
 		this.hospedes = new HashSet<Hospede>();
 		this.quartosOcupados = new HashSet<Quarto>();
+		this.Checkouts = new ArrayList<Hospede>();
+		
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
 		this.initializaMapa();
@@ -445,11 +449,35 @@ public class HotelController {
 		for (Estadia estadia : hospedeDeSaida.getEstadias()) {
 			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto)) {
 				valorTotal += estadia.calculaEstadia();
+				Checkouts.add(hospedeDeSaida);
+				
+			
 			}
 		}
 		return String.format("R$%.2f", valorTotal);
 	}
+	
+	
+	public String consultaTransacoes(String atributo) {
+		
+		final String TOTAL = "Total";
+		final String QUANTIDADE = "Quantidade";
+		final String NOME = "Nome";
 
+		
+
+		switch (atributo) {
+		case QUANTIDADE:
+			return String.format("%d", Checkouts.size() );
+		case TOTAL:
+			return String.format("%.2f, ");
+		default:
+			return "erro";
+		}
+	}
+	public String consultaTransacoes(String atributo, int indice ){
+		return null;
+	}
 	public static void main(String[] args) {
 		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
 				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
