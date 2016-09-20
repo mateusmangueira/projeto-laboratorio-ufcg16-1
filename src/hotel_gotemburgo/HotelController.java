@@ -31,7 +31,7 @@ public class HotelController {
 	private Set<Hospede> hospedes;
 	private Set<Quarto> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
-	private ArrayList<Hospede> Checkouts;
+	private ArrayList<Hospede> checkouts;
 	
 	/**
 	 * O construtor do HotelController inicia o Set de hospedes, de quartos,
@@ -41,7 +41,7 @@ public class HotelController {
 
 		this.hospedes = new HashSet<Hospede>();
 		this.quartosOcupados = new HashSet<Quarto>();
-		this.Checkouts = new ArrayList<Hospede>();
+		this.checkouts = new ArrayList<Hospede>();
 		
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
@@ -50,26 +50,14 @@ public class HotelController {
 
 	/**
 	 * Retorna o set de hospedes do hotel
-	 * 
 	 * @return set de hospedes do hotel
 	 */
 	public Set<Hospede> getHospedes() {
 		return hospedes;
 	}
 
-	public void setHospedes(Set<Hospede> hospedes) {
-		this.hospedes = hospedes;
-	}
-
 	public Set<Quarto> getQuartosOcupados() {
 		return quartosOcupados;
-	}
-
-	public void setQuartosOcupados(Set<Quarto> quartos) throws HotelException {
-		if (quartos == null) {
-			throw new ValorException("O conjunto de quartos nao pode ser nulo.");
-		}
-		this.quartosOcupados = quartos;
 	}
 
 	public HashMap<String, TipoDeQuarto> getTiposQuartos() {
@@ -384,28 +372,27 @@ public class HotelController {
 	/**
 	 * Metodo responsavel por criar um objeto quarto e adiciona-lo no set de quartos do hotel.
 	 * O quarto criado eh retornado.
+	 * 
 	 * @param idQuarto ID (uma string unica representando o quarto)
 	 * @param tipoQuarto (O tipo do quarto, podendo ser "Simples", "Luxo" ou "Presidencial".
 	 * @return O Quarto que foi criado
 	 * @throws StringException
 	 */
 	public Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws StringException {
-		Quarto quarto = new Quarto(idQuarto, tipoQuarto);
-		quartosOcupados.add(quarto);    // Nao faz sentido essa parte
-		return quarto;
+		return new Quarto(idQuarto, tipoQuarto);
+		// Futuramente pode ser preciso adicionar esse quarto em um set de quartos do Hotel
 	}
 
+	
+	/**
+	 * Consultar o mapa de tipos e retornar o valor (constante do Enum) correspondente
+	 * a string tipoQuarto.
+	 * 
+	 * @param tipoQuarto String representando o tipo do quarto (chave do mapa tiposQuartos)
+	 * @return Constante do Enum TipoDeQuarto
+	 */
 	public TipoDeQuarto getTipo(String tipoQuarto) {
-		if (tipoQuarto.equals("Presidencial")) {
-			return TipoDeQuarto.PRESIDENCIAL;
-		}
-		if (tipoQuarto.equals("Simples")) {
-			return TipoDeQuarto.SIMPLES;
-		}
-		if (tipoQuarto.equals("Luxo")) {
-			return TipoDeQuarto.LUXO;
-		}
-		return null;
+		return tiposQuartos.get(tipoQuarto.toUpperCase());
 	}
 	
 	/**
@@ -493,44 +480,64 @@ public class HotelController {
 		Quarto quarto = this.criaQuartos(idQuarto, tipo);
 		Estadia estadia = new Estadia(quarto, qntDias);
 		hospede.addEstadia(estadia);
+		quartosOcupados.add(quarto);
 	}
 	
+	/**
+	 * Metodo responsavel por realizar o checkout de um hospede no hotel, registrando a sua saida,
+	 * removendo a estadia no quarto do qual ele esta saindo e adicionando esse hospede no array 
+	 * de checkouts. Tambem eh calculado e retornado o valor total gasto por esse hospede no Hotel.
+	 * 
+	 * @param email Email do hospede
+	 * @param idQuarto ID do quarto de onde o hospede esta saindo
+	 * @return O valor total gasto por esse hospede no Hotel
+	 * @throws HotelException
+	 */
 	public String realizaCheckout(String email, String idQuarto) throws HotelException {
+		
 		Hospede hospedeDeSaida = this.buscaHospede(email);
 		double valorTotal = 0.0;
 				
 		for (Estadia estadia : hospedeDeSaida.getEstadias()) {
 			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto)) {
-				valorTotal += estadia.calculaEstadia();
-				Checkouts.add(hospedeDeSaida);
-				
-			
+				valorTotal = valorTotal + estadia.calculaEstadia();
+				checkouts.add(hospedeDeSaida);
 			}
 		}
 		return String.format("R$%.2f", valorTotal);
 	}
 	
-	
+	/**
+	 * 
+	 * @param atributo
+	 * @return
+	 */
 	public String consultaTransacoes(String atributo) {
 		
 		final String TOTAL = "Total";
 		final String QUANTIDADE = "Quantidade";
 		final String NOME = "Nome";
 
-		
-
 		switch (atributo) {
 		case QUANTIDADE:
-			return String.format("%d", Checkouts.size() );
+			return String.format("%d", checkouts.size() );
 		case TOTAL:
 			return String.format("%.2f, ");
 		default:
 			return "erro";
 		}
 	}
+	
+	/**
+	 * 
+	 * @param atributo
+	 * @param indice
+	 * @return
+	 */
 	public String consultaTransacoes(String atributo, int indice ){
 		return null;
 	}
+	
 	public static void main(String[] args) {
 		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
 				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
