@@ -6,11 +6,11 @@ package hotel_gotemburgo.quartos;
  * (SIMPLES, LUXO ou PRESIDENCIAL tem valores distintos).
  */
 public enum TipoDeQuarto {
-	
+	// SIMPLES(100.0, "simples"), LUXO(250.0, "luxo")...
 	SIMPLES, LUXO, PRESIDENCIAL;
 	
 	public double getValor() {
-		
+
 		switch(this) {
 		
 		case SIMPLES: return 100.0;

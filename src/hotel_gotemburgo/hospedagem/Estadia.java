@@ -86,9 +86,11 @@ public class Estadia {
 	 * @param quarto
 	 * @return double
 	 */
-	public double calculaEstadia() {
+	public double getCalculaEstadia() {
 		return this.getDias() * this.getQuarto().getTipoQuarto().getValor();
 	}
+	
+	
 	
 	
 }

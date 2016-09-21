@@ -1,6 +1,7 @@
 package hotel_gotemburgo.hospedagem;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import excecoes.StringException;
 import excecoes.ValorException;
@@ -26,11 +27,10 @@ public class Hospede {
 	private String email;
 	private String dataNascimento;
 	private ArrayList<Estadia> estadias;
-	private double gastos;
 
 	/**
-	 * O construtor recebe 3 parametros, descritos abaixo, e realiza checagem
-	 * de excecao em todos eles
+	 * O construtor recebe 3 parametros, descritos abaixo, e realiza checagem de
+	 * excecao em todos eles
 	 * 
 	 * @param nomeHospede
 	 * @param emailHospede
@@ -52,7 +52,6 @@ public class Hospede {
 		this.email = emailHospede;
 		this.dataNascimento = dataNascHospede;
 		this.estadias = new ArrayList<Estadia>();
-		this.gastos = 0.0;
 	}
 
 	/**
@@ -123,8 +122,10 @@ public class Hospede {
 	}
 
 	/**
-	 * Esse metodo eh utilizado para adicionar uma estadia ao array e calcular os gastos. Tem como entrada uma estadia, 
-	 * verifica se essa estadia eh nula depois calcula os gastos e adiciona no Array e nao retorna nada
+	 * Esse metodo eh utilizado para adicionar uma estadia ao array e calcular
+	 * os gastos. Tem como entrada uma estadia, verifica se essa estadia eh nula
+	 * depois calcula os gastos e adiciona no Array e nao retorna nada
+	 * 
 	 * @param estadia
 	 * @throws ValoresException
 	 */
@@ -132,20 +133,26 @@ public class Hospede {
 		if (estadia == null) {
 			throw new ValorException("Estadia nao pode ser null");
 		}
-		adicionaGasto(estadia.calculaEstadia());
 		this.getEstadias().add(estadia);
 	}
-	
-	
+
 	/**
-	 * Esse metodo verifica se o id esta contido na lista de estadias e depois remove o id passado como parametro
+	 * Esse metodo verifica se o id esta contido na lista de estadias e depois
+	 * remove o id passado como parametro
+	 * 
 	 * @param idQuarto
 	 */
-	public void removeEstadia(String idQuarto) {
-		for (Estadia estadia : this.getEstadias()) {
-			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto))
-				this.getEstadias().remove(estadia);
+	public boolean removeEstadia(String idQuarto) {
+		ArrayList<Estadia> estadias = this.getEstadias();
+		Iterator<Estadia> i = estadias.iterator();
+		while (i.hasNext()) {
+			Estadia s = i.next();
+			if (s.getQuarto().getId().equalsIgnoreCase(idQuarto)) {
+				i.remove();
+				return true;
+			}
 		}
+		return false;
 	}
 
 	/**
@@ -162,15 +169,19 @@ public class Hospede {
 		return info.replaceFirst(",", "");
 
 	}
+
 	/**
 	 * get do array de estadias
+	 * 
 	 * @return estadias
 	 */
 	public ArrayList<Estadia> getEstadias() {
 		return estadias;
 	}
+
 	/**
 	 * esse metodo retorna ah quantidade estadias que estao no Hotel
+	 * 
 	 * @return o tamanho do array de estadias
 	 */
 	public int getQtdEstadias() {
@@ -182,8 +193,12 @@ public class Hospede {
 	 * 
 	 * @return gastos do hospede no hotel
 	 */
-	public double getGastos() {
-		return this.gastos;
+	public double getGastosTotal() {
+		double total = 0.0;
+		for (Estadia estadia : estadias) {
+			total += estadia.getCalculaEstadia();
+		}
+		return total;
 	}
 
 	/**
@@ -195,11 +210,14 @@ public class Hospede {
 	 *            Valor gasto pelo Hospede na operacao
 	 * @throws ValorException
 	 */
-	public void adicionaGasto(double valor) throws ValorException {
-		if (valor < 0)
-			throw new ValorException("Valor nao pode ser negativo");
 
-		this.gastos = this.gastos + valor;
+	public double getGastoEstadia(String idQuarto) {
+		for (Estadia estadia : estadias) {
+			if (estadia.getQuarto().getId().equals(idQuarto)) {
+				return estadia.getCalculaEstadia();
+			}
+		}
+		return 0.0;
 	}
 
 	/*
@@ -226,8 +244,6 @@ public class Hospede {
 		Hospede outro = (Hospede) anotherObject;
 		return outro.getEmail().equals(this.getEmail());
 	}
-
-	
 
 	/**
 	 * Codigo hash de um objeto do tipo Hospede

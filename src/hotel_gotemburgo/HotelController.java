@@ -32,8 +32,7 @@ public class HotelController {
 	private Set<Hospede> hospedes;
 	private Set<Quarto> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
-	private ArrayList<Hospede> checkouts;
-	private double totalArrecadado;
+	private ArrayList<Transacao> transacoes;
 
 	/**
 	 * O construtor do HotelController inicia o Set de hospedes, de quartos,
@@ -43,12 +42,11 @@ public class HotelController {
 
 		this.hospedes = new HashSet<Hospede>();
 		this.quartosOcupados = new HashSet<Quarto>();
-		this.checkouts = new ArrayList<Hospede>();
+		this.transacoes = new ArrayList<Transacao>();
 
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
 		this.initializaMapa();
-		totalArrecadado = 0.0;
 	}
 
 	/**
@@ -60,29 +58,29 @@ public class HotelController {
 		return hospedes;
 	}
 
-	
 	/**
 	 * get do Set de quartos
+	 * 
 	 * @return quartos Ocupados
 	 */
 	public Set<Quarto> getQuartosOcupados() {
 		return quartosOcupados;
 	}
 
-	
-	
 	/**
 	 * get Mapa dos tipos de Quarto
+	 * 
 	 * @return tipos de quartos
 	 */
-	
+
 	public HashMap<String, TipoDeQuarto> getTiposQuartos() {
 		return tiposQuartos;
 	}
 
-	
 	/**
-	 * set do mapa de tipos de quarto, verificar se esse tipo eh nulo, se for retorna uma exception
+	 * set do mapa de tipos de quarto, verificar se esse tipo eh nulo, se for
+	 * retorna uma exception
+	 * 
 	 * @param tiposQuartos
 	 * @throws ValoresException
 	 */
@@ -91,22 +89,6 @@ public class HotelController {
 			throw new ValorException("O mapa nao pode ser nulo.");
 		}
 		this.tiposQuartos = tiposQuartos;
-	}
-
-	
-	/**
-	 * get da lista de checkouts que o usuário fez
-	 * @return checkouts
-	 */
-	public ArrayList<Hospede> getCheckouts() {
-		return this.checkouts;
-	}
-	/**
-	 * get do total arrecadado pelo hotel
-	 * @return total arrecadado
-	 */
-	public double getTotalArrecadado() {
-		return totalArrecadado;
 	}
 
 	/**
@@ -351,7 +333,7 @@ public class HotelController {
 		case QUARTO:
 			return hospede.getRepresentaEstadias();
 		case TOTAL:
-			return String.format("R$%.2f", hospede.getGastos());
+			return String.format("R$%.2f", hospede.getGastosTotal());
 		default:
 			throw new ConsultaException("Erro na consulta de hospedagem. Opcao invalida.");
 		}
@@ -479,7 +461,7 @@ public class HotelController {
 	 */
 	public boolean verificaOcupacao(String id) {
 		for (Quarto quartosOcupados : this.getQuartosOcupados()) {
-			if (quartosOcupados.getId().equalsIgnoreCase(id)) {
+			if (quartosOcupados.getId().equals(id)) {
 				return true;
 			}
 		}
@@ -504,7 +486,7 @@ public class HotelController {
 	 *            Tipo do quarto da estadia
 	 * @throws HotelException
 	 */
-	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelException {
+	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelException {
 		if (email == null || email.trim().isEmpty()) {
 			throw new HotelException("Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
 		}
@@ -536,6 +518,7 @@ public class HotelController {
 		Estadia estadia = new Estadia(quarto, qntDias);
 		hospede.addEstadia(estadia);
 		this.getQuartosOcupados().add(quarto);
+		return email;
 	}
 
 	/**
@@ -564,22 +547,25 @@ public class HotelController {
 		}
 
 		Hospede hospedeDeSaida = this.buscaHospede(email);
+		double gastosEstadia = hospedeDeSaida.getGastoEstadia(idQuarto);
+
+		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), gastosEstadia);
 		
+		this.transacoes.add(transacao);
+		hospedeDeSaida.removeEstadia(idQuarto);
+		this.getQuartosOcupados().remove(idQuarto);
+
+		return String.format("R$%.2f", gastosEstadia);
+	}
+
+	private double getValorTotal() {
 		double valorTotal = 0.0;
 
-		for (Estadia estadia : hospedeDeSaida.getEstadias()) {
-			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto)) {
-				valorTotal = valorTotal + estadia.calculaEstadia();
-				this.getCheckouts().add(hospedeDeSaida);
-				
-				hospedeDeSaida.getEstadias().remove(estadia);
-				this.getQuartosOcupados().remove(idQuarto);
-				
-				this.totalArrecadado = totalArrecadado + valorTotal;
-				
-			}
+		for (Transacao transacao : transacoes) {
+			valorTotal += transacao.getValor();
 		}
-		return String.format("R$%.2f", valorTotal);
+
+		return valorTotal;
 	}
 
 	/**
@@ -587,20 +573,20 @@ public class HotelController {
 	 * informacao, referente ao atributo recebido.
 	 * 
 	 * @param atributo
-	 * Representa a informacao desejada
+	 *            Representa a informacao desejada
 	 * @return A informacao desejada
 	 * @throws HotelException
 	 */
 	public String consultaTransacoes(String atributo) throws HotelException {
 		switch (atributo.toUpperCase()) {
 		case "QUANTIDADE":
-			return String.format("%d", this.getCheckouts().size());
+			return String.format("%d", this.transacoes.size());
 		case "TOTAL":
-			return String.format("R$%.2f", getTotalArrecadado());
+			return String.format("R$%.2f", this.getValorTotal());
 		case "NOME":
 			String nomes = "";
-			for (Hospede hospede : this.getCheckouts()) {
-				nomes += ";" + hospede.getNome();
+			for (Transacao hospede : this.transacoes) {
+				nomes += ";" + hospede.getNomeHospede();
 			}
 			return nomes.replaceFirst(";", "");
 
@@ -623,9 +609,9 @@ public class HotelController {
 		}
 		switch (atributo.toUpperCase()) {
 		case "TOTAL":
-			return String.format("R$%.2f", this.getCheckouts().get(indice).getGastos());
+			return String.format("R$%.2f", this.transacoes.get(indice).getValor());
 		case "NOME":
-			return this.getCheckouts().get(indice).getNome();
+			return this.transacoes.get(indice).getNomeHospede();
 
 		default:
 			throw new ConsultaException("Erro na consulta de transacoes. Opcao invalida.");
