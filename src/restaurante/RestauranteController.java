@@ -234,7 +234,7 @@ public class RestauranteController {
 		if (!contemRefeicao(nome))
 			throw new ConsultaException("Nenhuma refeicao com esse nome foi encontrada."); 
 		
-		return (pratos.remove(buscaPrato(nome)));
+		return (refeicoes.remove(buscaRefeicao(nome)));
 	}
 
 	/**
