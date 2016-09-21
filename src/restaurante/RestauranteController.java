@@ -237,35 +237,6 @@ public class RestauranteController {
 		return (pratos.remove(buscaPrato(nome)));
 	}
 
-	// /**
-	// * Atualiza o cadastro de uma refeicao. Caso seja possivel remove-la do
-	// set,
-	// * significa que essa refeicao esta cadastrada. Logo, apos remove-la,
-	// cria-se
-	// * um novo objeto com o mesmo nome e os outros atributos recebidos como
-	// parametros
-	// * @param nome Nome da refeicao
-	// * @param descricao Descricao da refeicao
-	// * @param pratosDaRefeicao Array de pratos da refeicao
-	// * @throws ValoresException
-	// * @throws LogicaException
-	// * @throws Exception
-	// */
-	// public void atualizaRefeicao(String nome, String descricao,
-	// ArrayList<Prato> pratosDaRefeicao) throws ValoresException,
-	// LogicaException {
-	// if (nome == null || nome.trim().isEmpty())
-	// throw new StringException("Nome nao pode ser nulo ou vazio");
-	// if (descricao == null || descricao.trim().isEmpty())
-	// throw new StringException("Descricao nao pode ser vazia ou nula");
-	// if (pratos == null || pratos.size() < 3 || pratos.size() > 4)
-	// throw new ValoresException("Uma refeicao deve ser composta de 3 ou 4
-	// pratos"); // adicionar uma nova Exception na hierarquia
-	//
-	// if (removeRefeicao(nome))
-	// cadastraRefeicao(nome, descricao, pratosDaRefeicao);
-	// }
-
 	/**
 	 * Esse metodo consulta informacoes de um prato ou refeicao do restaurante. 
 	 * A informacao que sera retornada eh definida atraves do parametro "atributo".
