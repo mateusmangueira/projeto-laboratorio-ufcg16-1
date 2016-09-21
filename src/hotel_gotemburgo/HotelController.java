@@ -468,6 +468,15 @@ public class HotelController {
 		return false;
 	}
 
+	
+	public Quarto buscaQuartoOcupado(String idQuarto) throws Exception {
+		for (Quarto quarto : this.quartosOcupados) {
+			if (quarto.getId().equals(idQuarto))
+				return quarto;
+		}
+		throw new Exception("Quarto nao encontrado");
+	}
+	
 	/**
 	 * Esse metodo eh responsavel por realizar o checkin de um hospede no Hotel.
 	 * O hospede precisa previamente estar cadastrado no sistema, entao ele sera
@@ -532,9 +541,9 @@ public class HotelController {
 	 * @param idQuarto
 	 *            ID do quarto de onde o hospede esta saindo
 	 * @return O valor total gasto por esse hospede no Hotel
-	 * @throws HotelException
+	 * @throws Exception 
 	 */
-	public String realizaCheckout(String email, String idQuarto) throws HotelException {
+	public String realizaCheckout(String email, String idQuarto) throws Exception {
 		if (email == null || email.trim().isEmpty()) {
 			throw new CadastroException("Erro ao realizar checkout. Email do(a) hospede nao pode ser vazio.");
 		}
@@ -547,13 +556,14 @@ public class HotelController {
 		}
 
 		Hospede hospedeDeSaida = this.buscaHospede(email);
-		double gastosEstadia = hospedeDeSaida.getGastoEstadia(idQuarto);
+		double gastosEstadia = hospedeDeSaida.getValorEstadia(idQuarto);
 
 		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), gastosEstadia);
 		
 		this.transacoes.add(transacao);
 		hospedeDeSaida.removeEstadia(idQuarto);
-		this.getQuartosOcupados().remove(idQuarto);
+		Quarto quarto = buscaQuartoOcupado(idQuarto);
+		this.getQuartosOcupados().remove(quarto);
 
 		return String.format("R$%.2f", gastosEstadia);
 	}

@@ -202,18 +202,15 @@ public class Hospede {
 	}
 
 	/**
-	 * Recebe um double representando o valor gasto pelo Hospede em alguma
-	 * atividade no hotel, e atualiza o seu atributo que guarda os seus gastos
-	 * totais
+	 * Retorna o valor de uma estadia especifica do Hospede.
 	 * 
-	 * @param valor
-	 *            Valor gasto pelo Hospede na operacao
+	 * @param valor Valor gasto pelo Hospede na operacao
 	 * @throws ValorException
 	 */
 
-	public double getGastoEstadia(String idQuarto) {
+	public double getValorEstadia(String idQuarto) {
 		for (Estadia estadia : estadias) {
-			if (estadia.getQuarto().getId().equals(idQuarto)) {
+			if (estadia.getQuartoID().equals(idQuarto)) {
 				return estadia.getCalculaEstadia();
 			}
 		}

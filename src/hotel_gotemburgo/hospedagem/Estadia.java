@@ -49,6 +49,14 @@ public class Estadia {
 	}
 
 	/**
+	 * Retorna o ID do quarto da estadia
+	 * @return ID do quarto
+	 */
+	public String getQuartoID() {
+		return this.quarto.getId();
+	}
+	
+	/**
 	 * Altera o atributo quarto da Estadia com uma nova referencia recebida como parametro
 	 * @param quarto
 	 * @throws ValoresException 
