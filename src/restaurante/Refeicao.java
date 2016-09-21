@@ -54,18 +54,9 @@ public class Refeicao {
 	public String getDescricao() {
 		String retorno = this.descricao + " Serao servidos: ";
 		for (int i = 0; i < this.getPratos().size(); i++) {
-			retorno += "(" + (i + 1) + ") " + this.getPratos().get(i).getNome() + ", ";
+			retorno += ", (" + (i + 1) + ") " + this.getPratos().get(i).getNome();
 		}
-
-		return retorno.substring(0, retorno.length() - 1) + ".";
-
-	}
-
-	public void setDescricao(String descricao) throws ValoresException {
-		if (descricao == null || descricao.trim().isEmpty()) {
-			throw new StringException("A descricao do prato nao pode ser nula ou vazia.");
-		}
-		this.descricao = descricao;
+		return retorno.replaceFirst(", ", "") + ".";
 	}
 
 	public ArrayList<Prato> getPratos() {
