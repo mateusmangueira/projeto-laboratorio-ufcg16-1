@@ -220,8 +220,7 @@ public class RestauranteController {
 	/**
 	 * Metodo responsavel por remover uma refeicao do set de refeicoes
 	 * 
-	 * @param nome
-	 *            Nome da refeicao
+	 * @param nome Nome da refeicao
 	 * @return True se a remocao foi bem sucedida
 	 * @throws ValoresException
 	 * @throws LogicaException
