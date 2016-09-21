@@ -60,14 +60,32 @@ public class HotelController {
 		return hospedes;
 	}
 
+	
+	/**
+	 * get do Set de quartos
+	 * @return quartos Ocupados
+	 */
 	public Set<Quarto> getQuartosOcupados() {
 		return quartosOcupados;
 	}
 
+	
+	
+	/**
+	 * get Mapa dos tipos de Quarto
+	 * @return tipos de quartos
+	 */
+	
 	public HashMap<String, TipoDeQuarto> getTiposQuartos() {
 		return tiposQuartos;
 	}
 
+	
+	/**
+	 * set do mapa de tipos de quarto, verificar se esse tipo eh nulo, se for retorna uma exception
+	 * @param tiposQuartos
+	 * @throws ValoresException
+	 */
 	public void setTiposQuartos(HashMap<String, TipoDeQuarto> tiposQuartos) throws ValoresException {
 		if (tiposQuartos == null) {
 			throw new ValorException("O mapa nao pode ser nulo.");
@@ -75,10 +93,18 @@ public class HotelController {
 		this.tiposQuartos = tiposQuartos;
 	}
 
+	
+	/**
+	 * get da lista de checkouts que o usuário fez
+	 * @return checkouts
+	 */
 	public ArrayList<Hospede> getCheckouts() {
 		return this.checkouts;
 	}
-
+	/**
+	 * get do total arrecadado pelo hotel
+	 * @return total arrecadado
+	 */
 	public double getTotalArrecadado() {
 		return totalArrecadado;
 	}
@@ -106,7 +132,7 @@ public class HotelController {
 	}
 
 	/**
-	 * Esse metodo determina um padrao de nome para nao ocorrer erros +
+	 * Esse metodo determina um padrao de nome para nao ocorrer erros de nome
 	 * 
 	 * @param nome
 	 * @return boolean
@@ -321,7 +347,7 @@ public class HotelController {
 
 		switch (atributo) {
 		case HOSPEDAGEM_ATIVA:
-			return String.format("%d", hospede.getQuantidadeDeEstadias());
+			return String.format("%d", hospede.getQtdEstadias());
 		case QUARTO:
 			return hospede.getRepresentaEstadias();
 		case TOTAL:

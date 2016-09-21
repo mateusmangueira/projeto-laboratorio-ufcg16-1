@@ -29,7 +29,7 @@ public class Hospede {
 	private double gastos;
 
 	/**
-	 * O construtor recebe 3 parametros, descritos abaixo, e realiza chechagem
+	 * O construtor recebe 3 parametros, descritos abaixo, e realiza checagem
 	 * de excecao em todos eles
 	 * 
 	 * @param nomeHospede
@@ -122,6 +122,12 @@ public class Hospede {
 		this.dataNascimento = dataNascimento;
 	}
 
+	/**
+	 * Esse metodo eh utilizado para adicionar uma estadia ao array e calcular os gastos. Tem como entrada uma estadia, 
+	 * verifica se essa estadia eh nula depois calcula os gastos e adiciona no Array e nao retorna nada
+	 * @param estadia
+	 * @throws ValoresException
+	 */
 	public void addEstadia(Estadia estadia) throws ValoresException {
 		if (estadia == null) {
 			throw new ValorException("Estadia nao pode ser null");
@@ -129,7 +135,12 @@ public class Hospede {
 		adicionaGasto(estadia.calculaEstadia());
 		this.getEstadias().add(estadia);
 	}
-
+	
+	
+	/**
+	 * Esse metodo verifica se o id esta contido na lista de estadias e depois remove o id passado como parametro
+	 * @param idQuarto
+	 */
 	public void removeEstadia(String idQuarto) {
 		for (Estadia estadia : this.getEstadias()) {
 			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto))
@@ -151,11 +162,17 @@ public class Hospede {
 		return info.replaceFirst(",", "");
 
 	}
-
+	/**
+	 * get do array de estadias
+	 * @return estadias
+	 */
 	public ArrayList<Estadia> getEstadias() {
 		return estadias;
 	}
-
+	/**
+	 * esse metodo retorna ah quantidade estadias que estao no Hotel
+	 * @return o tamanho do array de estadias
+	 */
 	public int getQtdEstadias() {
 		return estadias.size();
 	}
@@ -210,9 +227,7 @@ public class Hospede {
 		return outro.getEmail().equals(this.getEmail());
 	}
 
-	public int getQuantidadeDeEstadias() {
-		return estadias.size();
-	}
+	
 
 	/**
 	 * Codigo hash de um objeto do tipo Hospede
