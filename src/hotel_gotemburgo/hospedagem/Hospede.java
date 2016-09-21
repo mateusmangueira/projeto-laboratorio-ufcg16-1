@@ -1,7 +1,6 @@
 package hotel_gotemburgo.hospedagem;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import excecoes.StringException;
 import excecoes.ValorException;
@@ -16,7 +15,8 @@ import excecoes.ValoresException;
  * 
  * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
  * @author Kleber Diogo - matricula <kleber.albuquerque@ccc.ufcg.edu.br>
- * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934
+ *         <lucas.christopher.silva@ccc.ufcg.edu.br>
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
@@ -27,10 +27,10 @@ public class Hospede {
 	private String dataNascimento;
 	private ArrayList<Estadia> estadias;
 	private double gastos;
-	
+
 	/**
-	 * O construtor recebe 3 parametros, descritos abaixo, e realiza verificacao 
-	 * para todos eles.
+	 * O construtor recebe 3 parametros, descritos abaixo, e realiza chechagem
+	 * de excecao em todos eles
 	 * 
 	 * @param nomeHospede
 	 * @param emailHospede
@@ -47,7 +47,7 @@ public class Hospede {
 
 		if (dataNascHospede == null || dataNascHospede.trim().isEmpty())
 			throw new StringException("A data de nascimento do hospede nao pode ser nula ou vazia.");
-		
+
 		this.nome = nomeHospede;
 		this.email = emailHospede;
 		this.dataNascimento = dataNascHospede;
@@ -56,7 +56,8 @@ public class Hospede {
 	}
 
 	/**
-	 * Retorna o nome do hospede
+	 * Retorna o atributo nome do hospede
+	 * 
 	 * @return nome
 	 */
 	public String getNome() {
@@ -64,20 +65,22 @@ public class Hospede {
 	}
 
 	/**
-	 * Recebe um novo nome como parametro e altera o nome atual do hospede, realizando
-	 * checagem de excecao
+	 * Recebe um novo nome como parametro e altera o nome atual do hospede,
+	 * realizando checagem de excecao
 	 * 
 	 * @param nome
 	 * @throws StringException
 	 */
 	public void setNome(String nome) throws StringException {
 		if (email == null || email.trim().isEmpty())
-			throw new StringException("Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+			throw new StringException(
+					"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 		this.nome = nome;
 	}
 
 	/**
 	 * Retorna o atributo email do hospede
+	 * 
 	 * @return email
 	 */
 	public String getEmail() {
@@ -85,10 +88,10 @@ public class Hospede {
 	}
 
 	/**
-	 * Recebe um novo email como parametro e altera o email atual do hospede, realizando
-	 * checagem de excecao
+	 * Recebe um novo email como parametro e altera o email atual do hospede,
+	 * realizando checagem de excecao
 	 * 
-	 * @param email 
+	 * @param email
 	 * @throws StringException
 	 */
 	public void setEmail(String email) throws StringException {
@@ -96,26 +99,70 @@ public class Hospede {
 			throw new StringException("Erro na atualizacao do cadastro de Hospede. Email do(a) hospede esta invalido.");
 		this.email = email;
 	}
-	
+
 	/**
 	 * @return data de nascimento
-	 * @throws StringException 
+	 * @throws StringException
 	 */
-	public String getDataNascimento(){
+	public String getDataNascimento() {
 		return dataNascimento;
 	}
-	
+
 	/**
-	 * Retorna a quantidade elementos no Set estadias
-	 * do Hospede
-	 * @return quantidade de estadias do hospede
+	 * Recebe uma nova data de nascimento como parametro e altera o email atual
+	 * do hospede, realizando checagem de excecao
+	 * 
+	 * @param dataNascimento
+	 * @throws ValoresException
 	 */
-	public int getQuantidadeDeEstadias(){
+	public void setDataNascimento(String dataNascimento) throws ValoresException {
+		if (dataNascimento == null || dataNascimento.trim().isEmpty())
+			throw new StringException(
+					"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
+		this.dataNascimento = dataNascimento;
+	}
+
+	public void addEstadia(Estadia estadia) throws ValoresException {
+		if (estadia == null) {
+			throw new ValorException("Estadia nao pode ser null");
+		}
+		adicionaGasto(estadia.calculaEstadia());
+		this.getEstadias().add(estadia);
+	}
+
+	public void removeEstadia(String idQuarto) {
+		for (Estadia estadia : this.getEstadias()) {
+			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto))
+				this.getEstadias().remove(estadia);
+		}
+	}
+
+	/**
+	 * Cria e retorna uma string com o ID dos quartos das estadias do hospede
+	 * 
+	 * @return uma string com o ID dos quartos das estadias do hospede
+	 */
+	public String getRepresentaEstadias() {
+
+		String info = "";
+		for (Estadia estadia : estadias) {
+			info += "," + estadia.getQuarto().getId();
+		}
+		return info.replaceFirst(",", "");
+
+	}
+
+	public ArrayList<Estadia> getEstadias() {
+		return estadias;
+	}
+
+	public int getQtdEstadias() {
 		return estadias.size();
 	}
-	
+
 	/**
 	 * Retorna os gastos do hospede no hotel
+	 * 
 	 * @return gastos do hospede no hotel
 	 */
 	public double getGastos() {
@@ -123,79 +170,25 @@ public class Hospede {
 	}
 
 	/**
-	 * Recebe uma nova data de nascimento como parametro e altera o email atual do hospede, 
-	 * realizando checagem de excecao
+	 * Recebe um double representando o valor gasto pelo Hospede em alguma
+	 * atividade no hotel, e atualiza o seu atributo que guarda os seus gastos
+	 * totais
 	 * 
-	 * @param dataNascimento
-	 * @throws ValoresException
-	 */
-	public void setDataNascimento(String dataNascimento) throws ValoresException {
-		if (dataNascimento == null || dataNascimento.trim().isEmpty())
-			throw new StringException("Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
-		this.dataNascimento = dataNascimento;
-	}
-	
-	/**
-	 * Adiciona uma referencia a um objeto do tipo Estadia ao Set de 
-	 * estadias do Hospede
-	 * 
-	 * @param estadia Estadia a ser adicionada
-	 * @throws ValoresException
-	 */
-	public void addEstadia(Estadia estadia) throws ValoresException {
-		if (estadia == null) {
-			throw new ValorException("Estadia nao pode ser null");
-		}
-		adicionaGasto(estadia.calculaEstadia());
-		estadias.add(estadia);
-	}
-	
-	/**
-	 * Remove uma Estadia do Set de estadias do Hospede
-	 * @param idQuarto
-	 */
-	public void removeEstadia(String idQuarto) {
-		for (Estadia estadia : this.getEstadias()) {
-			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto))
-				this.getEstadias().remove(estadia);
-		}
-	}
-	
-	/**
-	 * Cria e retorna uma string com o ID dos quartos das estadias do hospede
-	 * @return uma string com o ID dos quartos das estadias do hospede
-	 */
-	public String getRepresentaEstadias() {
-		
-		String info = "";
-		for (Estadia estadia : estadias) {
-			info += "," + estadia.getQuarto().getId();		
-		}
-	 return info.replaceFirst(",", "");
-	}
-	
-	/**
-	 * Retorna a lista de estadias do Hospede
-	 * @return ArrayList de estadias
-	 */
-	public ArrayList<Estadia> getEstadias() {
-		return estadias;
-	}
-
-	/**
-	 * Recebe um double representando o valor gasto pelo Hospede em 
-	 * alguma atividade no hotel, e atualiza o seu atributo que
-	 * guarda os seus gastos totais
-	 * @param valor Valor gasto pelo Hospede na operacao
+	 * @param valor
+	 *            Valor gasto pelo Hospede na operacao
 	 * @throws ValorException
 	 */
 	public void adicionaGasto(double valor) throws ValorException {
 		if (valor < 0)
 			throw new ValorException("Valor nao pode ser negativo");
-		
+
 		this.gastos = this.gastos + valor;
 	}
-	
+
+	/*
+	 * ToString que fiz apenas para os testes JUnit. Se quiserem, podemos mudar
+	 * sua forma: <Nome_hospede>: <email_hospede> (data_nascimento).
+	 */
 	/**
 	 * Representacao em String de um Hospede
 	 */
@@ -203,7 +196,7 @@ public class Hospede {
 	public String toString() {
 		return String.format("%s: %s (%s).", this.getNome(), this.getEmail(), this.getDataNascimento());
 	}
-	
+
 	/**
 	 * Dois objetos do tipo Hospede sao iguais caso possuam o mesmo email
 	 */
@@ -216,7 +209,11 @@ public class Hospede {
 		Hospede outro = (Hospede) anotherObject;
 		return outro.getEmail().equals(this.getEmail());
 	}
-	
+
+	public int getQuantidadeDeEstadias() {
+		return estadias.size();
+	}
+
 	/**
 	 * Codigo hash de um objeto do tipo Hospede
 	 */
@@ -226,6 +223,5 @@ public class Hospede {
 		int result = 1;
 		return prime * result + ((email == null) ? 0 : email.hashCode());
 	}
-
 
 }

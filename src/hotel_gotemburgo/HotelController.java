@@ -196,7 +196,7 @@ public class HotelController {
 			throw new CadastroException("Este hospede nao estah cadastrado.");
 
 		Hospede hospede = buscaHospede(email);
-		if (hospede.getQuantidadeDeEstadias() == 0)
+		if (hospede.getQtdEstadias() == 0)
 			return false;
 
 		return true;
@@ -509,7 +509,7 @@ public class HotelController {
 		Quarto quarto = this.criaQuartos(idQuarto, tipo);
 		Estadia estadia = new Estadia(quarto, qntDias);
 		hospede.addEstadia(estadia);
-		quartosOcupados.add(quarto);
+		this.getQuartosOcupados().add(quarto);
 	}
 
 	/**
@@ -538,14 +538,19 @@ public class HotelController {
 		}
 
 		Hospede hospedeDeSaida = this.buscaHospede(email);
+		
 		double valorTotal = 0.0;
 
 		for (Estadia estadia : hospedeDeSaida.getEstadias()) {
 			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto)) {
 				valorTotal = valorTotal + estadia.calculaEstadia();
-				checkouts.add(hospedeDeSaida);
+				this.getCheckouts().add(hospedeDeSaida);
+				
 				hospedeDeSaida.getEstadias().remove(estadia);
+				this.getQuartosOcupados().remove(idQuarto);
+				
 				this.totalArrecadado = totalArrecadado + valorTotal;
+				
 			}
 		}
 		return String.format("R$%.2f", valorTotal);
@@ -556,7 +561,7 @@ public class HotelController {
 	 * informacao, referente ao atributo recebido.
 	 * 
 	 * @param atributo
-	 *            Representa a informacao desejada
+	 * Representa a informacao desejada
 	 * @return A informacao desejada
 	 * @throws HotelException
 	 */
