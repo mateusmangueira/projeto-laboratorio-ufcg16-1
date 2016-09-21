@@ -13,6 +13,14 @@ public class Prato {
 	private String nome, descricao;
 	private double preco;
 	
+	/**
+	 * O Construtor recebe o nome do prato, preco e sua descricao.
+	 * 
+	 * @param nome
+	 * @param preco
+	 * @param descricao
+	 * @throws ValoresException
+	 */
 	public Prato(String nome, double preco, String descricao) throws ValoresException {
 		
 		if (nome == null || nome.trim().isEmpty())
@@ -27,10 +35,19 @@ public class Prato {
 		this.descricao = descricao;
 	}
 
+	/**
+	 * Retorna o atributo nome do prato
+	 * @return nome
+	 */
 	public String getNome() {
 		return nome;
 	}
 
+	/**
+	 * Altera o atributo nome do prato, realizando verificacao
+	 * @param nome
+	 * @throws ValoresException
+	 */
 	public void setNome(String nome) throws ValoresException {
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
@@ -38,10 +55,19 @@ public class Prato {
 		this.nome = nome;
 	}
 
+	/**
+	 * Retorna a descricao do prato
+	 * @return descricao
+	 */
 	public String getDescricao() {
 		return descricao;
 	}
 
+	/**
+	 * Altera o atributo descricao do prato, realizando verificacao
+	 * @param descricao
+	 * @throws ValoresException
+	 */
 	public void setDescricao(String descricao) throws ValoresException {
 		if (descricao == null || nome.trim().isEmpty()) {
 			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
@@ -49,10 +75,19 @@ public class Prato {
 		this.descricao = descricao;
 	}
 
+	/**
+	 * Retorna o preco do prato
+	 * @return preco
+	 */
 	public double getPreco() {
 		return preco;
 	}
 
+	/**
+	 * Altera o atributo preco do prato, realizando verificacao
+	 * @param preco
+	 * @throws ValoresException
+	 */
 	public void setPreco(double preco) throws ValoresException {
 		if (preco < 0) {
 			throw new ValorException("O preco do prato nao pode ser negativo.");
