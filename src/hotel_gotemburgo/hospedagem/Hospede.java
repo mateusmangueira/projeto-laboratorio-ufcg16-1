@@ -29,8 +29,9 @@ public class Hospede {
 	private double gastos;
 	
 	/**
-	 * O construtor recebe 3 parametros, descritos abaixo, e realiza chechagem de excecao
-	 * em todos eles
+	 * O construtor recebe 3 parametros, descritos abaixo, e realiza verificacao 
+	 * para todos eles.
+	 * 
 	 * @param nomeHospede
 	 * @param emailHospede
 	 * @param dataNascHospede
@@ -55,7 +56,7 @@ public class Hospede {
 	}
 
 	/**
-	 * Retorna o atributo nome do hospede
+	 * Retorna o nome do hospede
 	 * @return nome
 	 */
 	public String getNome() {
@@ -65,6 +66,7 @@ public class Hospede {
 	/**
 	 * Recebe um novo nome como parametro e altera o nome atual do hospede, realizando
 	 * checagem de excecao
+	 * 
 	 * @param nome
 	 * @throws StringException
 	 */
@@ -85,6 +87,7 @@ public class Hospede {
 	/**
 	 * Recebe um novo email como parametro e altera o email atual do hospede, realizando
 	 * checagem de excecao
+	 * 
 	 * @param email 
 	 * @throws StringException
 	 */
@@ -101,10 +104,28 @@ public class Hospede {
 	public String getDataNascimento(){
 		return dataNascimento;
 	}
+	
+	/**
+	 * Retorna a quantidade elementos no Set estadias
+	 * do Hospede
+	 * @return quantidade de estadias do hospede
+	 */
+	public int getQuantidadeDeEstadias(){
+		return estadias.size();
+	}
+	
+	/**
+	 * Retorna os gastos do hospede no hotel
+	 * @return gastos do hospede no hotel
+	 */
+	public double getGastos() {
+		return this.gastos;
+	}
 
 	/**
 	 * Recebe uma nova data de nascimento como parametro e altera o email atual do hospede, 
 	 * realizando checagem de excecao
+	 * 
 	 * @param dataNascimento
 	 * @throws ValoresException
 	 */
@@ -114,6 +135,13 @@ public class Hospede {
 		this.dataNascimento = dataNascimento;
 	}
 	
+	/**
+	 * Adiciona uma referencia a um objeto do tipo Estadia ao Set de 
+	 * estadias do Hospede
+	 * 
+	 * @param estadia Estadia a ser adicionada
+	 * @throws ValoresException
+	 */
 	public void addEstadia(Estadia estadia) throws ValoresException {
 		if (estadia == null) {
 			throw new ValorException("Estadia nao pode ser null");
@@ -122,6 +150,10 @@ public class Hospede {
 		estadias.add(estadia);
 	}
 	
+	/**
+	 * Remove uma Estadia do Set de estadias do Hospede
+	 * @param idQuarto
+	 */
 	public void removeEstadia(String idQuarto) {
 		for (Estadia estadia : this.getEstadias()) {
 			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto))
@@ -140,25 +172,16 @@ public class Hospede {
 			info += "," + estadia.getQuarto().getId();		
 		}
 	 return info.replaceFirst(",", "");
-	
 	}
 	
+	/**
+	 * Retorna a lista de estadias do Hospede
+	 * @return ArrayList de estadias
+	 */
 	public ArrayList<Estadia> getEstadias() {
 		return estadias;
 	}
 
-	public int getQtdEstadias() {
-		return estadias.size();
-	}
-
-	/**
-	 * Retorna os gastos do hospede no hotel
-	 * @return gastos do hospede no hotel
-	 */
-	public double getGastos() {
-		return this.gastos;
-	}
-	
 	/**
 	 * Recebe um double representando o valor gasto pelo Hospede em 
 	 * alguma atividade no hotel, e atualiza o seu atributo que
@@ -173,10 +196,6 @@ public class Hospede {
 		this.gastos = this.gastos + valor;
 	}
 	
-	/*
-	 * ToString que fiz apenas para os testes JUnit. Se quiserem, podemos mudar sua forma:
-	 * <Nome_hospede>: <email_hospede> (data_nascimento).
-	 */
 	/**
 	 * Representacao em String de um Hospede
 	 */
@@ -198,9 +217,6 @@ public class Hospede {
 		return outro.getEmail().equals(this.getEmail());
 	}
 	
-	public int getQuantidadeDeEstadias(){
-		return estadias.size();
-	}
 	/**
 	 * Codigo hash de um objeto do tipo Hospede
 	 */

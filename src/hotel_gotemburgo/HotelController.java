@@ -196,7 +196,7 @@ public class HotelController {
 			throw new CadastroException("Este hospede nao estah cadastrado.");
 
 		Hospede hospede = buscaHospede(email);
-		if (hospede.getQtdEstadias() == 0)
+		if (hospede.getQuantidadeDeEstadias() == 0)
 			return false;
 
 		return true;
