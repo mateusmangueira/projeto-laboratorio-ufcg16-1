@@ -79,8 +79,21 @@ public class TestHotel {
 		hotel.cadastraHospede("Jubileu Maxista", "jubileu_max@outlook.com", "25/06/1969");
 		hotel.cadastraHospede("Francisco Maxssuel Padre Cicero", "maxssuel_padre@yahoo.com.br", "31/08/1949");
 		hotel.cadastraHospede("Antonio Natan Dias", "antonio_natan@live.com", "06/09/1987");
+		
 	}
+	public void testRemoveHospede() throws HotelException {
+		hotel.removeHospede("jubileu_max@outlook.com");
+	}
+	public void testInfoHospede() throws HotelException {
+		hotel.getInfoHospede("maxssuel_padre@yahoo.com.br", "Nome");
+		hotel.getInfoHospede("maxssuel_padre@yahoo.com.br", "Email");
+		hotel.getInfoHospede("maxssuel_padre@yahoo.com.br", "Data");
+	}
+	
 
+	
+	
+	
 	@Test
 	public void testBuscaHospede() throws HotelException {
 
@@ -240,6 +253,53 @@ public class TestHotel {
 					exception.getMessage());
 		}
 
+		try{
+			hotel.cadastraHospede("Nego do Borels", "negols@", "12/06/1994");
+			fail();
+		} catch (HotelException exception){
+			Assert.assertEquals("Erro no cadastro de Hospede. Email do(a) hospede esta invalido.", exception.getMessage());
+		}
+		try{
+			hotel.cadastraHospede("Xing Ling", "xinglings@outlook.com", "12/06");
+			fail();
+		} catch (HotelException exception){
+			Assert.assertEquals("Erro no cadastro de Hospede. Formato de data invalido.", exception.getMessage());
+		}
+		try{
+			hotel.cadastraHospede("R@ncok", "rancok@outlook.com", "12/05/1990");
+			fail();
+		} catch (HotelException exception){
+			Assert.assertEquals("Erro no cadastro de Hospede. Nome do(a) hospede esta invalido.", exception.getMessage());
+		}
+		try{
+			hotel.cadastraHospede("Girino Silva", "girino@outlook.com", "12/05/2007");
+			fail();
+		} catch (HotelException exception){
+			Assert.assertEquals("Erro no cadastro de Hospede. A idade do(a) hospede deve ser maior que 18 anos.", exception.getMessage());
+		}
+		
 	}
+	
+	@Test
+	public void testRemoveHospedeWithException() {
+		try{
+			hotel.removeHospede("kleber@hots");
+			fail();
+		} catch (HotelException exception){
+			Assert.assertEquals("Erro na remocao do Hospede. Formato de email invalido.", exception.getMessage());
+		}
+	}
+	
+	public void testInfoHospedeWithException(){
+		try{
+			hotel.getInfoHospede("girino@outlook.com", "cpf");
+		}catch(HotelException exception){
+			Assert.assertEquals("Erro na consulta de hospede. Opcao invalida.", exception.getMessage());
+		}
+	}
+	
+
+
+
 
 }
