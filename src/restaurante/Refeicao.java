@@ -21,6 +21,16 @@ public class Refeicao {
 	private String nome, descricao;
 	private ArrayList<Prato> pratos;
 
+	/**
+	 * O Construtor recebe como parametro o nome e descricao do prato, alem
+	 * de uma lista de objetos do tipo Prato que compoe uma refeicao (3 ou 
+	 * 4 pratos).
+	 * 
+	 * @param nome
+	 * @param descricao
+	 * @param pratos
+	 * @throws ValoresException
+	 */
 	public Refeicao(String nome, String descricao, ArrayList<Prato> pratos) throws ValoresException {
 
 		if (nome == null || nome.trim().isEmpty())
@@ -28,22 +38,26 @@ public class Refeicao {
 		if (descricao == null || descricao.trim().isEmpty())
 			throw new StringException("A descricao da refeicao nao pode ser nula ou vazia.");
 		if (pratos == null || pratos.size() < 3 || pratos.size() > 4)
-			throw new ValorException("Uma refeicao deve ser composta de 3 ou 4 pratos."); // adicionar
-																							// uma
-																							// nova
-																							// Exception
-																							// na
-																							// hierarquia
-
+			throw new ValorException("Uma refeicao deve ser composta de 3 ou 4 pratos."); 
+		
 		this.nome = nome;
 		this.descricao = descricao;
 		this.pratos = pratos;
 	}
 
+	/**
+	 * Retorna o nome da refeicao
+	 * @return nome
+	 */
 	public String getNome() {
 		return nome;
 	}
 
+	/**
+	 * Altera o nome da refeicao
+	 * @param nome
+	 * @throws ValoresException
+	 */
 	public void setNome(String nome) throws ValoresException {
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new StringException("O nome da refeicao nao pode ser nulo ou vazio.");
@@ -51,6 +65,14 @@ public class Refeicao {
 		this.nome = nome;
 	}
 
+	/**
+	 * Retorna uma string que representa a descricao da refeicao.
+	 * Alem da descricao recebida como parametro no construtor,
+	 * a String criada e retornada nesse metodo tambem adiciona
+	 * a ordem e o nome dos pratos.
+	 * 
+	 * @return Descricao da refeicao
+	 */
 	public String getDescricao() {
 		String retorno = this.descricao + " Serao servidos: ";
 		for (int i = 0; i < this.getPratos().size(); i++) {
@@ -59,10 +81,21 @@ public class Refeicao {
 		return retorno.replaceFirst(", ", "") + ".";
 	}
 
+	/**
+	 * Retorna a lista que contem os pratos que compoem refeicao
+	 * @return lista de pratos
+	 */
 	public ArrayList<Prato> getPratos() {
 		return pratos;
 	}
 
+	/**
+	 * Altera a lista de pratos que compoe a refeicao, recebendo
+	 * outra lista como parametro
+	 * 
+	 * @param pratos nova lista de pratos
+	 * @throws ValoresException
+	 */
 	public void setPratos(ArrayList<Prato> pratos) throws ValoresException {
 		if (pratos == null) {
 			throw new ValoresException("A lista de pratos nao pode ser nula.");
@@ -112,6 +145,9 @@ public class Refeicao {
 		return this.getNome().equalsIgnoreCase(outra.getNome()) || this.getPratos().equals(outra.getPratos());
 	}
 
+	/**
+	 * Codigo hash de um objeto do tipo Refeicao
+	 */
 	@Override
 	public int hashCode() {
 		final int PRIME = 7;
