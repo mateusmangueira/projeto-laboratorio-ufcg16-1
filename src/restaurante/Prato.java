@@ -95,11 +95,17 @@ public class Prato {
 		this.preco = preco;
 	}
 	
+	/**
+	 * Representacao em String de um Prato
+	 */
 	@Override
 	public String toString() {
 		return String.format("%s: %s. (R$ %.2f)", getNome(), getDescricao(), getPreco());
 	}
 
+	/**
+	 * Dois pratos sao iguais caso possuam o mesmo nome
+	 */
 	@Override
 	public boolean equals(Object anotherObject) 
 	{
@@ -111,6 +117,9 @@ public class Prato {
 		return this.getNome().equalsIgnoreCase(outro.getNome());
 	}
 	
+	/**
+	 * Codigo hash de um objeto do tipo Prato
+	 */
 	@Override
 	public int hashCode()
 	{
