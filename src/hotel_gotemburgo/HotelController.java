@@ -468,7 +468,6 @@ public class HotelController {
 		return false;
 	}
 
-	
 	public Quarto buscaQuartoOcupado(String idQuarto) throws Exception {
 		for (Quarto quarto : this.quartosOcupados) {
 			if (quarto.getId().equals(idQuarto))
@@ -476,7 +475,7 @@ public class HotelController {
 		}
 		throw new Exception("Quarto nao encontrado");
 	}
-	
+
 	/**
 	 * Esse metodo eh responsavel por realizar o checkin de um hospede no Hotel.
 	 * O hospede precisa previamente estar cadastrado no sistema, entao ele sera
@@ -541,7 +540,7 @@ public class HotelController {
 	 * @param idQuarto
 	 *            ID do quarto de onde o hospede esta saindo
 	 * @return O valor total gasto por esse hospede no Hotel
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public String realizaCheckout(String email, String idQuarto) throws Exception {
 		if (email == null || email.trim().isEmpty()) {
@@ -559,7 +558,7 @@ public class HotelController {
 		double gastosEstadia = hospedeDeSaida.getValorEstadia(idQuarto);
 
 		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), gastosEstadia);
-		
+
 		this.transacoes.add(transacao);
 		hospedeDeSaida.removeEstadia(idQuarto);
 		Quarto quarto = buscaQuartoOcupado(idQuarto);
@@ -613,7 +612,7 @@ public class HotelController {
 	 * @throws ConsultaException
 	 * @throws ValidacaoException
 	 */
-	public String consultaTransacoes(String atributo, int indice) throws ConsultaException, ValidacaoException {
+	public String consultaTransacoes(String atributo, int indice) throws HotelException {
 		if (indice < 0) {
 			throw new ValidacaoException("Erro na consulta de transacoes. Indice invalido.");
 		}
