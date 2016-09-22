@@ -1,9 +1,9 @@
 package facade;
 
 import easyaccept.EasyAccept;
-import excecoes.HotelException;
 import hotel_gotemburgo.HotelController;
 import restaurante.RestauranteController;
+import verificacao.excecoes.HotelException;
 
 public class Facade {
 
@@ -119,5 +119,13 @@ public class Facade {
 			System.out.println(e.getMessage());
 		}
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
+				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
+				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
+				"diretorio_testes/testes_uc3_exception.txt", "diretorio_testes/testes_uc3.txt", "diretorio_testes/testes_uc4_exception.txt" };
+		EasyAccept.main(args);
 	}
 }

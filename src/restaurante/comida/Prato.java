@@ -1,8 +1,8 @@
 package restaurante.comida;
 
-import excecoes.StringException;
-import excecoes.ValorException;
-import excecoes.ValoresException;
+import verificacao.excecoes.StringException;
+import verificacao.excecoes.ValorException;
+import verificacao.excecoes.ValoresException;
 
 /**
  * Define um objeto do tipo Prato, que possui um nome, um preco e uma descricao.

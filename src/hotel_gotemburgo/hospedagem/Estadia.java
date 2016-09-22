@@ -1,7 +1,9 @@
 package hotel_gotemburgo.hospedagem;
 
+import verificacao.excecoes.StringException;
+import verificacao.excecoes.ValorException;
+import verificacao.excecoes.ValoresException;
 import hotel_gotemburgo.quartos.Quarto;
-import excecoes.*;
 
 /**
  * Estadia - Classe que representa uma Estadia, eh composta por um Quarto e tem

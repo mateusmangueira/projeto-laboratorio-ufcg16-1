@@ -1,9 +1,10 @@
 package restaurante.comida;
 
 import java.util.ArrayList;
-import excecoes.StringException;
-import excecoes.ValorException;
-import excecoes.ValoresException;
+
+import verificacao.excecoes.StringException;
+import verificacao.excecoes.ValorException;
+import verificacao.excecoes.ValoresException;
 
 /**
  * Representa uma refeicao completa, que eh composta por pratos. Possui um nome,

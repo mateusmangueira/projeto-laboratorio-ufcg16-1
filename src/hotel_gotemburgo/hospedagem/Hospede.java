@@ -3,9 +3,9 @@ package hotel_gotemburgo.hospedagem;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import excecoes.StringException;
-import excecoes.ValorException;
-import excecoes.ValoresException;
+import verificacao.excecoes.StringException;
+import verificacao.excecoes.ValorException;
+import verificacao.excecoes.ValoresException;
 
 /**
  * Classe responsavel por um objeto que representa um hospede do Hotel. O
@@ -72,8 +72,7 @@ public class Hospede {
 	 */
 	public void setNome(String nome) throws StringException {
 		if (email == null || email.trim().isEmpty())
-			throw new StringException(
-					"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+			throw new StringException("Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 		this.nome = nome;
 	}
 
@@ -116,8 +115,7 @@ public class Hospede {
 	 */
 	public void setDataNascimento(String dataNascimento) throws ValoresException {
 		if (dataNascimento == null || dataNascimento.trim().isEmpty())
-			throw new StringException(
-					"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
+			throw new StringException("Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		this.dataNascimento = dataNascimento;
 	}
 

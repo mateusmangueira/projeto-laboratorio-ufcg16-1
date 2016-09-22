@@ -1,4 +1,4 @@
-package excecoes;
+package verificacao.excecoes;
 
 public class ValorException extends ValoresException {
 

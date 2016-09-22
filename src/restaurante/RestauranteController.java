@@ -5,11 +5,9 @@ import java.util.HashSet;
 
 import restaurante.comida.Prato;
 import restaurante.comida.Refeicao;
-
+import verificacao.excecoes.ConsultaException;
+import verificacao.excecoes.LogicaException;
 import easyaccept.EasyAccept;
-
-import excecoes.ConsultaException;
-import excecoes.LogicaException;
 
 /**
  * O Restaurante deve ser responsavel por cadastrar, atualizar e remover pratos

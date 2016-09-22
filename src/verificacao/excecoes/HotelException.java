@@ -1,4 +1,4 @@
-package excecoes;
+package verificacao.excecoes;
 
 public class HotelException extends Exception {
 	

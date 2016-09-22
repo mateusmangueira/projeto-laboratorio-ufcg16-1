@@ -1,8 +1,8 @@
 package hotel_gotemburgo.quartos;
 
-import excecoes.StringException;
-import excecoes.ValorException;
-import excecoes.ValoresException;
+import verificacao.excecoes.StringException;
+import verificacao.excecoes.ValorException;
+import verificacao.excecoes.ValoresException;
 
 /**
  * Essa classe representa um Quarto, que possui um ID
