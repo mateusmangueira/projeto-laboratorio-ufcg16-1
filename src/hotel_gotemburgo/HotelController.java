@@ -364,12 +364,11 @@ public class HotelController {
 	 * @param tipoQuarto (O tipo do quarto, podendo ser "Simples", "Luxo" 
 	 * ou "Presidencial".
 	 * @return O Quarto que foi criado
-	 * @throws StringException
+	 * @throws HotelException
 	 */
-	private Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws StringException {
+	private Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws HotelException {
 		return new Quarto(idQuarto, tipoQuarto);
-		// Futuramente pode ser preciso adicionar esse quarto em um set de
-		// quartos do Hotel
+		// Futuramente pode ser preciso adicionar esse quarto em um set de quartos do Hotel
 	}
 
 	/**
@@ -457,15 +456,14 @@ public class HotelController {
 	 * @throws HotelException
 	 */
 	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelException {
-		if (email == null || email.trim().isEmpty()) {
-			throw new HotelException("Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
-		}
+		
+		Excecoes.checaCheckinEmail(email);
+		Excecoes.checaCheckinDias(qntDias);
+		
 		if (!this.validaEmail(email)) {
 			throw new HotelException("Erro ao realizar checkin. Email do(a) hospede esta invalido.");
 		}
-		if (qntDias < 0) {
-			throw new HotelException("Erro ao realizar checkin. Quantidade de dias esta invalida.");
-		}
+		
 		if (idQuarto.trim().isEmpty() || !this.validaQuarto(idQuarto)) {
 			throw new HotelException("Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 		}
@@ -518,9 +516,9 @@ public class HotelController {
 	 * @throws HotelException
 	 */
 	public String realizaCheckout(String email, String idQuarto) throws HotelException {
-		if (email == null || email.trim().isEmpty()) {
-			throw new CadastroException("Erro ao realizar checkout. Email do(a) hospede nao pode ser vazio.");
-		}
+		
+		Excecoes.checaCheckoutEmail(email);
+		
 		if (!this.validaEmail(email)) {
 			throw new ValidacaoException("Erro ao realizar checkout. Email do(a) hospede esta invalido.");
 		}
