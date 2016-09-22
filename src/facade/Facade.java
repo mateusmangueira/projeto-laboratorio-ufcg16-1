@@ -1,8 +1,8 @@
 package facade;
 
+import easyaccept.EasyAccept;
 import excecoes.HotelException;
 import hotel_gotemburgo.HotelController;
-import hotel_gotemburgo.hospedagem.Hospede;
 import restaurante.RestauranteController;
 
 public class Facade {
@@ -15,9 +15,9 @@ public class Facade {
 		this.restauranteController = new RestauranteController();
 	}
 
-	public Hospede cadastraHospede(String nome, String email, String dataNascimento) {
+	public String cadastraHospede(String nome, String email, String dataNascimento) {
 		try {
-			this.hotelController.cadastraHospede(nome, email, dataNascimento);
+			return this.hotelController.cadastraHospede(nome, email, dataNascimento);
 		} catch (HotelException e) {
 			System.out.println(e.getMessage());
 		}
@@ -33,20 +33,22 @@ public class Facade {
 		}
 	}
 
-	public void getInfoHospede(String email, String atributo) {
+	public String getInfoHospede(String email, String atributo) {
 		try {
-			this.hotelController.getInfoHospede(email, atributo);
+			return this.hotelController.getInfoHospede(email, atributo);
 		} catch (HotelException e) {
 			System.out.println(e.getMessage());
 		}
+		return null;
 	}
 
-	public void getInfoHospedagem(String email, String atributo) {
+	public String getInfoHospedagem(String email, String atributo) {
 		try {
-			this.hotelController.getInfoHospedagem(email, atributo);
+			return this.hotelController.getInfoHospedagem(email, atributo);
 		} catch (HotelException e) {
 			System.out.println(e.getMessage());
 		}
+		return null;
 	}
 
 	public void atualizaCadastro(String email, String atributo, String valor) {
@@ -57,44 +59,49 @@ public class Facade {
 		}
 	}
 
-	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) {
+	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) {
 		try {
-			this.hotelController.realizaCheckin(email, qntDias, idQuarto, tipoQuarto);
+			return this.hotelController.realizaCheckin(email, qntDias, idQuarto, tipoQuarto);
 		} catch (HotelException e) {
 			System.out.println(e.getMessage());
 		}
+		return null;
 	}
 
-	public void realizaCheckout(String email, String idQuarto) {
+	public String realizaCheckout(String email, String idQuarto) {
 		try {
-			this.hotelController.realizaCheckout(email, idQuarto);
+			return this.hotelController.realizaCheckout(email, idQuarto);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		return null;
 	}
 
-	public void consultaTransacoes(String atributo) {
+	public String consultaTransacoes(String atributo) {
 		try {
-			this.hotelController.consultaTransacoes(atributo);
+			return this.hotelController.consultaTransacoes(atributo);
 		} catch (HotelException e) {
 			System.out.println(e.getMessage());
 		}
+		return null;
 	}
 
-	public void consultaTransacoes(String atributo, int indice) {
+	public String consultaTransacoes(String atributo, int indice) {
 		try {
-			this.hotelController.consultaTransacoes(atributo, indice);
+			return this.hotelController.consultaTransacoes(atributo, indice);
 		} catch (HotelException e) {
 			System.out.println(e.getMessage());
 		}
+		return null;
 	}
 
-	public void cadastraPrato(String nome, double preco, String descricao) {
+	public boolean cadastraPrato(String nome, double preco, String descricao) {
 		try {
-			this.restauranteController.cadastraPrato(nome, preco, descricao);
+			return this.restauranteController.cadastraPrato(nome, preco, descricao);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		return false;
 	}
 
 	public void cadastraRefeicao(String nome, String descricao, String componentes) {
@@ -105,11 +112,12 @@ public class Facade {
 		}
 	}
 
-	public void consultaRestaurante(String nome, String atributo) {
+	public String consultaRestaurante(String nome, String atributo) {
 		try {
-			this.restauranteController.consultaRestaurante(nome, atributo);
+			return this.restauranteController.consultaRestaurante(nome, atributo);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		return null;
 	}
 }
