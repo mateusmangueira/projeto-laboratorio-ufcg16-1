@@ -280,11 +280,9 @@ public class RestauranteController {
 					return refeicao.getDescricao();
 				}
 			}
-
 		default:
 			throw new Exception("Erro na consulta ao restaurante: opcao invalida");
 		}
-
 	}
 
 	public static void main(String[] args) {

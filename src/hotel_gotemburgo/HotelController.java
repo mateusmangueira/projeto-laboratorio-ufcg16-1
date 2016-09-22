@@ -97,7 +97,7 @@ public class HotelController {
 	 * @param data
 	 * @return boolean
 	 */
-	private boolean validaData(String data) {
+	public boolean validaData(String data) {
 		String regex = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}$";
 		return data.matches(regex);
 	}
@@ -108,7 +108,7 @@ public class HotelController {
 	 * @param email
 	 * @return boolean
 	 */
-	private boolean validaEmail(String email) {
+	public boolean validaEmail(String email) {
 		String regex = "\\b[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}\\b";
 		return email.matches(regex);
 	}
@@ -119,7 +119,7 @@ public class HotelController {
 	 * @param nome
 	 * @return boolean
 	 */
-	private boolean validaNome(String nome) {
+	public boolean validaNome(String nome) {
 		String regex = "[A-Z][a-z]+[[ ][A-Z][a-z]+]*";
 		return nome.matches(regex);
 	}
@@ -430,7 +430,7 @@ public class HotelController {
 	 * que representa um Enum de TipoDeQuarto, a uma constante desse Enum. Ex:
 	 * key- "SIMPLES" value- TipoDeQuarto.SIMPLES
 	 */
-	private void initializaMapa() {
+	public void initializaMapa() {
 
 		this.tiposQuartos = new HashMap<String, TipoDeQuarto>();
 		tiposQuartos.put("SIMPLES", TipoDeQuarto.SIMPLES);
@@ -567,7 +567,7 @@ public class HotelController {
 		return String.format("R$%.2f", gastosEstadia);
 	}
 
-	private double getValorTotal() {
+	public double getValorTotal() {
 		double valorTotal = 0.0;
 
 		for (Transacao transacao : transacoes) {
@@ -631,8 +631,7 @@ public class HotelController {
 		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
 				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
 				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
-				"diretorio_testes/testes_uc3_exception.txt" };
+				"diretorio_testes/testes_uc3_exception.txt", };
 		EasyAccept.main(args);
 	}
-
 }
