@@ -78,7 +78,7 @@ public class HotelController {
 	 * @return boolean
 	 */
 	private boolean validaEmail(String email) {
-		String regex = "\\b[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}\\b";
+		String regex = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}";
 		return email.matches(regex);
 	}
 
