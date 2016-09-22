@@ -1,4 +1,4 @@
-package hotel_gotemburgo;
+package hotel_gotemburgo.transacao;
 
 public class Transacao {
 

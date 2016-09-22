@@ -1,4 +1,4 @@
-package restaurante;
+package restaurante.comida;
 
 import excecoes.StringException;
 import excecoes.ValorException;

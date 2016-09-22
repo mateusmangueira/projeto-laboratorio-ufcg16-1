@@ -9,6 +9,7 @@ import easyaccept.EasyAccept;
 import excecoes.*;
 import hotel_gotemburgo.hospedagem.*;
 import hotel_gotemburgo.quartos.*;
+import hotel_gotemburgo.transacao.Transacao;
 
 /**
  * O HotelController representa uma entidade de gerenciamento, responsavel por 

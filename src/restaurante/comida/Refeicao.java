@@ -1,4 +1,4 @@
-package restaurante;
+package restaurante.comida;
 
 import java.util.ArrayList;
 import excecoes.StringException;

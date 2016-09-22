@@ -3,6 +3,9 @@ package restaurante;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import restaurante.comida.Prato;
+import restaurante.comida.Refeicao;
+
 import easyaccept.EasyAccept;
 
 import excecoes.ConsultaException;
