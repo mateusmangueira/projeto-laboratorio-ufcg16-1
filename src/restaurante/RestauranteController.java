@@ -10,9 +10,6 @@ import easyaccept.EasyAccept;
 
 import excecoes.ConsultaException;
 import excecoes.LogicaException;
-import excecoes.StringException;
-import excecoes.ValorException;
-import excecoes.ValoresException;
 
 /**
  * O Restaurante deve ser responsavel por cadastrar, atualizar e remover pratos
@@ -97,50 +94,6 @@ public class RestauranteController {
 																// ElementoNaoEncontradoException
 	}
 
-	/**
-	 * Metodo responsavel por remover um prato do set de pratos
-	 * 
-	 * @param nome
-	 *            Nome do prato
-	 * @return True se a remocao foi bem sucedida
-	 * @throws ValoresException
-	 * @throws LogicaException
-	 * @throws StringException
-	 * @throws Exception
-	 */
-	private boolean removePrato(String nome) throws LogicaException, StringException {
-		if (nome == null || nome.trim().isEmpty())
-			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
-
-		if (!contemPrato(nome))
-			throw new ConsultaException("Nenhum prato com este nome foi encontrado."); // ElementoNaoEncontradoException
-
-		return (pratos.remove(buscaPrato(nome)));
-	}
-
-	/**
-	 * Atualiza o cadastro de um prato. Caso seja possivel remove-lo do set,
-	 * significa que esse prato esta cadastrado. Logo, apos remove-lo, cria-se
-	 * um novo objeto com o mesmo nome e os outros atributos recebidos como
-	 * parametros
-	 * 
-	 * @param nome
-	 * @param preco
-	 * @param descricao
-	 * @throws Exception
-	 */
-	private void atualizaPrato(String nome, double preco, String descricao) throws Exception {
-		if (nome == null || nome.trim().isEmpty())
-			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
-		if (descricao == null || descricao.trim().isEmpty())
-			throw new StringException("A descricao do prato nao pode ser nula ou vazia.");
-		if (preco < 0)
-			throw new ValorException("O preco do prato nao pode ser negativo.");
-
-		if (removePrato(nome))
-			cadastraPrato(nome, preco, descricao);
-	}
-
 	/* Refeicoes */
 
 	/**
@@ -186,60 +139,8 @@ public class RestauranteController {
 		this.refeicoes.add(refeicao);
 	}
 
-	/**
-	 * Varre o Set de refeicoes procurando uma refeicao com um nome especifico.
-	 * Caso encontrada, retorna true.
-	 * 
-	 * @param nome
-	 *            Nome da refeicao a ser procurada
-	 * @return True se a refeicao foi encontrada
-	 */
-	private boolean contemRefeicao(String nome) {
-		for (Refeicao refeicao : this.refeicoes) {
-			if (refeicao.getNome().equalsIgnoreCase(nome))
-				return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Varre o Set de refeicoes procurando uma refeicao com um nome especifico.
-	 * Caso encontrada, retorna a referencia ao objeto.
-	 * 
-	 * @param nome
-	 *            Nome da refeicao a ser buscada
-	 * @return A referencia ao objeto
-	 * @throws LogicaException
-	 * @throws Exception
-	 */
-	private Refeicao buscaRefeicao(String nome) throws LogicaException {
-		for (Refeicao refeicao : refeicoes) {
-			if (refeicao.getNome().equalsIgnoreCase(nome))
-				return refeicao;
-		}
-		throw new ConsultaException("Refeicao nao encontrado");
-	}
-
-	/**
-	 * Metodo responsavel por remover uma refeicao do set de refeicoes
-	 * 
-	 * @param nome
-	 *            Nome da refeicao
-	 * @return True se a remocao foi bem sucedida
-	 * @throws ValoresException
-	 * @throws LogicaException
-	 * @throws Exception
-	 */
-	private boolean removeRefeicao(String nome) throws ValoresException, LogicaException {
-		if (nome == null || nome.trim().isEmpty())
-			throw new StringException("O nome da refeicao nao pode ser nulo ou vazio.");
-
-		if (!contemRefeicao(nome))
-			throw new ConsultaException("Nenhuma refeicao com esse nome foi encontrada.");
-
-		return (refeicoes.remove(buscaRefeicao(nome)));
-	}
-
+	/* Operacoes */
+	
 	/**
 	 * Esse metodo consulta informacoes de um prato ou refeicao do restaurante.
 	 * A informacao que sera retornada eh definida atraves do parametro
