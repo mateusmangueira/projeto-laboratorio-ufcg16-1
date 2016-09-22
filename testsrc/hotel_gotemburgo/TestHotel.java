@@ -24,22 +24,22 @@ public class TestHotel {
 	private Quarto quarto_2;
 	private Quarto quarto_3;
 
-	@Before
-	public void test() throws HotelException {
-		hotel = new HotelController();
-
-		// Criando clientes.
-		cliente_1 = hotel.criaHospede("Lo Porco Voador", "resenhas_del_porco@lol.com", "13/10/2013");
-		cliente_2 = hotel.criaHospede("Insano Bubassalto", "altos_assalto@hotmail.com", "13/10/2013");
-		cliente_3 = hotel.criaHospede("Wisla Canibal", "toda_calibalesca@bol.com", "31/01/1970");
-		cliente_4 = hotel.criaHospede("Amigao Calinfon", "amigao98@yahoo.com.br", "12/02/1998");
-
-		// Criando hospedes.
-		quarto_1 = hotel.criaQuartos("100D", TipoDeQuarto.SIMPLES);
-		quarto_2 = hotel.criaQuartos("607B", TipoDeQuarto.LUXO);
-		quarto_3 = hotel.criaQuartos("1001A", TipoDeQuarto.PRESIDENCIAL);
-
-	}
+//	@Before
+//	public void test() throws HotelException {
+//		hotel = new HotelController();
+//
+//		// Criando clientes.
+//		cliente_1 = hotel.criaHospede("Lo Porco Voador", "resenhas_del_porco@lol.com", "13/10/2013");
+//		cliente_2 = hotel.criaHospede("Insano Bubassalto", "altos_assalto@hotmail.com", "13/10/2013");
+//		cliente_3 = hotel.criaHospede("Wisla Canibal", "toda_calibalesca@bol.com", "31/01/1970");
+//		cliente_4 = hotel.criaHospede("Amigao Calinfon", "amigao98@yahoo.com.br", "12/02/1998");
+//
+//		// Criando hospedes.
+//		quarto_1 = hotel.criaQuartos("100D", TipoDeQuarto.SIMPLES);
+//		quarto_2 = hotel.criaQuartos("607B", TipoDeQuarto.LUXO);
+//		quarto_3 = hotel.criaQuartos("1001A", TipoDeQuarto.PRESIDENCIAL);
+//
+//	}
 
 	@Test
 	public void testGetNome() {
@@ -94,21 +94,21 @@ public class TestHotel {
 	
 	
 	
-	@Test
-	public void testBuscaHospede() throws HotelException {
-
-		this.testCadastraHospede();
-
-		Assert.assertEquals("Jubileu Maxista: jubileu_max@outlook.com (25/06/1969).",
-				hotel.buscaHospede("jubileu_max@outlook.com").toString());
-		Assert.assertEquals("Antonio Natan Dias: antonio_natan@live.com (06/09/1987).",
-				hotel.buscaHospede("antonio_natan@live.com").toString());
-		Assert.assertNotEquals("Jubileu Maxista: jubileu_max@outlook.com (25/06/1969)",
-				hotel.buscaHospede("jubileu_max@outlook.com").toString());
-		Assert.assertNotEquals("Meio Besta: o_incorruptivel@lol.com (03/33/2019)",
-				hotel.buscaHospede("jubileu_max@outlook.com").toString());
-
-	}
+//	@Test
+//	public void testBuscaHospede() throws HotelException {
+//
+//		this.testCadastraHospede();
+//
+//		Assert.assertEquals("Jubileu Maxista: jubileu_max@outlook.com (25/06/1969).",
+//				hotel.buscaHospede("jubileu_max@outlook.com").toString());
+//		Assert.assertEquals("Antonio Natan Dias: antonio_natan@live.com (06/09/1987).",
+//				hotel.buscaHospede("antonio_natan@live.com").toString());
+//		Assert.assertNotEquals("Jubileu Maxista: jubileu_max@outlook.com (25/06/1969)",
+//				hotel.buscaHospede("jubileu_max@outlook.com").toString());
+//		Assert.assertNotEquals("Meio Besta: o_incorruptivel@lol.com (03/33/2019)",
+//				hotel.buscaHospede("jubileu_max@outlook.com").toString());
+//
+//	}
 
 	/*
 	 * public void testAtualizaCadastro() throws HotelException {

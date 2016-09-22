@@ -79,4 +79,36 @@ public class Quarto {
 		this.tipoQuarto = tipoQuarto;
 	}
 
+	/**
+	 * Dois quartos sao iguais caso possuam o mesmo ID.
+	 */
+	@Override
+	public boolean equals(Object anotherObject) {
+		if (anotherObject == null)
+			return false;
+		if (anotherObject.getClass() != this.getClass())
+			return false;
+		Quarto outro = (Quarto) anotherObject;
+		return (this.id.equals(outro.getId()));
+	}
+	
+	/**
+	 * Codigo hash de uma estadia.
+	 */
+	@Override
+	public int hashCode() {
+		final int PRIME = 7;
+		int result = 1;
+		return PRIME * result + (this.id == null ? 0 : this.id.hashCode());
+	}
+	
+	/**
+	 * Representacao em String de um quarto conta com o seu ID e tipo.
+	 */
+	@Override
+	public String toString() {
+		return String.format("ID do quarto: %s. Tipo de quarto: %s.",
+				this.id, this.tipoQuarto);
+	}
+	
 }

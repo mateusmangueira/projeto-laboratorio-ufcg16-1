@@ -217,10 +217,6 @@ public class Hospede {
 		return 0.0;
 	}
 
-	/*
-	 * ToString que fiz apenas para os testes JUnit. Se quiserem, podemos mudar
-	 * sua forma: <Nome_hospede>: <email_hospede> (data_nascimento).
-	 */
 	/**
 	 * Representacao em String de um Hospede
 	 */

@@ -98,7 +98,37 @@ public class Estadia {
 		return this.getDias() * this.getQuarto().getTipoQuarto().getValor();
 	}
 	
+	/**
+	 * Duas estadias sao iguais se possuirem o mesmo quarto
+	 */
+	@Override
+	public boolean equals(Object anotherObject) {
+		if (anotherObject == null)
+			return false;
+		if (anotherObject.getClass() != this.getClass())
+			return false;
+		Estadia outra = (Estadia) anotherObject;
+		return (this.quarto.equals(outra.getQuarto()));
+	}
 	
+	/**
+	 * Codigo hash de uma estadia
+	 */
+	@Override
+	public int hashCode() {
+		final int PRIME = 7;
+		int result = 1;
+		return PRIME * result + (this.quarto == null ? 0 : this.quarto.hashCode());
+	}
 	
+	/**
+	 * Representacao em String de uma Estadia conta com a representacao do seu
+	 * quarto e a quantidade de dias de hospedagem.
+	 */
+	@Override
+	public String toString() {
+		return String.format("%s Quantidade de dias de hospedagem: %d.",
+				this.quarto, this.dias);
+	}
 	
 }
