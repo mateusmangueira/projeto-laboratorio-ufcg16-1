@@ -97,7 +97,7 @@ public class HotelController {
 	 * @param data
 	 * @return boolean
 	 */
-	public boolean validaData(String data) {
+	private boolean validaData(String data) {
 		String regex = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}$";
 		return data.matches(regex);
 	}
@@ -108,7 +108,7 @@ public class HotelController {
 	 * @param email
 	 * @return boolean
 	 */
-	public boolean validaEmail(String email) {
+	private boolean validaEmail(String email) {
 		String regex = "\\b[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}\\b";
 		return email.matches(regex);
 	}
@@ -119,7 +119,7 @@ public class HotelController {
 	 * @param nome
 	 * @return boolean
 	 */
-	public boolean validaNome(String nome) {
+	private boolean validaNome(String nome) {
 		String regex = "[A-Z][a-z]+[[ ][A-Z][a-z]+]*";
 		return nome.matches(regex);
 	}
@@ -132,7 +132,7 @@ public class HotelController {
 	 * @param tipo
 	 * @return boolean
 	 */
-	public boolean validaQuarto(String quarto) {
+	private boolean validaQuarto(String quarto) {
 		String regex = "[[0-9]]*[[A-Z]]*";
 		return quarto.matches(regex);
 	}
@@ -147,7 +147,7 @@ public class HotelController {
 	 * @return O Hospede criado.
 	 * @throws StringException
 	 */
-	public Hospede criaHospede(String nome, String email, String dataNascimento) throws HotelException {
+	private Hospede criaHospede(String nome, String email, String dataNascimento) throws HotelException {
 		return new Hospede(nome, email, dataNascimento);
 	}
 
@@ -160,7 +160,7 @@ public class HotelController {
 	 * @return Um hospede, caso encontrado. Null, caso nao encontrado.
 	 * @throws EmailInvalidoException
 	 */
-	public Hospede buscaHospede(String email) throws HotelException {
+	private Hospede buscaHospede(String email) throws HotelException {
 
 		Excecoes.checaEmail(email);
 
@@ -179,7 +179,7 @@ public class HotelController {
 	 * @return True: caso exista o hospede, null: caso nao exista.
 	 * @throws EmailInvalidoException
 	 */
-	public boolean isCadastrado(String email) throws HotelException {
+	private boolean isCadastrado(String email) throws HotelException {
 
 		Excecoes.checaEmail(email);
 
@@ -199,7 +199,7 @@ public class HotelController {
 	 * @return Boolean
 	 * @throws Exception
 	 */
-	public boolean isHospedado(String email) throws HotelException {
+	private boolean isHospedado(String email) throws HotelException {
 		if (!isCadastrado(email))
 			throw new CadastroException("Este hospede nao estah cadastrado.");
 
@@ -406,7 +406,7 @@ public class HotelController {
 	 * @return O Quarto que foi criado
 	 * @throws StringException
 	 */
-	public Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws StringException {
+	private Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws StringException {
 		return new Quarto(idQuarto, tipoQuarto);
 		// Futuramente pode ser preciso adicionar esse quarto em um set de
 		// quartos do Hotel
@@ -421,7 +421,7 @@ public class HotelController {
 	 *            tiposQuartos)
 	 * @return Constante do Enum TipoDeQuarto
 	 */
-	public TipoDeQuarto getTipo(String tipoQuarto) {
+	private TipoDeQuarto getTipo(String tipoQuarto) {
 		return tiposQuartos.get(tipoQuarto.toUpperCase());
 	}
 
@@ -430,7 +430,7 @@ public class HotelController {
 	 * que representa um Enum de TipoDeQuarto, a uma constante desse Enum. Ex:
 	 * key- "SIMPLES" value- TipoDeQuarto.SIMPLES
 	 */
-	public void initializaMapa() {
+	private void initializaMapa() {
 
 		this.tiposQuartos = new HashMap<String, TipoDeQuarto>();
 		tiposQuartos.put("SIMPLES", TipoDeQuarto.SIMPLES);
@@ -447,7 +447,7 @@ public class HotelController {
 	 *            String representando o tipo de quarto
 	 * @return boolean
 	 */
-	public boolean verificaTipoQuarto(String tipo) {
+	private boolean verificaTipoQuarto(String tipo) {
 		return this.getTiposQuartos().containsKey(tipo);
 	}
 
@@ -459,7 +459,7 @@ public class HotelController {
 	 *            ID do quarto a ser verificado
 	 * @return boolean
 	 */
-	public boolean verificaOcupacao(String id) {
+	private boolean verificaOcupacao(String id) {
 		for (Quarto quartosOcupados : this.getQuartosOcupados()) {
 			if (quartosOcupados.getId().equals(id)) {
 				return true;
@@ -468,7 +468,7 @@ public class HotelController {
 		return false;
 	}
 
-	public Quarto buscaQuartoOcupado(String idQuarto) throws Exception {
+	private Quarto buscaQuartoOcupado(String idQuarto) throws Exception {
 		for (Quarto quarto : this.quartosOcupados) {
 			if (quarto.getId().equals(idQuarto))
 				return quarto;
@@ -567,7 +567,7 @@ public class HotelController {
 		return String.format("R$%.2f", gastosEstadia);
 	}
 
-	public double getValorTotal() {
+	private double getValorTotal() {
 		double valorTotal = 0.0;
 
 		for (Transacao transacao : transacoes) {

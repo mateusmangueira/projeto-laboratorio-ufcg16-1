@@ -67,7 +67,7 @@ public class RestauranteController {
 	 *            Nome do prato a ser procurado
 	 * @return True se o prato foi encontrado
 	 */
-	public boolean contemPrato(String nome) {
+	private boolean contemPrato(String nome) {
 		for (Prato prato : this.pratos) {
 			if (prato.getNome().equalsIgnoreCase(nome))
 				return true;
@@ -85,7 +85,7 @@ public class RestauranteController {
 	 * @throws LogicaException
 	 * @throws Exception
 	 */
-	public Prato buscaPrato(String nome) throws LogicaException {
+	private Prato buscaPrato(String nome) throws LogicaException {
 		for (Prato prato : this.pratos) {
 			if (prato.getNome().equalsIgnoreCase(nome))
 				return prato;
@@ -105,7 +105,7 @@ public class RestauranteController {
 	 * @throws StringException
 	 * @throws Exception
 	 */
-	public boolean removePrato(String nome) throws LogicaException, StringException {
+	private boolean removePrato(String nome) throws LogicaException, StringException {
 		if (nome == null || nome.trim().isEmpty())
 			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
 
@@ -126,7 +126,7 @@ public class RestauranteController {
 	 * @param descricao
 	 * @throws Exception
 	 */
-	public void atualizaPrato(String nome, double preco, String descricao) throws Exception {
+	private void atualizaPrato(String nome, double preco, String descricao) throws Exception {
 		if (nome == null || nome.trim().isEmpty())
 			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
 		if (descricao == null || descricao.trim().isEmpty())
@@ -191,7 +191,7 @@ public class RestauranteController {
 	 *            Nome da refeicao a ser procurada
 	 * @return True se a refeicao foi encontrada
 	 */
-	public boolean contemRefeicao(String nome) {
+	private boolean contemRefeicao(String nome) {
 		for (Refeicao refeicao : this.refeicoes) {
 			if (refeicao.getNome().equalsIgnoreCase(nome))
 				return true;
@@ -209,7 +209,7 @@ public class RestauranteController {
 	 * @throws LogicaException
 	 * @throws Exception
 	 */
-	public Refeicao buscaRefeicao(String nome) throws LogicaException {
+	private Refeicao buscaRefeicao(String nome) throws LogicaException {
 		for (Refeicao refeicao : refeicoes) {
 			if (refeicao.getNome().equalsIgnoreCase(nome))
 				return refeicao;
@@ -227,7 +227,7 @@ public class RestauranteController {
 	 * @throws LogicaException
 	 * @throws Exception
 	 */
-	public boolean removeRefeicao(String nome) throws ValoresException, LogicaException {
+	private boolean removeRefeicao(String nome) throws ValoresException, LogicaException {
 		if (nome == null || nome.trim().isEmpty())
 			throw new StringException("O nome da refeicao nao pode ser nulo ou vazio.");
 
