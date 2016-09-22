@@ -42,10 +42,11 @@ public class RestauranteController {
 	 * @param nome
 	 * @param preco
 	 * @param descricao
-	 * @return True se a operacao foi bem sucedida
+	 * @return true se a operacao foi bem sucedida
 	 * @throws Exception
 	 */
 	public boolean cadastraPrato(String nome, double preco, String descricao) throws Exception {
+		
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new Exception("Erro no cadastro do prato. Nome do prato esta vazio.");
 		}
@@ -60,11 +61,10 @@ public class RestauranteController {
 	}
 
 	/**
-	 * Varre o Set de pratos procurando um prato com um nome espec�fico�
+	 * Varre o Set de pratos procurando um prato com um nome especifico.
 	 * Caso encontrado, retorna true.
 	 * 
-	 * @param nome
-	 *            Nome do prato a ser procurado
+	 * @param nome Nome do prato a ser procurado
 	 * @return True se o prato foi encontrado
 	 */
 	private boolean contemPrato(String nome) {
@@ -76,22 +76,21 @@ public class RestauranteController {
 	}
 
 	/**
-	 * Varre o Set de pratos procurando um prato com um nome espec�fico. Caso
+	 * Varre o Set de pratos procurando um prato com um nome especifico. Caso
 	 * encontrado, retorna a referencia ao objeto.
 	 * 
-	 * @param nome
-	 *            Nome do prato a ser buscado
+	 * @param nome Nome do prato a ser buscado
 	 * @return A referencia ao objeto Prato buscado
 	 * @throws LogicaException
 	 * @throws Exception
 	 */
 	private Prato buscaPrato(String nome) throws LogicaException {
+		
 		for (Prato prato : this.pratos) {
 			if (prato.getNome().equalsIgnoreCase(nome))
 				return prato;
 		}
-		throw new ConsultaException("Prato nao encontrado."); // Substituir por
-																// ElementoNaoEncontradoException
+		throw new ConsultaException("Prato nao encontrado."); 
 	}
 
 	/* Refeicoes */
@@ -109,6 +108,7 @@ public class RestauranteController {
 	 * @throws Exception
 	 */
 	public void cadastraRefeicao(String nome, String descricao, String componentes) throws Exception {
+		
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new Exception("Erro no cadastro de refeicao. Nome da refeicao esta vazio.");
 		}
@@ -127,11 +127,12 @@ public class RestauranteController {
 			throw new Exception("Erro no cadastro de refeicao completa. Uma refeicao completa deve possuir "
 					+ "no minimo 3 e no maximo 4 pratos.");
 
-		for (int i = 0; i < nomeDosPratos.length; i++) {
-			if (!this.contemPrato(nomeDosPratos[i])) {
+		for (int i = 0; i < nomeDosPratos.length; i++) 
+		{
+			if (!this.contemPrato(nomeDosPratos[i]))
 				throw new Exception("Erro no cadastro de refeicao. So eh possivel cadastrar refeicoes "
 						+ "com pratos ja cadastrados.");
-			}
+			
 			Prato prato = this.buscaPrato(nomeDosPratos[i]);
 			pratos.add(prato);
 		}
@@ -146,43 +147,39 @@ public class RestauranteController {
 	 * A informacao que sera retornada eh definida atraves do parametro
 	 * "atributo".
 	 * 
-	 * @param nome
-	 *            Nome do prato ou refeicao
-	 * @param atributo
-	 *            Qual informacao que se deseja obter
+	 * @param nome Nome do prato ou refeicao
+	 * @param atributo Qual informacao que se deseja obter
 	 * @return A informacao desejada
 	 * @throws Exception
 	 */
 	public String consultaRestaurante(String nome, String atributo) throws Exception {
+		
 		if (nome == null || nome.trim().isEmpty())
 			throw new ConsultaException("Erro na consulta do restaurante. Nome do prato esto vazio.");
 
 		if (atributo == null || atributo.trim().isEmpty())
 			throw new ConsultaException("Erro na consulta do restaurante. Atributo do prato esta vazio.");
 
-		switch (atributo.toUpperCase()) {
+		switch (atributo.toUpperCase()) 
+		{
 		case "PRECO":
 			for (Prato prato : pratos) {
-				if (prato.getNome().equalsIgnoreCase(nome)) {
+				if (prato.getNome().equalsIgnoreCase(nome))
 					return String.format("R$%.2f", prato.getPreco());
-				}
 			}
 			for (Refeicao refeicao : refeicoes) {
-				if (refeicao.getNome().equalsIgnoreCase(nome)) {
+				if (refeicao.getNome().equalsIgnoreCase(nome))
 					return String.format("R$%.2f", refeicao.getValor());
-				}
 			}
 
 		case "DESCRICAO":
 			for (Prato prato : pratos) {
-				if (prato.getNome().equalsIgnoreCase(nome)) {
+				if (prato.getNome().equalsIgnoreCase(nome))
 					return prato.getDescricao();
-				}
 			}
 			for (Refeicao refeicao : refeicoes) {
-				if (refeicao.getNome().equalsIgnoreCase(nome)) {
+				if (refeicao.getNome().equalsIgnoreCase(nome))
 					return refeicao.getDescricao();
-				}
 			}
 		default:
 			throw new Exception("Erro na consulta ao restaurante: opcao invalida");
