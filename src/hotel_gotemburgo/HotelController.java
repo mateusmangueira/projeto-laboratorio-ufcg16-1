@@ -11,10 +11,18 @@ import hotel_gotemburgo.hospedagem.*;
 import hotel_gotemburgo.quartos.*;
 
 /**
- * O Hotel representa uma entidade de gerenciamento. Ele contem um set de
- * Hospedes, utilizado para armazenamento desses hospedes no sistema. Metodos
- * sao utilizados para operar sobre esse set e realizar operacoes, como busca,
- * consulta e remocoes.
+ * O HotelController representa uma entidade de gerenciamento, responsavel por 
+ * administrar as operacoes do sistema relacionadas aos quartos e a hospedagem.
+ * 
+ * Contem um set de Hospedes, utilizado para armazenamento desses hospedes 
+ * no sistema. Metodos sao utilizados para operar sobre esse set e realizar operacoes, 
+ * como busca, consulta e remocoes.
+ * Um HashMap eh iniciado para associar os tipos de quarto do hotel
+ * a uma chave em string com o seu nome. 
+ * Ha tambem um Set de quartos ocupados, que registra quais quartos estao ocupados 
+ * no momento. 
+ * O array de Transacoes armazena referencias do tipo Transacao para registrar
+ * os checkouts do Hotel.
  * 
  * @since 12 de Setembro de 2016
  * 
@@ -34,8 +42,10 @@ public class HotelController {
 	private ArrayList<Transacao> transacoes;
 
 	/**
-	 * O construtor do HotelController inicia o Set de hospedes, de quartos,
-	 * define o ano atual e também qual a idade que se atinge a maioridade.
+	 * O construtor do HotelController inicia o Set de hospedes, de quartos
+	 * e de transacoes. Chama o metodo inicializaTiposDeQuarto para atribuir
+	 * uma String a um tipo de quarto.
+	 * Define o ano atual e também qual a idade que se atinge a maioridade.
 	 */
 	public HotelController() {
 
@@ -43,51 +53,10 @@ public class HotelController {
 		this.quartosOcupados = new HashSet<Quarto>();
 		this.transacoes = new ArrayList<Transacao>();
 
+		this.inicializaTiposDeQuarto();
+
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
-		this.initializaMapa();
-	}
-
-	/**
-	 * Retorna o set de hospedes do hotel
-	 * 
-	 * @return set de hospedes do hotel
-	 */
-	public Set<Hospede> getHospedes() {
-		return hospedes;
-	}
-
-	/**
-	 * get do Set de quartos
-	 * 
-	 * @return quartos Ocupados
-	 */
-	public Set<Quarto> getQuartosOcupados() {
-		return quartosOcupados;
-	}
-
-	/**
-	 * get Mapa dos tipos de Quarto
-	 * 
-	 * @return tipos de quartos
-	 */
-
-	public HashMap<String, TipoDeQuarto> getTiposQuartos() {
-		return tiposQuartos;
-	}
-
-	/**
-	 * set do mapa de tipos de quarto, verificar se esse tipo eh nulo, se for
-	 * retorna uma exception
-	 * 
-	 * @param tiposQuartos
-	 * @throws ValoresException
-	 */
-	public void setTiposQuartos(HashMap<String, TipoDeQuarto> tiposQuartos) throws ValoresException {
-		if (tiposQuartos == null) {
-			throw new ValorException("O mapa nao pode ser nulo.");
-		}
-		this.tiposQuartos = tiposQuartos;
 	}
 
 	/**
@@ -144,7 +113,7 @@ public class HotelController {
 	 * @param email
 	 * @param anoNascimento
 	 * @return O Hospede criado.
-	 * @throws StringException
+	 * @throws HotelException
 	 */
 	private Hospede criaHospede(String nome, String email, String dataNascimento) throws HotelException {
 		return new Hospede(nome, email, dataNascimento);
@@ -157,13 +126,13 @@ public class HotelController {
 	 * 
 	 * @param email
 	 * @return Um hospede, caso encontrado. Null, caso nao encontrado.
-	 * @throws EmailInvalidoException
+	 * @throws HotelException
 	 */
 	private Hospede buscaHospede(String email) throws HotelException {
 
 		Excecoes.checaEmail(email);
 
-		for (Hospede hospede : this.getHospedes()) {
+		for (Hospede hospede : this.hospedes) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
 		}
@@ -174,15 +143,15 @@ public class HotelController {
 	/**
 	 * Verifica se existe um hospede com determinado email no set de hospedes.
 	 * 
-	 * @param email
-	 * @return True: caso exista o hospede, null: caso nao exista.
-	 * @throws EmailInvalidoException
+	 * @param email Email do hospede a ser verificado o cadastro
+	 * @return true: caso exista o hospede/false: caso nao exista.
+	 * @throws HotelException
 	 */
 	private boolean isCadastrado(String email) throws HotelException {
 
 		Excecoes.checaEmail(email);
 
-		for (Hospede hospede : this.getHospedes()) {
+		for (Hospede hospede : this.hospedes) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return true;
 		}
@@ -193,10 +162,9 @@ public class HotelController {
 	 * Verifica se um hospede esta hospedado no hotel, pela quantidade de
 	 * estadias que ele possui (0 = nao esta hospedado)
 	 * 
-	 * @param email
-	 *            Email do hospede
-	 * @return Boolean
-	 * @throws Exception
+	 * @param email Email do hospede
+	 * @return boolean
+	 * @throws HotelException
 	 */
 	private boolean isHospedado(String email) throws HotelException {
 		if (!isCadastrado(email))
@@ -219,8 +187,7 @@ public class HotelController {
 	 * @param email
 	 * @param ano
 	 * @return O email do hospede recem-cadastrado
-	 * @throws Exception
-	 * @throws StringException
+	 * @throws HotelException
 	 */
 	public String cadastraHospede(String nome, String email, String dataNascimento) throws HotelException {
 
@@ -247,7 +214,7 @@ public class HotelController {
 		}
 
 		Hospede hospede = this.criaHospede(nome, email, dataNascimento);
-		this.getHospedes().add(hospede);
+		this.hospedes.add(hospede);
 		return email;
 	}
 
@@ -256,14 +223,14 @@ public class HotelController {
 	 * hospedes), ele eh removido.
 	 * 
 	 * @param email
-	 * @throws StringException
+	 * @throws HotelException
 	 */
 	public void removeHospede(String email) throws HotelException {
 		if (!this.validaEmail(email)) {
 			throw new HotelException("Erro na remocao do Hospede. Formato de email invalido.");
 		}
 		Hospede hospede = this.buscaHospede(email);
-		this.getHospedes().remove(hospede);
+		this.hospedes.remove(hospede);
 	}
 
 	/**
@@ -273,8 +240,7 @@ public class HotelController {
 	 * @param email
 	 * @param atributo
 	 * @return A informacao requisitada
-	 * @throws EmailInvalidoException
-	 * @throws AtributoInvalidoException
+	 * @throws HotelException
 	 */
 	public String getInfoHospede(String email, String atributo) throws HotelException {
 
@@ -302,10 +268,8 @@ public class HotelController {
 	 * estadias do hospede; "Quarto" - retorna uma string com o id dos quartos
 	 * de suas estadias; "Total" - retorna os gastos com estadia do hospede
 	 * 
-	 * @param email
-	 *            Email do hospede
-	 * @param atributo
-	 *            Hospedagem ativa, Quarto ou Total
+	 * @param email Email do hospede
+	 * @param atributo Hospedagem ativa, Quarto ou Total
 	 * @return A informacao desejada
 	 * @throws HotelException
 	 */
@@ -326,7 +290,8 @@ public class HotelController {
 			throw new ConsultaException(String
 					.format("Erro na consulta de hospedagem. Hospede %s nao esta hospedado(a).", hospede.getNome()));
 
-		switch (atributo) {
+		switch (atributo) 
+		{
 		case HOSPEDAGEM_ATIVA:
 			return String.format("%d", hospede.getQtdEstadias());
 		case QUARTO:
@@ -343,10 +308,8 @@ public class HotelController {
 	 * informacao (valor) recebido na entrada.
 	 * 
 	 * @param email
-	 * @param atributo
-	 *            Uma string representando qual atributo deseja-se alterar
-	 * @param valor
-	 *            A nova informacao
+	 * @param atributo Uma string representando qual atributo deseja-se alterar
+	 * @param valor A nova informacao
 	 * @throws HotelException
 	 */
 	public void atualizaCadastro(String email, String atributo, String valor) throws HotelException {
@@ -397,11 +360,9 @@ public class HotelController {
 	 * Metodo responsavel por criar um objeto quarto e adiciona-lo no set de
 	 * quartos do hotel. O quarto criado eh retornado.
 	 * 
-	 * @param idQuarto
-	 *            ID (uma string unica representando o quarto)
-	 * @param tipoQuarto
-	 *            (O tipo do quarto, podendo ser "Simples", "Luxo" ou
-	 *            "Presidencial".
+	 * @param idQuarto ID (uma string unica representando o quarto)
+	 * @param tipoQuarto (O tipo do quarto, podendo ser "Simples", "Luxo" 
+	 * ou "Presidencial".
 	 * @return O Quarto que foi criado
 	 * @throws StringException
 	 */
@@ -412,24 +373,11 @@ public class HotelController {
 	}
 
 	/**
-	 * Consultar o mapa de tipos e retornar o valor (constante do Enum)
-	 * correspondente a string tipoQuarto.
-	 * 
-	 * @param tipoQuarto
-	 *            String representando o tipo do quarto (chave do mapa
-	 *            tiposQuartos)
-	 * @return Constante do Enum TipoDeQuarto
-	 */
-	private TipoDeQuarto getTipo(String tipoQuarto) {
-		return tiposQuartos.get(tipoQuarto.toUpperCase());
-	}
-
-	/**
 	 * Metodo utilizado no construtor para iniciar o mapa que associa uma String
-	 * que representa um Enum de TipoDeQuarto, a uma constante desse Enum. Ex:
-	 * key- "SIMPLES" value- TipoDeQuarto.SIMPLES
+	 * que representa um Enum de TipoDeQuarto, a uma constante desse Enum. 
+	 * Ex: key- "SIMPLES" value- TipoDeQuarto.SIMPLES
 	 */
-	private void initializaMapa() {
+	private void inicializaTiposDeQuarto() {
 
 		this.tiposQuartos = new HashMap<String, TipoDeQuarto>();
 		tiposQuartos.put("SIMPLES", TipoDeQuarto.SIMPLES);
@@ -437,29 +385,39 @@ public class HotelController {
 		tiposQuartos.put("PRESIDENCIAL", TipoDeQuarto.PRESIDENCIAL);
 
 	}
+	
+	/**
+	 * Consulta o mapa de tipos e retorna o valor (constante do Enum)
+	 * correspondente a string tipoQuarto.
+	 * 
+	 * @param tipoQuarto String representando o tipo do quarto (chave do 
+	 * mapa tiposQuartos)
+	 * @return Constante do Enum TipoDeQuarto
+	 */
+	private TipoDeQuarto getTipo(String tipoQuarto) {
+		return tiposQuartos.get(tipoQuarto.toUpperCase());
+	}
 
 	/**
 	 * Metodo utilizado para garantir que uma string que supostamente representa
 	 * um Tipo de Quarto esta de acordo com o esperado.
 	 * 
-	 * @param tipo
-	 *            String representando o tipo de quarto
+	 * @param tipo String representando o tipo de quarto
 	 * @return boolean
 	 */
 	private boolean verificaTipoQuarto(String tipo) {
-		return this.getTiposQuartos().containsKey(tipo);
+		return this.tiposQuartos.containsKey(tipo);
 	}
 
 	/**
 	 * Metodo utilizado para verificar se um determinado quarto - que sera
 	 * buscado atraves do ID - esta ou nao ocupado.
 	 * 
-	 * @param id
-	 *            ID do quarto a ser verificado
+	 * @param id ID do quarto a ser verificado
 	 * @return boolean
 	 */
 	private boolean verificaOcupacao(String id) {
-		for (Quarto quartosOcupados : this.getQuartosOcupados()) {
+		for (Quarto quartosOcupados : this.quartosOcupados) {
 			if (quartosOcupados.getId().equals(id)) {
 				return true;
 			}
@@ -467,12 +425,21 @@ public class HotelController {
 		return false;
 	}
 
-	private Quarto buscaQuartoOcupado(String idQuarto) throws Exception {
+	/**
+	 * Metodo responsavel por buscar atraves do ide retornar, caso exista, 
+	 * um quarto do hotel que ja esteja ocupado.
+	 * 
+	 * @param idQuarto
+	 * @return um quarto ocupado
+	 * @throws Exception
+	 */
+	private Quarto buscaQuartoOcupado(String idQuarto) throws HotelException {
+		
 		for (Quarto quarto : this.quartosOcupados) {
 			if (quarto.getId().equals(idQuarto))
 				return quarto;
 		}
-		throw new Exception("Quarto nao encontrado");
+		throw new ConsultaException("Quarto nao encontrado");
 	}
 
 	/**
@@ -483,14 +450,10 @@ public class HotelController {
 	 * atributos recebidos como parametro) e uma quantidade de dias (tambem
 	 * recebida como parametro).
 	 * 
-	 * @param email
-	 *            Email do hospede
-	 * @param qntDias
-	 *            Quantidade de dias hospedado na estadia
-	 * @param idQuarto
-	 *            ID do quarto da estadia
-	 * @param tipoQuarto
-	 *            Tipo do quarto da estadia
+	 * @param email Email do hospede
+	 * @param qntDias Quantidade de dias hospedado na estadia
+	 * @param idQuarto ID do quarto da estadia
+	 * @param tipoQuarto Tipo do quarto da estadia
 	 * @throws HotelException
 	 */
 	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelException {
@@ -524,24 +487,37 @@ public class HotelController {
 		Quarto quarto = this.criaQuartos(idQuarto, tipo);
 		Estadia estadia = new Estadia(quarto, qntDias);
 		hospede.addEstadia(estadia);
-		this.getQuartosOcupados().add(quarto);
+		this.quartosOcupados.add(quarto);
 		return email;
+	}
+	
+	/**
+	 * Calcula o valor da soma de todas as transacoes realizadas no hotel.
+	 * @return valor da soma das transacoes do hotel,
+	 */
+	private double getValorTotalTransacoes() {
+		
+		double valorTotal = 0.0;
+		
+		for (Transacao transacao : transacoes) {
+			valorTotal += transacao.getValor();
+		}
+		return valorTotal;
 	}
 
 	/**
 	 * Metodo responsavel por realizar o checkout de um hospede no hotel,
-	 * registrando a sua saida, removendo a estadia no quarto do qual ele esta
-	 * saindo e adicionando esse hospede no array de checkouts. Tambem eh
-	 * calculado e retornado o valor total gasto por esse hospede no Hotel.
+	 * removendo a estadia no quarto do qual ele esta saindo, retirando esse quarto 
+	 * do set de quartos ocupados. Eh criada uma Transacao para registrar essa operacao
+	 * e em seguida essa transacao eh registrada no array de transacoes.
+	 * Tambem eh calculado e retornado o valor total gasto por esse hospede no Hotel.
 	 * 
-	 * @param email
-	 *            Email do hospede
-	 * @param idQuarto
-	 *            ID do quarto de onde o hospede esta saindo
+	 * @param email Email do hospede
+	 * @param idQuarto ID do quarto de onde o hospede esta saindo
 	 * @return O valor total gasto por esse hospede no Hotel
-	 * @throws Exception
+	 * @throws HotelException
 	 */
-	public String realizaCheckout(String email, String idQuarto) throws Exception {
+	public String realizaCheckout(String email, String idQuarto) throws HotelException {
 		if (email == null || email.trim().isEmpty()) {
 			throw new CadastroException("Erro ao realizar checkout. Email do(a) hospede nao pode ser vazio.");
 		}
@@ -561,36 +537,27 @@ public class HotelController {
 		this.transacoes.add(transacao);
 		hospedeDeSaida.removeEstadia(idQuarto);
 		Quarto quarto = buscaQuartoOcupado(idQuarto);
-		this.getQuartosOcupados().remove(quarto);
+		this.quartosOcupados.remove(quarto);
 
 		return String.format("R$%.2f", gastosEstadia);
-	}
-
-	private double getValorTotal() {
-		double valorTotal = 0.0;
-
-		for (Transacao transacao : transacoes) {
-			valorTotal += transacao.getValor();
-		}
-
-		return valorTotal;
 	}
 
 	/**
 	 * Consulta o array de hospedes que realizaram checkout e retorna uma
 	 * informacao, referente ao atributo recebido.
 	 * 
-	 * @param atributo
-	 *            Representa a informacao desejada
+	 * @param atributo Representa a informacao desejada
 	 * @return A informacao desejada
 	 * @throws HotelException
 	 */
 	public String consultaTransacoes(String atributo) throws HotelException {
-		switch (atributo.toUpperCase()) {
+		
+		switch (atributo.toUpperCase()) 
+		{
 		case "QUANTIDADE":
 			return String.format("%d", this.transacoes.size());
 		case "TOTAL":
-			return String.format("R$%.2f", this.getValorTotal());
+			return String.format("R$%.2f", this.getValorTotalTransacoes());
 		case "NOME":
 			String nomes = "";
 			for (Transacao hospede : this.transacoes) {
@@ -604,18 +571,23 @@ public class HotelController {
 	}
 
 	/**
+	 * Sobrecarga de metodo, que agora recebe um indice referente a posicao
+	 * de um Hospede especifico no array de transacoes. As informacoes
+	 * solicitadas sao agora "nome" e "total", e se referem apenas ao hospede
+	 * em questao.
 	 * 
-	 * @param atributo
-	 * @param indice
-	 * @return
-	 * @throws ConsultaException
-	 * @throws ValidacaoException
+	 * @param atributo Representa a informacao desejada
+	 * @param indice Posicao do hospede no array de transacoes
+	 * @return A informacao solicitada
+	 * @throws HotelException
 	 */
 	public String consultaTransacoes(String atributo, int indice) throws HotelException {
-		if (indice < 0) {
+		
+		if (indice < 0)
 			throw new ValidacaoException("Erro na consulta de transacoes. Indice invalido.");
-		}
-		switch (atributo.toUpperCase()) {
+			
+		switch (atributo.toUpperCase()) 
+		{
 		case "TOTAL":
 			return String.format("R$%.2f", this.transacoes.get(indice).getValor());
 		case "NOME":
@@ -626,6 +598,10 @@ public class HotelController {
 		}
 	}
 
+	/**
+	 * Para controle dos testes de aceitacao.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
 				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
@@ -633,4 +609,6 @@ public class HotelController {
 				"diretorio_testes/testes_uc3_exception.txt", };
 		EasyAccept.main(args);
 	}
+	
+	
 }
