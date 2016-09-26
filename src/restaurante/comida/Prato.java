@@ -6,13 +6,14 @@ import verificacao.excecoes.ValoresException;
 
 /**
  * Define um objeto do tipo Prato, que possui um nome, um preco e uma descricao.
+ * 
  * @since 18 de Setembro de 2016
  */
-public class Prato {
-	
+public class Prato implements Comparable<Prato> {
+
 	private String nome, descricao;
 	private double preco;
-	
+
 	/**
 	 * O Construtor recebe o nome do prato, preco e sua descricao.
 	 * 
@@ -22,14 +23,14 @@ public class Prato {
 	 * @throws ValoresException
 	 */
 	public Prato(String nome, double preco, String descricao) throws ValoresException {
-		
+
 		if (nome == null || nome.trim().isEmpty())
 			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
 		if (descricao == null || descricao.trim().isEmpty())
 			throw new StringException("A descricao do prato nao pode ser vazia ou nula.");
 		if (preco < 0)
 			throw new ValorException("O preco do prato nao pode ser negativo.");
-		
+
 		this.nome = nome;
 		this.preco = preco;
 		this.descricao = descricao;
@@ -37,6 +38,7 @@ public class Prato {
 
 	/**
 	 * Retorna o atributo nome do prato
+	 * 
 	 * @return nome
 	 */
 	public String getNome() {
@@ -45,6 +47,7 @@ public class Prato {
 
 	/**
 	 * Altera o atributo nome do prato, realizando verificacao
+	 * 
 	 * @param nome
 	 * @throws ValoresException
 	 */
@@ -57,6 +60,7 @@ public class Prato {
 
 	/**
 	 * Retorna a descricao do prato
+	 * 
 	 * @return descricao
 	 */
 	public String getDescricao() {
@@ -65,6 +69,7 @@ public class Prato {
 
 	/**
 	 * Altera o atributo descricao do prato, realizando verificacao
+	 * 
 	 * @param descricao
 	 * @throws ValoresException
 	 */
@@ -77,6 +82,7 @@ public class Prato {
 
 	/**
 	 * Retorna o preco do prato
+	 * 
 	 * @return preco
 	 */
 	public double getPreco() {
@@ -85,6 +91,7 @@ public class Prato {
 
 	/**
 	 * Altera o atributo preco do prato, realizando verificacao
+	 * 
 	 * @param preco
 	 * @throws ValoresException
 	 */
@@ -94,7 +101,7 @@ public class Prato {
 		}
 		this.preco = preco;
 	}
-	
+
 	/**
 	 * Representacao em String de um Prato
 	 */
@@ -107,26 +114,33 @@ public class Prato {
 	 * Dois pratos sao iguais caso possuam o mesmo nome
 	 */
 	@Override
-	public boolean equals(Object anotherObject) 
-	{
+	public boolean equals(Object anotherObject) {
 		if (anotherObject == null)
 			return false;
-		if (!anotherObject.getClass().equals( this.getClass() ) )
+		if (!anotherObject.getClass().equals(this.getClass()))
 			return false;
 		Prato outro = (Prato) anotherObject;
 		return this.getNome().equalsIgnoreCase(outro.getNome());
 	}
-	
+
 	/**
 	 * Codigo hash de um objeto do tipo Prato
 	 */
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		final int PRIME = 7;
 		int result = 1;
 		return PRIME * result + (this.nome == null ? 0 : this.nome.hashCode());
 	}
-	
-	
+
+	@Override
+	public int compareTo(Prato outroPrato) {
+		if (this.getPreco() < outroPrato.getPreco()) {
+			return -1;
+		} else if (this.getPreco() == outroPrato.getPreco()) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
 }

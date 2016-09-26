@@ -23,9 +23,9 @@ public class Refeicao {
 	private ArrayList<Prato> pratos;
 
 	/**
-	 * O Construtor recebe como parametro o nome e descricao do prato, alem
-	 * de uma lista de objetos do tipo Prato que compoe uma refeicao (3 ou 
-	 * 4 pratos).
+	 * O Construtor recebe como parametro o nome e descricao do prato, alem de
+	 * uma lista de objetos do tipo Prato que compoe uma refeicao (3 ou 4
+	 * pratos).
 	 * 
 	 * @param nome
 	 * @param descricao
@@ -39,8 +39,8 @@ public class Refeicao {
 		if (descricao == null || descricao.trim().isEmpty())
 			throw new StringException("A descricao da refeicao nao pode ser nula ou vazia.");
 		if (pratos == null || pratos.size() < 3 || pratos.size() > 4)
-			throw new ValorException("Uma refeicao deve ser composta de 3 ou 4 pratos."); 
-		
+			throw new ValorException("Uma refeicao deve ser composta de 3 ou 4 pratos.");
+
 		this.nome = nome;
 		this.descricao = descricao;
 		this.pratos = pratos;
@@ -48,6 +48,7 @@ public class Refeicao {
 
 	/**
 	 * Retorna o nome da refeicao
+	 * 
 	 * @return nome
 	 */
 	public String getNome() {
@@ -56,6 +57,7 @@ public class Refeicao {
 
 	/**
 	 * Altera o nome da refeicao
+	 * 
 	 * @param nome
 	 * @throws ValoresException
 	 */
@@ -67,10 +69,9 @@ public class Refeicao {
 	}
 
 	/**
-	 * Retorna uma string que representa a descricao da refeicao.
-	 * Alem da descricao recebida como parametro no construtor,
-	 * a String criada e retornada nesse metodo tambem adiciona
-	 * a ordem e o nome dos pratos.
+	 * Retorna uma string que representa a descricao da refeicao. Alem da
+	 * descricao recebida como parametro no construtor, a String criada e
+	 * retornada nesse metodo tambem adiciona a ordem e o nome dos pratos.
 	 * 
 	 * @return Descricao da refeicao
 	 */
@@ -84,6 +85,7 @@ public class Refeicao {
 
 	/**
 	 * Retorna a lista que contem os pratos que compoem refeicao
+	 * 
 	 * @return lista de pratos
 	 */
 	public ArrayList<Prato> getPratos() {
@@ -91,10 +93,11 @@ public class Refeicao {
 	}
 
 	/**
-	 * Altera a lista de pratos que compoe a refeicao, recebendo
-	 * outra lista como parametro
+	 * Altera a lista de pratos que compoe a refeicao, recebendo outra lista
+	 * como parametro
 	 * 
-	 * @param pratos nova lista de pratos
+	 * @param pratos
+	 *            nova lista de pratos
 	 * @throws ValoresException
 	 */
 	public void setPratos(ArrayList<Prato> pratos) throws ValoresException {
@@ -156,5 +159,4 @@ public class Refeicao {
 		return PRIME * result + (this.nome == null ? 0 : this.nome.hashCode())
 				+ (this.pratos == null ? 0 : this.pratos.hashCode());
 	}
-
 }
