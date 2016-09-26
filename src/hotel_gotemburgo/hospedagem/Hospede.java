@@ -27,6 +27,8 @@ public class Hospede {
 	private String email;
 	private String dataNascimento;
 	private ArrayList<Estadia> estadias;
+	private CartaoFidelidade cartao;
+	private int pontuacao;
 
 	/**
 	 * O construtor recebe 3 parametros, descritos abaixo, e realiza checagem de
@@ -52,6 +54,7 @@ public class Hospede {
 		this.email = emailHospede;
 		this.dataNascimento = dataNascHospede;
 		this.estadias = new ArrayList<Estadia>();
+		this.cartao = new Padrao();
 	}
 
 	/**
@@ -72,7 +75,8 @@ public class Hospede {
 	 */
 	public void setNome(String nome) throws StringException {
 		if (email == null || email.trim().isEmpty())
-			throw new StringException("Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+			throw new StringException(
+					"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 		this.nome = nome;
 	}
 
@@ -115,8 +119,17 @@ public class Hospede {
 	 */
 	public void setDataNascimento(String dataNascimento) throws ValoresException {
 		if (dataNascimento == null || dataNascimento.trim().isEmpty())
-			throw new StringException("Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
+			throw new StringException(
+					"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		this.dataNascimento = dataNascimento;
+	}
+
+	public int getPontuacao() {
+		return pontuacao;
+	}
+
+	public void setPontuacao(int pontuacao) {
+		this.pontuacao = pontuacao;
 	}
 
 	/**
@@ -202,7 +215,8 @@ public class Hospede {
 	/**
 	 * Retorna o valor de uma estadia especifica do Hospede.
 	 * 
-	 * @param valor Valor gasto pelo Hospede na operacao
+	 * @param valor
+	 *            Valor gasto pelo Hospede na operacao
 	 * @throws ValorException
 	 */
 
@@ -245,5 +259,4 @@ public class Hospede {
 		int result = 1;
 		return prime * result + ((email == null) ? 0 : email.hashCode());
 	}
-
 }

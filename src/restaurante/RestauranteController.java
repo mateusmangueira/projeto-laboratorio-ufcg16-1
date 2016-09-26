@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
-import comparador.NomeComparator;
+import comparadores.NomeComparator;
 import restaurante.comida.Prato;
 import restaurante.comida.Refeicao;
 import verificacao.excecoes.ConsultaException;
