@@ -1,5 +1,6 @@
 package restaurante.comida;
 
+import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.StringException;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
@@ -23,14 +24,11 @@ public class Prato implements Comparable<Prato> {
 	 * @throws ValoresException
 	 */
 	public Prato(String nome, double preco, String descricao) throws ValoresException {
-
-		if (nome == null || nome.trim().isEmpty())
-			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
-		if (descricao == null || descricao.trim().isEmpty())
-			throw new StringException("A descricao do prato nao pode ser vazia ou nula.");
-		if (preco < 0)
-			throw new ValorException("O preco do prato nao pode ser negativo.");
-
+		
+		Excecoes.checaString(nome, "O nome do prato nao pode ser nulo ou vazio.");
+		Excecoes.checaString(descricao, "A descricao do prato nao pode ser vazia ou nula.");
+		Excecoes.checaDouble(preco, "O preco do prato nao pode ser negativo.");
+		
 		this.nome = nome;
 		this.preco = preco;
 		this.descricao = descricao;
@@ -52,9 +50,7 @@ public class Prato implements Comparable<Prato> {
 	 * @throws ValoresException
 	 */
 	public void setNome(String nome) throws ValoresException {
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
-		}
+		Excecoes.checaString(nome, "O nome do prato nao pode ser nulo ou vazio.");
 		this.nome = nome;
 	}
 

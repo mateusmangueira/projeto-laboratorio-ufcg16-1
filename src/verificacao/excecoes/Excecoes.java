@@ -18,6 +18,11 @@ public class Excecoes {
 		if(inteiro < 0)
 			throw new ValorException(mensagem);
 	}
+	
+	public static void checaDouble(double valor, String mensagem) throws ValorException {
+		if(valor < 0.0)
+			throw new ValorException(mensagem);
+	}
 
 	/* Validacoes de formato */
 

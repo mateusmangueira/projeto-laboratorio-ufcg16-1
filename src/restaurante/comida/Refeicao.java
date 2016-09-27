@@ -2,7 +2,7 @@ package restaurante.comida;
 
 import java.util.ArrayList;
 
-import verificacao.excecoes.StringException;
+import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
 
@@ -33,11 +33,10 @@ public class Refeicao {
 	 * @throws ValoresException
 	 */
 	public Refeicao(String nome, String descricao, ArrayList<Prato> pratos) throws ValoresException {
-
-		if (nome == null || nome.trim().isEmpty())
-			throw new StringException("O nome da refeicao nao pode ser nulo ou vazio.");
-		if (descricao == null || descricao.trim().isEmpty())
-			throw new StringException("A descricao da refeicao nao pode ser nula ou vazia.");
+		
+		Excecoes.checaString(nome, "O nome da refeicao nao pode ser nulo ou vazio.");
+		Excecoes.checaString(descricao, "A descricao da refeicao nao pode ser nula ou vazia.");
+		
 		if (pratos == null || pratos.size() < 3 || pratos.size() > 4)
 			throw new ValorException("Uma refeicao deve ser composta de 3 ou 4 pratos.");
 
@@ -52,7 +51,7 @@ public class Refeicao {
 	 * @return nome
 	 */
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	/**
@@ -62,9 +61,7 @@ public class Refeicao {
 	 * @throws ValoresException
 	 */
 	public void setNome(String nome) throws ValoresException {
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new StringException("O nome da refeicao nao pode ser nulo ou vazio.");
-		}
+		Excecoes.checaString(nome, "O nome da refeicao nao pode ser nulo ou vazio.");
 		this.nome = nome;
 	}
 
@@ -82,6 +79,11 @@ public class Refeicao {
 		}
 		return retorno.replaceFirst(", ", "") + ".";
 	}
+	
+	public void setDescricao(String descricao) throws ValoresException {
+		Excecoes.checaString(descricao, "A descricao da refeicao nao pode ser nula ou vazia.");
+		this.descricao = descricao;
+	}
 
 	/**
 	 * Retorna a lista que contem os pratos que compoem refeicao
@@ -89,22 +91,7 @@ public class Refeicao {
 	 * @return lista de pratos
 	 */
 	public ArrayList<Prato> getPratos() {
-		return pratos;
-	}
-
-	/**
-	 * Altera a lista de pratos que compoe a refeicao, recebendo outra lista
-	 * como parametro
-	 * 
-	 * @param pratos
-	 *            nova lista de pratos
-	 * @throws ValoresException
-	 */
-	public void setPratos(ArrayList<Prato> pratos) throws ValoresException {
-		if (pratos == null) {
-			throw new ValoresException("A lista de pratos nao pode ser nula.");
-		}
-		this.pratos = pratos;
+		return this.pratos;
 	}
 
 	/**

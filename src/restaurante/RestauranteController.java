@@ -8,7 +8,10 @@ import comparadores.NomeComparatorPrato;
 import restaurante.comida.Prato;
 import restaurante.comida.Refeicao;
 import verificacao.excecoes.ConsultaException;
+import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.LogicaException;
+import verificacao.excecoes.ValorException;
+import verificacao.excecoes.ValoresException;
 import easyaccept.EasyAccept;
 
 /**
@@ -43,19 +46,15 @@ public class RestauranteController {
 	 * @param preco
 	 * @param descricao
 	 * @return true se a operacao foi bem sucedida
+	 * @throws ValoresException 
 	 * @throws Exception
 	 */
-	public boolean cadastraPrato(String nome, double preco, String descricao) throws Exception {
+	public boolean cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
+		
+		Excecoes.checaString(nome, "Erro no cadastro do prato. Nome do prato esta vazio.");
+		Excecoes.checaString(descricao, "Erro no cadastro do prato. Descricao do prato esta vazia.");
+		Excecoes.checaDouble(preco, "Erro no cadastro do prato. Preco do prato eh invalido.");
 
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new Exception("Erro no cadastro do prato. Nome do prato esta vazio.");
-		}
-		if (preco < 0) {
-			throw new Exception("Erro no cadastro do prato. Preco do prato eh invalido.");
-		}
-		if (descricao == null || descricao.trim().isEmpty()) {
-			throw new Exception("Erro no cadastro do prato. Descricao do prato esta vazia.");
-		}
 		Prato novoPrato = new Prato(nome, preco, descricao);
 		return this.pratos.add(novoPrato);
 	}
@@ -123,31 +122,29 @@ public class RestauranteController {
 	 * @param descricao
 	 * @param pratosDaRefeicao
 	 * @return True se o cadastro foi bem sucedido
+	 * @throws ValoresException 
+	 * @throws ValoresException 
+	 * @throws LogicaException 
+	 * @throws ValorException 
 	 * @throws Exception
 	 */
-	public void cadastraRefeicao(String nome, String descricao, String componentes) throws Exception {
-
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new Exception("Erro no cadastro de refeicao. Nome da refeicao esta vazio.");
-		}
-		if (descricao == null || descricao.trim().isEmpty()) {
-			throw new Exception("Erro no cadastro de refeicao. Descricao da refeicao esta vazia.");
-		}
-		if (componentes == null || componentes.trim().isEmpty()) {
-			throw new Exception("Erro no cadastro de refeicao. Componente(s) esta(o) vazio(s).");
-		}
+	public void cadastraRefeicao(String nome, String descricao, String componentes) throws ValoresException, LogicaException {
+		
+		Excecoes.checaString(nome, "Erro no cadastro de refeicao. Nome da refeicao esta vazio.");
+		Excecoes.checaString(descricao, "Erro no cadastro de refeicao. Descricao da refeicao esta vazia.");
+		Excecoes.checaString(componentes, "Erro no cadastro de refeicao. Componente(s) esta(o) vazio(s).");
 
 		String[] nomeDosPratos = componentes.split(";");
 
 		ArrayList<Prato> pratos = new ArrayList<Prato>();
 
 		if ((nomeDosPratos.length < 3) || (nomeDosPratos.length > 4))
-			throw new Exception("Erro no cadastro de refeicao completa. Uma refeicao completa deve possuir "
+			throw new ValorException("Erro no cadastro de refeicao completa. Uma refeicao completa deve possuir "
 					+ "no minimo 3 e no maximo 4 pratos.");
 
 		for (int i = 0; i < nomeDosPratos.length; i++) {
 			if (!this.contemPrato(nomeDosPratos[i]))
-				throw new Exception("Erro no cadastro de refeicao. So eh possivel cadastrar refeicoes "
+				throw new ValorException("Erro no cadastro de refeicao. So eh possivel cadastrar refeicoes "
 						+ "com pratos ja cadastrados.");
 
 			Prato prato = this.buscaPrato(nomeDosPratos[i]);
@@ -169,15 +166,13 @@ public class RestauranteController {
 	 * @param atributo
 	 *            Qual informacao que se deseja obter
 	 * @return A informacao desejada
+	 * @throws ConsultaException 
 	 * @throws Exception
 	 */
-	public String consultaRestaurante(String nome, String atributo) throws Exception {
-
-		if (nome == null || nome.trim().isEmpty())
-			throw new ConsultaException("Erro na consulta do restaurante. Nome do prato esto vazio.");
-
-		if (atributo == null || atributo.trim().isEmpty())
-			throw new ConsultaException("Erro na consulta do restaurante. Atributo do prato esta vazio.");
+	public String consultaRestaurante(String nome, String atributo) throws ValoresException, ConsultaException {
+		
+		Excecoes.checaString(nome, "Erro na consulta do restaurante. Nome do prato esto vazio.");
+		Excecoes.checaString(atributo, "Erro na consulta do restaurante. Atributo do prato esta vazio.");
 
 		switch (atributo.toUpperCase()) {
 		case "PRECO":
@@ -200,7 +195,7 @@ public class RestauranteController {
 					return refeicao.getDescricao();
 			}
 		default:
-			throw new Exception("Erro na consulta ao restaurante: opcao invalida");
+			throw new ConsultaException("Erro na consulta ao restaurante: opcao invalida");
 		}
 	}
 
