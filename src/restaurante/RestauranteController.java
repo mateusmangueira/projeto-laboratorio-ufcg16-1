@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
-import comparadores.NomeComparator;
+import comparadores.NomeComparatorPrato;
 import restaurante.comida.Prato;
 import restaurante.comida.Refeicao;
 import verificacao.excecoes.ConsultaException;
@@ -87,7 +87,6 @@ public class RestauranteController {
 	 * @throws Exception
 	 */
 	private Prato buscaPrato(String nome) throws LogicaException {
-
 		for (Prato prato : this.pratos) {
 			if (prato.getNome().equalsIgnoreCase(nome))
 				return prato;
@@ -96,6 +95,23 @@ public class RestauranteController {
 	}
 
 	/* Refeicoes */
+
+	private boolean contemRefeicao(String nome) throws ConsultaException {
+		for (Refeicao refeicao : this.refeicoes) {
+			if (refeicao.getNome().equalsIgnoreCase(nome))
+				return true;
+		}
+		return false;
+	}
+
+	private Refeicao buscaRefeicao(String nome) throws ConsultaException {
+		for (Refeicao refeicao : this.refeicoes) {
+			if (refeicao.getNome().equalsIgnoreCase(nome))
+				return refeicao;
+		}
+		throw new ConsultaException("Refeicao nao encontrado.");
+
+	}
 
 	/**
 	 * Realiza o cadastro de uma refeicao ao set de refeicoes do restaurante.
@@ -189,12 +205,16 @@ public class RestauranteController {
 	}
 
 	public void ordenaPeloNome(ArrayList<Prato> pratos) {
-		NomeComparator comparator = new NomeComparator();
+		NomeComparatorPrato comparator = new NomeComparatorPrato();
 		Collections.sort(pratos, comparator);
 	}
 
 	public void ordenaPeloPreco(ArrayList<Prato> pratos) {
 		Collections.sort(pratos);
+	}
+
+	public void ordenaMenu(String tipo) {
+
 	}
 
 	public static void main(String[] args) {
