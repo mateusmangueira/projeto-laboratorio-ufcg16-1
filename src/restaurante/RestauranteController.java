@@ -28,7 +28,7 @@ public class RestauranteController {
 
 	private HashSet<Prato> pratos;
 	private HashSet<Refeicao> refeicoes;
-	private List<Comestivel> menu;
+	private List<Comestivel> cardapio;
 
 	/**
 	 * O restaurante nao recebe parametros no construtor, apenas inicializa suas
@@ -37,7 +37,7 @@ public class RestauranteController {
 	public RestauranteController() {
 		this.pratos = new HashSet<Prato>();
 		this.refeicoes = new HashSet<Refeicao>();
-		this.menu = new ArrayList<Comestivel>();
+		this.cardapio = new ArrayList<Comestivel>();
 		
 	}
 
@@ -66,7 +66,7 @@ public class RestauranteController {
 		Prato novoPrato = new Prato(nome, preco, descricao);
 		
 		this.pratos.add(novoPrato);
-		return this.menu.add(novoPrato);
+		return this.cardapio.add(novoPrato);
 	}
 
 	/**
@@ -159,7 +159,7 @@ public class RestauranteController {
 		}
 		Refeicao refeicao = new Refeicao(nome, descricao, pratos);
 		this.refeicoes.add(refeicao);
-		return this.menu.add(refeicao);
+		return this.cardapio.add(refeicao);
 	}
 
 	/* Operacoes */
@@ -212,10 +212,10 @@ public class RestauranteController {
 		switch(tipoOrdenacao.toUpperCase()) {
 		
 		case "NOME":
-			Collections.sort(menu, (Comestivel comida, Comestivel outraComida) -> comida.getNome().compareTo(outraComida.getNome()));
+			Collections.sort(cardapio, (Comestivel comida, Comestivel outraComida) -> comida.getNome().compareTo(outraComida.getNome()));
 			
 		case "PRECO":
-			Collections.sort(menu, (Comestivel comida, Comestivel outraComida) -> {
+			Collections.sort(cardapio, (Comestivel comida, Comestivel outraComida) -> {
 				Double precoComida = comida.getPreco();
 				Double precoOutraComida = outraComida.getPreco();
 				return precoComida.compareTo(precoOutraComida);
@@ -246,7 +246,7 @@ public class RestauranteController {
 	public void consultaMenuRestaurante() {
 
 		String retorno = "";
-		for (Comestivel comida : menu) {
+		for (Comestivel comida : cardapio) {
 			retorno += ";" + comida.getNome();
 		}
 		retorno.replaceFirst(";", "");
