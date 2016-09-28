@@ -1,6 +1,6 @@
 package verificacao.excecoes;
 
-import verificacao.excecoes.HotelException;
+import verificacao.excecoes.HotelGotemburgoException;
 import verificacao.validacao.Validacoes;
 
 /**
@@ -26,27 +26,27 @@ public class Excecoes {
 
 	/* Validacoes de formato */
 
-	public static void checaFormatoEmail(String email, String mensagem) throws HotelException {
+	public static void checaFormatoEmail(String email, String mensagem) throws HotelGotemburgoException {
 		if (!Validacoes.validaEmail(email)) {
-			throw new HotelException(mensagem);
+			throw new HotelGotemburgoException(mensagem);
 		}
 	}
 
-	public static void checaFormatoNome(String nome, String mensagem) throws HotelException {
+	public static void checaFormatoNome(String nome, String mensagem) throws HotelGotemburgoException {
 		if (!Validacoes.validaNome(nome)) {
-			throw new HotelException(mensagem);
+			throw new HotelGotemburgoException(mensagem);
 		}
 	}
 
-	public static void checaFormatoData(String dataNascimento, String mensagem) throws HotelException {
+	public static void checaFormatoData(String dataNascimento, String mensagem) throws HotelGotemburgoException {
 		if (!Validacoes.validaData(dataNascimento)) {
-			throw new HotelException(mensagem);
+			throw new HotelGotemburgoException(mensagem);
 		}
 	}
 	
-	public static void checaFormatoIdQuarto(String idQuarto, String mensagem) throws HotelException {
+	public static void checaFormatoIdQuarto(String idQuarto, String mensagem) throws HotelGotemburgoException {
 		if (!Validacoes.validaQuarto(idQuarto)) {
-			throw new HotelException(mensagem);
+			throw new HotelGotemburgoException(mensagem);
 		}
 	}
 	

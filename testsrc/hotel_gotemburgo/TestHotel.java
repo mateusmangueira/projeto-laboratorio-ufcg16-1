@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import verificacao.excecoes.HotelException;
+import verificacao.excecoes.HotelGotemburgoException;
 
 public class TestHotel {
 
@@ -75,16 +75,16 @@ public class TestHotel {
 	}
 
 	@Test
-	public void testCadastraHospede() throws HotelException {
+	public void testCadastraHospede() throws HotelGotemburgoException {
 		hotel.cadastraHospede("Jubileu Maxista", "jubileu_max@outlook.com", "25/06/1969");
 		hotel.cadastraHospede("Francisco Maxssuel Padre Cicero", "maxssuel_padre@yahoo.com.br", "31/08/1949");
 		hotel.cadastraHospede("Antonio Natan Dias", "antonio_natan@live.com", "06/09/1987");
 		
 	}
-	public void testRemoveHospede() throws HotelException {
+	public void testRemoveHospede() throws HotelGotemburgoException {
 		hotel.removeHospede("jubileu_max@outlook.com");
 	}
-	public void testInfoHospede() throws HotelException {
+	public void testInfoHospede() throws HotelGotemburgoException {
 		hotel.getInfoHospede("maxssuel_padre@yahoo.com.br", "Nome");
 		hotel.getInfoHospede("maxssuel_padre@yahoo.com.br", "Email");
 		hotel.getInfoHospede("maxssuel_padre@yahoo.com.br", "Data");
@@ -137,7 +137,7 @@ public class TestHotel {
 			hotel.cadastraHospede("  ", "InvisibleGame@loja.com", "03/04/1995");
 			Assert.fail("Lancamento de Exception com Nome de Usuario vazio.");
 
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -146,7 +146,7 @@ public class TestHotel {
 			hotel.cadastraHospede(null, "InvisibleGame@loja.com", "03/04/1995");
 			Assert.fail("Lancamento de Exception com Nome de Usuario vazio.");
 
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -156,7 +156,7 @@ public class TestHotel {
 			hotel.cadastraHospede("Tiberuis Carlos Sanchez", "", "07/08/2009");
 			Assert.fail("Lancamento de Exception com Login vazio.");
 
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -165,7 +165,7 @@ public class TestHotel {
 			hotel.cadastraHospede("Tiberuis Carlos Sanchez", null, "07/08/2009");
 			Assert.fail("Lancamento de Exception com Login vazio.");
 
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -184,7 +184,7 @@ public class TestHotel {
 			hotel.cadastraHospede("Cleomar Santos Rocha", "cleomarsr@gmail.com", "  ");
 			Assert.fail("Lancamento de Exception com Login vazio.");
 
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -193,7 +193,7 @@ public class TestHotel {
 			hotel.cadastraHospede("Cleomar Santos Rocha", "cleomarsr@gmail.com", null);
 			Assert.fail("Lancamento de Exception com Login vazio.");
 
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -206,7 +206,7 @@ public class TestHotel {
 		try {
 			hotel.cadastraHospede("", "aramis_farpados@lol.com", "05/09/1999");
 			fail();
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -214,7 +214,7 @@ public class TestHotel {
 		try {
 			hotel.cadastraHospede(null, "aramis_farpados@lol.com", "05/09/1999");
 			fail();
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -223,7 +223,7 @@ public class TestHotel {
 		try {
 			hotel.cadastraHospede("Carlos Aguiar Junior", "  ", "05/06/2007");
 			fail();
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -231,7 +231,7 @@ public class TestHotel {
 		try {
 			hotel.cadastraHospede("Carlos Aguiar Junior", null, "05/06/2007");
 			fail();
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -240,7 +240,7 @@ public class TestHotel {
 		try {
 			hotel.cadastraHospede("Diego Aquino Lima", "diego_al@outlook.com", "  ");
 			fail();
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -248,7 +248,7 @@ public class TestHotel {
 		try {
 			hotel.cadastraHospede("Diego Aquino Lima", "diego_al@outlook.com", null);
 			fail();
-		} catch (HotelException exception) {
+		} catch (HotelGotemburgoException exception) {
 			Assert.assertEquals("Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.",
 					exception.getMessage());
 		}
@@ -256,25 +256,25 @@ public class TestHotel {
 		try{
 			hotel.cadastraHospede("Nego do Borels", "negols@", "12/06/1994");
 			fail();
-		} catch (HotelException exception){
+		} catch (HotelGotemburgoException exception){
 			Assert.assertEquals("Erro no cadastro de Hospede. Email do(a) hospede esta invalido.", exception.getMessage());
 		}
 		try{
 			hotel.cadastraHospede("Xing Ling", "xinglings@outlook.com", "12/06");
 			fail();
-		} catch (HotelException exception){
+		} catch (HotelGotemburgoException exception){
 			Assert.assertEquals("Erro no cadastro de Hospede. Formato de data invalido.", exception.getMessage());
 		}
 		try{
 			hotel.cadastraHospede("R@ncok", "rancok@outlook.com", "12/05/1990");
 			fail();
-		} catch (HotelException exception){
+		} catch (HotelGotemburgoException exception){
 			Assert.assertEquals("Erro no cadastro de Hospede. Nome do(a) hospede esta invalido.", exception.getMessage());
 		}
 		try{
 			hotel.cadastraHospede("Girino Silva", "girino@outlook.com", "12/05/2007");
 			fail();
-		} catch (HotelException exception){
+		} catch (HotelGotemburgoException exception){
 			Assert.assertEquals("Erro no cadastro de Hospede. A idade do(a) hospede deve ser maior que 18 anos.", exception.getMessage());
 		}
 		
@@ -285,7 +285,7 @@ public class TestHotel {
 		try{
 			hotel.removeHospede("kleber@hots");
 			fail();
-		} catch (HotelException exception){
+		} catch (HotelGotemburgoException exception){
 			Assert.assertEquals("Erro na remocao do Hospede. Formato de email invalido.", exception.getMessage());
 		}
 	}
@@ -293,7 +293,7 @@ public class TestHotel {
 	public void testInfoHospedeWithException(){
 		try{
 			hotel.getInfoHospede("girino@outlook.com", "cpf");
-		}catch(HotelException exception){
+		}catch(HotelGotemburgoException exception){
 			Assert.assertEquals("Erro na consulta de hospede. Opcao invalida.", exception.getMessage());
 		}
 	}

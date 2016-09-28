@@ -68,10 +68,10 @@ public class HotelController {
 	 * @param email
 	 * @param anoNascimento
 	 * @return O Hospede criado.
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
 	private Hospede criaHospede(String nome, String email, String dataNascimento)
-			throws HotelException {
+			throws HotelGotemburgoException {
 		return new Hospede(nome, email, dataNascimento);
 	}
 
@@ -82,9 +82,9 @@ public class HotelController {
 	 * 
 	 * @param email
 	 * @return Um hospede, caso encontrado. Null, caso nao encontrado.
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
-	private Hospede buscaHospede(String email) throws HotelException {
+	private Hospede buscaHospede(String email) throws HotelGotemburgoException {
 
 		Excecoes.checaString(email,
 				"O email do hospede nao pode ser nulo ou vazio.");
@@ -104,9 +104,9 @@ public class HotelController {
 	 * @param email
 	 *            Email do hospede a ser verificado o cadastro
 	 * @return true: caso exista o hospede/false: caso nao exista.
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
-	private boolean isCadastrado(String email) throws HotelException {
+	private boolean isCadastrado(String email) throws HotelGotemburgoException {
 
 		Excecoes.checaString(email,
 				"O email do hospede nao pode ser nulo ou vazio.");
@@ -125,9 +125,9 @@ public class HotelController {
 	 * @param email
 	 *            Email do hospede
 	 * @return boolean
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
-	private boolean isHospedado(String email) throws HotelException {
+	private boolean isHospedado(String email) throws HotelGotemburgoException {
 
 		if (!isCadastrado(email))
 			throw new CadastroException("Este hospede nao estah cadastrado.");
@@ -149,10 +149,10 @@ public class HotelController {
 	 * @param email
 	 * @param ano
 	 * @return O email do hospede recem-cadastrado
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
 	public String cadastraHospede(String nome, String email,
-			String dataNascimento) throws HotelException {
+			String dataNascimento) throws HotelGotemburgoException {
 
 		Excecoes.checaString(nome,
 				"Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
@@ -192,9 +192,9 @@ public class HotelController {
 	 * hospedes), ele eh removido.
 	 * 
 	 * @param email
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
-	public void removeHospede(String email) throws HotelException {
+	public void removeHospede(String email) throws HotelGotemburgoException {
 
 		Excecoes.checaFormatoEmail(email,
 				"Erro na remocao do Hospede. Formato de email invalido.");
@@ -210,10 +210,10 @@ public class HotelController {
 	 * @param email
 	 * @param atributo
 	 * @return A informacao requisitada
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
 	public String getInfoHospede(String email, String atributo)
-			throws HotelException {
+			throws HotelGotemburgoException {
 
 		Excecoes.checaString(email,
 				"O email do hospede nao pode ser nulo ou vazio.");
@@ -246,10 +246,10 @@ public class HotelController {
 	 * @param atributo
 	 *            Hospedagem ativa, Quarto ou Total
 	 * @return A informacao desejada
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
 	public String getInfoHospedagem(String email, String atributo)
-			throws HotelException {
+			throws HotelGotemburgoException {
 
 		Excecoes.checaString(email,
 				"Erro ao checar hospedagem ativa. Email do(a) hospede nao pode ser vazio.");
@@ -291,10 +291,10 @@ public class HotelController {
 	 *            Uma string representando qual atributo deseja-se alterar
 	 * @param novoValor
 	 *            A nova informacao
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
 	public void atualizaCadastro(String email, String atributo, String novoValor)
-			throws HotelException {
+			throws HotelGotemburgoException {
 		if (atributo.equalsIgnoreCase("nome")) {
 
 			Excecoes.checaString(
@@ -302,7 +302,7 @@ public class HotelController {
 					"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 
 			if (!Validacoes.validaNome(novoValor)) {
-				throw new HotelException(
+				throw new HotelGotemburgoException(
 						"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede esta invalido.");
 			}
 			this.buscaHospede(email).setNome(novoValor);
@@ -313,7 +313,7 @@ public class HotelController {
 					"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 
 			if (!Validacoes.validaData(novoValor)) {
-				throw new HotelException(
+				throw new HotelGotemburgoException(
 						"Erro na atualizacao do cadastro de Hospede. Formato de data invalido.");
 			}
 
@@ -333,7 +333,7 @@ public class HotelController {
 					"Erro na atualizacao do cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
 
 			if (!Validacoes.validaEmail(novoValor)) {
-				throw new HotelException(
+				throw new HotelGotemburgoException(
 						"Erro na atualizacao do cadastro de Hospede. Email do(a) hospede esta invalido.");
 			}
 			this.buscaHospede(email).setEmail(novoValor);
@@ -350,10 +350,10 @@ public class HotelController {
 	 *            (O tipo do quarto, podendo ser "Simples", "Luxo" ou
 	 *            "Presidencial".
 	 * @return O Quarto que foi criado
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
 	private Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto)
-			throws HotelException {
+			throws HotelGotemburgoException {
 		return new Quarto(idQuarto, tipoQuarto);
 		// Futuramente pode ser preciso adicionar esse quarto em um set de
 		// quartos do Hotel
@@ -423,7 +423,7 @@ public class HotelController {
 	 * @return um quarto ocupado
 	 * @throws Exception
 	 */
-	private Quarto buscaQuartoOcupado(String idQuarto) throws HotelException {
+	private Quarto buscaQuartoOcupado(String idQuarto) throws HotelGotemburgoException {
 
 		for (Quarto quarto : this.quartosOcupados) {
 			if (quarto.getId().equals(idQuarto))
@@ -448,20 +448,20 @@ public class HotelController {
 	 *            ID do quarto da estadia
 	 * @param tipoQuarto
 	 *            Tipo do quarto da estadia
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
-	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelException {
+	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelGotemburgoException {
 
 		Excecoes.checaString(email, "Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaInt(qntDias, "Erro ao realizar checkin. Quantidade de dias esta invalida.");
 
 		if (!Validacoes.validaEmail(email))
-			throw new HotelException("Erro ao realizar checkin. Email do(a) hospede esta invalido.");
+			throw new HotelGotemburgoException("Erro ao realizar checkin. Email do(a) hospede esta invalido.");
 
 		Excecoes.checaString(idQuarto, "Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 		
 		if (!Validacoes.validaQuarto(idQuarto))
-			throw new HotelException("Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
+			throw new HotelGotemburgoException("Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 		
 		if (!isCadastrado(email))
 			throw new ConsultaException("Erro ao realizar checkin. Hospede de email " + email + " nao foi cadastrado(a).");
@@ -511,10 +511,10 @@ public class HotelController {
 	 * @param idQuarto
 	 *            ID do quarto de onde o hospede esta saindo
 	 * @return O valor total gasto por esse hospede no Hotel
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
 	public String realizaCheckout(String email, String idQuarto)
-			throws HotelException {
+			throws HotelGotemburgoException {
 
 		Excecoes.checaString(email,
 				"Erro ao realizar checkout. Email do(a) hospede nao pode ser vazio.");
@@ -546,9 +546,9 @@ public class HotelController {
 	 * @param atributo
 	 *            Representa a informacao desejada
 	 * @return A informacao desejada
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
-	public String consultaTransacoes(String atributo) throws HotelException {
+	public String consultaTransacoes(String atributo) throws HotelGotemburgoException {
 
 		switch (atributo.toUpperCase()) {
 		case "QUANTIDADE":
@@ -578,10 +578,10 @@ public class HotelController {
 	 * @param indice
 	 *            Posicao do hospede no array de transacoes
 	 * @return A informacao solicitada
-	 * @throws HotelException
+	 * @throws HotelGotemburgoException
 	 */
 	public String consultaTransacoes(String atributo, int indice)
-			throws HotelException {
+			throws HotelGotemburgoException {
 
 		if (indice < 0)
 			throw new ValidacaoException(

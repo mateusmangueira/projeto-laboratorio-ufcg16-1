@@ -1,10 +1,10 @@
 package verificacao.excecoes;
 
-public class HotelException extends Exception {
+public class HotelGotemburgoException extends Exception {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public HotelException(String mensagem){
+	public HotelGotemburgoException(String mensagem){
 		super(mensagem);
 	}
 

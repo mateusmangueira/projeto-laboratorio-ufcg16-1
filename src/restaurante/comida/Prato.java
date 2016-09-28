@@ -1,5 +1,6 @@
 package restaurante.comida;
 
+import restaurante.Comestivel;
 import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.StringException;
 import verificacao.excecoes.ValorException;
@@ -10,7 +11,7 @@ import verificacao.excecoes.ValoresException;
  * 
  * @since 18 de Setembro de 2016
  */
-public class Prato {
+public class Prato implements Comestivel {
 
 	private String nome, descricao;
 	private double preco;
@@ -40,7 +41,7 @@ public class Prato {
 	 * @return nome
 	 */
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	/**
@@ -82,7 +83,7 @@ public class Prato {
 	 * @return preco
 	 */
 	public double getPreco() {
-		return preco;
+		return this.preco;
 	}
 
 	/**

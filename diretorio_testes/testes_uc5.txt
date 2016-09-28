@@ -1,4 +1,4 @@
-iniciaSistema
+#iniciaSistema
 #####################################
 #   A ordenacao nao eh automatica   #
 # ela depende da chamada ao metodo  #
@@ -65,4 +65,4 @@ expect "R$3,00" consultaTransacoes atributo="Total" indice=6
 expect "Ines Brasil" consultaTransacoes atributo="Nome" indice=6
 expect "Tapioca" consultaTransacoes atributo="Detalhes" indice=6
 
-fechaSistema
+#fechaSistema

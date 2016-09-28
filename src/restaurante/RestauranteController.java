@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 
 import restaurante.comida.Prato;
 import restaurante.comida.Refeicao;
 import verificacao.excecoes.ConsultaException;
 import verificacao.excecoes.Excecoes;
+import verificacao.excecoes.HotelGotemburgoException;
 import verificacao.excecoes.LogicaException;
+import verificacao.excecoes.StringException;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
 import easyaccept.EasyAccept;
@@ -25,14 +28,17 @@ public class RestauranteController {
 
 	private HashSet<Prato> pratos;
 	private HashSet<Refeicao> refeicoes;
+	private List<Comestivel> menu;
 
 	/**
 	 * O restaurante nao recebe parametros no construtor, apenas inicializa suas
 	 * colecoes de pratos e de refeicoes
 	 */
 	public RestauranteController() {
-		pratos = new HashSet<Prato>();
-		refeicoes = new HashSet<Refeicao>();
+		this.pratos = new HashSet<Prato>();
+		this.refeicoes = new HashSet<Refeicao>();
+		this.menu = new ArrayList<Comestivel>();
+		
 	}
 
 	/* Pratos */
@@ -42,29 +48,32 @@ public class RestauranteController {
 	 * atributos do prato a ser criado e retorna um boolean confirmando a
 	 * criacao.
 	 * 
-	 * @param nome
+	 * @param nome Nome do prato a ser cadastrado
 	 * @param preco
 	 * @param descricao
 	 * @return true se a operacao foi bem sucedida
 	 * @throws ValoresException 
+	 * @throws  
+	 * @throws ValoresException 
 	 * @throws Exception
 	 */
-	public boolean cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
+	public boolean cadastraPrato(String nome, double preco, String descricao) throws ValoresException    {
 		
 		Excecoes.checaString(nome, "Erro no cadastro do prato. Nome do prato esta vazio.");
 		Excecoes.checaString(descricao, "Erro no cadastro do prato. Descricao do prato esta vazia.");
 		Excecoes.checaDouble(preco, "Erro no cadastro do prato. Preco do prato eh invalido.");
 
 		Prato novoPrato = new Prato(nome, preco, descricao);
-		return this.pratos.add(novoPrato);
+		
+		this.pratos.add(novoPrato);
+		return this.menu.add(novoPrato);
 	}
 
 	/**
 	 * Varre o Set de pratos procurando um prato com um nome especifico. Caso
 	 * encontrado, retorna true.
 	 * 
-	 * @param nome
-	 *            Nome do prato a ser procurado
+	 * @param nome Nome do prato a ser procurado
 	 * @return True se o prato foi encontrado
 	 */
 	private boolean contemPrato(String nome) {
@@ -79,8 +88,7 @@ public class RestauranteController {
 	 * Varre o Set de pratos procurando um prato com um nome especifico. Caso
 	 * encontrado, retorna a referencia ao objeto.
 	 * 
-	 * @param nome
-	 *            Nome do prato a ser buscado
+	 * @param nome Nome do prato a ser buscado
 	 * @return A referencia ao objeto Prato buscado
 	 * @throws LogicaException
 	 * @throws Exception
@@ -113,22 +121,21 @@ public class RestauranteController {
 	}
 
 	/**
-	 * Realiza o cadastro de uma refeicao ao set de refeicoes do restaurante.
+	 * Realiza o cadastro de uma refeicao ao set de refeicoes do Restaurante.
 	 * Para isso, verifica se todos os pratos do array recebido como parametro
 	 * estao previamente cadastrados no sistema. Se estiverem, cria uma
 	 * instancia de Refeicao e a adiciona no set de refeicoes do restaurante.
+	 * Adiciona tambem essa refeicao ao menu.
 	 * 
-	 * @param nome
-	 * @param descricao
-	 * @param pratosDaRefeicao
+	 * @param nome Nome da refeicao
+	 * @param descricao Descricao da refeicao
+	 * @param componentes Os pratos que irao compor a refeicao, recebidos como String
+	 * e depois separados. Depois sera verificado se existem pratos com esses nomes
+	 * para entao poder ser criada uma colecao com os objetos Prato correspondentes.
 	 * @return True se o cadastro foi bem sucedido
-	 * @throws ValoresException 
-	 * @throws ValoresException 
-	 * @throws LogicaException 
-	 * @throws ValorException 
-	 * @throws Exception
+	 * @throws HotelGotemburgoException Caso haja um problema no cadastro
 	 */
-	public void cadastraRefeicao(String nome, String descricao, String componentes) throws ValoresException, LogicaException {
+	public boolean cadastraRefeicao(String nome, String descricao, String componentes) throws HotelGotemburgoException {
 		
 		Excecoes.checaString(nome, "Erro no cadastro de refeicao. Nome da refeicao esta vazio.");
 		Excecoes.checaString(descricao, "Erro no cadastro de refeicao. Descricao da refeicao esta vazia.");
@@ -152,6 +159,7 @@ public class RestauranteController {
 		}
 		Refeicao refeicao = new Refeicao(nome, descricao, pratos);
 		this.refeicoes.add(refeicao);
+		return this.menu.add(refeicao);
 	}
 
 	/* Operacoes */
@@ -182,7 +190,7 @@ public class RestauranteController {
 			}
 			for (Refeicao refeicao : refeicoes) {
 				if (refeicao.getNome().equalsIgnoreCase(nome))
-					return String.format("R$%.2f", refeicao.getValor());
+					return String.format("R$%.2f", refeicao.getPreco());
 			}
 
 		case "DESCRICAO":
@@ -198,8 +206,24 @@ public class RestauranteController {
 			throw new ConsultaException("Erro na consulta ao restaurante: opcao invalida");
 		}
 	}
+	
+	public void ordenaMenu(String tipoOrdenacao) {
+		
+		switch(tipoOrdenacao.toUpperCase()) {
+		
+		case "NOME":
+			Collections.sort(menu, (Comestivel comida, Comestivel outraComida) -> comida.getNome().compareTo(outraComida.getNome()));
+			
+		case "PRECO":
+			Collections.sort(menu, (Comestivel comida, Comestivel outraComida) -> {
+				Double precoComida = comida.getPreco();
+				Double precoOutraComida = outraComida.getPreco();
+				return precoComida.compareTo(precoOutraComida);
+			});
+		}
+	}
 
-	public void ordenaPeloNome(ArrayList<Prato> pratos) {
+	/*public void ordenaPeloNome(ArrayList<Prato> pratos) {
 		Collections.sort(pratos, new Comparator<Prato>() {
 			@Override
 			public int compare(Prato prato, Prato outroPrato) {
@@ -217,15 +241,20 @@ public class RestauranteController {
 				return double1.compareTo(double2);
 			}
 		});
-	}
+	}*/
 	
-	public void consultaMenuRestaurante(String tipo) {
+	public void consultaMenuRestaurante() {
 
+		String retorno = "";
+		for (Comestivel comida : menu) {
+			retorno += ";" + comida.getNome();
+		}
+		retorno.replaceFirst(";", "");
 	}
 
 	public static void main(String[] args) {
 		args = new String[] { "restaurante.RestauranteController", "diretorio_testes/testes_uc4.txt",
-				"diretorio_testes/testes_uc4_exception.txt"};
+				"diretorio_testes/testes_uc4_exception.txt", "diretorio_testes/testes_uc5.txt"};
 		EasyAccept.main(args);
 	}
 

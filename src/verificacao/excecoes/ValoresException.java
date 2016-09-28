@@ -1,6 +1,6 @@
 package verificacao.excecoes;
 
-public class ValoresException extends HotelException {
+public class ValoresException extends HotelGotemburgoException {
 
 	private static final long serialVersionUID = 1L;
 

@@ -3,7 +3,7 @@ package facade;
 import easyaccept.EasyAccept;
 import hotel_gotemburgo.HotelController;
 import restaurante.RestauranteController;
-import verificacao.excecoes.HotelException;
+import verificacao.excecoes.HotelGotemburgoException;
 
 public class Facade {
 
@@ -18,7 +18,7 @@ public class Facade {
 	public String cadastraHospede(String nome, String email, String dataNascimento) {
 		try {
 			return this.hotelController.cadastraHospede(nome, email, dataNascimento);
-		} catch (HotelException e) {
+		} catch (HotelGotemburgoException e) {
 			System.out.println(e.getMessage());
 		}
 		return null;
@@ -28,7 +28,7 @@ public class Facade {
 	public void removeHospede(String email) {
 		try {
 			this.hotelController.removeHospede(email);
-		} catch (HotelException e) {
+		} catch (HotelGotemburgoException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -36,7 +36,7 @@ public class Facade {
 	public String getInfoHospede(String email, String atributo) {
 		try {
 			return this.hotelController.getInfoHospede(email, atributo);
-		} catch (HotelException e) {
+		} catch (HotelGotemburgoException e) {
 			System.out.println(e.getMessage());
 		}
 		return null;
@@ -45,7 +45,7 @@ public class Facade {
 	public String getInfoHospedagem(String email, String atributo) {
 		try {
 			return this.hotelController.getInfoHospedagem(email, atributo);
-		} catch (HotelException e) {
+		} catch (HotelGotemburgoException e) {
 			System.out.println(e.getMessage());
 		}
 		return null;
@@ -54,7 +54,7 @@ public class Facade {
 	public void atualizaCadastro(String email, String atributo, String valor) {
 		try {
 			this.hotelController.atualizaCadastro(email, atributo, valor);
-		} catch (HotelException e) {
+		} catch (HotelGotemburgoException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -62,7 +62,7 @@ public class Facade {
 	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) {
 		try {
 			return this.hotelController.realizaCheckin(email, qntDias, idQuarto, tipoQuarto);
-		} catch (HotelException e) {
+		} catch (HotelGotemburgoException e) {
 			System.out.println(e.getMessage());
 		}
 		return null;
@@ -80,7 +80,7 @@ public class Facade {
 	public String consultaTransacoes(String atributo) {
 		try {
 			return this.hotelController.consultaTransacoes(atributo);
-		} catch (HotelException e) {
+		} catch (HotelGotemburgoException e) {
 			System.out.println(e.getMessage());
 		}
 		return null;
@@ -89,7 +89,7 @@ public class Facade {
 	public String consultaTransacoes(String atributo, int indice) {
 		try {
 			return this.hotelController.consultaTransacoes(atributo, indice);
-		} catch (HotelException e) {
+		} catch (HotelGotemburgoException e) {
 			System.out.println(e.getMessage());
 		}
 		return null;

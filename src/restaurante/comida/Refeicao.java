@@ -2,6 +2,7 @@ package restaurante.comida;
 
 import java.util.ArrayList;
 
+import restaurante.Comestivel;
 import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
@@ -17,7 +18,7 @@ import verificacao.excecoes.ValoresException;
  * @since 18 de Setembro de 2016
  * @see Prato.java
  */
-public class Refeicao {
+public class Refeicao implements Comestivel {
 
 	private String nome, descricao;
 	private ArrayList<Prato> pratos;
@@ -100,7 +101,7 @@ public class Refeicao {
 	 * 
 	 * @return valor total da refeicao
 	 */
-	public double getValor() {
+	public double getPreco() {
 		double soma = 0;
 		final double DESCONTO = 0.1;
 
@@ -117,7 +118,7 @@ public class Refeicao {
 		for (Prato prato : pratos)
 			toString += "\n-> " + prato;
 
-		toString += "\nValor total: " + getValor();
+		toString += "\nValor total: " + getPreco();
 		return toString;
 	}
 
