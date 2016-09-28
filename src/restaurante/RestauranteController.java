@@ -2,9 +2,9 @@ package restaurante;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 
-import comparadores.NomeComparatorPrato;
 import restaurante.comida.Prato;
 import restaurante.comida.Refeicao;
 import verificacao.excecoes.ConsultaException;
@@ -200,21 +200,32 @@ public class RestauranteController {
 	}
 
 	public void ordenaPeloNome(ArrayList<Prato> pratos) {
-		NomeComparatorPrato comparator = new NomeComparatorPrato();
-		Collections.sort(pratos, comparator);
+		Collections.sort(pratos, new Comparator<Prato>() {
+			@Override
+			public int compare(Prato prato, Prato outroPrato) {
+				return prato.getNome().compareTo(outroPrato.getNome());
+			}
+		});
 	}
 
 	public void ordenaPeloPreco(ArrayList<Prato> pratos) {
-		Collections.sort(pratos);
+		Collections.sort(pratos, new Comparator<Prato>() {
+			@Override
+			public int compare(Prato prato, Prato outroPrato) {
+				Double double1 = prato.getPreco();
+				Double double2 = outroPrato.getPreco();
+				return double1.compareTo(double2);
+			}
+		});
 	}
-
-	public void ordenaMenu(String tipo) {
+	
+	public void consultaMenuRestaurante(String tipo) {
 
 	}
 
 	public static void main(String[] args) {
 		args = new String[] { "restaurante.RestauranteController", "diretorio_testes/testes_uc4.txt",
-				"diretorio_testes/testes_uc4_exception.txt" };
+				"diretorio_testes/testes_uc4_exception.txt"};
 		EasyAccept.main(args);
 	}
 

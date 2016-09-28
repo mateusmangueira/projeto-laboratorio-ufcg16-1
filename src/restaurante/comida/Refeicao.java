@@ -146,4 +146,5 @@ public class Refeicao {
 		return PRIME * result + (this.nome == null ? 0 : this.nome.hashCode())
 				+ (this.pratos == null ? 0 : this.pratos.hashCode());
 	}
+
 }

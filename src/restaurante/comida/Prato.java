@@ -10,7 +10,7 @@ import verificacao.excecoes.ValoresException;
  * 
  * @since 18 de Setembro de 2016
  */
-public class Prato implements Comparable<Prato> {
+public class Prato {
 
 	private String nome, descricao;
 	private double preco;
@@ -129,14 +129,4 @@ public class Prato implements Comparable<Prato> {
 		return PRIME * result + (this.nome == null ? 0 : this.nome.hashCode());
 	}
 
-	@Override
-	public int compareTo(Prato outroPrato) {
-		if (this.getPreco() < outroPrato.getPreco()) {
-			return -1;
-		} else if (this.getPreco() == outroPrato.getPreco()) {
-			return 0;
-		} else {
-			return 1;
-		}
-	}
 }
