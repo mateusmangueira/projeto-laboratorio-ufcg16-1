@@ -184,7 +184,7 @@ public class RestauranteController {
 
 		switch (atributo.toUpperCase()) {
 		case "PRECO":
-			for (Prato prato : pratos) {
+			for (Prato prato : this.pratos) {
 				if (prato.getNome().equalsIgnoreCase(nome))
 					return String.format("R$%.2f", prato.getPreco());
 			}
@@ -194,11 +194,11 @@ public class RestauranteController {
 			}
 
 		case "DESCRICAO":
-			for (Prato prato : pratos) {
+			for (Prato prato : this.pratos) {
 				if (prato.getNome().equalsIgnoreCase(nome))
 					return prato.getDescricao();
 			}
-			for (Refeicao refeicao : refeicoes) {
+			for (Refeicao refeicao : this.refeicoes) {
 				if (refeicao.getNome().equalsIgnoreCase(nome))
 					return refeicao.getDescricao();
 			}
@@ -212,44 +212,23 @@ public class RestauranteController {
 		switch(tipoOrdenacao.toUpperCase()) {
 		
 		case "NOME":
-			Collections.sort(cardapio, (Comestivel comida, Comestivel outraComida) -> comida.getNome().compareTo(outraComida.getNome()));
-			
+			Collections.sort(this.cardapio, (Comestivel comida, Comestivel outraComida) -> comida.getNome().compareTo(outraComida.getNome()));
+			break;
 		case "PRECO":
-			Collections.sort(cardapio, (Comestivel comida, Comestivel outraComida) -> {
-				Double precoComida = comida.getPreco();
-				Double precoOutraComida = outraComida.getPreco();
-				return precoComida.compareTo(precoOutraComida);
+			Collections.sort(this.cardapio, (Comestivel comida, Comestivel outraComida) -> {
+				return Double.compare(comida.getPreco(), outraComida.getPreco());
 			});
+			break;
 		}
 	}
-
-	/*public void ordenaPeloNome(ArrayList<Prato> pratos) {
-		Collections.sort(pratos, new Comparator<Prato>() {
-			@Override
-			public int compare(Prato prato, Prato outroPrato) {
-				return prato.getNome().compareTo(outroPrato.getNome());
-			}
-		});
-	}
-
-	public void ordenaPeloPreco(ArrayList<Prato> pratos) {
-		Collections.sort(pratos, new Comparator<Prato>() {
-			@Override
-			public int compare(Prato prato, Prato outroPrato) {
-				Double double1 = prato.getPreco();
-				Double double2 = outroPrato.getPreco();
-				return double1.compareTo(double2);
-			}
-		});
-	}*/
 	
-	public void consultaMenuRestaurante() {
+	public String consultaMenuRestaurante() {
 
 		String retorno = "";
-		for (Comestivel comida : cardapio) {
+		for (Comestivel comida : this.cardapio) {
 			retorno += ";" + comida.getNome();
 		}
-		retorno.replaceFirst(";", "");
+		return retorno.replaceFirst(";", "");
 	}
 
 	public static void main(String[] args) {
