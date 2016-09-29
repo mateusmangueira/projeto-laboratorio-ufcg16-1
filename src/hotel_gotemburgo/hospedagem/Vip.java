@@ -2,37 +2,20 @@ package hotel_gotemburgo.hospedagem;
 
 public class Vip implements CartaoFidelidade {
 
-	private int pontuacao;
 
-	public Vip() {
-		this.pontuacao = 0;
-	}
-
-	public int getPontuacao() {
-		return pontuacao;
-	}
-
-	public void setPontuacao(int pontuacao) {
-		this.pontuacao = pontuacao;
+	@Override
+	public int adicionarPontos(double valor) {
+		
+		return (int) (valor * 0.5);
 	}
 
 	@Override
-	public boolean adicionarPontos(String emailHospede) {
+	public double aplicarDesconto(double valor ) {
 		// TODO Auto-generated method stub
-		return false;
+		return 0.0;
 	}
 
-	@Override
-	public boolean aplicarDesconto(String emailHospede) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean pagarDivida(String emailHospede) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 	
 	
 

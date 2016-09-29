@@ -7,10 +7,10 @@ public interface CartaoFidelidade {
 	// tera o atributo pontuacao que comeca em 0 e vai crescendo ao adicionar
 	// mais. by: Mateus
 
-	public boolean adicionarPontos(String emailHospede);
+	public int adicionarPontos(double valor);
 
-	public boolean aplicarDesconto(String emailHospede);
+	public double aplicarDesconto(double valor);
 
-	public boolean pagarDivida(String emailHospede);
+	//public int pagarDivida(double valor);
 
 }
