@@ -157,8 +157,8 @@ public class Hospede {
 		ArrayList<Estadia> estadias = this.getEstadias();
 		Iterator<Estadia> i = estadias.iterator();
 		while (i.hasNext()) {
-			Estadia s = i.next();
-			if (s.getQuarto().getId().equalsIgnoreCase(idQuarto)) {
+			Estadia estadia = i.next();
+			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto)) {
 				i.remove();
 				return true;
 			}

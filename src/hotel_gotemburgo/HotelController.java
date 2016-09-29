@@ -426,10 +426,10 @@ public class HotelController {
 	private Quarto buscaQuartoOcupado(String idQuarto) throws HotelGotemburgoException {
 
 		for (Quarto quarto : this.quartosOcupados) {
-			if (quarto.getId().equals(idQuarto))
+			if (quarto.getId().equalsIgnoreCase(idQuarto))
 				return quarto;
 		}
-		throw new ConsultaException("Quarto nao encontrado");
+		throw new ConsultaException("Quarto nao encontrado.");
 	}
 
 	/**
@@ -454,11 +454,11 @@ public class HotelController {
 
 		Excecoes.checaString(email, "Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaInt(qntDias, "Erro ao realizar checkin. Quantidade de dias esta invalida.");
+		Excecoes.checaString(idQuarto, "Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 
 		if (!Validacoes.validaEmail(email))
 			throw new HotelGotemburgoException("Erro ao realizar checkin. Email do(a) hospede esta invalido.");
 
-		Excecoes.checaString(idQuarto, "Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 		
 		if (!Validacoes.validaQuarto(idQuarto))
 			throw new HotelGotemburgoException("Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
@@ -520,8 +520,10 @@ public class HotelController {
 				"Erro ao realizar checkout. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaFormatoEmail(email,
 				"Erro ao realizar checkout. Email do(a) hospede esta invalido.");
+		Excecoes.checaString(idQuarto,
+				"Erro ao realizar checkout. O Id do quarto nao pode ser nulo ou vazio.");
 
-		if (!this.verificaOcupacao(idQuarto))
+		if (!Validacoes.validaQuarto(idQuarto))
 			throw new ValidacaoException(
 					"Erro ao realizar checkout. ID do quarto invalido, use apenas numeros ou letras.");
 
@@ -532,8 +534,8 @@ public class HotelController {
 				gastosEstadia);
 
 		this.transacoes.add(transacao);
-		hospedeDeSaida.removeEstadia(idQuarto);
 		Quarto quarto = buscaQuartoOcupado(idQuarto);
+		hospedeDeSaida.removeEstadia(idQuarto);
 		this.quartosOcupados.remove(quarto);
 
 		return String.format("R$%.2f", gastosEstadia);
@@ -606,13 +608,10 @@ public class HotelController {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		args = new String[] { "hotel_gotemburgo.HotelController",
-				"diretorio_testes/testes_uc1.txt",
-				"diretorio_testes/testes_uc1_exception.txt",
-				"diretorio_testes/testes_uc2.txt",
-				"diretorio_testes/testes_uc2_exception.txt",
-				"diretorio_testes/testes_uc3.txt",
-				"diretorio_testes/testes_uc3_exception.txt" };
+		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
+				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
+				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
+				"diretorio_testes/testes_uc3_exception.txt"};
 		EasyAccept.main(args);
 	}
 
