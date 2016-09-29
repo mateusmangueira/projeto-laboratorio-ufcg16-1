@@ -516,27 +516,23 @@ public class HotelController {
 	public String realizaCheckout(String email, String idQuarto)
 			throws HotelGotemburgoException {
 
-		Excecoes.checaString(email,
-				"Erro ao realizar checkout. Email do(a) hospede nao pode ser vazio.");
-		Excecoes.checaFormatoEmail(email,
-				"Erro ao realizar checkout. Email do(a) hospede esta invalido.");
-		Excecoes.checaString(idQuarto,
-				"Erro ao realizar checkout. O Id do quarto nao pode ser nulo ou vazio.");
+		Excecoes.checaString(email, "Erro ao realizar checkout. Email do(a) hospede nao pode ser vazio.");
+		Excecoes.checaFormatoEmail(email, "Erro ao realizar checkout. Email do(a) hospede esta invalido.");
+		Excecoes.checaString(idQuarto, "Erro ao realizar checkout. O Id do quarto nao pode ser nulo ou vazio.");
 
 		if (!Validacoes.validaQuarto(idQuarto))
-			throw new ValidacaoException(
-					"Erro ao realizar checkout. ID do quarto invalido, use apenas numeros ou letras.");
+			throw new ValidacaoException("Erro ao realizar checkout. ID do quarto invalido, use apenas numeros ou letras.");
 
 		Hospede hospedeDeSaida = this.buscaHospede(email);
 		double gastosEstadia = hospedeDeSaida.getValorEstadia(idQuarto);
 
-		Transacao transacao = new Transacao(hospedeDeSaida.getNome(),
-				gastosEstadia);
+		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), gastosEstadia);
 
 		this.transacoes.add(transacao);
 		Quarto quarto = buscaQuartoOcupado(idQuarto);
-		hospedeDeSaida.removeEstadia(idQuarto);
+		
 		this.quartosOcupados.remove(quarto);
+		hospedeDeSaida.removeEstadia(idQuarto);
 
 		return String.format("R$%.2f", gastosEstadia);
 	}

@@ -2,7 +2,6 @@ package restaurante.comida;
 
 import java.util.ArrayList;
 
-import restaurante.Comestivel;
 import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
@@ -18,9 +17,8 @@ import verificacao.excecoes.ValoresException;
  * @since 18 de Setembro de 2016
  * @see Prato.java
  */
-public class Refeicao implements Comestivel {
+public class RefeicaoCompleta extends Refeicao {
 
-	private String nome, descricao;
 	private ArrayList<Prato> pratos;
 
 	/**
@@ -33,7 +31,9 @@ public class Refeicao implements Comestivel {
 	 * @param pratos
 	 * @throws ValoresException
 	 */
-	public Refeicao(String nome, String descricao, ArrayList<Prato> pratos) throws ValoresException {
+	public RefeicaoCompleta(String nome, String descricao, ArrayList<Prato> pratos) throws ValoresException {
+		
+		super(nome, descricao);
 		
 		Excecoes.checaString(nome, "O nome da refeicao nao pode ser nulo ou vazio.");
 		Excecoes.checaString(descricao, "A descricao da refeicao nao pode ser nula ou vazia.");
@@ -41,21 +41,10 @@ public class Refeicao implements Comestivel {
 		if (pratos == null || pratos.size() < 3 || pratos.size() > 4)
 			throw new ValorException("Uma refeicao deve ser composta de 3 ou 4 pratos.");
 
-		this.nome = nome;
-		this.descricao = descricao;
 		this.pratos = pratos;
 	}
 
-	/**
-	 * Retorna o nome da refeicao
-	 * 
-	 * @return nome
-	 */
-	public String getNome() {
-		return this.nome;
-	}
-
-	/**
+		/**
 	 * Altera o nome da refeicao
 	 * 
 	 * @param nome
@@ -105,7 +94,7 @@ public class Refeicao implements Comestivel {
 		double soma = 0;
 		final double DESCONTO = 0.1;
 
-		for (Prato prato : getPratos())
+		for (Refeicao prato : getPratos())
 			soma = soma + prato.getPreco();
 
 		return soma - (soma * DESCONTO);
@@ -115,7 +104,7 @@ public class Refeicao implements Comestivel {
 	public String toString() {
 		String toString = "Pratos contidos nessa refeicao:";
 
-		for (Prato prato : pratos)
+		for (Refeicao prato : pratos)
 			toString += "\n-> " + prato;
 
 		toString += "\nValor total: " + getPreco();
@@ -133,7 +122,7 @@ public class Refeicao implements Comestivel {
 		if (!anotherObject.getClass().equals(this.getClass()))
 			return false;
 
-		Refeicao outra = (Refeicao) anotherObject;
+		RefeicaoCompleta outra = (RefeicaoCompleta) anotherObject;
 		return this.getNome().equalsIgnoreCase(outra.getNome()) || this.getPratos().equals(outra.getPratos());
 	}
 

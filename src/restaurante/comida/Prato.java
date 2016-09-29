@@ -1,6 +1,5 @@
 package restaurante.comida;
 
-import restaurante.Comestivel;
 import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.StringException;
 import verificacao.excecoes.ValorException;
@@ -11,9 +10,8 @@ import verificacao.excecoes.ValoresException;
  * 
  * @since 18 de Setembro de 2016
  */
-public class Prato implements Comestivel {
+public class Prato extends Refeicao {
 
-	private String nome, descricao;
 	private double preco;
 
 	/**
@@ -26,24 +24,15 @@ public class Prato implements Comestivel {
 	 */
 	public Prato(String nome, double preco, String descricao) throws ValoresException {
 		
+		super(nome, descricao);
 		Excecoes.checaString(nome, "O nome do prato nao pode ser nulo ou vazio.");
 		Excecoes.checaString(descricao, "A descricao do prato nao pode ser vazia ou nula.");
 		Excecoes.checaDouble(preco, "O preco do prato nao pode ser negativo.");
 		
-		this.nome = nome;
 		this.preco = preco;
-		this.descricao = descricao;
 	}
 
-	/**
-	 * Retorna o atributo nome do prato
-	 * 
-	 * @return nome
-	 */
-	public String getNome() {
-		return this.nome;
-	}
-
+	
 	/**
 	 * Altera o atributo nome do prato, realizando verificacao
 	 * 
