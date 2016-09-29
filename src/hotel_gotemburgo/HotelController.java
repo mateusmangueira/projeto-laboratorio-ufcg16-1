@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-
 import restaurante.RestauranteController;
-import restaurante.comida.Prato;
 import restaurante.comida.Refeicao;
 import verificacao.excecoes.*;
 import verificacao.validacao.*;
-import easyaccept.EasyAccept;
 import hotel_gotemburgo.hospedagem.*;
 import hotel_gotemburgo.quartos.*;
 import hotel_gotemburgo.transacao.*;
@@ -41,7 +38,7 @@ public class HotelController {
 	private final int ANO_ATUAL;
 	private final int MAIORIDADE;
 	private Set<Hospede> hospedes;
-	private Set<Quarto> quartosOcupados;
+	private ArrayList<Quarto> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
 	private ArrayList<Transacao> transacoes;
 	private RestauranteController restaurante;
@@ -59,15 +56,15 @@ public class HotelController {
 	public HotelController() {
 
 		this.hospedes = new HashSet<Hospede>();
-		this.quartosOcupados = new HashSet<Quarto>();
+		this.quartosOcupados = new ArrayList<Quarto>();
 		this.transacoes = new ArrayList<Transacao>();
 		this.restaurante = new RestauranteController();
-		
+
 		this.inicializaTiposDeQuarto();
 
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
-		
+
 	}
 
 	/**
@@ -80,8 +77,7 @@ public class HotelController {
 	 * @return O Hospede criado.
 	 * @throws HotelGotemburgoException
 	 */
-	private Hospede criaHospede(String nome, String email, String dataNascimento)
-			throws HotelGotemburgoException {
+	private Hospede criaHospede(String nome, String email, String dataNascimento) throws HotelGotemburgoException {
 		return new Hospede(nome, email, dataNascimento);
 	}
 
@@ -96,16 +92,14 @@ public class HotelController {
 	 */
 	private Hospede buscaHospede(String email) throws HotelGotemburgoException {
 
-		Excecoes.checaString(email,
-				"O email do hospede nao pode ser nulo ou vazio.");
+		Excecoes.checaString(email, "O email do hospede nao pode ser nulo ou vazio.");
 
 		for (Hospede hospede : this.hospedes) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
 		}
 		throw new ConsultaException(
-				"Erro na consulta de hospede. Hospede de email " + email
-						+ " nao foi cadastrado(a).");
+				"Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
 	}
 
 	/**
@@ -118,8 +112,7 @@ public class HotelController {
 	 */
 	private boolean isCadastrado(String email) throws HotelGotemburgoException {
 
-		Excecoes.checaString(email,
-				"O email do hospede nao pode ser nulo ou vazio.");
+		Excecoes.checaString(email, "O email do hospede nao pode ser nulo ou vazio.");
 
 		for (Hospede hospede : this.hospedes) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
@@ -161,23 +154,16 @@ public class HotelController {
 	 * @return O email do hospede recem-cadastrado
 	 * @throws HotelGotemburgoException
 	 */
-	public String cadastraHospede(String nome, String email,
-			String dataNascimento) throws HotelGotemburgoException {
+	public String cadastraHospede(String nome, String email, String dataNascimento) throws HotelGotemburgoException {
 
-		Excecoes.checaString(nome,
-				"Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
-		Excecoes.checaString(email,
-				"Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
-		Excecoes.checaString(
-				dataNascimento,
+		Excecoes.checaString(nome, "Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+		Excecoes.checaString(email, "Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
+		Excecoes.checaString(dataNascimento,
 				"Erro no cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 
-		Excecoes.checaFormatoNome(nome,
-				"Erro no cadastro de Hospede. Nome do(a) hospede esta invalido.");
-		Excecoes.checaFormatoEmail(email,
-				"Erro no cadastro de Hospede. Email do(a) hospede esta invalido.");
-		Excecoes.checaFormatoData(dataNascimento,
-				"Erro no cadastro de Hospede. Formato de data invalido.");
+		Excecoes.checaFormatoNome(nome, "Erro no cadastro de Hospede. Nome do(a) hospede esta invalido.");
+		Excecoes.checaFormatoEmail(email, "Erro no cadastro de Hospede. Email do(a) hospede esta invalido.");
+		Excecoes.checaFormatoData(dataNascimento, "Erro no cadastro de Hospede. Formato de data invalido.");
 
 		// VERIFICAR AQUI!!!!
 		Validacoes.validaData(dataNascimento);
@@ -206,8 +192,7 @@ public class HotelController {
 	 */
 	public void removeHospede(String email) throws HotelGotemburgoException {
 
-		Excecoes.checaFormatoEmail(email,
-				"Erro na remocao do Hospede. Formato de email invalido.");
+		Excecoes.checaFormatoEmail(email, "Erro na remocao do Hospede. Formato de email invalido.");
 		Hospede hospede = this.buscaHospede(email);
 
 		this.hospedes.remove(hospede);
@@ -222,11 +207,9 @@ public class HotelController {
 	 * @return A informacao requisitada
 	 * @throws HotelGotemburgoException
 	 */
-	public String getInfoHospede(String email, String atributo)
-			throws HotelGotemburgoException {
+	public String getInfoHospede(String email, String atributo) throws HotelGotemburgoException {
 
-		Excecoes.checaString(email,
-				"O email do hospede nao pode ser nulo ou vazio.");
+		Excecoes.checaString(email, "O email do hospede nao pode ser nulo ou vazio.");
 		Excecoes.checaString(email, "O atributo nao pode ser nulo ou vazio.");
 
 		Hospede hospede = this.buscaHospede(email);
@@ -239,8 +222,7 @@ public class HotelController {
 		case "EMAIL":
 			return hospede.getEmail();
 		default:
-			throw new ConsultaException(
-					"Erro na consulta de hospede. Opcao invalida.");
+			throw new ConsultaException("Erro na consulta de hospede. Opcao invalida.");
 		}
 	}
 
@@ -258,25 +240,20 @@ public class HotelController {
 	 * @return A informacao desejada
 	 * @throws HotelGotemburgoException
 	 */
-	public String getInfoHospedagem(String email, String atributo)
-			throws HotelGotemburgoException {
+	public String getInfoHospedagem(String email, String atributo) throws HotelGotemburgoException {
 
-		Excecoes.checaString(email,
-				"Erro ao checar hospedagem ativa. Email do(a) hospede nao pode ser vazio.");
+		Excecoes.checaString(email, "Erro ao checar hospedagem ativa. Email do(a) hospede nao pode ser vazio.");
 
 		// VERIFICAR DEPOIS!!!
 		if (!isCadastrado(email))
-			throw new ConsultaException(
-					"Erro ao checar hospedagem ativa. Email do(a) hospede esta invalido.");
+			throw new ConsultaException("Erro ao checar hospedagem ativa. Email do(a) hospede esta invalido.");
 
 		Hospede hospede = this.buscaHospede(email);
 
 		// VERIFICAR DEPOIS!!!
 		if (!isHospedado(email))
-			throw new ConsultaException(
-					String.format(
-							"Erro na consulta de hospedagem. Hospede %s nao esta hospedado(a).",
-							hospede.getNome()));
+			throw new ConsultaException(String
+					.format("Erro na consulta de hospedagem. Hospede %s nao esta hospedado(a).", hospede.getNome()));
 
 		switch (atributo.toUpperCase()) {
 
@@ -287,8 +264,7 @@ public class HotelController {
 		case "TOTAL":
 			return String.format("R$%.2f", hospede.getGastosTotal());
 		default:
-			throw new ConsultaException(
-					"Erro na consulta de hospedagem. Opcao invalida.");
+			throw new ConsultaException("Erro na consulta de hospedagem. Opcao invalida.");
 		}
 	}
 
@@ -303,12 +279,10 @@ public class HotelController {
 	 *            A nova informacao
 	 * @throws HotelGotemburgoException
 	 */
-	public void atualizaCadastro(String email, String atributo, String novoValor)
-			throws HotelGotemburgoException {
+	public void atualizaCadastro(String email, String atributo, String novoValor) throws HotelGotemburgoException {
 		if (atributo.equalsIgnoreCase("nome")) {
 
-			Excecoes.checaString(
-					novoValor,
+			Excecoes.checaString(novoValor,
 					"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 
 			if (!Validacoes.validaNome(novoValor)) {
@@ -318,8 +292,7 @@ public class HotelController {
 			this.buscaHospede(email).setNome(novoValor);
 		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
 
-			Excecoes.checaString(
-					novoValor,
+			Excecoes.checaString(novoValor,
 					"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 
 			if (!Validacoes.validaData(novoValor)) {
@@ -338,8 +311,7 @@ public class HotelController {
 
 		} else if (atributo.equalsIgnoreCase("email")) {
 
-			Excecoes.checaString(
-					novoValor,
+			Excecoes.checaString(novoValor,
 					"Erro na atualizacao do cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
 
 			if (!Validacoes.validaEmail(novoValor)) {
@@ -362,8 +334,7 @@ public class HotelController {
 	 * @return O Quarto que foi criado
 	 * @throws HotelGotemburgoException
 	 */
-	private Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto)
-			throws HotelGotemburgoException {
+	private Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws HotelGotemburgoException {
 		return new Quarto(idQuarto, tipoQuarto);
 		// Futuramente pode ser preciso adicionar esse quarto em um set de
 		// quartos do Hotel
@@ -460,21 +431,24 @@ public class HotelController {
 	 *            Tipo do quarto da estadia
 	 * @throws HotelGotemburgoException
 	 */
-	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelGotemburgoException {
+	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto)
+			throws HotelGotemburgoException {
 
 		Excecoes.checaString(email, "Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaInt(qntDias, "Erro ao realizar checkin. Quantidade de dias esta invalida.");
-		Excecoes.checaString(idQuarto, "Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
+		Excecoes.checaString(idQuarto,
+				"Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 
 		if (!Validacoes.validaEmail(email))
 			throw new HotelGotemburgoException("Erro ao realizar checkin. Email do(a) hospede esta invalido.");
 
-		
 		if (!Validacoes.validaQuarto(idQuarto))
-			throw new HotelGotemburgoException("Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
-		
+			throw new HotelGotemburgoException(
+					"Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
+
 		if (!isCadastrado(email))
-			throw new ConsultaException("Erro ao realizar checkin. Hospede de email " + email + " nao foi cadastrado(a).");
+			throw new ConsultaException(
+					"Erro ao realizar checkin. Hospede de email " + email + " nao foi cadastrado(a).");
 
 		Hospede hospede = this.buscaHospede(email);
 
@@ -523,15 +497,15 @@ public class HotelController {
 	 * @return O valor total gasto por esse hospede no Hotel
 	 * @throws HotelGotemburgoException
 	 */
-	public String realizaCheckout(String email, String idQuarto)
-			throws HotelGotemburgoException {
+	public String realizaCheckout(String email, String idQuarto) throws HotelGotemburgoException {
 
 		Excecoes.checaString(email, "Erro ao realizar checkout. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaFormatoEmail(email, "Erro ao realizar checkout. Email do(a) hospede esta invalido.");
 		Excecoes.checaString(idQuarto, "Erro ao realizar checkout. O Id do quarto nao pode ser nulo ou vazio.");
 
 		if (!Validacoes.validaQuarto(idQuarto))
-			throw new ValidacaoException("Erro ao realizar checkout. ID do quarto invalido, use apenas numeros ou letras.");
+			throw new ValidacaoException(
+					"Erro ao realizar checkout. ID do quarto invalido, use apenas numeros ou letras.");
 
 		Hospede hospedeDeSaida = this.buscaHospede(email);
 		double gastosEstadia = hospedeDeSaida.getValorEstadia(idQuarto);
@@ -540,7 +514,7 @@ public class HotelController {
 
 		this.transacoes.add(transacao);
 		Quarto quarto = buscaQuartoOcupado(idQuarto);
-		
+
 		this.quartosOcupados.remove(quarto);
 		hospedeDeSaida.removeEstadia(idQuarto);
 
@@ -571,8 +545,7 @@ public class HotelController {
 			return nomes.replaceFirst(";", "");
 
 		default:
-			throw new ConsultaException(
-					"Erro na consulta de transacoes. Opcao invalida.");
+			throw new ConsultaException("Erro na consulta de transacoes. Opcao invalida.");
 		}
 	}
 
@@ -588,59 +561,56 @@ public class HotelController {
 	 * @return A informacao solicitada
 	 * @throws HotelGotemburgoException
 	 */
-	public String consultaTransacoes(String atributo, int indice)
-			throws HotelGotemburgoException {
+	public String consultaTransacoes(String atributo, int indice) throws HotelGotemburgoException {
 
 		if (indice < 0)
-			throw new ValidacaoException(
-					"Erro na consulta de transacoes. Indice invalido.");
+			throw new ValidacaoException("Erro na consulta de transacoes. Indice invalido.");
 
 		switch (atributo.toUpperCase()) {
 		case "TOTAL":
-			return String.format("R$%.2f", this.transacoes.get(indice)
-					.getValor());
+			return String.format("R$%.2f", this.transacoes.get(indice).getValor());
 		case "NOME":
 			return this.transacoes.get(indice).getNomeHospede();
-
+		case "DETALHES":
+			// ESSE METODO QUE RETORNAR O ID DO QUARTO PELA POSICAO DO INDICE PASSADO.
+			
 		default:
-			throw new ConsultaException(
-					"Erro na consulta de transacoes. Opcao invalida.");
+			throw new ConsultaException("Erro na consulta de transacoes. Opcao invalida.");
 		}
 	}
-	
+
 	public String realizaPedido(String email, String item) throws HotelGotemburgoException {
-		
+
 		Excecoes.checaString(email, "Erro ao realizar pedido. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaString(item, "Erro ao realizar pedido. Item nao pode ser nulo ou vazio.");
-		
+
 		if (this.isHospedado(email))
 			throw new ConsultaException("Erro ao realizar pedido. Cliente nao hospedado.");
-		
+
 		Hospede hospede = this.buscaHospede(email);
-		
+
 		double valorItem = 0.0;
 		for (Refeicao refeicao : this.restaurante.getCardapio()) {
 			if (refeicao.getNome().equalsIgnoreCase(item)) {
-				valorItem  += refeicao.getPreco();
+				valorItem += refeicao.getPreco();
 			}
 		}
 		Transacao transacao = new Transacao(hospede.getNome(), valorItem);
 		this.transacoes.add(transacao);
-		return String.format("R$%.2f", valorItem);		
+		return String.format("R$%.2f", valorItem);
 	}
-	
 
-	/**
-	 * Para controle dos testes de aceitacao.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
-				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
-				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
-				"diretorio_testes/testes_uc3_exception.txt"};
-		EasyAccept.main(args);
-	}
+//	/**
+//	 * Para controle dos testes de aceitacao.
+//	 * 
+//	 * @param args
+//	 */
+//	public static void main(String[] args) {
+//		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
+//				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
+//				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
+//				"diretorio_testes/testes_uc3_exception.txt" };
+//		EasyAccept.main(args);
+//	}
 
 }

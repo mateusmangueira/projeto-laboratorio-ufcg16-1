@@ -2,7 +2,6 @@ package facade;
 
 import easyaccept.EasyAccept;
 import hotel_gotemburgo.HotelController;
-import restaurante.RestauranteController;
 import verificacao.excecoes.HotelGotemburgoException;
 
 public class Facade {
@@ -32,8 +31,9 @@ public class Facade {
 	public void atualizaCadastro(String email, String atributo, String valor) throws HotelGotemburgoException {
 		this.hotelController.atualizaCadastro(email, atributo, valor);
 	}
-	
-	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelGotemburgoException {
+
+	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto)
+			throws HotelGotemburgoException {
 		return this.hotelController.realizaCheckin(email, qntDias, idQuarto, tipoQuarto);
 	}
 
@@ -60,12 +60,19 @@ public class Facade {
 	public String consultaRestaurante(String nome, String atributo) throws HotelGotemburgoException {
 		return this.hotelController.getRestaurante().consultaRestaurante(nome, atributo);
 	}
-	
+
+	public String consultaMenuRestaurante() {
+		return this.hotelController.getRestaurante().consultaMenuRestaurante();
+	}
+
 	public String realizaPedido(String email, String item) throws HotelGotemburgoException {
 		return this.hotelController.realizaPedido(email, item);
 	}
-	
-	
+
+	public void ordenaMenu(String atributo) {
+		this.hotelController.getRestaurante().ordenaMenu(atributo);
+	}
+
 	public static void main(String[] args) {
 		args = new String[] { "facade.Facade", "diretorio_testes/testes_uc1.txt",
 				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",

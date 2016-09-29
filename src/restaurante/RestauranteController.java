@@ -2,10 +2,7 @@ package restaurante;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-
 import restaurante.comida.Prato;
 import restaurante.comida.Refeicao;
 import restaurante.comida.RefeicaoCompleta;
@@ -13,10 +10,8 @@ import verificacao.excecoes.ConsultaException;
 import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.HotelGotemburgoException;
 import verificacao.excecoes.LogicaException;
-import verificacao.excecoes.StringException;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
-import easyaccept.EasyAccept;
 
 /**
  * O Restaurante deve ser responsavel por cadastrar, atualizar e remover pratos
@@ -37,7 +32,7 @@ public class RestauranteController {
 		this.cardapio = new ArrayList<Refeicao>();
 
 	}
-	
+
 	public List<Refeicao> getCardapio() {
 		return cardapio;
 	}
@@ -55,19 +50,15 @@ public class RestauranteController {
 	 * @param descricao
 	 * @return true se a operacao foi bem sucedida
 	 * @throws ValoresException
-	 * @throws
-	 * @throws ValoresException
+	 * @throws @throws
+	 *             ValoresException
 	 * @throws Exception
 	 */
-	public boolean cadastraPrato(String nome, double preco, String descricao)
-			throws ValoresException {
+	public boolean cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
 
-		Excecoes.checaString(nome,
-				"Erro no cadastro do prato. Nome do prato esta vazio.");
-		Excecoes.checaString(descricao,
-				"Erro no cadastro do prato. Descricao do prato esta vazia.");
-		Excecoes.checaDouble(preco,
-				"Erro no cadastro do prato. Preco do prato eh invalido.");
+		Excecoes.checaString(nome, "Erro no cadastro do prato. Nome do prato esta vazio.");
+		Excecoes.checaString(descricao, "Erro no cadastro do prato. Descricao do prato esta vazia.");
+		Excecoes.checaDouble(preco, "Erro no cadastro do prato. Preco do prato eh invalido.");
 
 		Refeicao novoPrato = new Prato(nome, preco, descricao);
 
@@ -114,7 +105,7 @@ public class RestauranteController {
 		if (novoPrato != null) {
 			return novoPrato;
 		}
-		
+
 		throw new ConsultaException("Prato nao encontrado.");
 	}
 
@@ -161,30 +152,24 @@ public class RestauranteController {
 	 * @throws HotelGotemburgoException
 	 *             Caso haja um problema no cadastro
 	 */
-	public boolean cadastraRefeicao(String nome, String descricao,
-			String componentes) throws HotelGotemburgoException {
+	public boolean cadastraRefeicao(String nome, String descricao, String componentes) throws HotelGotemburgoException {
 
-		Excecoes.checaString(nome,
-				"Erro no cadastro de refeicao. Nome da refeicao esta vazio.");
-		Excecoes.checaString(descricao,
-				"Erro no cadastro de refeicao. Descricao da refeicao esta vazia.");
-		Excecoes.checaString(componentes,
-				"Erro no cadastro de refeicao. Componente(s) esta(o) vazio(s).");
+		Excecoes.checaString(nome, "Erro no cadastro de refeicao. Nome da refeicao esta vazio.");
+		Excecoes.checaString(descricao, "Erro no cadastro de refeicao. Descricao da refeicao esta vazia.");
+		Excecoes.checaString(componentes, "Erro no cadastro de refeicao. Componente(s) esta(o) vazio(s).");
 
 		String[] nomeDosPratos = componentes.split(";");
 
 		ArrayList<Prato> pratos = new ArrayList<Prato>();
 
 		if ((nomeDosPratos.length < 3) || (nomeDosPratos.length > 4))
-			throw new ValorException(
-					"Erro no cadastro de refeicao completa. Uma refeicao completa deve possuir "
-							+ "no minimo 3 e no maximo 4 pratos.");
+			throw new ValorException("Erro no cadastro de refeicao completa. Uma refeicao completa deve possuir "
+					+ "no minimo 3 e no maximo 4 pratos.");
 
 		for (int i = 0; i < nomeDosPratos.length; i++) {
 			if (!this.contemPrato(nomeDosPratos[i]))
-				throw new ValorException(
-						"Erro no cadastro de refeicao. So eh possivel cadastrar refeicoes "
-								+ "com pratos ja cadastrados.");
+				throw new ValorException("Erro no cadastro de refeicao. So eh possivel cadastrar refeicoes "
+						+ "com pratos ja cadastrados.");
 
 			Prato prato = this.buscaPrato(nomeDosPratos[i]);
 			pratos.add(prato);
@@ -208,13 +193,10 @@ public class RestauranteController {
 	 * @throws ConsultaException
 	 * @throws Exception
 	 */
-	public String consultaRestaurante(String nome, String atributo)
-			throws ValoresException, ConsultaException {
+	public String consultaRestaurante(String nome, String atributo) throws ValoresException, ConsultaException {
 
-		Excecoes.checaString(nome,
-				"Erro na consulta do restaurante. Nome do prato esto vazio.");
-		Excecoes.checaString(atributo,
-				"Erro na consulta do restaurante. Atributo do prato esta vazio.");
+		Excecoes.checaString(nome, "Erro na consulta do restaurante. Nome do prato esto vazio.");
+		Excecoes.checaString(atributo, "Erro na consulta do restaurante. Atributo do prato esta vazio.");
 
 		switch (atributo.toUpperCase()) {
 		case "PRECO":
@@ -241,16 +223,12 @@ public class RestauranteController {
 
 		case "NOME":
 			Collections.sort(this.cardapio,
-					(Refeicao comida, Refeicao outraComida) -> comida.getNome()
-							.compareTo(outraComida.getNome()));
+					(Refeicao comida, Refeicao outraComida) -> comida.getNome().compareTo(outraComida.getNome()));
 			break;
 		case "PRECO":
-			Collections.sort(
-					this.cardapio,
-					(Refeicao comida, Refeicao outraComida) -> {
-						return Double.compare(comida.getPreco(),
-								outraComida.getPreco());
-					});
+			Collections.sort(this.cardapio, (Refeicao comida, Refeicao outraComida) -> {
+				return Double.compare(comida.getPreco(), outraComida.getPreco());
+			});
 			break;
 		}
 	}
@@ -264,12 +242,12 @@ public class RestauranteController {
 		return retorno.replaceFirst(";", "");
 	}
 
-	public static void main(String[] args) {
-		args = new String[] { "restaurante.RestauranteController",
-				"diretorio_testes/testes_uc4.txt",
-				"diretorio_testes/testes_uc4_exception.txt",
-				"diretorio_testes/testes_uc5.txt" };
-		EasyAccept.main(args);
-	}
+	// public static void main(String[] args) {
+	// args = new String[] { "restaurante.RestauranteController",
+	// "diretorio_testes/testes_uc4.txt",
+	// "diretorio_testes/testes_uc4_exception.txt",
+	// "diretorio_testes/testes_uc5.txt" };
+	// EasyAccept.main(args);
+	// }
 
 }
