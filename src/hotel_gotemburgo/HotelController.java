@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import restaurante.RestauranteController;
+import restaurante.comida.Prato;
+import restaurante.comida.Refeicao;
 import verificacao.excecoes.*;
 import verificacao.validacao.*;
 import easyaccept.EasyAccept;
@@ -41,6 +44,11 @@ public class HotelController {
 	private Set<Quarto> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
 	private ArrayList<Transacao> transacoes;
+	private RestauranteController restaurante;
+
+	public RestauranteController getRestaurante() {
+		return restaurante;
+	}
 
 	/**
 	 * O construtor do HotelController inicia o Set de hospedes, de quartos e de
@@ -53,11 +61,13 @@ public class HotelController {
 		this.hospedes = new HashSet<Hospede>();
 		this.quartosOcupados = new HashSet<Quarto>();
 		this.transacoes = new ArrayList<Transacao>();
-
+		this.restaurante = new RestauranteController();
+		
 		this.inicializaTiposDeQuarto();
 
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
+		
 	}
 
 	/**
@@ -597,6 +607,28 @@ public class HotelController {
 					"Erro na consulta de transacoes. Opcao invalida.");
 		}
 	}
+	
+	public String realizaPedido(String email, String item) throws HotelGotemburgoException {
+		
+		Excecoes.checaString(email, "Erro ao realizar pedido. Email do(a) hospede nao pode ser vazio.");
+		Excecoes.checaString(item, "Erro ao realizar pedido. Item nao pode ser nulo ou vazio.");
+		
+		if (this.isHospedado(email))
+			throw new ConsultaException("Erro ao realizar pedido. Cliente nao hospedado.");
+		
+		Hospede hospede = this.buscaHospede(email);
+		
+		double valorItem = 0.0;
+		for (Refeicao refeicao : this.restaurante.getCardapio()) {
+			if (refeicao.getNome().equalsIgnoreCase(item)) {
+				valorItem  += refeicao.getPreco();
+			}
+		}
+		Transacao transacao = new Transacao(hospede.getNome(), valorItem);
+		this.transacoes.add(transacao);
+		return String.format("R$%.2f", valorItem);		
+	}
+	
 
 	/**
 	 * Para controle dos testes de aceitacao.

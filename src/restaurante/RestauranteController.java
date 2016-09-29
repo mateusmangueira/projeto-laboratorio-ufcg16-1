@@ -27,8 +27,6 @@ import easyaccept.EasyAccept;
  */
 public class RestauranteController {
 
-	// private HashSet<Prato> pratos;
-	// private HashSet<RefeicaoCompleta> refeicoes;
 	private List<Refeicao> cardapio;
 
 	/**
@@ -36,10 +34,12 @@ public class RestauranteController {
 	 * colecoes de pratos e de refeicoes
 	 */
 	public RestauranteController() {
-		// this.pratos = new HashSet<Prato>();
-		// this.refeicoes = new HashSet<RefeicaoCompleta>();
 		this.cardapio = new ArrayList<Refeicao>();
 
+	}
+	
+	public List<Refeicao> getCardapio() {
+		return cardapio;
 	}
 
 	/* Pratos */
@@ -71,7 +71,6 @@ public class RestauranteController {
 
 		Refeicao novoPrato = new Prato(nome, preco, descricao);
 
-		// this.pratos.add(novoPrato);
 		return this.cardapio.add(novoPrato);
 	}
 

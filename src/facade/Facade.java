@@ -8,11 +8,9 @@ import verificacao.excecoes.HotelGotemburgoException;
 public class Facade {
 
 	private HotelController hotelController;
-	private RestauranteController restauranteController;
 
 	public Facade() {
 		this.hotelController = new HotelController();
-		this.restauranteController = new RestauranteController();
 	}
 
 	public String cadastraHospede(String nome, String email, String dataNascimento) throws HotelGotemburgoException {
@@ -52,16 +50,21 @@ public class Facade {
 	}
 
 	public boolean cadastraPrato(String nome, double preco, String descricao) throws HotelGotemburgoException {
-		return this.restauranteController.cadastraPrato(nome, preco, descricao);
+		return this.hotelController.getRestaurante().cadastraPrato(nome, preco, descricao);
 	}
 
 	public void cadastraRefeicao(String nome, String descricao, String componentes) throws HotelGotemburgoException {
-		this.restauranteController.cadastraRefeicao(nome, descricao, componentes);
+		this.hotelController.getRestaurante().cadastraRefeicao(nome, descricao, componentes);
 	}
 
 	public String consultaRestaurante(String nome, String atributo) throws HotelGotemburgoException {
-		return this.restauranteController.consultaRestaurante(nome, atributo);
+		return this.hotelController.getRestaurante().consultaRestaurante(nome, atributo);
 	}
+	
+	public String realizaPedido(String email, String item) throws HotelGotemburgoException {
+		return this.hotelController.realizaPedido(email, item);
+	}
+	
 	
 	public static void main(String[] args) {
 		args = new String[] { "facade.Facade", "diretorio_testes/testes_uc1.txt",
@@ -69,7 +72,7 @@ public class Facade {
 				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
 				"diretorio_testes/testes_uc3_exception.txt", "diretorio_testes/testes_uc3.txt",
 				"diretorio_testes/testes_uc4_exception.txt", "diretorio_testes/testes_uc4.txt",
-				};
+				"diretorio_testes/testes_uc5.txt" };
 		EasyAccept.main(args);
 	}
 }
