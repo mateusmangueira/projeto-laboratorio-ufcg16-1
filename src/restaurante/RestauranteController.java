@@ -111,27 +111,6 @@ public class RestauranteController {
 
 	/* Refeicoes */
 
-	private boolean contemRefeicao(String nome) throws ConsultaException {
-		for (Refeicao refeicao : this.cardapio) {
-			if (refeicao.getClass().equals(RefeicaoCompleta.class)) {
-				if (refeicao.getNome().equalsIgnoreCase(nome))
-					return true;
-			}
-		}
-		return false;
-	}
-
-	private Refeicao buscaRefeicao(String nome) throws ConsultaException {
-		for (Refeicao refeicao : this.cardapio) {
-			if (refeicao.getClass().equals(RefeicaoCompleta.class)) {
-				if (refeicao.getNome().equalsIgnoreCase(nome))
-					return refeicao;
-			}
-		}
-		throw new ConsultaException("Refeicao nao encontrado.");
-
-	}
-
 	/**
 	 * Realiza o cadastro de uma refeicao ao set de refeicoes do Restaurante.
 	 * Para isso, verifica se todos os pratos do array recebido como parametro
@@ -241,13 +220,4 @@ public class RestauranteController {
 		}
 		return retorno.replaceFirst(";", "");
 	}
-
-	// public static void main(String[] args) {
-	// args = new String[] { "restaurante.RestauranteController",
-	// "diretorio_testes/testes_uc4.txt",
-	// "diretorio_testes/testes_uc4_exception.txt",
-	// "diretorio_testes/testes_uc5.txt" };
-	// EasyAccept.main(args);
-	// }
-
 }

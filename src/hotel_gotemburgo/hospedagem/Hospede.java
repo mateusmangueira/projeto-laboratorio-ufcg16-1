@@ -2,7 +2,6 @@ package hotel_gotemburgo.hospedagem;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import verificacao.excecoes.StringException;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
@@ -241,13 +240,14 @@ public class Hospede {
 	 * Dois objetos do tipo Hospede sao iguais caso possuam o mesmo email
 	 */
 	@Override
-	public boolean equals(Object anotherObject) {
-		if (anotherObject == null)
-			return false;
-		if (!anotherObject.getClass().equals(this.getClass()))
-			return false;
-		Hospede outro = (Hospede) anotherObject;
-		return outro.getEmail().equals(this.getEmail());
+	public boolean equals(Object outroObjeto) {
+		if (outroObjeto instanceof Hospede) {
+			Hospede outroHospede = (Hospede) outroObjeto;
+			if (this.getEmail().equalsIgnoreCase(outroHospede.getEmail())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

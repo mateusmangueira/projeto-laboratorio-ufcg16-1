@@ -38,7 +38,7 @@ public class HotelController {
 	private final int ANO_ATUAL;
 	private final int MAIORIDADE;
 	private Set<Hospede> hospedes;
-	private ArrayList<Quarto> quartosOcupados;
+	private Set<Quarto> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
 	private ArrayList<Transacao> transacoes;
 	private RestauranteController restaurante;
@@ -56,7 +56,7 @@ public class HotelController {
 	public HotelController() {
 
 		this.hospedes = new HashSet<Hospede>();
-		this.quartosOcupados = new ArrayList<Quarto>();
+		this.quartosOcupados = new HashSet<Quarto>();
 		this.transacoes = new ArrayList<Transacao>();
 		this.restaurante = new RestauranteController();
 
@@ -165,7 +165,6 @@ public class HotelController {
 		Excecoes.checaFormatoEmail(email, "Erro no cadastro de Hospede. Email do(a) hospede esta invalido.");
 		Excecoes.checaFormatoData(dataNascimento, "Erro no cadastro de Hospede. Formato de data invalido.");
 
-		// VERIFICAR AQUI!!!!
 		Validacoes.validaData(dataNascimento);
 		Validacoes.validaEmail(email);
 		Validacoes.validaNome(nome);
@@ -244,13 +243,10 @@ public class HotelController {
 
 		Excecoes.checaString(email, "Erro ao checar hospedagem ativa. Email do(a) hospede nao pode ser vazio.");
 
-		// VERIFICAR DEPOIS!!!
 		if (!isCadastrado(email))
 			throw new ConsultaException("Erro ao checar hospedagem ativa. Email do(a) hospede esta invalido.");
 
 		Hospede hospede = this.buscaHospede(email);
-
-		// VERIFICAR DEPOIS!!!
 		if (!isHospedado(email))
 			throw new ConsultaException(String
 					.format("Erro na consulta de hospedagem. Hospede %s nao esta hospedado(a).", hospede.getNome()));
@@ -336,8 +332,6 @@ public class HotelController {
 	 */
 	private Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws HotelGotemburgoException {
 		return new Quarto(idQuarto, tipoQuarto);
-		// Futuramente pode ser preciso adicionar esse quarto em um set de
-		// quartos do Hotel
 	}
 
 	/**
@@ -402,9 +396,11 @@ public class HotelController {
 	 * 
 	 * @param idQuarto
 	 * @return um quarto ocupado
+	 * @throws HotelGotemburgoException
 	 * @throws Exception
 	 */
 	private Quarto buscaQuartoOcupado(String idQuarto) throws HotelGotemburgoException {
+		Excecoes.checaString(idQuarto, "O id do quarto nao pode ser nulo ou vazio.");
 
 		for (Quarto quarto : this.quartosOcupados) {
 			if (quarto.getId().equalsIgnoreCase(idQuarto))
@@ -513,12 +509,12 @@ public class HotelController {
 		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), gastosEstadia);
 
 		this.transacoes.add(transacao);
-		Quarto quarto = buscaQuartoOcupado(idQuarto);
-
+		Quarto quarto = this.buscaQuartoOcupado(idQuarto);
 		this.quartosOcupados.remove(quarto);
 		hospedeDeSaida.removeEstadia(idQuarto);
 
 		return String.format("R$%.2f", gastosEstadia);
+
 	}
 
 	/**
@@ -572,15 +568,13 @@ public class HotelController {
 		case "NOME":
 			return this.transacoes.get(indice).getNomeHospede();
 		case "DETALHES":
-			// ESSE METODO QUE RETORNAR O ID DO QUARTO PELA POSICAO DO INDICE PASSADO.
-			
+
 		default:
 			throw new ConsultaException("Erro na consulta de transacoes. Opcao invalida.");
 		}
 	}
 
 	public String realizaPedido(String email, String item) throws HotelGotemburgoException {
-
 		Excecoes.checaString(email, "Erro ao realizar pedido. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaString(item, "Erro ao realizar pedido. Item nao pode ser nulo ou vazio.");
 
@@ -599,18 +593,4 @@ public class HotelController {
 		this.transacoes.add(transacao);
 		return String.format("R$%.2f", valorItem);
 	}
-
-//	/**
-//	 * Para controle dos testes de aceitacao.
-//	 * 
-//	 * @param args
-//	 */
-//	public static void main(String[] args) {
-//		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
-//				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
-//				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
-//				"diretorio_testes/testes_uc3_exception.txt" };
-//		EasyAccept.main(args);
-//	}
-
 }
