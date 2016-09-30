@@ -4,10 +4,12 @@ public class Transacao {
 
 	private String nomeHospede;
 	private double valor;
+	private String descricao;
 
-	public Transacao(String nome, double valor) {
+	public Transacao(String nome, double valor, String descricao) {
 		this.nomeHospede = nome;
 		this.valor = valor;
+		this.descricao = descricao;
 	}
 
 	public String getNomeHospede() {
@@ -24,6 +26,10 @@ public class Transacao {
 
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	public String getDescricao() {
+		return this.descricao;
 	}
 
 	@Override
@@ -55,7 +61,5 @@ public class Transacao {
 			return false;
 		return true;
 	}
-	
-	
 
 }

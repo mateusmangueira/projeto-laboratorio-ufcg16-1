@@ -49,20 +49,20 @@ public class Facade {
 		return this.hotelController.consultaTransacoes(atributo, indice);
 	}
 
-	public boolean cadastraPrato(String nome, double preco, String descricao) throws HotelGotemburgoException {
-		return this.hotelController.getRestaurante().cadastraPrato(nome, preco, descricao);
+	public void cadastraPrato(String nome, double preco, String descricao) throws HotelGotemburgoException {
+		this.hotelController.cadastraPrato(nome, preco, descricao);
 	}
 
 	public void cadastraRefeicao(String nome, String descricao, String componentes) throws HotelGotemburgoException {
-		this.hotelController.getRestaurante().cadastraRefeicao(nome, descricao, componentes);
+		this.hotelController.cadastraRefeicao(nome, descricao, componentes);
 	}
 
 	public String consultaRestaurante(String nome, String atributo) throws HotelGotemburgoException {
-		return this.hotelController.getRestaurante().consultaRestaurante(nome, atributo);
+		return this.hotelController.consultaRestaurante(nome, atributo);
 	}
 
 	public String consultaMenuRestaurante() {
-		return this.hotelController.getRestaurante().consultaMenuRestaurante();
+		return this.hotelController.consultaMenuRestaurante();
 	}
 
 	public String realizaPedido(String email, String item) throws HotelGotemburgoException {
@@ -70,7 +70,7 @@ public class Facade {
 	}
 
 	public void ordenaMenu(String atributo) {
-		this.hotelController.getRestaurante().ordenaMenu(atributo);
+		this.hotelController.ordenaMenu(atributo);
 	}
 
 	public static void main(String[] args) {

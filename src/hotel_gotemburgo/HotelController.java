@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import easyaccept.EasyAccept;
 import restaurante.RestauranteController;
 import restaurante.comida.Refeicao;
 import verificacao.excecoes.*;
@@ -43,10 +45,6 @@ public class HotelController {
 	private ArrayList<Transacao> transacoes;
 	private RestauranteController restaurante;
 
-	public RestauranteController getRestaurante() {
-		return restaurante;
-	}
-
 	/**
 	 * O construtor do HotelController inicia o Set de hospedes, de quartos e de
 	 * transacoes. Chama o metodo inicializaTiposDeQuarto para atribuir uma
@@ -65,6 +63,10 @@ public class HotelController {
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
 
+	}
+
+	public RestauranteController getRestaurante() {
+		return restaurante;
 	}
 
 	/**
@@ -506,7 +508,7 @@ public class HotelController {
 		Hospede hospedeDeSaida = this.buscaHospede(email);
 		double gastosEstadia = hospedeDeSaida.getValorEstadia(idQuarto);
 
-		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), gastosEstadia);
+		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), gastosEstadia, idQuarto);
 
 		this.transacoes.add(transacao);
 		Quarto quarto = this.buscaQuartoOcupado(idQuarto);
@@ -535,8 +537,8 @@ public class HotelController {
 			return String.format("R$%.2f", this.getValorTotalTransacoes());
 		case "NOME":
 			String nomes = "";
-			for (Transacao hospede : this.transacoes) {
-				nomes += ";" + hospede.getNomeHospede();
+			for (Transacao transacao : this.transacoes) {
+				nomes += ";" + transacao.getNomeHospede();
 			}
 			return nomes.replaceFirst(";", "");
 
@@ -568,6 +570,7 @@ public class HotelController {
 		case "NOME":
 			return this.transacoes.get(indice).getNomeHospede();
 		case "DETALHES":
+			return this.transacoes.get(indice).getDescricao();
 
 		default:
 			throw new ConsultaException("Erro na consulta de transacoes. Opcao invalida.");
@@ -575,22 +578,45 @@ public class HotelController {
 	}
 
 	public String realizaPedido(String email, String item) throws HotelGotemburgoException {
+
 		Excecoes.checaString(email, "Erro ao realizar pedido. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaString(item, "Erro ao realizar pedido. Item nao pode ser nulo ou vazio.");
 
-		if (this.isHospedado(email))
-			throw new ConsultaException("Erro ao realizar pedido. Cliente nao hospedado.");
-
 		Hospede hospede = this.buscaHospede(email);
-
-		double valorItem = 0.0;
-		for (Refeicao refeicao : this.restaurante.getCardapio()) {
-			if (refeicao.getNome().equalsIgnoreCase(item)) {
-				valorItem += refeicao.getPreco();
-			}
-		}
-		Transacao transacao = new Transacao(hospede.getNome(), valorItem);
+		Refeicao refeicao = this.restaurante.buscaRefeicao(item);
+		Transacao transacao = new Transacao(hospede.getNome(), refeicao.getPreco(), item);
 		this.transacoes.add(transacao);
-		return String.format("R$%.2f", valorItem);
+		return String.format("R$%.2f", refeicao.getPreco());
+
+	}
+
+	public void cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
+		this.restaurante.cadastraPrato(nome, preco, descricao);
+	}
+
+	public boolean cadastraRefeicao(String nome, String descricao, String componentes) throws HotelGotemburgoException {
+		return this.restaurante.cadastraRefeicao(nome, descricao, componentes);
+	}
+
+	public String consultaRestaurante(String nome, String atributo) throws ConsultaException, ValoresException {
+		return this.restaurante.consultaRestaurante(nome, atributo);
+	}
+
+	public String consultaMenuRestaurante() {
+		return this.restaurante.consultaMenuRestaurante();
+	}
+
+	public void ordenaMenu(String atributo) {
+		this.restaurante.ordenaMenu(atributo);
+	}
+
+	public static void main(String[] args) {
+		args = new String[] { "facade.Facade", "diretorio_testes/testes_uc1.txt",
+				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
+				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
+				"diretorio_testes/testes_uc3_exception.txt", "diretorio_testes/testes_uc3.txt",
+				"diretorio_testes/testes_uc4.txt", "diretorio_testes/testes_uc4_exception.txt",
+				"diretorio_testes/testes_uc5.txt" };
+		EasyAccept.main(args);
 	}
 }

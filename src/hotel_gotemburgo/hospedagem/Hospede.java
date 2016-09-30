@@ -221,7 +221,7 @@ public class Hospede {
 
 	public double getValorEstadia(String idQuarto) {
 		for (Estadia estadia : estadias) {
-			if (estadia.getQuartoID().equals(idQuarto)) {
+			if (estadia.getQuartoID().equalsIgnoreCase(idQuarto)) {
 				return estadia.getCalculaEstadia();
 			}
 		}

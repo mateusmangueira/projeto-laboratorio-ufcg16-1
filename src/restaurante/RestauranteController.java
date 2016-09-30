@@ -220,4 +220,13 @@ public class RestauranteController {
 		}
 		return retorno.replaceFirst(";", "");
 	}
+
+	public Refeicao buscaRefeicao(String nome) throws ConsultaException {
+		for (Refeicao refeicao : this.getCardapio()) {
+			if (refeicao.getNome().equalsIgnoreCase(nome)) {
+				return refeicao;
+			}
+		}
+		throw new ConsultaException("Refeicao nao existe no cardapio.");
+	}
 }
