@@ -1,5 +1,6 @@
 package verificacao.excecoes;
 
+import hotel_gotemburgo.quartos.TipoDeQuarto;
 import verificacao.excecoes.HotelGotemburgoException;
 import verificacao.validacao.Validacoes;
 
@@ -15,12 +16,17 @@ public class Excecoes {
 	}
 
 	public static void checaInt(int inteiro, String mensagem) throws ValorException {
-		if(inteiro < 0)
+		if(inteiro <= 0)
 			throw new ValorException(mensagem);
 	}
 	
 	public static void checaDouble(double valor, String mensagem) throws ValorException {
 		if(valor < 0.0)
+			throw new ValorException(mensagem);
+	}
+	
+	public static void checaEnum(TipoDeQuarto tipo, String mensagem) throws ValorException {
+		if(tipo == null) 
 			throw new ValorException(mensagem);
 	}
 

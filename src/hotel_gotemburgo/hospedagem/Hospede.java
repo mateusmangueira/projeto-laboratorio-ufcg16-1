@@ -2,6 +2,8 @@ package hotel_gotemburgo.hospedagem;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.StringException;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
@@ -40,14 +42,9 @@ public class Hospede {
 	 */
 	public Hospede(String nomeHospede, String emailHospede, String dataNascHospede) throws StringException {
 
-		if (nomeHospede == null || nomeHospede.trim().isEmpty())
-			throw new StringException("O nome do hospede nao pode ser nulo ou vazio.");
-
-		if (emailHospede == null || emailHospede.trim().isEmpty())
-			throw new StringException("O email do hospede nao pode ser nulo ou vazio.");
-
-		if (dataNascHospede == null || dataNascHospede.trim().isEmpty())
-			throw new StringException("A data de nascimento do hospede nao pode ser nula ou vazia.");
+		Excecoes.checaString(nomeHospede, "O nome do hospede nao pode ser nulo ou vazio.");
+		Excecoes.checaString(emailHospede, "O email do hospede nao pode ser nulo ou vazio.");
+		Excecoes.checaString(dataNascHospede, "A data de nascimento do hospede nao pode ser nula ou vazia.");
 
 		this.nome = nomeHospede;
 		this.email = emailHospede;
@@ -73,9 +70,8 @@ public class Hospede {
 	 * @throws StringException
 	 */
 	public void setNome(String nome) throws StringException {
-		if (email == null || email.trim().isEmpty())
-			throw new StringException(
-					"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
+		Excecoes.checaString(nome,
+				"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 		this.nome = nome;
 	}
 
@@ -96,8 +92,7 @@ public class Hospede {
 	 * @throws StringException
 	 */
 	public void setEmail(String email) throws StringException {
-		if (email == null || email.trim().isEmpty())
-			throw new StringException("Erro na atualizacao do cadastro de Hospede. Email do(a) hospede esta invalido.");
+		Excecoes.checaString(email, "Erro na atualizacao do cadastro de Hospede. Email do(a) hospede esta invalido.");
 		this.email = email;
 	}
 
@@ -117,9 +112,8 @@ public class Hospede {
 	 * @throws ValoresException
 	 */
 	public void setDataNascimento(String dataNascimento) throws ValoresException {
-		if (dataNascimento == null || dataNascimento.trim().isEmpty())
-			throw new StringException(
-					"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
+		Excecoes.checaString(dataNascimento,
+				"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -157,7 +151,7 @@ public class Hospede {
 		Iterator<Estadia> i = estadias.iterator();
 		while (i.hasNext()) {
 			Estadia estadia = i.next();
-			if (estadia.getQuarto().getId().equalsIgnoreCase(idQuarto)) {
+			if (estadia.getIdQuarto().equalsIgnoreCase(idQuarto)) {
 				i.remove();
 				return true;
 			}
@@ -173,8 +167,8 @@ public class Hospede {
 	public String getRepresentaEstadias() {
 
 		String info = "";
-		for (Estadia estadia : estadias) {
-			info += "," + estadia.getQuarto().getId();
+		for (Estadia estadia : this.estadias) {
+			info += "," + estadia.getIdQuarto();
 		}
 		return info.replaceFirst(",", "");
 
@@ -186,7 +180,7 @@ public class Hospede {
 	 * @return estadias
 	 */
 	public ArrayList<Estadia> getEstadias() {
-		return estadias;
+		return this.estadias;
 	}
 
 	/**
@@ -195,7 +189,7 @@ public class Hospede {
 	 * @return o tamanho do array de estadias
 	 */
 	public int getQtdEstadias() {
-		return estadias.size();
+		return this.estadias.size();
 	}
 
 	/**
@@ -220,8 +214,8 @@ public class Hospede {
 	 */
 
 	public double getValorEstadia(String idQuarto) {
-		for (Estadia estadia : estadias) {
-			if (estadia.getQuartoID().equalsIgnoreCase(idQuarto)) {
+		for (Estadia estadia : this.estadias) {
+			if (estadia.getIdQuarto().equalsIgnoreCase(idQuarto)) {
 				return estadia.getCalculaEstadia();
 			}
 		}

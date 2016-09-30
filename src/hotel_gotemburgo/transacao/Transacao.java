@@ -1,5 +1,8 @@
 package hotel_gotemburgo.transacao;
 
+import verificacao.excecoes.Excecoes;
+import verificacao.excecoes.ValoresException;
+
 public class Transacao {
 
 	private String nomeHospede;
@@ -7,6 +10,7 @@ public class Transacao {
 	private String descricao;
 
 	public Transacao(String nome, double valor, String descricao) {
+		
 		this.nomeHospede = nome;
 		this.valor = valor;
 		this.descricao = descricao;
@@ -16,7 +20,8 @@ public class Transacao {
 		return nomeHospede;
 	}
 
-	public void setNomeHospede(String nomeHospede) {
+	public void setNomeHospede(String nomeHospede) throws ValoresException {
+		Excecoes.checaString(nomeHospede, "O nome do hospede nao pode ser nulo ou vazio.");
 		this.nomeHospede = nomeHospede;
 	}
 
@@ -24,7 +29,8 @@ public class Transacao {
 		return valor;
 	}
 
-	public void setValor(double valor) {
+	public void setValor(double valor) throws ValoresException {
+		Excecoes.checaDouble(valor, "O valor da transacao nao pode ser menor ou igual a zero.");
 		this.valor = valor;
 	}
 
