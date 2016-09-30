@@ -11,6 +11,10 @@ public interface CartaoFidelidade {
 
 	public double aplicarDesconto(double valor);
 
-	//public int pagarDivida(double valor);
-
+	public int pagarDivida(double valor);
+	
+	public int getPontos();
+	
+	public void setPontos(int pontos);
+	
 }
