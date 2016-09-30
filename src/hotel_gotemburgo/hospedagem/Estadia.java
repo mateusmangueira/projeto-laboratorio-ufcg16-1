@@ -26,9 +26,9 @@ public class Estadia {
 	 * Construtor padrao da classe Estadia que recebe um quarto e a quantidade
 	 * de dias
 	 * 
-	 * @param quarto
-	 * @param dias
-	 * @throws ValoresException
+	 * @param quarto Quarto que compoe a estadia
+	 * @param dias Dias de hospedagem dessa estadia
+	 * @throws ValoresException Em caso de insercao de valores invalidos
 	 */
 	public Estadia(Quarto quarto, int dias) throws ValoresException {
 
@@ -43,8 +43,9 @@ public class Estadia {
 	}
 	
 	/**
-	 * Retorna o atributo quarto da Estadia
-	 * @return quarto
+	 * Retorna quarto da Estadia
+	 * @return quarto A referencia ao atributo quarto da estadia, que eh
+	 * do tipo Quarto.java
 	 */
 	public Quarto getQuarto() {
 		return quarto;
@@ -52,49 +53,28 @@ public class Estadia {
 
 	/**
 	 * Retorna o ID do quarto da estadia
-	 * @return ID do quarto
+	 * @return ID do quarto que compoe a estadia. Para isso, acessa o
+	 * quarto desta estadia e solicita que ele informe o seu ID.
 	 */
 	public String getQuartoID() {
 		return this.quarto.getId();
 	}
-	
-	/**
-	 * Altera o atributo quarto da Estadia com uma nova referencia recebida como parametro
-	 * @param quarto
-	 * @throws ValoresException 
-	 */
-	public void setQuarto(Quarto quarto) throws ValoresException {
-		if (quarto == null) {
-			throw new ValorException("O quarto nao pode ser nulo.");
-		}
-		this.quarto = quarto;
-	}
 
 	/**
-	 * Retorna a quantidade de dias que a Estadia vem sendo utilizada
-	 * @return
+	 * Retorna a quantidade de dias da Estadia
+	 * @return Um inteiro correspondente ao valor do atributo 'dias' dessa estadia,
+	 * que corresponde a quantos dias o quarto dessa estadia vem sendo utilizado.
 	 */
 	public int getDias() {
 		return dias;
 	}
-	/**
-	 * Altera o atributo dias da Estadia com uma nova quantia recebida como parametro
-	 * @param dias
-	 * @throws ValoresException 
-	 */
-	public void setDias(int dias) throws ValoresException {
-		if (dias < 0) {
-			throw new ValorException("A quantidade de dias nao pode ser negativa.");
-		}
-		this.dias = dias;
-	}
 
 	/**
-	 * Metodo que calcula o valor que sera pago pelo hospede por ter ficado
-	 * determinados dias em um quarto
+	 * Metodo que calcula o valor que deve ser pago pela hospedagem nessa estadia.
 	 * 
-	 * @param quarto
-	 * @return double
+	 * @return Um double que representa a quantia em reais correspondente ao valor
+	 * atual dessa estadia. O calculo eh realizado ao multiplicar a quantidade
+	 * de dias e o valor do quarto dessa estadia.
 	 */
 	public double getCalculaEstadia() {
 		return this.getDias() * this.getQuarto().getTipoQuarto().getValor();
