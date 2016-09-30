@@ -1,16 +1,18 @@
 package hotel_gotemburgo.hospedagem;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 
 public class Premium implements CartaoFidelidade {
 
 	@Override
 	public int adicionarPontos(double valor) {
+		
+		final double BONIFICACAO = 0.3;
 		int recompensa = 0;
 		
-		recompensa += (0.3 * valor);
-		if(valor> 100){
+		recompensa += (BONIFICACAO * valor);
+		if (valor> 100){
 			int extra = (int) ((valor - 100)/100);// diminuo 100 e dps divido por cem pra saber qnts 100 tem, ou seja: 9 e dps multiplico  por 10
 			extra = extra * 10;					// nao sei se ta certo att Kleber
 			recompensa += extra;
@@ -20,17 +22,16 @@ public class Premium implements CartaoFidelidade {
 
 	@Override
 	public double aplicarDesconto(double valor) {
-        double valorComDesconto =  valor - (valor * 0.1);
+		
+		final double DESCONTO = 0.1;
+        double valorComDesconto =  valor - (valor * DESCONTO);
 
-        DecimalFormat formatador = new DecimalFormat("#.00");// esse metodo formata o valores decimais(que nesse caso e para duas casas decimais)
-        formatador.setRoundingMode(RoundingMode.UP);// esse metodo arredonda para cima o dable retornado
+        BigDecimal valorFormatado = new BigDecimal(valorComDesconto).setScale(3, RoundingMode.UP);
 
-        double valorComDescontoFormatado = Double.parseDouble(formatador.format(valorComDesconto)); // usamos parseDouble pois o Decimal format retorna uma string
-        return valorComDescontoFormatado;
+        return valorFormatado.doubleValue();
     }
-		
-		
-	}
+			
+}
 
 	
 	
