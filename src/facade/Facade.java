@@ -16,8 +16,8 @@ public class Facade {
 		return this.hotelController.cadastraHospede(nome, email, dataNascimento);
 	}
 
-	public void removeHospede(String email) throws HotelGotemburgoException {
-		this.hotelController.removeHospede(email);
+	public boolean removeHospede(String email) throws HotelGotemburgoException {
+		return this.hotelController.removeHospede(email);
 	}
 
 	public String getInfoHospede(String email, String atributo) throws HotelGotemburgoException {
@@ -32,9 +32,9 @@ public class Facade {
 		this.hotelController.atualizaCadastro(email, atributo, valor);
 	}
 
-	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto)
+	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto)
 			throws HotelGotemburgoException {
-		return this.hotelController.realizaCheckin(email, qntDias, idQuarto, tipoQuarto);
+		this.hotelController.realizaCheckin(email, qntDias, idQuarto, tipoQuarto);
 	}
 
 	public String realizaCheckout(String email, String idQuarto) throws HotelGotemburgoException {
@@ -49,12 +49,12 @@ public class Facade {
 		return this.hotelController.consultaTransacoes(atributo, indice);
 	}
 
-	public void cadastraPrato(String nome, double preco, String descricao) throws HotelGotemburgoException {
-		this.hotelController.cadastraPrato(nome, preco, descricao);
+	public boolean cadastraPrato(String nome, double preco, String descricao) throws HotelGotemburgoException {
+		return this.hotelController.cadastraPrato(nome, preco, descricao);
 	}
 
-	public void cadastraRefeicao(String nome, String descricao, String componentes) throws HotelGotemburgoException {
-		this.hotelController.cadastraRefeicao(nome, descricao, componentes);
+	public boolean cadastraRefeicao(String nome, String descricao, String componentes) throws HotelGotemburgoException {
+		return this.hotelController.cadastraRefeicao(nome, descricao, componentes);
 	}
 
 	public String consultaRestaurante(String nome, String atributo) throws HotelGotemburgoException {

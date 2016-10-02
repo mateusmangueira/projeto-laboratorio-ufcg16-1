@@ -100,7 +100,8 @@ public class HotelController {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
 		}
-		throw new ConsultaException("Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
+		throw new ConsultaException(
+				"Erro na consulta de hospede. Hospede de email " + email + " nao foi cadastrado(a).");
 	}
 
 	/**
@@ -190,12 +191,12 @@ public class HotelController {
 	 * @param email
 	 * @throws HotelGotemburgoException
 	 */
-	public void removeHospede(String email) throws HotelGotemburgoException {
+	public boolean removeHospede(String email) throws HotelGotemburgoException {
 
 		Excecoes.checaFormatoEmail(email, "Erro na remocao do Hospede. Formato de email invalido.");
 		Hospede hospede = this.buscaHospede(email);
 
-		this.hospedes.remove(hospede);
+		return this.hospedes.remove(hospede);
 	}
 
 	/**
@@ -320,24 +321,6 @@ public class HotelController {
 	}
 
 	/**
-	 * Metodo responsavel por criar um objeto quarto e adiciona-lo no set de
-	 * quartos do hotel. O quarto criado eh retornado.
-	 * 
-	 * @param idQuarto
-	 *            ID (uma string unica representando o quarto)
-	 * @param tipoQuarto
-	 *            (O tipo do quarto, podendo ser "Simples", "Luxo" ou
-	 *            "Presidencial".
-	 * @return O Quarto que foi criado
-	 * @throws HotelGotemburgoException
-	 */
-	
-	// NAO SERAH MAIS PRECISO !!!
-	/*private Quarto criaQuartos(String idQuarto, TipoDeQuarto tipoQuarto) throws HotelGotemburgoException {
-		return new Quarto(idQuarto, tipoQuarto);
-	}*/
-
-	/**
 	 * Metodo utilizado no construtor para iniciar o mapa que associa uma String
 	 * que representa um Enum de TipoDeQuarto, a uma constante desse Enum. Ex:
 	 * key- "SIMPLES" value- TipoDeQuarto.SIMPLES
@@ -380,14 +363,15 @@ public class HotelController {
 	 * Metodo utilizado para verificar se um determinado quarto - que sera
 	 * buscado atraves do ID - esta ou nao ocupado.
 	 * 
-	 * @param idQuarto ID do quarto a ser verificado
+	 * @param idQuarto
+	 *            ID do quarto a ser verificado
 	 * @return boolean
-	 * @throws HotelGotemburgoException 
+	 * @throws HotelGotemburgoException
 	 */
 	private boolean verificaOcupacao(String idQuarto) throws HotelGotemburgoException {
-		
+
 		Excecoes.checaString(idQuarto, "O id do quarto nao pode ser nulo ou vazio.");
-		
+
 		for (String quartoOcupado : this.quartosOcupados) {
 			if (quartoOcupado.equalsIgnoreCase(idQuarto)) {
 				return true;
@@ -397,28 +381,6 @@ public class HotelController {
 	}
 
 	/**
-	 * Metodo responsavel por buscar atraves do ide retornar, caso exista, um
-	 * quarto do hotel que ja esteja ocupado.
-	 * 
-	 * @param idQuarto
-	 * @return um quarto ocupado
-	 * @throws HotelGotemburgoException
-	 * @throws Exception
-	 */
-	
-	// NAO SERAH MAIS UTILIZADO POR ENQUANTO.
-	/*private String buscaQuartoOcupado(String idQuarto) throws HotelGotemburgoException {
-		
-		Excecoes.checaString(idQuarto, "O id do quarto nao pode ser nulo ou vazio.");
-
-		for (String id : this.quartosOcupados) {
-			if (id.equalsIgnoreCase(idQuarto))
-				return id;
-		}
-		throw new ConsultaException("Quarto nao encontrado.");
-	}*/
-
-	/**
 	 * Esse metodo eh responsavel por realizar o checkin de um hospede no Hotel.
 	 * O hospede precisa previamente estar cadastrado no sistema, entao ele sera
 	 * procurado. Caso esteja cadastrado, eh adicionada uma Estadia a esse
@@ -426,25 +388,32 @@ public class HotelController {
 	 * atributos recebidos como parametro) e uma quantidade de dias (tambem
 	 * recebida como parametro).
 	 * 
-	 * @param email Email do hospede
-	 * @param qntDias Quantidade de dias hospedado na estadia
-	 * @param idQuarto ID do quarto da estadia
-	 * @param tipoQuarto Tipo do quarto da estadia
+	 * @param email
+	 *            Email do hospede
+	 * @param qntDias
+	 *            Quantidade de dias hospedado na estadia
+	 * @param idQuarto
+	 *            ID do quarto da estadia
+	 * @param tipoQuarto
+	 *            Tipo do quarto da estadia
 	 * @throws HotelGotemburgoException
 	 */
-	public String realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto)
+	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto)
 			throws HotelGotemburgoException {
 
 		Excecoes.checaString(email, "Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaInt(qntDias, "Erro ao realizar checkin. Quantidade de dias esta invalida.");
-		Excecoes.checaString(idQuarto, "Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
+		Excecoes.checaString(idQuarto,
+				"Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 
 		if (!Validacoes.validaEmail(email))
 			throw new HotelGotemburgoException("Erro ao realizar checkin. Email do(a) hospede esta invalido.");
 		if (!Validacoes.validaQuarto(idQuarto))
-			throw new HotelGotemburgoException("Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
+			throw new HotelGotemburgoException(
+					"Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 		if (!isCadastrado(email))
-			throw new ConsultaException("Erro ao realizar checkin. Hospede de email " + email + " nao foi cadastrado(a).");
+			throw new ConsultaException(
+					"Erro ao realizar checkin. Hospede de email " + email + " nao foi cadastrado(a).");
 		if (!verificaTipoQuarto(tipoQuarto.toUpperCase()))
 			throw new VerificacaoException("Erro ao realizar checkin. Tipo de quarto invalido.");
 		if (this.verificaOcupacao(idQuarto))
@@ -453,10 +422,8 @@ public class HotelController {
 		Hospede hospede = this.buscaHospede(email);
 		TipoDeQuarto tipo = this.getTipo(tipoQuarto);
 		Estadia estadia = new Estadia(idQuarto, tipo, qntDias);
-		
 		hospede.addEstadia(estadia);
 		this.quartosOcupados.add(idQuarto);
-		return email;
 	}
 
 	/**
@@ -481,8 +448,10 @@ public class HotelController {
 	 * transacoes. Tambem eh calculado e retornado o valor total gasto por esse
 	 * hospede no Hotel.
 	 * 
-	 * @param email Email do hospede
-	 * @param idQuarto ID do quarto de onde o hospede esta saindo
+	 * @param email
+	 *            Email do hospede
+	 * @param idQuarto
+	 *            ID do quarto de onde o hospede esta saindo
 	 * @return O valor total gasto por esse hospede no Hotel
 	 * @throws HotelGotemburgoException
 	 */
@@ -493,7 +462,8 @@ public class HotelController {
 		Excecoes.checaString(idQuarto, "Erro ao realizar checkout. O Id do quarto nao pode ser nulo ou vazio.");
 
 		if (!Validacoes.validaQuarto(idQuarto))
-			throw new ValidacaoException("Erro ao realizar checkout. ID do quarto invalido, use apenas numeros ou letras.");
+			throw new ValidacaoException(
+					"Erro ao realizar checkout. ID do quarto invalido, use apenas numeros ou letras.");
 
 		Hospede hospedeDeSaida = this.buscaHospede(email);
 		double gastosEstadia = hospedeDeSaida.getValorEstadia(idQuarto);
@@ -508,28 +478,6 @@ public class HotelController {
 
 		return String.format("R$%.2f", gastosEstadia);
 	}
-	
-//	public String realizaCheckout(String email, String idQuarto)
-//			throws HotelException {
-//
-//		Excecoes.checaString(email, "Erro ao realizar checkout. Email do(a) hospede nao pode ser vazio.");
-//		Excecoes.checaFormatoEmail(email, "Erro ao realizar checkout. Email do(a) hospede esta invalido.");
-//
-//		if (!this.verificaOcupacao(idQuarto))
-//			throw new ValidacaoException("Erro ao realizar checkout. ID do quarto invalido, use apenas numeros ou letras.");
-//
-//		Hospede hospedeDeSaida = this.buscaHospede(email);
-//		double gastosEstadia = hospedeDeSaida.getValorEstadia(idQuarto);
-//
-//		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), gastosEstadia);
-//
-//		this.transacoes.add(transacao);
-//		hospedeDeSaida.removeEstadia(idQuarto);
-//		Quarto quarto = buscaQuartoOcupado(idQuarto);
-//		this.quartosOcupados.remove(quarto);
-//
-//		return String.format("R$%.2f", gastosEstadia);
-//	}
 
 	/**
 	 * Consulta o array de hospedes que realizaram checkout e retorna uma
@@ -542,14 +490,13 @@ public class HotelController {
 	 */
 	public String consultaTransacoes(String atributo) throws HotelGotemburgoException {
 
-		switch (atributo.toUpperCase()) 
-		{
+		switch (atributo.toUpperCase()) {
 		case "QUANTIDADE":
 			return String.format("%d", this.transacoes.size());
-			
+
 		case "TOTAL":
 			return String.format("R$%.2f", this.getValorTotalTransacoes());
-			
+
 		case "NOME":
 			String nomes = "";
 			for (Transacao transacao : this.transacoes)
@@ -566,8 +513,10 @@ public class HotelController {
 	 * um Hospede especifico no array de transacoes. As informacoes solicitadas
 	 * sao agora "nome" e "total", e se referem apenas ao hospede em questao.
 	 * 
-	 * @param atributo Representa a informacao desejada
-	 * @param indice Posicao do hospede no array de transacoes
+	 * @param atributo
+	 *            Representa a informacao desejada
+	 * @param indice
+	 *            Posicao do hospede no array de transacoes
 	 * @return A informacao solicitada
 	 * @throws HotelGotemburgoException
 	 */
@@ -576,8 +525,7 @@ public class HotelController {
 		if (indice < 0)
 			throw new ValidacaoException("Erro na consulta de transacoes. Indice invalido.");
 
-		switch (atributo.toUpperCase()) 
-		{
+		switch (atributo.toUpperCase()) {
 		case "TOTAL":
 			return String.format("R$%.2f", this.transacoes.get(indice).getValor());
 		case "NOME":
@@ -603,8 +551,8 @@ public class HotelController {
 
 	}
 
-	public void cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
-		this.restaurante.cadastraPrato(nome, preco, descricao);
+	public boolean cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
+		return this.restaurante.cadastraPrato(nome, preco, descricao);
 	}
 
 	public boolean cadastraRefeicao(String nome, String descricao, String componentes) throws HotelGotemburgoException {
