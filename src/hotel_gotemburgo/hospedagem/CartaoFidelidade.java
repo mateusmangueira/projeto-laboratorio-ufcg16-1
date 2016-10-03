@@ -16,5 +16,7 @@ public interface CartaoFidelidade {
 	public int getPontos();
 	
 	public void setPontos(int pontos);
+
+	public String convertePontos(int qntPontos);
 	
 }

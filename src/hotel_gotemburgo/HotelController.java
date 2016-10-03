@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-
-import easyaccept.EasyAccept;
 import restaurante.RestauranteController;
 import restaurante.comida.Refeicao;
 import verificacao.excecoes.*;
@@ -222,6 +220,8 @@ public class HotelController {
 			return hospede.getDataNascimento();
 		case "EMAIL":
 			return hospede.getEmail();
+		case "PONTOS":
+			return String.format("%d", hospede.getPontuacao());
 		default:
 			throw new ConsultaException("Erro na consulta de hospede. Opcao invalida.");
 		}
@@ -571,13 +571,12 @@ public class HotelController {
 		this.restaurante.ordenaMenu(atributo);
 	}
 
-	public static void main(String[] args) {
-		args = new String[] { "facade.Facade", "diretorio_testes/testes_uc1.txt",
-				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
-				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
-				"diretorio_testes/testes_uc3_exception.txt", "diretorio_testes/testes_uc3.txt",
-				"diretorio_testes/testes_uc4.txt", "diretorio_testes/testes_uc4_exception.txt",
-				"diretorio_testes/testes_uc5.txt" };
-		EasyAccept.main(args);
+	public String convertePontos(String email, int qntPontos) throws HotelGotemburgoException {
+		Hospede hospede = this.buscaHospede(email);
+		int pontuacao = hospede.getPontuacao();
+		pontuacao -= qntPontos;
+		hospede.getCartao().setPontos(pontuacao);
+		return hospede.getCartao().convertePontos(qntPontos);
+
 	}
 }

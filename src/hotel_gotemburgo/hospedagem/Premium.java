@@ -16,6 +16,7 @@ public class Premium implements CartaoFidelidade {
 		this.BONIFICACAO_EXTRA_PONTOS = 10;
 		this.RATE_DESCONTO = 0.1;
 		this.LIMIAR_PADRAO_DESCONTO = 100.0;
+		this.pontos = 0;
 	}
 	
 	@Override
@@ -59,6 +60,11 @@ public class Premium implements CartaoFidelidade {
 	@Override
 	public void setPontos(int pontos) {
 		this.pontos = pontos;
+	}
+
+	@Override
+	public String convertePontos(int qntPontos) {
+		return String.format("R$%.2f", (qntPontos*0.20) + (qntPontos/10) * 0.20);
 	}
 	
 }

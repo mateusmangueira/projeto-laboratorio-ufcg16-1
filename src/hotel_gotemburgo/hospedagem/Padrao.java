@@ -37,4 +37,9 @@ public class Padrao implements CartaoFidelidade {
 		this.pontos = pontos;
 	}
 
+	@Override
+	public String convertePontos(int qntPontos) {
+		return String.format("R$%.2f", (qntPontos*0.10));
+	}
+
 }

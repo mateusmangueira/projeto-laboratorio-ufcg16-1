@@ -73,13 +73,18 @@ public class Facade {
 		this.hotelController.ordenaMenu(atributo);
 	}
 
+	public String convertePontos(String email, int qntPontos) throws HotelGotemburgoException {
+		return this.hotelController.convertePontos(email, qntPontos);
+	}
+
 	public static void main(String[] args) {
 		args = new String[] { "facade.Facade", "diretorio_testes/testes_uc1.txt",
 				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
 				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
 				"diretorio_testes/testes_uc3_exception.txt", "diretorio_testes/testes_uc3.txt",
 				"diretorio_testes/testes_uc4_exception.txt", "diretorio_testes/testes_uc4.txt",
-				"diretorio_testes/testes_uc5.txt" };
+				"diretorio_testes/testes_uc5.txt", "diretorio_testes/testes_uc6.txt",
+				"diretorio_testes/testes_uc7.txt" };
 		EasyAccept.main(args);
 	}
 }

@@ -29,7 +29,6 @@ public class Hospede {
 	private String dataNascimento;
 	private ArrayList<Estadia> estadias;
 	private CartaoFidelidade cartao;
-	private int pontuacao;
 
 	/**
 	 * O construtor recebe 3 parametros, descritos abaixo, e realiza checagem de
@@ -116,13 +115,13 @@ public class Hospede {
 				"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		this.dataNascimento = dataNascimento;
 	}
-
-	public int getPontuacao() {
-		return pontuacao;
+	
+	public CartaoFidelidade getCartao() {
+		return this.cartao;
 	}
 
-	public void setPontuacao(int pontuacao) {
-		this.pontuacao = pontuacao;
+	public int getPontuacao() {
+		return this.cartao.getPontos();
 	}
 
 	/**
