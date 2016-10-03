@@ -8,20 +8,29 @@ public class Vip implements CartaoFidelidade {
 	private final double RATE_DESCONTO;
 	private final double RATE_BONIFICACAO_PONTOS;
 	private int pontos;
-
+	/**
+	 * Construtor da classe VIP que implementa a interface Cartao de fidelidade
+	 * Ele inicia o Desconto, bonificacao e os pontos
+	 */
 	public Vip() {
 		this.RATE_DESCONTO = 0.15;
 		this.RATE_BONIFICACAO_PONTOS = 0.5;
 		this.pontos = 0;
 	}
-
+	/**
+	 * Esse metodo adiciona Pontos para o Hospede com cartao de fidelidade vip
+	 * retorna a recompensa do devido hospede
+	 */
 	@Override
 	public int adicionarPontos(double valor) {
 		int recompensa = (int) (valor * RATE_BONIFICACAO_PONTOS);
 		this.setPontos(this.pontos + recompensa);
 		return recompensa;
 	}
-
+	/**
+	 * esse metodo aplica o Desconto para o hospede Vip 
+	 * retorna o valor com o desconto
+	 */
 	@Override
 	public double aplicarDesconto(double valor) {
 		double valorComDesconto = valor - (valor * RATE_DESCONTO);

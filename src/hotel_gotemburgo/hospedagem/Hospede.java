@@ -97,7 +97,7 @@ public class Hospede {
 
 	/**
 	 * @return data de nascimento
-	 * @throws StringException
+	 
 	 */
 	public String getDataNascimento() {
 		return dataNascimento;
@@ -116,10 +116,18 @@ public class Hospede {
 		this.dataNascimento = dataNascimento;
 	}
 	
+	/**
+	 * get do cartao fidelidade
+	 * @return um cartao
+	 */
 	public CartaoFidelidade getCartao() {
 		return this.cartao;
 	}
-
+	
+	/**
+	 * get pontuacao
+	 * @return retorna a pontuacao do determinado hospede
+	 */
 	public int getPontuacao() {
 		return this.cartao.getPontos();
 	}

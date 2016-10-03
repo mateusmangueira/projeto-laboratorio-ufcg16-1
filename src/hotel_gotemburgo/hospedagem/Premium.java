@@ -10,7 +10,10 @@ public class Premium implements CartaoFidelidade {
 	final double RATE_DESCONTO;
 	final double LIMIAR_PADRAO_DESCONTO;
 	private int pontos;
-	
+	/**
+	 * Construtor do da Classe Premium que implementa a Interface Cartao Fidelidade
+	 * ele inicializa ah bonificação, o desconto, o limiar padrao e os pontos
+	 */
 	public Premium() {
 		this.RATE_BONIFICACAO_PADRAO_PONTOS = 0.3;
 		this.BONIFICACAO_EXTRA_PONTOS = 10;
@@ -18,7 +21,10 @@ public class Premium implements CartaoFidelidade {
 		this.LIMIAR_PADRAO_DESCONTO = 100.0;
 		this.pontos = 0;
 	}
-	
+	/**
+	 * esse metodo adiciona Pontos para o Hospede com Cartao Premium
+	 * retorna a devida recompensa para o Hospede Premium
+	 */
 	@Override
 	public int adicionarPontos(double valor) 
 	{
@@ -34,7 +40,9 @@ public class Premium implements CartaoFidelidade {
 		this.setPontos(this.pontos + recompensa);
 		return recompensa;
 	}
-
+	/**
+	 * esse metodo calcula o desconto para o Hospede com cartao premium e retorna o novo valor
+	 */
 	@Override
 	public double aplicarDesconto(double valor) 
 	{
@@ -44,7 +52,7 @@ public class Premium implements CartaoFidelidade {
 
         return valorFormatado.doubleValue();
     }
-
+	
 	@Override
 	public int pagarDivida(double valor) 
 	{
