@@ -66,7 +66,7 @@ public class HotelController {
 	}
 
 	public RestauranteController getRestaurante() {
-		return restaurante;
+		return this.restaurante;
 	}
 
 	/**
@@ -477,6 +477,9 @@ public class HotelController {
 			this.quartosOcupados.remove(idQuarto);
 		}
 		hospedeDeSaida.removeEstadia(idQuarto);
+		
+		// Recompensa por um gasto.
+		hospedeDeSaida.getCartao().adicionarPontos(gastosEstadia);
 
 		return String.format("R$%.2f", gastosEstadia);
 	}
@@ -549,6 +552,9 @@ public class HotelController {
 		Refeicao refeicao = this.restaurante.buscaRefeicao(item);
 		Transacao transacao = new Transacao(hospede.getNome(), refeicao.getPreco(), item);
 		this.transacoes.add(transacao);
+		
+		// Recompensa por um gasto.
+		hospede.getCartao().adicionarPontos(refeicao.getPreco());
 		return String.format("R$%.2f", refeicao.getPreco());
 
 	}

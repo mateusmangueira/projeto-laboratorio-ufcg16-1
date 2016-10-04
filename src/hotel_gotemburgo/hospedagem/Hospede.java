@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import verificacao.excecoes.Excecoes;
+import verificacao.excecoes.LogicaException;
 import verificacao.excecoes.StringException;
+import verificacao.excecoes.UpgradeException;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
 
@@ -215,8 +217,7 @@ public class Hospede {
 	/**
 	 * Retorna o valor de uma estadia especifica do Hospede.
 	 * 
-	 * @param valor
-	 *            Valor gasto pelo Hospede na operacao
+	 * @param valor Valor gasto pelo Hospede na operacao
 	 * @throws ValorException
 	 */
 
@@ -229,6 +230,23 @@ public class Hospede {
 		return 0.0;
 	}
 
+	/*
+	 * Este metodo upa o cartao fidelidade de um Hospede. Todo hospede inicia com seu cartao padrao, no qual
+	 * em meio a suas despesas e relacoes com as atividades do Hotel, pode upar de Padrao para Premium ou diretamente
+	 * para VIP. Tambem ha possibilidade de passar de Premuium para VIP. 
+	 */
+	public void upgradeFidelidade() throws LogicaException {
+		if (this.getCartao().getPontos() < 350) {
+			throw new UpgradeException("Quantidade de pontos insuficiente para upgrade.");
+		}
+		if (this.getCartao().getPontos() >= 350 && this.getCartao().getPontos() <= 1000) {
+			this.cartao = new Premium();
+		}
+		else if (this.getCartao().getPontos() > 1000) {
+			this.cartao = new Vip();
+		}
+	}
+	
 	/**
 	 * Representacao em String de um Hospede
 	 */
