@@ -31,6 +31,7 @@ public class Hospede {
 	private String dataNascimento;
 	private ArrayList<Estadia> estadias;
 	private CartaoFidelidade cartao;
+	private int pontos;
 
 	/**
 	 * O construtor recebe 3 parametros, descritos abaixo, e realiza checagem de
@@ -50,6 +51,7 @@ public class Hospede {
 		this.nome = nomeHospede;
 		this.email = emailHospede;
 		this.dataNascimento = dataNascHospede;
+		this.pontos = 0;
 		this.estadias = new ArrayList<Estadia>();
 		this.cartao = new Padrao();
 	}
@@ -125,13 +127,18 @@ public class Hospede {
 	public CartaoFidelidade getCartao() {
 		return this.cartao;
 	}
+
+	public int getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(int pontos) {
+		this.pontos = pontos;
+	}
 	
-	/**
-	 * get pontuacao
-	 * @return retorna a pontuacao do determinado hospede
-	 */
-	public int getPontuacao() {
-		return this.cartao.getPontos();
+	public void atualizaPontuacao(int valor) {
+		int recompensa = this.cartao.adicionarPontos(valor);
+		this.setPontos(this.pontos + recompensa);
 	}
 
 	/**
@@ -235,14 +242,11 @@ public class Hospede {
 	 * em meio a suas despesas e relacoes com as atividades do Hotel, pode upar de Padrao para Premium ou diretamente
 	 * para VIP. Tambem ha possibilidade de passar de Premuium para VIP. 
 	 */
-	public void upgradeFidelidade() throws LogicaException {
-		if (this.getCartao().getPontos() < 350) {
-			throw new UpgradeException("Quantidade de pontos insuficiente para upgrade.");
-		}
-		if (this.getCartao().getPontos() >= 350 && this.getCartao().getPontos() <= 1000) {
+	public void upgradeFidelidade() {
+		if (this.pontos >= 350 && this.pontos <= 1000) {
 			this.cartao = new Premium();
 		}
-		else if (this.getCartao().getPontos() > 1000) {
+		else if (this.pontos > 1000) {
 			this.cartao = new Vip();
 		}
 	}

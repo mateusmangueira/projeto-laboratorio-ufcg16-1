@@ -235,7 +235,7 @@ public class HotelController {
 		case "EMAIL":
 			return hospede.getEmail();
 		case "PONTOS":
-			return String.format("%d", hospede.getPontuacao());
+			return String.format("%d", hospede.getPontos());
 		default:
 			throw new ConsultaException("Erro na consulta de hospede. Opcao invalida.");
 		}
@@ -486,10 +486,15 @@ public class HotelController {
 		}
 		hospedeDeSaida.removeEstadia(idQuarto);
 		
+		double valorComDesconto = hospedeDeSaida.getCartao().aplicarDesconto(gastosEstadia);
+		
 		// Recompensa por um gasto.
-		hospedeDeSaida.getCartao().adicionarPontos(gastosEstadia);
+		int recompensaPorGasto = hospedeDeSaida.getCartao().adicionarPontos(gastosEstadia);
+		
+		hospedeDeSaida.setPontos(hospedeDeSaida.getPontos() + recompensaPorGasto);
+		hospedeDeSaida.upgradeFidelidade();
 
-		return String.format("R$%.2f", gastosEstadia);
+		return String.format("R$%.2f", valorComDesconto);
 	}
 
 	/**
@@ -574,9 +579,14 @@ public class HotelController {
 		Transacao transacao = new Transacao(hospede.getNome(), refeicao.getPreco(), item);
 		this.transacoes.add(transacao);
 		
+		double valorComDesconto = hospede.getCartao().aplicarDesconto(refeicao.getPreco());
+		
 		// Recompensa por um gasto.
-		hospede.getCartao().adicionarPontos(refeicao.getPreco());
-		return String.format("R$%.2f", refeicao.getPreco());
+		int recompensaPorGasto = hospede.getCartao().adicionarPontos(refeicao.getPreco());
+		hospede.setPontos(hospede.getPontos() + recompensaPorGasto);
+		hospede.upgradeFidelidade();
+
+		return String.format("R$%.2f", valorComDesconto);
 
 	}
 
@@ -603,25 +613,11 @@ public class HotelController {
 	
 	public String convertePontos(String email, int qntPontos) throws HotelGotemburgoException {
 		Hospede hospede = this.buscaHospede(email);
-		int pontuacao = hospede.getPontuacao();
+		int pontuacao = hospede.getPontos();
 		pontuacao -= qntPontos;
-		hospede.getCartao().setPontos(pontuacao);
+		hospede.setPontos(pontuacao);
 		return hospede.getCartao().convertePontos(qntPontos);
 
-	}
-
-	/**
-	 * Para controle dos testes de aceitacao.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
-				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
-				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
-				"diretorio_testes/testes_uc3_exception.txt", "diretorio_testes/testes_uc4.txt",
-				"diretorio_testes/testes_uc4_exception.txt", "diretorio_testes/testes_uc5.txt" };
-		EasyAccept.main(args);
 	}
 
 }

@@ -6,7 +6,6 @@ public class Padrao implements CartaoFidelidade {
 	
 	// Para cada ponto de fidelidade, o hospede consegue sacar R$0,10;
 	private final double RATE_SAQUE;
-	private int pontos;
 	/**
 	 * construtor da classe Padrao que implementa a Inteface: Cartao de Fidelidade
 	 * esse contruto inicializa os pontos e a recompensa
@@ -14,7 +13,6 @@ public class Padrao implements CartaoFidelidade {
 	public Padrao() {
 		this.RECOMPENSA = 0.1;
 		this.RATE_SAQUE = 0.10;
-		this.pontos = 0;
 	}
 	
 	/**
@@ -24,7 +22,6 @@ public class Padrao implements CartaoFidelidade {
 	@Override
 	public int adicionarPontos(double valor) {
 		int recompensa = (int) (RECOMPENSA * valor);
-		this.setPontos(this.pontos + recompensa);
 		return recompensa;
 	}
 	/**
@@ -41,16 +38,6 @@ public class Padrao implements CartaoFidelidade {
 	@Override
 	public int pagarDivida(double valor) {
 		return 0;
-	}
-
-	@Override
-	public int getPontos() {
-		return this.pontos;
-	}
-
-	@Override
-	public void setPontos(int pontos) {
-		this.pontos = pontos;
 	}
 
 	@Override

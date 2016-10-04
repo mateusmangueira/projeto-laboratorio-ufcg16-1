@@ -24,7 +24,6 @@ public class Vip implements CartaoFidelidade {
 	// A cada 10 pontos convertidos, o hospede ganha R$0,50 adicionais.
 	final double BONIFICACAO_EXTRA_SAQUE;
 
-	private int pontos;
 
 	/**
 	 * Construtor da classe VIP que implementa a interface Cartao de fidelidade
@@ -38,7 +37,6 @@ public class Vip implements CartaoFidelidade {
 		this.RATE_SAQUE = 0.70;
 		this.BASE_BONIFICACAO = 10;
 		this.BONIFICACAO_EXTRA_SAQUE = 0.50;
-		this.pontos = 0;
 	}
 
 	/**
@@ -48,7 +46,6 @@ public class Vip implements CartaoFidelidade {
 	@Override
 	public int adicionarPontos(double valor) {
 		int recompensa = (int) (valor * this.RATE_BONIFICACAO_PONTOS);
-		this.setPontos(this.pontos + recompensa);
 		return recompensa;
 	}
 
@@ -70,16 +67,6 @@ public class Vip implements CartaoFidelidade {
 	@Override
 	public int pagarDivida(double valor) {
 		return 0;
-	}
-
-	@Override
-	public int getPontos() {
-		return this.pontos;
-	}
-
-	@Override
-	public void setPontos(int pontos) {
-		this.pontos = pontos;
 	}
 
 	@Override

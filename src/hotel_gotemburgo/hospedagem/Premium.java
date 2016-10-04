@@ -19,11 +19,10 @@ public class Premium implements CartaoFidelidade {
 	// A cada 10 pontos convertidos, o hospede ganha R$0,20 adicionais.
 	final double BONIFICACAO_EXTRA_SAQUE;
 
-	private int pontos;
 
 	/**
 	 * Construtor do da Classe Premium que implementa a Interface Cartao
-	 * Fidelidade ele inicializa ah bonificação, o desconto, o limiar padrao e
+	 * Fidelidade ele inicializa ah bonificaï¿½ï¿½o, o desconto, o limiar padrao e
 	 * os pontos
 	 */
 	public Premium() {
@@ -34,7 +33,6 @@ public class Premium implements CartaoFidelidade {
 		this.RATE_SAQUE = 0.30;
 		this.BONIFICACAO_EXTRA_SAQUE = 0.20;
 		this.BASE_BONIFICACAO = 10;
-		this.pontos = 0;
 	}
 
 	/**
@@ -51,7 +49,6 @@ public class Premium implements CartaoFidelidade {
 			pontosExtras = pontosExtras * this.BONIFICACAO_EXTRA_PONTOS;
 			recompensa += pontosExtras;
 		}
-		this.setPontos(this.pontos + recompensa);
 		return recompensa;
 	}
 
@@ -71,16 +68,6 @@ public class Premium implements CartaoFidelidade {
 	@Override
 	public int pagarDivida(double valor) {
 		return 0;
-	}
-
-	@Override
-	public int getPontos() {
-		return this.pontos;
-	}
-
-	@Override
-	public void setPontos(int pontos) {
-		this.pontos = pontos;
 	}
 
 	@Override

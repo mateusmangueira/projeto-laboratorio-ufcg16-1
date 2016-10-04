@@ -13,10 +13,6 @@ public interface CartaoFidelidade {
 
 	public int pagarDivida(double valor);
 	
-	public int getPontos();
-	
-	public void setPontos(int pontos);
-
 	public String convertePontos(int qntPontos);
 	
 }
