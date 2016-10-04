@@ -77,14 +77,19 @@ public class Facade {
 		return this.hotelController.convertePontos(email, qntPontos);
 	}
 
+	/**
+	 * Para controle dos testes de aceitacao.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		args = new String[] { "facade.Facade", "diretorio_testes/testes_uc1.txt",
+		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
 				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
 				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
-				"diretorio_testes/testes_uc3_exception.txt", "diretorio_testes/testes_uc3.txt",
-				"diretorio_testes/testes_uc4_exception.txt", "diretorio_testes/testes_uc4.txt",
-				"diretorio_testes/testes_uc5.txt", "diretorio_testes/testes_uc6.txt",
-				"diretorio_testes/testes_uc7.txt" };
+				"diretorio_testes/testes_uc3_exception.txt", "diretorio_testes/testes_uc4.txt",
+				"diretorio_testes/testes_uc4_exception.txt", "diretorio_testes/testes_uc5.txt",
+				"diretorio_testes/testes_uc6.txt", "diretorio_testes/testes_uc7.txt" };
 		EasyAccept.main(args);
 	}
+
 }

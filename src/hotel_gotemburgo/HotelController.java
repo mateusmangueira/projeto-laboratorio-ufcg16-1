@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import easyaccept.EasyAccept;
 import restaurante.RestauranteController;
 import restaurante.comida.Refeicao;
 import verificacao.excecoes.*;
@@ -579,4 +581,19 @@ public class HotelController {
 		return hospede.getCartao().convertePontos(qntPontos);
 
 	}
+
+	/**
+	 * Para controle dos testes de aceitacao.
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		args = new String[] { "hotel_gotemburgo.HotelController", "diretorio_testes/testes_uc1.txt",
+				"diretorio_testes/testes_uc1_exception.txt", "diretorio_testes/testes_uc2.txt",
+				"diretorio_testes/testes_uc2_exception.txt", "diretorio_testes/testes_uc3.txt",
+				"diretorio_testes/testes_uc3_exception.txt", "diretorio_testes/testes_uc4.txt",
+				"diretorio_testes/testes_uc4_exception.txt", "diretorio_testes/testes_uc5.txt" };
+		EasyAccept.main(args);
+	}
+
 }
