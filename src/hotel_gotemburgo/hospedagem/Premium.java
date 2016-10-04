@@ -59,9 +59,13 @@ public class Premium implements CartaoFidelidade {
 	@Override
 	public double aplicarDesconto(double valor) {
 		double valorComDesconto = valor - (valor * RATE_DESCONTO);
+		
+//		valorComDesconto *= 100.0;
+//		Math.ceil(valorComDesconto);
+//		valorComDesconto /= 100.0;
+//		return valorComDesconto;
 
 		BigDecimal valorFormatado = new BigDecimal(valorComDesconto).setScale(3, RoundingMode.UP);
-
 		return valorFormatado.doubleValue();
 	}
 
@@ -72,9 +76,6 @@ public class Premium implements CartaoFidelidade {
 
 	@Override
 	public String convertePontos(int qntPontos) {
-		// return String.format("R$%.2f", (qntPontos * 0.20) + (qntPontos / 10)
-		// * 0.20);
-
 		return String.format("R$%.2f",
 				(qntPontos * this.RATE_SAQUE) + ((qntPontos / this.BASE_BONIFICACAO) * this.BONIFICACAO_EXTRA_SAQUE));
 	}

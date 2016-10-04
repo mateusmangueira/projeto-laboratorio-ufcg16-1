@@ -55,7 +55,13 @@ public class Vip implements CartaoFidelidade {
 	 */
 	@Override
 	public double aplicarDesconto(double valor) {
+		
 		double valorComDesconto = valor - (valor * this.RATE_DESCONTO);
+		
+//		valorComDesconto *= 100.0;
+//		Math.ceil(valorComDesconto);
+//		valorComDesconto /= 100.0;
+		
 		BigDecimal valorFormatado = new BigDecimal(valorComDesconto).setScale(3, RoundingMode.UP);
 		valorComDesconto = valorFormatado.doubleValue();
 
