@@ -59,25 +59,14 @@ public class PremiumStrategy implements CartaoFidelidade {
 	@Override
 	public double aplicarDesconto(double valor) {
 		double valorComDesconto = valor - (valor * RATE_DESCONTO);
-		
-//		valorComDesconto *= 100.0;
-//		Math.ceil(valorComDesconto);
-//		valorComDesconto /= 100.0;
-//		return valorComDesconto;
-
 		BigDecimal valorFormatado = new BigDecimal(valorComDesconto).setScale(3, RoundingMode.UP);
 		return valorFormatado.doubleValue();
 	}
 
 	@Override
-	public int pagarDivida(double valor) {
-		return 0;
-	}
-
-	@Override
 	public String convertePontos(int qntPontos) {
-		return String.format("R$%.2f",
-				(qntPontos * this.RATE_SAQUE) + ((qntPontos / this.BASE_BONIFICACAO) * this.BONIFICACAO_EXTRA_SAQUE));
+		double calculoPremium = (qntPontos * this.RATE_SAQUE) + ((qntPontos / this.BASE_BONIFICACAO) * this.BONIFICACAO_EXTRA_SAQUE);
+		return String.format("R$%.2f", calculoPremium);
 	}
 
 }
