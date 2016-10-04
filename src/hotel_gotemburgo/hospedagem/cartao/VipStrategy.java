@@ -31,9 +31,9 @@ public class VipStrategy implements CartaoFidelidade {
 	public VipStrategy() {
 		this.RATE_DESCONTO = 0.15;
 		this.RATE_BONIFICACAO_PONTOS = 0.50;
-		this.RATE_BASE_DESCONTO_EXTRA = 100.0;
+		this.RATE_BASE_DESCONTO_EXTRA = 100.00;
 		this.RATE_SAQUE = 0.70;
-		this.BASE_BONIFICACAO = 10;
+		this.BASE_BONIFICACAO = 10.00;
 		this.BONIFICACAO_EXTRA_SAQUE = 0.50;
 	}
 

@@ -26,9 +26,9 @@ public class PremiumStrategy implements CartaoFidelidade {
 	 * os pontos
 	 */
 	public PremiumStrategy() {
-		this.RATE_BONIFICACAO_PADRAO_PONTOS = 0.3;
+		this.RATE_BONIFICACAO_PADRAO_PONTOS = 0.30;
 		this.BONIFICACAO_EXTRA_PONTOS = 10;
-		this.RATE_DESCONTO = 0.1;
+		this.RATE_DESCONTO = 0.10;
 		this.LIMIAR_PADRAO_DESCONTO = 100.0;
 		this.RATE_SAQUE = 0.30;
 		this.BONIFICACAO_EXTRA_SAQUE = 0.20;
@@ -59,7 +59,7 @@ public class PremiumStrategy implements CartaoFidelidade {
 	@Override
 	public double aplicarDesconto(double valor) {
 		double valorComDesconto = valor - (valor * RATE_DESCONTO);
-		BigDecimal valorFormatado = new BigDecimal(valorComDesconto).setScale(3, RoundingMode.UP);
+		BigDecimal valorFormatado = new BigDecimal(valorComDesconto).setScale(2, RoundingMode.UP);
 		return valorFormatado.doubleValue();
 	}
 

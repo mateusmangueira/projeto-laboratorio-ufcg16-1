@@ -476,7 +476,7 @@ public class HotelController {
 
 		Hospede hospedeDeSaida = this.buscaHospede(email);
 		double gastosEstadia = hospedeDeSaida.getValorEstadia(idQuarto);
-
+		double valorComDesconto = hospedeDeSaida.aplicarDesconto(gastosEstadia);
 		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), gastosEstadia, idQuarto);
 
 		this.transacoes.add(transacao);
@@ -484,8 +484,6 @@ public class HotelController {
 			this.quartosOcupados.remove(idQuarto);
 		}
 		hospedeDeSaida.removeEstadia(idQuarto);
-		
-		double valorComDesconto = hospedeDeSaida.aplicarDesconto(gastosEstadia);
 		
 		// Recompensa por um gasto.
 		int recompensaPorGasto = hospedeDeSaida.adicionarPontos(gastosEstadia);
@@ -574,10 +572,10 @@ public class HotelController {
 
 		Hospede hospede = this.buscaHospede(email);
 		Comida refeicao = this.restaurante.buscaRefeicao(item);
-		Transacao transacao = new Transacao(hospede.getNome(), refeicao.getPreco(), item);
+		double valorComDesconto = hospede.getCartao().aplicarDesconto(refeicao.getPreco());
+		Transacao transacao = new Transacao(hospede.getNome(), valorComDesconto, item);
 		this.transacoes.add(transacao);
 		
-		double valorComDesconto = hospede.getCartao().aplicarDesconto(refeicao.getPreco());
 		
 		// Recompensa por um gasto.
 		int recompensaPorGasto = hospede.adicionarPontos(refeicao.getPreco());
