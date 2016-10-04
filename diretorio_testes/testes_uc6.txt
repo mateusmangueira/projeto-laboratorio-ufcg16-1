@@ -1,4 +1,4 @@
-iniciaSistema
+#iniciaSistema
 ########################
 # Status dos pontos:   #
 # Sven       : 225     #
@@ -74,4 +74,4 @@ expect "17" consultaTransacoes atributo="Quantidade"
 expect "R$11502,46" consultaTransacoes atributo="Total"
 expect "Sven Gudmar Svenson;Ines Brasil;Agnetha Faltskog;Alfred Nobel;Alfred Nobel;Alfred Nobel;Ines Brasil;Sven Gudmar Svenson;Ines Brasil;Sven Gudmar Svenson;Sven Gudmar Svenson;Sven Gudmar Svenson;Sven Gudmar Svenson;Ines Brasil;Ines Brasil;Ines Brasil;Ines Brasil" consultaTransacoes atributo="Nome"
 
-fechaSistema
+#fechaSistema
