@@ -12,7 +12,7 @@
   </interface>  
   <class id="2" language="java" name="hotel_gotemburgo.hospedagem.Estadia" project="ProjetoLP22016.1" 
     file="/ProjetoLP22016.1/src/hotel_gotemburgo/hospedagem/Estadia.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="990" y="392"/>    
+    <position height="-1" width="-1" x="743" y="649"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="hotel_gotemburgo.hospedagem.Hospede" project="ProjetoLP22016.1" 
     file="/ProjetoLP22016.1/src/hotel_gotemburgo/hospedagem/Hospede.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="753" y="480"/>    
+    <position height="-1" width="-1" x="458" y="649"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <enumeration id="7" language="java" name="hotel_gotemburgo.quartos.TipoDeQuarto" project="ProjetoLP22016.1" 
     file="/ProjetoLP22016.1/src/hotel_gotemburgo/quartos/TipoDeQuarto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="962" y="699"/>    
+    <position height="-1" width="-1" x="1014" y="656"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,7 +66,7 @@
   </enumeration>  
   <class id="8" language="java" name="hotel_gotemburgo.transacao.Transacao" project="ProjetoLP22016.1" 
     file="/ProjetoLP22016.1/src/hotel_gotemburgo/transacao/Transacao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="152" y="609"/>    
+    <position height="-1" width="-1" x="117" y="1045"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -75,7 +75,7 @@
   </class>  
   <class id="9" language="java" name="hotel_gotemburgo.HotelController" project="ProjetoLP22016.1" 
     file="/ProjetoLP22016.1/src/hotel_gotemburgo/HotelController.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="452" y="991"/>    
+    <position height="-1" width="-1" x="456" y="1238"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -84,7 +84,7 @@
   </class>  
   <class id="10" language="java" name="restaurante.comida.RefeicaoCompleta" project="ProjetoLP22016.1" 
     file="/ProjetoLP22016.1/src/restaurante/comida/RefeicaoCompleta.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="686" y="1619"/>    
+    <position height="-1" width="-1" x="663" y="1724"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -93,7 +93,7 @@
   </class>  
   <class id="11" language="java" name="restaurante.comida.Prato" project="ProjetoLP22016.1" 
     file="/ProjetoLP22016.1/src/restaurante/comida/Prato.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1130" y="1617"/>    
+    <position height="-1" width="-1" x="1137" y="1723"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -102,7 +102,7 @@
   </class>  
   <class id="12" language="java" name="restaurante.RestauranteController" project="ProjetoLP22016.1" 
     file="/ProjetoLP22016.1/src/restaurante/RestauranteController.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="929" y="1054"/>    
+    <position height="-1" width="-1" x="915" y="1146"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -111,7 +111,7 @@
   </class>  
   <class id="13" language="java" name="restaurante.comida.Refeicao" project="ProjetoLP22016.1" 
     file="/ProjetoLP22016.1/src/restaurante/comida/Refeicao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="932" y="1331"/>    
+    <position height="-1" width="-1" x="918" y="1435"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -121,10 +121,10 @@
   <association id="14">    
     <end type="SOURCE" refId="9" navigable="false">      
       <attribute id="15" name="hospedes">        
-        <position height="0" width="0" x="12" y="45"/>      
+        <position height="0" width="0" x="-283" y="214"/>      
       </attribute>      
       <multiplicity id="16" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="12" y="45"/>      
+        <position height="0" width="0" x="-283" y="214"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
@@ -177,10 +177,10 @@
   <association id="30">    
     <end type="SOURCE" refId="9" navigable="false">      
       <attribute id="31" name="transacoes">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="-35" y="436"/>      
       </attribute>      
       <multiplicity id="32" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="-35" y="436"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
@@ -193,10 +193,10 @@
   <association id="34">    
     <end type="SOURCE" refId="9" navigable="false">      
       <attribute id="35" name="tiposQuartos">        
-        <position height="0" width="0" x="-32" y="395"/>      
+        <position height="0" width="0" x="20" y="352"/>      
       </attribute>      
       <multiplicity id="36" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-32" y="395"/>      
+        <position height="0" width="0" x="20" y="352"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
@@ -205,10 +205,10 @@
   <association id="37">    
     <end type="SOURCE" refId="2" navigable="false">      
       <attribute id="38" name="tipoQuarto">        
-        <position height="0" width="0" x="-32" y="395"/>      
+        <position height="0" width="0" x="20" y="352"/>      
       </attribute>      
       <multiplicity id="39" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-32" y="395"/>      
+        <position height="0" width="0" x="20" y="352"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
@@ -217,10 +217,10 @@
   <association id="40">    
     <end type="SOURCE" refId="6" navigable="false">      
       <attribute id="41" name="estadias">        
-        <position height="0" width="0" x="-1" y="-146"/>      
+        <position height="0" width="0" x="-248" y="111"/>      
       </attribute>      
       <multiplicity id="42" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-1" y="-146"/>      
+        <position height="0" width="0" x="-248" y="111"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
