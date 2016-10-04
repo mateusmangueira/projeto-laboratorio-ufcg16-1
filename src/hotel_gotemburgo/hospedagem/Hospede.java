@@ -1,12 +1,15 @@
 package hotel_gotemburgo.hospedagem;
 
+import hotel_gotemburgo.hospedagem.cartao.CartaoFidelidade;
+import hotel_gotemburgo.hospedagem.cartao.PadraoStrategy;
+import hotel_gotemburgo.hospedagem.cartao.PremiumStrategy;
+import hotel_gotemburgo.hospedagem.cartao.VipStrategy;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import verificacao.excecoes.Excecoes;
-import verificacao.excecoes.LogicaException;
 import verificacao.excecoes.StringException;
-import verificacao.excecoes.UpgradeException;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
 
@@ -19,8 +22,7 @@ import verificacao.excecoes.ValoresException;
  * 
  * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
  * @author Kleber Diogo - matricula <kleber.albuquerque@ccc.ufcg.edu.br>
- * @author Lucas Christopher - 115210934
- *         <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
@@ -53,7 +55,7 @@ public class Hospede {
 		this.dataNascimento = dataNascHospede;
 		this.pontos = 0;
 		this.estadias = new ArrayList<Estadia>();
-		this.cartao = new Padrao();
+		this.cartao = new PadraoStrategy();
 	}
 
 	/**
@@ -244,10 +246,10 @@ public class Hospede {
 	 */
 	public void upgradeFidelidade() {
 		if (this.pontos >= 350 && this.pontos <= 1000) {
-			this.cartao = new Premium();
+			this.cartao = new PremiumStrategy();
 		}
 		else if (this.pontos > 1000) {
-			this.cartao = new Vip();
+			this.cartao = new VipStrategy();
 		}
 	}
 	

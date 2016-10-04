@@ -10,7 +10,7 @@ import verificacao.excecoes.ValoresException;
  * 
  * @since 18 de Setembro de 2016
  */
-public class Prato extends Refeicao {
+public class Prato extends Comida {
 
 	private double preco;
 

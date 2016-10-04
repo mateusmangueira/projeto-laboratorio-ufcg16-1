@@ -1,9 +1,9 @@
-package hotel_gotemburgo.hospedagem;
+package hotel_gotemburgo.hospedagem.cartao;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Vip implements CartaoFidelidade {
+public class VipStrategy implements CartaoFidelidade {
 
 	private final double RATE_DESCONTO;
 	private final double RATE_BONIFICACAO_PONTOS;
@@ -29,7 +29,7 @@ public class Vip implements CartaoFidelidade {
 	 * Construtor da classe VIP que implementa a interface Cartao de fidelidade
 	 * Ele inicia o Desconto, bonificacao e os pontos
 	 */
-	public Vip() {
+	public VipStrategy() {
 		this.RATE_DESCONTO = 0.15;
 		this.RATE_BONIFICACAO_PONTOS = 0.5;
 		this.RATE_BASE_DESCONTO_EXTRA = 100.0; // A cada 100.0 reais, ele dah um
@@ -77,7 +77,7 @@ public class Vip implements CartaoFidelidade {
 
 	@Override
 	public String convertePontos(int qntPontos) {
-		return String.format("R$.2f",
+		return String.format("R$%.2f",
 				(qntPontos * this.RATE_SAQUE) + ((qntPontos / this.BASE_BONIFICACAO) * this.BONIFICACAO_EXTRA_SAQUE));
 	}
 

@@ -5,9 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import easyaccept.EasyAccept;
-import restaurante.RestauranteController;
-import restaurante.comida.Refeicao;
+import restaurante.Restaurante;
+import restaurante.comida.Comida;
 import verificacao.excecoes.*;
 import verificacao.validacao.*;
 import hotel_gotemburgo.hospedagem.*;
@@ -46,7 +45,7 @@ public class HotelController {
 	private Set<String> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
 	private ArrayList<Transacao> transacoes;
-	private RestauranteController restaurante;
+	private Restaurante restaurante;
 
 	/**
 	 * O construtor do HotelController inicia o Set de hospedes, de quartos e de
@@ -59,7 +58,7 @@ public class HotelController {
 		this.hospedes = new HashSet<Hospede>();
 		this.quartosOcupados = new HashSet<String>();
 		this.transacoes = new ArrayList<Transacao>();
-		this.restaurante = new RestauranteController();
+		this.restaurante = new Restaurante();
 
 		this.inicializaTiposDeQuarto();
 
@@ -72,7 +71,7 @@ public class HotelController {
 	 * Acessa o atributo restaurante e o retorna
 	 * @return O atributo restaurante, que representa o RestauranteController do Hotel
 	 */
-	public RestauranteController getRestaurante() {
+	public Restaurante getRestaurante() {
 		return this.restaurante;
 	}
 
@@ -575,7 +574,7 @@ public class HotelController {
 		Excecoes.checaString(item, "Erro ao realizar pedido. Item nao pode ser nulo ou vazio.");
 
 		Hospede hospede = this.buscaHospede(email);
-		Refeicao refeicao = this.restaurante.buscaRefeicao(item);
+		Comida refeicao = this.restaurante.buscaRefeicao(item);
 		Transacao transacao = new Transacao(hospede.getNome(), refeicao.getPreco(), item);
 		this.transacoes.add(transacao);
 		

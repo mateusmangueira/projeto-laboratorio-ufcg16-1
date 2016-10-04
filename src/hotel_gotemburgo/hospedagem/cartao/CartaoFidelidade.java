@@ -1,4 +1,4 @@
-package hotel_gotemburgo.hospedagem;
+package hotel_gotemburgo.hospedagem.cartao;
 
 public interface CartaoFidelidade {
 

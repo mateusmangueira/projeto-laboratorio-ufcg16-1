@@ -32,8 +32,7 @@ public class Facade {
 		this.hotelController.atualizaCadastro(email, atributo, valor);
 	}
 
-	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto)
-			throws HotelGotemburgoException {
+	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto) throws HotelGotemburgoException {
 		this.hotelController.realizaCheckin(email, qntDias, idQuarto, tipoQuarto);
 	}
 

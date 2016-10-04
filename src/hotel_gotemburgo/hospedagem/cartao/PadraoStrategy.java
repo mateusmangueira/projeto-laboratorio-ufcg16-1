@@ -1,6 +1,6 @@
-package hotel_gotemburgo.hospedagem;
+package hotel_gotemburgo.hospedagem.cartao;
 
-public class Padrao implements CartaoFidelidade {
+public class PadraoStrategy implements CartaoFidelidade {
 
 	private final double RECOMPENSA;
 	
@@ -10,8 +10,8 @@ public class Padrao implements CartaoFidelidade {
 	 * construtor da classe Padrao que implementa a Inteface: Cartao de Fidelidade
 	 * esse contruto inicializa os pontos e a recompensa
 	 */
-	public Padrao() {
-		this.RECOMPENSA = 0.1;
+	public PadraoStrategy() {
+		this.RECOMPENSA = 0.10;
 		this.RATE_SAQUE = 0.10;
 	}
 	

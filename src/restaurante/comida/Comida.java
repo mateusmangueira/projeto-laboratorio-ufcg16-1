@@ -2,12 +2,12 @@ package restaurante.comida;
 
 import verificacao.excecoes.ValoresException;
 
-public abstract class Refeicao {
+public abstract class Comida {
 	
 	protected String nome;
 	protected String descricao;
 	
-	public Refeicao(String nome, String descricao) {
+	public Comida(String nome, String descricao) {
 		
 		this.nome = nome;
 		this.descricao = descricao;

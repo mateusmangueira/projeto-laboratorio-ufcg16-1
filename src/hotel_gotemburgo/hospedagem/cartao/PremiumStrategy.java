@@ -1,9 +1,9 @@
-package hotel_gotemburgo.hospedagem;
+package hotel_gotemburgo.hospedagem.cartao;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Premium implements CartaoFidelidade {
+public class PremiumStrategy implements CartaoFidelidade {
 
 	final double RATE_BONIFICACAO_PADRAO_PONTOS;
 	final int BONIFICACAO_EXTRA_PONTOS;
@@ -22,10 +22,10 @@ public class Premium implements CartaoFidelidade {
 
 	/**
 	 * Construtor do da Classe Premium que implementa a Interface Cartao
-	 * Fidelidade ele inicializa ah bonifica��o, o desconto, o limiar padrao e
+	 * Fidelidade ele inicializa ah bonificacao, o desconto, o limiar padrao e
 	 * os pontos
 	 */
-	public Premium() {
+	public PremiumStrategy() {
 		this.RATE_BONIFICACAO_PADRAO_PONTOS = 0.3;
 		this.BONIFICACAO_EXTRA_PONTOS = 10;
 		this.RATE_DESCONTO = 0.1;

@@ -17,7 +17,7 @@ import verificacao.excecoes.ValoresException;
  * @since 18 de Setembro de 2016
  * @see Prato.java
  */
-public class RefeicaoCompleta extends Refeicao {
+public class RefeicaoCompleta extends Comida {
 
 	private ArrayList<Prato> pratos;
 
@@ -94,7 +94,7 @@ public class RefeicaoCompleta extends Refeicao {
 		double soma = 0;
 		final double DESCONTO = 0.1;
 
-		for (Refeicao prato : getPratos())
+		for (Comida prato : getPratos())
 			soma = soma + prato.getPreco();
 
 		return soma - (soma * DESCONTO);
@@ -104,7 +104,7 @@ public class RefeicaoCompleta extends Refeicao {
 	public String toString() {
 		String toString = "Pratos contidos nessa refeicao:";
 
-		for (Refeicao prato : pratos)
+		for (Comida prato : pratos)
 			toString += "\n-> " + prato;
 
 		toString += "\nValor total: " + getPreco();

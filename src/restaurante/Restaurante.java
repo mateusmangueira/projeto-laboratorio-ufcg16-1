@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import restaurante.comida.Prato;
-import restaurante.comida.Refeicao;
+import restaurante.comida.Comida;
 import restaurante.comida.RefeicaoCompleta;
 import verificacao.excecoes.ConsultaException;
 import verificacao.excecoes.Excecoes;
@@ -20,20 +20,20 @@ import verificacao.excecoes.ValoresException;
  * @since 18 de Setembro de 2016
  * @see Prato.java, Refeicao.java
  */
-public class RestauranteController {
+public class Restaurante {
 
-	private List<Refeicao> cardapio;
+	private List<Comida> cardapio;
 
 	/**
 	 * O restaurante nao recebe parametros no construtor, apenas inicializa suas
 	 * colecoes de pratos e de refeicoes
 	 */
-	public RestauranteController() {
-		this.cardapio = new ArrayList<Refeicao>();
+	public Restaurante() {
+		this.cardapio = new ArrayList<Comida>();
 
 	}
 
-	public List<Refeicao> getCardapio() {
+	public List<Comida> getCardapio() {
 		return cardapio;
 	}
 
@@ -60,7 +60,7 @@ public class RestauranteController {
 		Excecoes.checaString(descricao, "Erro no cadastro do prato. Descricao do prato esta vazia.");
 		Excecoes.checaDouble(preco, "Erro no cadastro do prato. Preco do prato eh invalido.");
 
-		Refeicao novoPrato = new Prato(nome, preco, descricao);
+		Comida novoPrato = new Prato(nome, preco, descricao);
 
 		return this.cardapio.add(novoPrato);
 	}
@@ -74,7 +74,7 @@ public class RestauranteController {
 	 * @return True se o prato foi encontrado
 	 */
 	private boolean contemPrato(String nome) {
-		for (Refeicao prato : this.cardapio) {
+		for (Comida prato : this.cardapio) {
 			if (prato.getClass().equals(Prato.class)) {
 				if (prato.getNome().equalsIgnoreCase(nome))
 					return true;
@@ -95,7 +95,7 @@ public class RestauranteController {
 	 */
 	private Prato buscaPrato(String nome) throws LogicaException {
 		Prato novoPrato = null;
-		for (Refeicao prato : this.cardapio) {
+		for (Comida prato : this.cardapio) {
 			if (prato.getClass().equals(Prato.class)) {
 				if (prato.getNome().equalsIgnoreCase(nome)) {
 					novoPrato = (Prato) prato;
@@ -153,7 +153,7 @@ public class RestauranteController {
 			Prato prato = this.buscaPrato(nomeDosPratos[i]);
 			pratos.add(prato);
 		}
-		Refeicao refeicao = new RefeicaoCompleta(nome, descricao, pratos);
+		Comida refeicao = new RefeicaoCompleta(nome, descricao, pratos);
 		return this.cardapio.add(refeicao);
 	}
 
@@ -179,14 +179,14 @@ public class RestauranteController {
 
 		switch (atributo.toUpperCase()) {
 		case "PRECO":
-			for (Refeicao comida : this.cardapio) {
+			for (Comida comida : this.cardapio) {
 				if (comida.getNome().equalsIgnoreCase(nome)) {
 					return String.format("R$%.2f", comida.getPreco());
 				}
 			}
 
 		case "DESCRICAO":
-			for (Refeicao refeicao : this.cardapio) {
+			for (Comida refeicao : this.cardapio) {
 				if (refeicao.getNome().equalsIgnoreCase(nome)) {
 					return refeicao.getDescricao();
 				}
@@ -202,10 +202,10 @@ public class RestauranteController {
 
 		case "NOME":
 			Collections.sort(this.cardapio,
-					(Refeicao comida, Refeicao outraComida) -> comida.getNome().compareTo(outraComida.getNome()));
+					(Comida comida, Comida outraComida) -> comida.getNome().compareTo(outraComida.getNome()));
 			break;
 		case "PRECO":
-			Collections.sort(this.cardapio, (Refeicao comida, Refeicao outraComida) -> {
+			Collections.sort(this.cardapio, (Comida comida, Comida outraComida) -> {
 				return Double.compare(comida.getPreco(), outraComida.getPreco());
 			});
 			break;
@@ -215,14 +215,14 @@ public class RestauranteController {
 	public String consultaMenuRestaurante() {
 
 		String retorno = "";
-		for (Refeicao comida : this.cardapio) {
+		for (Comida comida : this.cardapio) {
 			retorno += ";" + comida.getNome();
 		}
 		return retorno.replaceFirst(";", "");
 	}
 
-	public Refeicao buscaRefeicao(String nome) throws ConsultaException {
-		for (Refeicao refeicao : this.getCardapio()) {
+	public Comida buscaRefeicao(String nome) throws ConsultaException {
+		for (Comida refeicao : this.getCardapio()) {
 			if (refeicao.getNome().equalsIgnoreCase(nome)) {
 				return refeicao;
 			}
