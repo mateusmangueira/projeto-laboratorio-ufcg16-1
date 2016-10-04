@@ -485,13 +485,12 @@ public class HotelController {
 		}
 		hospedeDeSaida.removeEstadia(idQuarto);
 		
-		double valorComDesconto = hospedeDeSaida.getCartao().aplicarDesconto(gastosEstadia);
+		double valorComDesconto = hospedeDeSaida.aplicarDesconto(gastosEstadia);
 		
 		// Recompensa por um gasto.
-		int recompensaPorGasto = hospedeDeSaida.getCartao().adicionarPontos(gastosEstadia);
+		int recompensaPorGasto = hospedeDeSaida.adicionarPontos(gastosEstadia);
 		
 		hospedeDeSaida.setPontos(hospedeDeSaida.getPontos() + recompensaPorGasto);
-		hospedeDeSaida.upgradeFidelidade();
 
 		return String.format("R$%.2f", valorComDesconto);
 	}
@@ -581,9 +580,8 @@ public class HotelController {
 		double valorComDesconto = hospede.getCartao().aplicarDesconto(refeicao.getPreco());
 		
 		// Recompensa por um gasto.
-		int recompensaPorGasto = hospede.getCartao().adicionarPontos(refeicao.getPreco());
+		int recompensaPorGasto = hospede.adicionarPontos(refeicao.getPreco());
 		hospede.setPontos(hospede.getPontos() + recompensaPorGasto);
-		hospede.upgradeFidelidade();
 
 		return String.format("R$%.2f", valorComDesconto);
 

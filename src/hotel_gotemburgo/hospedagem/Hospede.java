@@ -136,6 +136,8 @@ public class Hospede {
 
 	public void setPontos(int pontos) {
 		this.pontos = pontos;
+		this.upgradeFidelidade();
+
 	}
 	
 	public void atualizaPontuacao(int valor) {
@@ -238,6 +240,17 @@ public class Hospede {
 		}
 		return 0.0;
 	}
+	
+	public double aplicarDesconto(double valor) {
+		return this.cartao.aplicarDesconto(valor);
+		
+	}
+	
+	public int adicionarPontos(double valor) {
+		return this.cartao.adicionarPontos(valor);
+		
+	}
+	
 
 	/*
 	 * Este metodo upa o cartao fidelidade de um Hospede. Todo hospede inicia com seu cartao padrao, no qual
