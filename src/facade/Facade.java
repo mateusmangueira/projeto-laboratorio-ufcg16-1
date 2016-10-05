@@ -4,6 +4,12 @@ import easyaccept.EasyAccept;
 import hotel_gotemburgo.HotelController;
 import verificacao.excecoes.HotelGotemburgoException;
 
+/* Notas de Mattheus:
+ * 1) Remover os metodos delegadores de Restaurante em HotelController, Restaurante volta a ser
+ * Controller e se conecta diretamente a Facade
+ * 2) Nos strategys de cartao, utilizar constantes estaticas
+ * 3) Terminar de ajeitar o javadoc
+ */
 public class Facade {
 
 	private HotelController hotelController;
