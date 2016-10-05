@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.10" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="facade.Facade" project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/facade/Facade.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="facade.Facade" project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/facade/Facade.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="404" width="251" x="256" y="181"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -11,9 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="hotel_gotemburgo.HotelController" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/HotelController.java" binary="false" 
+  <class id="2" language="java" name="hotel_gotemburgo.HotelController" project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/HotelController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="330" width="251" x="573" y="216"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -22,10 +20,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="restaurante.Restaurante" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/restaurante/Restaurante.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="restaurante.Restaurante" project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/restaurante/Restaurante.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1033" y="381"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -33,9 +29,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="restaurante.comida.Prato" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/restaurante/comida/Prato.java" binary="false" 
+  <class id="4" language="java" name="restaurante.comida.Prato" project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/restaurante/comida/Prato.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1540" y="550"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -45,9 +40,9 @@
     </display>  
   </class>  
   <class id="5" language="java" name="restaurante.comida.RefeicaoCompleta" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/restaurante/comida/RefeicaoCompleta.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+    project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/restaurante/comida/RefeicaoCompleta.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1540" y="212"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -55,9 +50,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="restaurante.comida.Comida" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/restaurante/comida/Comida.java" binary="false" 
+  <class id="6" language="java" name="restaurante.comida.Comida" project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/restaurante/comida/Comida.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1280" y="388"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -67,9 +61,9 @@
     </display>  
   </class>  
   <class id="7" language="java" name="hotel_gotemburgo.hospedagem.Estadia" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/Estadia.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+    project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/Estadia.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="136" width="180" x="852" y="729"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -78,9 +72,9 @@
     </display>  
   </class>  
   <class id="8" language="java" name="hotel_gotemburgo.hospedagem.Hospede" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/Hospede.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+    project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/Hospede.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="187" width="191" x="611" y="706"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -89,8 +83,8 @@
     </display>  
   </class>  
   <class id="9" language="java" name="hotel_gotemburgo.hospedagem.cartao.PadraoStrategy" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/cartao/PadraoStrategy.java" 
+    project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/cartao/PadraoStrategy.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="949" y="1059"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -100,8 +94,8 @@
     </display>  
   </class>  
   <interface id="10" language="java" name="hotel_gotemburgo.hospedagem.cartao.CartaoFidelidade" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/cartao/CartaoFidelidade.java" 
+    project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/cartao/CartaoFidelidade.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="707" y="1058"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -111,8 +105,8 @@
     </display>  
   </interface>  
   <class id="11" language="java" name="hotel_gotemburgo.hospedagem.cartao.VipStrategy" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/cartao/VipStrategy.java" 
+    project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/cartao/VipStrategy.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="120" width="181" x="376" y="990"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -122,8 +116,8 @@
     </display>  
   </class>  
   <class id="12" language="java" name="hotel_gotemburgo.hospedagem.cartao.PremiumStrategy" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/cartao/PremiumStrategy.java" 
+    project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/hospedagem/cartao/PremiumStrategy.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="95" width="262" x="579" y="1160"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -133,9 +127,9 @@
     </display>  
   </class>  
   <enumeration id="13" language="java" name="hotel_gotemburgo.quartos.TipoDeQuarto" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/quartos/TipoDeQuarto.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+    project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/quartos/TipoDeQuarto.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1167" y="797"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -144,9 +138,9 @@
     </display>  
   </enumeration>  
   <class id="14" language="java" name="hotel_gotemburgo.transacao.Transacao" 
-    project="M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus" 
-    file="/M2_Matheus_115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/transacao/Transacao.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+    project="115211466_Anderson_Kleber_Lucas_Mateus" 
+    file="/115211466_Anderson_Kleber_Lucas_Mateus/src/hotel_gotemburgo/transacao/Transacao.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="432" y="782"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -155,103 +149,143 @@
     </display>  
   </class>  
   <association id="15">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="16" name="pratos"/>      
-      <multiplicity id="17" minimum="0" maximum="2147483647"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="16" name="tipoQuarto">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="17" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <realization id="18">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="10"/>  
-  </realization>  
-  <association id="19">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="20" name="hotelController"/>      
-      <multiplicity id="21" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="22">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="23" name="hospedes"/>      
-      <multiplicity id="24" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="25">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="26" name="estadias"/>      
-      <multiplicity id="27" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="28">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="29" name="cartao"/>      
-      <multiplicity id="30" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="31">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="32" name="transacoes"/>      
-      <multiplicity id="33" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="34">    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="10"/>  
   </realization>  
-  <association id="35">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="36" name="restaurante"/>      
-      <multiplicity id="37" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="38">    
-    <end type="SOURCE" refId="11"/>    
+  <realization id="19">    
+    <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="10"/>  
   </realization>  
-  <generalization id="39">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <association id="40">    
+  <association id="20">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="41" name="cardapio"/>      
-      <multiplicity id="42" minimum="0" maximum="2147483647"/>    
+      <attribute id="21" name="cardapio">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="22" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="43">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="44" name="tipoQuarto"/>      
-      <multiplicity id="45" minimum="0" maximum="1"/>    
+  <association id="23">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="24" name="transacoes">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="25" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="26">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="27" name="restaurante">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="28" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="30">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="31" name="hospedes">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="32" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="33">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="34" name="estadias">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="35" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="36">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <realization id="37">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <association id="38">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="39" name="tiposQuartos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="40" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="46">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <association id="47">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="48" name="tiposQuartos"/>      
-      <multiplicity id="49" minimum="0" maximum="2147483647"/>    
+  <association id="41">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="42" name="pratos">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="43" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="44">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="45" name="hotelController">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="46" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="47">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="48" name="cartao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="49" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
