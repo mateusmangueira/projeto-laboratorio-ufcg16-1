@@ -477,7 +477,7 @@ public class HotelController {
 		Hospede hospedeDeSaida = this.buscaHospede(email);
 		double gastosEstadia = hospedeDeSaida.getValorEstadia(idQuarto);
 		double valorComDesconto = hospedeDeSaida.aplicarDesconto(gastosEstadia);
-		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), gastosEstadia, idQuarto);
+		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), valorComDesconto, idQuarto);
 
 		this.transacoes.add(transacao);
 		if (this.verificaOcupacao(idQuarto)) {
@@ -489,7 +489,7 @@ public class HotelController {
 		int recompensaPorGasto = hospedeDeSaida.adicionarPontos(gastosEstadia);
 		
 		hospedeDeSaida.setPontos(hospedeDeSaida.getPontos() + recompensaPorGasto);
-
+		
 		return String.format("R$%.2f", valorComDesconto);
 	}
 

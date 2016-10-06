@@ -8,7 +8,9 @@ import verificacao.excecoes.HotelGotemburgoException;
 
 public class TestHotel {
 
-	// O erro no checkout ainda continua, n consegui achar o bug. So ta passando aqui pq n estou testando realmente o valor do realizaCheckout e sim a transacao.
+	// O erro no checkout ainda continua, n consegui achar o bug. So ta passando
+	// aqui pq n estou testando realmente o valor do realizaCheckout e sim a
+	// transacao.
 
 	private Facade facade;
 
@@ -122,6 +124,29 @@ public class TestHotel {
 		Assert.assertEquals("Lo Porco Voador", facade.consultaTransacoes("Nome"));
 
 		Assert.assertNotEquals("Mateus Mangueira", facade.consultaTransacoes("Nome"));
+	}
+
+	@Test
+	public void testeGetInfoHospedePorPontos() throws HotelGotemburgoException {
+
+		Assert.assertEquals("2", facade.getInfoHospedagem(cliente_1, "Hospedagens Ativas"));
+		Assert.assertEquals("101A,102A", facade.getInfoHospedagem(cliente_1, "Quarto"));
+		//Cliente_1 ainda tem cartao Padrao.
+		facade.realizaCheckout(cliente_1, "101A"); // gastou 1000,00
+		facade.realizaCheckout(cliente_1, "102A"); // gastou 500,00
+		Assert.assertEquals("R$1500,00", facade.consultaTransacoes("Total"));
+		Assert.assertEquals("150", facade.getInfoHospede(cliente_1, "Pontos"));
+		
+		//Cliente_1 passara a ser Premium.
+		facade.realizaCheckin(cliente_1, 5, "101A", "Presidencial");
+		facade.realizaCheckout(cliente_1, "101A");
+		
+		//Premium tem 10% de desconto em gastos no Hotel.
+		Assert.assertEquals("375", facade.getInfoHospede(cliente_1, "Pontos"));
+		facade.realizaCheckin(cliente_1, 3, "505C", "Luxo");
+		facade.realizaCheckout(cliente_1, "505C");
+		
+		Assert.assertEquals("R$675,00", facade.consultaTransacoes("total", 3));
 	}
 
 }

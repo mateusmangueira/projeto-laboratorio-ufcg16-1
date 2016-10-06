@@ -49,6 +49,7 @@ public class TestRestaurante {
 		facade.ordenaMenu("Nome");
 		
 		Assert.assertEquals("Delicia de Macaxeira;Doce de Leite;Jantar a moda da casa;Moda Nordestina;Rubacao;Strogonoff de Carne;Strogonoff de Frango;Tapioca", facade.consultaMenuRestaurante());
+
 	}
 
 }
