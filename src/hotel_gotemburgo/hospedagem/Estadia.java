@@ -5,8 +5,12 @@ import verificacao.excecoes.ValoresException;
 import hotel_gotemburgo.quartos.TipoDeQuarto;
 
 /**
- * Estadia - Classe que representa uma Estadia, eh composta por um Quarto e tem
- * uma quantidade de dias
+ * Essa classe representa uma estadia. A estadia nada mais eh do que um objeto
+ * que representa a presenca em um quarto do hotel. Sendo assim, ela eh composta
+ * de:
+ * - ID do quarto
+ * - Tipo do quarto
+ * - Quantidade de dias de estadia nesse quarto
  * 
  * @since 12 de Setembro de 2016
  * 
@@ -23,11 +27,12 @@ public class Estadia {
 	private int dias;
 
 	/**
-	 * Construtor padrao da classe Estadia que recebe um quarto e a quantidade
-	 * de dias
+	 * Construtor padrao da classe Estadia. Recebe uma String representando o ID do quarto,
+	 * um objeto TipoDeQuarto, e um inteiro que representa a quantidade de dias nessa estadia.
 	 * 
-	 * @param quarto Quarto que compoe a estadia
-	 * @param dias Dias de hospedagem dessa estadia
+	 * @param idQuarto Uma String representando o ID do quarto, que eh uma identificacao unica
+	 * para esse quarto, composta de letras e numeros
+	 * @param dias Dias de hospedagem nessa estadia
 	 * @throws ValoresException Em caso de insercao de valores invalidos
 	 */
 	public Estadia(String idQuarto, TipoDeQuarto tipo, int dias) throws ValoresException {
@@ -41,18 +46,35 @@ public class Estadia {
 		this.dias = dias;
 	}
 	
+	/**
+	 * Retorna o ID do quarto que compoe estadia
+	 * @return String que representa um quarto de forma unica, atraves de letras e numeros
+	 */
 	public String getIdQuarto() {
-		return idQuarto;
+		return this.idQuarto;
 	}
 
+	/**
+	 * Modifica o ID do quarto atual para um novo
+	 * @param idQuarto Novo ID do quarto que substituira o antigo
+	 */
 	public void setIdQuarto(String idQuarto) {
 		this.idQuarto = idQuarto;
 	}
 
+	/**
+	 * Retorna uma constante do Enum TipoDeQuarto. Essa constante representa o tipo
+	 * do quarto que compoe a estadia
+	 * @return Constante de um enum TipoDeQuarto, representando o tipo do quarto
+	 */
 	public TipoDeQuarto getTipoQuarto() {
-		return tipoQuarto;
+		return this.tipoQuarto;
 	}
 
+	/**
+	 * Modifica o ID do quarto atual para um novo valor
+	 * @param idQuarto Novo ID do quarto que substituira o antigo
+	 */
 	public void setTipo(TipoDeQuarto tipo) {
 		this.tipoQuarto = tipo;
 	}
@@ -63,7 +85,7 @@ public class Estadia {
 	 * que corresponde a quantos dias o quarto dessa estadia vem sendo utilizado.
 	 */
 	public int getDias() {
-		return dias;
+		return this.dias;
 	}
 
 	/**
@@ -109,6 +131,9 @@ public class Estadia {
 		return true;
 	}
 	
+	/**
+	 * Representacao em String de uma Estadia
+	 */
 	@Override
 	public String toString() {
 		return String.format("%s Quantidade de dias de hospedagem: %d.",

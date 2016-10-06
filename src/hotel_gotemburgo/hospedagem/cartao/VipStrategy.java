@@ -3,6 +3,22 @@ package hotel_gotemburgo.hospedagem.cartao;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * Classe que implementa a interface CartaoFidelidade para descrever uma nova estrategia
+ * de calculo para as operacoes relacionadas a um cartao. O comportamento descrito
+ * nessa classe eh o Premium, que oferece vantagens.
+ * 
+ * Comportamento:
+ * - ao adicionar pontos: uma bonificacao padrao bastante elevada
+ * - ao aplicar desconto: aplica um alto desconto padrao para todos os gastos
+ * - ao converter pontos: converte os pontos em dinheiro com base no percentual 
+ * padrao + um retorno extra, que eh alto, a cada certa quantidade de pontos
+ * 
+ * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
+ * @author Kleber Diogo - 115211239 <kleber.albuquerque@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
+ */
 public class VipStrategy implements CartaoFidelidade {
 
 	private final double RATE_DESCONTO;

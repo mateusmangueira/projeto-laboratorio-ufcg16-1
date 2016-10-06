@@ -8,15 +8,16 @@ import hotel_gotemburgo.hospedagem.cartao.VipStrategy;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import verificacao.excecoes.ConsultaException;
 import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.StringException;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
 
 /**
- * Classe responsavel por um objeto que representa um hospede do Hotel. O
+ * Classe responsavel por um objeto que representa um hospede do sistema. O
  * hospede possui atributos (nome, email e ano de nascimento) e metodos que
- * retornam e alteram esses atributos.
+ * retornam ou modificam esses atributos.
  *
  * @since 12 de Setembro de 2016
  * 
@@ -37,12 +38,16 @@ public class Hospede {
 
 	/**
 	 * O construtor recebe 3 parametros, descritos abaixo, e realiza checagem de
-	 * excecao em todos eles
+	 * excecao em todos eles, para verificar se sao vazio, nulos e se estao
+	 * no formato adequado. Alem disso, o construtor inicia o cartao do hospede
+	 * no comportamento padrao, e define a quantidade inicial dos pontos do
+	 * hospede como 0.
 	 * 
-	 * @param nomeHospede
-	 * @param emailHospede
-	 * @param dataNascHospede
-	 * @throws StringException
+	 * @param nomeHospede Uma String representando o nome do hospede
+	 * @param emailHospede Uma String unica que representa o email do hospede
+	 * @param dataNascHospede Uma String que representa a data de nascimento
+	 * do hospede. 
+	 * @throws StringException Em caso de valores invalidos de string
 	 */
 	public Hospede(String nomeHospede, String emailHospede, String dataNascHospede) throws StringException {
 
@@ -53,9 +58,9 @@ public class Hospede {
 		this.nome = nomeHospede;
 		this.email = emailHospede;
 		this.dataNascimento = dataNascHospede;
-		this.pontos = 0;
 		this.estadias = new ArrayList<Estadia>();
 		this.cartao = new PadraoStrategy();
+		this.pontos = 0;
 	}
 
 	/**
@@ -113,33 +118,55 @@ public class Hospede {
 	 * Recebe uma nova data de nascimento como parametro e altera o email atual
 	 * do hospede, realizando checagem de excecao
 	 * 
-	 * @param dataNascimento
-	 * @throws ValoresException
+	 * @param dataNascimento A nova data de nascimento do cliente que ira constar
+	 * no sistema
+	 * @throws StringException Em caso de uma String invalida
 	 */
-	public void setDataNascimento(String dataNascimento) throws ValoresException {
+	public void setDataNascimento(String dataNascimento) throws StringException {
 		Excecoes.checaString(dataNascimento,
 				"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		this.dataNascimento = dataNascimento;
 	}
 	
 	/**
-	 * get do cartao fidelidade
-	 * @return um cartao
+	 * Retorma o atributo cartao fidelidade
+	 * 
+	 * @return um objeto do tipo CartaoFidelidade, que representa o tipo do cartao
+	 * que o hospede tem
 	 */
 	public CartaoFidelidade getCartao() {
 		return this.cartao;
 	}
 
+	/**
+	 * Retorna a quantidade de pontos do hospede
+	 * 
+	 * @return Um inteiro que representa a quantidade de pontos que o hospede possui.
+	 */
 	public int getPontos() {
 		return pontos;
 	}
 
+	/**
+	 * Atualiza o valor do atributo pontos
+	 * 
+	 * @param pontos Recebe uma nova quantidade de pontos como parametro, e substitui
+	 * a quantia antiga de pontos pela nova quantia.
+	 */
 	public void setPontos(int pontos) {
 		this.pontos = pontos;
 		this.upgradeFidelidade();
 
 	}
 	
+	/**
+	 * Esse metodo eh o responsavel por incrementar a pontuacao do Hospede. Recebe um
+	 * valor de pontos que serao adicionados, e chama o metodo setPontos() para 
+	 * atualizar o atributo.
+	 * 
+	 * @param valor Inteiro representando a quantidade de pontos que sera adicionada
+	 * ao hospede
+	 */
 	public void atualizaPontuacao(int valor) {
 		int recompensa = this.cartao.adicionarPontos(valor);
 		this.setPontos(this.pontos + recompensa);
@@ -195,27 +222,29 @@ public class Hospede {
 	}
 
 	/**
-	 * get do array de estadias
+	 * Retorna a lista de estadias
 	 * 
-	 * @return estadias
+	 * @return O ArrayList de estadias do Hospede
 	 */
 	public ArrayList<Estadia> getEstadias() {
 		return this.estadias;
 	}
 
 	/**
-	 * esse metodo retorna ah quantidade estadias que estao no Hotel
+	 * Metodo responsavel por retornar a quantidade de estadias que esse Hospede possui
+	 * atualmente.
 	 * 
-	 * @return o tamanho do array de estadias
+	 * @return O tamanho da lista de estadias que compoe o Hospede
 	 */
 	public int getQtdEstadias() {
 		return this.estadias.size();
 	}
 
 	/**
-	 * Retorna os gastos do hospede no hotel
+	 * Retorna os gastos do hospede, relativos as estadias atuais do Hospede.
 	 * 
-	 * @return gastos do hospede no hotel
+	 * @return Os gastos do Hospede, que sao calculados ao iterar sobre o ArrayList
+	 * de estadias e somar o valor atual de todas elas, atraves do metodo getCalculaEstadia().
 	 */
 	public double getGastosTotal() {
 		double total = 0.0;
@@ -228,31 +257,44 @@ public class Hospede {
 	/**
 	 * Retorna o valor de uma estadia especifica do Hospede.
 	 * 
-	 * @param valor Valor gasto pelo Hospede na operacao
-	 * @throws ValorException
+	 * @param idQuarto Uma String representando o ID do quarto que compoe
+	 * a estadia que deseja-se consultar o valor
+	 * @throws ConsultaException Caso nenhuma estadia no quarto passado como
+	 * parametro seja encontrada no array de estadias.
 	 */
-
-	public double getValorEstadia(String idQuarto) {
+	public double getValorEstadia(String idQuarto) throws ConsultaException {
 		for (Estadia estadia : this.estadias) {
-			if (estadia.getIdQuarto().equalsIgnoreCase(idQuarto)) {
+			if (estadia.getIdQuarto().equalsIgnoreCase(idQuarto))
 				return estadia.getCalculaEstadia();
-			}
 		}
-		return 0.0;
+		throw new ConsultaException("Nao foi possivel localizar uma estadia nesse quarto");
 	}
 	
+	/**
+	 * Metodo que delega a funcao de aplicar desconto ao cartao. O calculo sera realizado 
+	 * de acordo com o tipo atual do Cartao Fidelidade do hospede. Cada tipo apresenta 
+	 * estrategias de calculo diferentes.
+	 * 
+	 * @param valor Valor sobre o qual o desconto sera aplicado
+	 * @return O valor apos o desconto ser aplicado
+	 */
 	public double aplicarDesconto(double valor) {
 		return this.cartao.aplicarDesconto(valor);
-		
 	}
-	
+		
+	/**
+	 * Metodo que delega a funcao de adicionar pontos ao cartao. O calculo sera realizado 
+	 * de acordo com o tipo atual do Cartao Fidelidade do hospede. Cada tipo apresenta 
+	 * estrategias de calculo diferentes.
+	 * 
+	 */
 	public int adicionarPontos(double valor) {
 		return this.cartao.adicionarPontos(valor);
 		
 	}
 	
 
-	/*
+	/**
 	 * Este metodo upa o cartao fidelidade de um Hospede. Todo hospede inicia com seu cartao padrao, no qual
 	 * em meio a suas despesas e relacoes com as atividades do Hotel, pode upar de Padrao para Premium ou diretamente
 	 * para VIP. Tambem ha possibilidade de passar de Premuium para VIP. 
@@ -297,4 +339,5 @@ public class Hospede {
 		int result = 1;
 		return prime * result + ((email == null) ? 0 : email.hashCode());
 	}
+	
 }

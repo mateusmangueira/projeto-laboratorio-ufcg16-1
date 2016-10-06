@@ -1,5 +1,15 @@
 package hotel_gotemburgo.hospedagem.cartao;
 
+/**
+ * Classe que implementa a interface CartaoFidelidade para descrever uma nova estrategia
+ * de calculo para as operacoes relacionadas a um cartao. O comportamento descrito
+ * nessa classe eh o padrao, ou seja, o comportamento inicial dos cartoes do sistema.
+ * 
+ * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
+ * @author Kleber Diogo - 115211239 <kleber.albuquerque@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br> *
+ */
 public class PadraoStrategy implements CartaoFidelidade {
 
 	private final double RECOMPENSA;
