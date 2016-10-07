@@ -629,6 +629,23 @@ public class HotelController {
 			}
 		bf.close();
 	}
+	
+	public void gravaArquivoMenu() throws IOException{
+		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_restaurante.txt"));
+		bf.write("Menu do Restaurante: " + restaurante.getCardapio().size() + " itens no cardapio");
+		int contador = 0;
+		for (Comida itens : restaurante.getCardapio()) {
+			contador += 1;
+			bf.write("==> Item " + contador + ":\n" +
+					"Nome: " + itens.getNome() + "Preco: " + "R$" + itens.getPreco() + "\n" +
+					"Descricao: " + itens.getDescricao() );
+		}
+		bf.close();
+	}
+	
+	
+	
+	
 	/*
 	 * private void gravaArquivoCadastro(String nomeArquivo) throws IOException{
 		BufferedWriter bf = new BufferedWriter(new FileWriter(nomeArquivo));
