@@ -39,6 +39,9 @@ public class VipStrategy implements CartaoFidelidade {
 
 	// A cada 10 pontos convertidos, o hospede ganha R$0,50 adicionais.
 	final double BONIFICACAO_EXTRA_SAQUE;
+	
+	// A cada a cada R$100,00 reais gastos, o hospede recebe um desconto de R$10,00 dos R$100,00 pagos.
+	final int LIMIAR_PADRAO_DESCONTO;
 
 	/**
 	 * Construtor da classe VIP que implementa a interface Cartao de fidelidade
@@ -51,6 +54,7 @@ public class VipStrategy implements CartaoFidelidade {
 		this.RATE_SAQUE = 0.70;
 		this.BASE_BONIFICACAO = 10.00;
 		this.BONIFICACAO_EXTRA_SAQUE = 0.50;
+		this.LIMIAR_PADRAO_DESCONTO = 10;
 	}
 
 	/**
@@ -72,8 +76,14 @@ public class VipStrategy implements CartaoFidelidade {
 		double valorComDesconto = valor - (valor * this.RATE_DESCONTO);
 		BigDecimal valorFormatado = new BigDecimal(valorComDesconto).setScale(2, RoundingMode.UP);
 		valorComDesconto = valorFormatado.doubleValue();
-		int descontoExtra = (int) (valor / this.RATE_BASE_DESCONTO_EXTRA);
-		return valorComDesconto - descontoExtra;
+		if (valor > this.RATE_BASE_DESCONTO_EXTRA) {
+			int descontoExtra = (int) (valor / this.LIMIAR_PADRAO_DESCONTO);
+			
+			//O descontoExtra eh o desconto de R$10,00 reais a cada R$100,00 gastos.
+			valorComDesconto -= descontoExtra;
+			
+		}
+		return valorComDesconto;
 	}
 	
 	@Override

@@ -300,6 +300,9 @@ public class Hospede {
 	 * para VIP. Tambem ha possibilidade de passar de Premuium para VIP. 
 	 */
 	public void upgradeFidelidade() {
+		if (this.pontos < 350) {
+			this.cartao = new PadraoStrategy();
+		}
 		if (this.pontos >= 350 && this.pontos <= 1000) {
 			this.cartao = new PremiumStrategy();
 		}

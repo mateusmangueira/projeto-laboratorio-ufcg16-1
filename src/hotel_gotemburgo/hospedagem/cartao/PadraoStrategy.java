@@ -32,7 +32,7 @@ public class PadraoStrategy implements CartaoFidelidade {
 	 */
 	@Override
 	public int adicionarPontos(double valor) {
-		int recompensa = (int) (RECOMPENSA * valor);
+		int recompensa = (int) (this.RECOMPENSA * valor);
 		return recompensa;
 	}
 

@@ -483,6 +483,7 @@ public class HotelController {
 		if (this.verificaOcupacao(idQuarto)) {
 			this.quartosOcupados.remove(idQuarto);
 		}
+		
 		hospedeDeSaida.removeEstadia(idQuarto);
 		
 		// Recompensa por um gasto.
@@ -575,8 +576,7 @@ public class HotelController {
 		double valorComDesconto = hospede.getCartao().aplicarDesconto(refeicao.getPreco());
 		Transacao transacao = new Transacao(hospede.getNome(), valorComDesconto, item);
 		this.transacoes.add(transacao);
-		
-		
+
 		// Recompensa por um gasto.
 		int recompensaPorGasto = hospede.adicionarPontos(refeicao.getPreco());
 		hospede.setPontos(hospede.getPontos() + recompensaPorGasto);
@@ -585,6 +585,16 @@ public class HotelController {
 
 	}
 
+	public String convertePontos(String email, int qntPontos) throws HotelGotemburgoException {
+		
+		Hospede hospede = this.buscaHospede(email);
+		int pontuacao = hospede.getPontos();
+		pontuacao -= qntPontos;
+		hospede.setPontos(pontuacao);
+		return hospede.getCartao().convertePontos(qntPontos);
+		
+	}
+	
 	public boolean cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
 		return this.restaurante.cadastraPrato(nome, preco, descricao);
 	}
@@ -604,15 +614,5 @@ public class HotelController {
 	public void ordenaMenu(String atributo) {
 		this.restaurante.ordenaMenu(atributo);
 	}
-
 	
-	public String convertePontos(String email, int qntPontos) throws HotelGotemburgoException {
-		Hospede hospede = this.buscaHospede(email);
-		int pontuacao = hospede.getPontos();
-		pontuacao -= qntPontos;
-		hospede.setPontos(pontuacao);
-		return hospede.getCartao().convertePontos(qntPontos);
-
-	}
-
 }

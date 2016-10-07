@@ -61,7 +61,7 @@ public class PremiumStrategy implements CartaoFidelidade {
 		recompensa += (this.RATE_BONIFICACAO_PADRAO_PONTOS * valor);
 
 		if (valor > this.LIMIAR_PADRAO_DESCONTO) {
-			int pontosExtras = (int) ((valor - this.LIMIAR_PADRAO_DESCONTO) / this.LIMIAR_PADRAO_DESCONTO);
+			int pontosExtras = (int) ((valor / this.LIMIAR_PADRAO_DESCONTO));
 			pontosExtras = pontosExtras * this.BONIFICACAO_EXTRA_PONTOS;
 			recompensa += pontosExtras;
 		}
@@ -81,7 +81,12 @@ public class PremiumStrategy implements CartaoFidelidade {
 
 	@Override
 	public String convertePontos(int qntPontos) {
-		double calculoPremium = (qntPontos * this.RATE_SAQUE) + ((qntPontos / this.BASE_BONIFICACAO) * this.BONIFICACAO_EXTRA_SAQUE);
+		double calculoPremium = 0.0;
+		if (qntPontos >= this.BASE_BONIFICACAO) {
+			calculoPremium = (qntPontos * this.RATE_SAQUE) + ((qntPontos / this.BASE_BONIFICACAO) * this.BONIFICACAO_EXTRA_SAQUE);
+		} else {
+			calculoPremium = (qntPontos * this.RATE_SAQUE);
+		}
 		return String.format("R$%.2f", calculoPremium);
 	}
 
