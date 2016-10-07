@@ -79,6 +79,7 @@ public class PremiumStrategy implements CartaoFidelidade {
 		return valorFormatado.doubleValue();
 	}
 
+	 
 	@Override
 	public String convertePontos(int qntPontos) {
 		double calculoPremium = 0.0;

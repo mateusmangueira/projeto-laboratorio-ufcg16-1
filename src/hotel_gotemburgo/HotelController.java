@@ -1,5 +1,8 @@
 package hotel_gotemburgo;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -615,4 +618,33 @@ public class HotelController {
 		this.restaurante.ordenaMenu(atributo);
 	}
 	
-}
+	public void gravaArquivoCadastro() throws IOException{
+		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_hospedes.txt"));
+		bf.write("Cadastro de Hospedes: " + this.hospedes.size() +" hospedes registrados\n" );
+		int contador = 0;
+		for (Hospede hospede : hospedes) {
+			contador += 1;
+			bf.write("==> Hospede " + contador + ":\nEmail: " + hospede.getEmail() + "\nNome: " + hospede.getNome() + 
+					"\nData de nascimento: " + hospede.getDataNascimento() + "\n");
+			}
+		bf.close();
+	}
+	/*
+	 * private void gravaArquivoCadastro(String nomeArquivo) throws IOException{
+		BufferedWriter bf = new BufferedWriter(new FileWriter(nomeArquivo));
+		bf.write("Cadastro de Hospedes: " + this.hospedes.size() + " hospedes registrados\n");
+		int hospede = 0;
+		for (Hospede hospedeHotel : hospedes) {
+			hospede += 1;
+			bf.write("==> Hospede " + hospede + ":\nEmail: " + hospedeHotel.getEmail() + "\nNome: " + hospedeHotel.getNome() +
+			"\nData de nascimento: " +  hospedeHotel.getDataNascimento() + "\n");
+		}
+		bf.close();
+	}
+
+	 */
+
+	}
+
+
+	

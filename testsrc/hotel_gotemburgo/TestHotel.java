@@ -103,6 +103,13 @@ public class TestHotel {
 		Assert.assertEquals("R$1800,00", facade.getInfoHospedagem(cliente_3, "Total"));
 		Assert.assertEquals("R$1250,00", facade.getInfoHospedagem(cliente_4, "Total"));
 	}
+	
+	public void testeAtualizaCadastro() throws HotelGotemburgoException{
+		 facade.atualizaCadastro(cliente_1,"Email", "porquito@Negresco.com");
+		 facade.atualizaCadastro(cliente_1,"Nome", "Porquito Negresco Branco");
+	
+	
+	}
 
 	@Test
 	public void testeRemoveHospede() throws HotelGotemburgoException {
@@ -125,7 +132,9 @@ public class TestHotel {
 
 		Assert.assertNotEquals("Mateus Mangueira", facade.consultaTransacoes("Nome"));
 	}
-
+	
+	
+	
 	@Test
 	public void testeGetInfoHospedePorPontos() throws HotelGotemburgoException {
 
@@ -149,6 +158,7 @@ public class TestHotel {
 		Assert.assertEquals("R$675,00", facade.consultaTransacoes("total", 3));
 	}
 
+
 }
 
 // @Test
@@ -171,13 +181,8 @@ public class TestHotel {
 //
 // }
 
-/*
- * public void testAtualizaCadastro() throws HotelException {
- * 
- * hotel.atualizaCadastro("kleber@bol.com", "Email", "kleber1@bol.com");
- * hotel.atualizaCadastro("EanesMoral@yahoo.com", "Email",
- * "EanesMoral123@yahoo.com"); }
- */
+
+ 
 
 // @Test
 // public void testCriaHospedeWithException() {
