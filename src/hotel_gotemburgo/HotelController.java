@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import restaurante.Restaurante;
+import restaurante.RestauranteController;
 import restaurante.comida.Comida;
 import verificacao.excecoes.*;
 import verificacao.validacao.*;
@@ -48,7 +48,7 @@ public class HotelController {
 	private Set<String> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
 	private ArrayList<Transacao> transacoes;
-	private Restaurante restaurante;
+	private RestauranteController restaurante;
 
 	/**
 	 * O construtor do HotelController inicia o Set de hospedes, de quartos e de
@@ -61,7 +61,7 @@ public class HotelController {
 		this.hospedes = new HashSet<Hospede>();
 		this.quartosOcupados = new HashSet<String>();
 		this.transacoes = new ArrayList<Transacao>();
-		this.restaurante = new Restaurante();
+		this.restaurante = new RestauranteController();
 
 		this.inicializaTiposDeQuarto();
 
@@ -74,7 +74,7 @@ public class HotelController {
 	 * Acessa o atributo restaurante e o retorna
 	 * @return O atributo restaurante, que representa o RestauranteController do Hotel
 	 */
-	public Restaurante getRestaurante() {
+	public RestauranteController getRestaurante() {
 		return this.restaurante;
 	}
 
@@ -606,7 +606,7 @@ public class HotelController {
 		return this.restaurante.cadastraRefeicao(nome, descricao, componentes);
 	}
 
-	public String consultaRestaurante(String nome, String atributo) throws ConsultaException, ValoresException {
+	public String consultaRestaurante(String nome, String atributo) throws HotelGotemburgoException {
 		return this.restaurante.consultaRestaurante(nome, atributo);
 	}
 

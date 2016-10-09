@@ -6,8 +6,11 @@ import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
 
 /**
- * Define um objeto do tipo Prato, que possui um nome, um preco e uma descricao.
+ * Extende a classe abstrata Comida. Essa classe eh responsavel por um objeto do tipo Prato,
+ * que representa um prato do restaurante do hotel. Implementa os metodos abstratos de sua 
+ * superclasse. Um prato, alem de nome e descricao, tambem possui um preco.
  * 
+ * @see Comida.java
  * @since 18 de Setembro de 2016
  */
 public class Prato extends Comida {
@@ -17,10 +20,10 @@ public class Prato extends Comida {
 	/**
 	 * O Construtor recebe o nome do prato, preco e sua descricao.
 	 * 
-	 * @param nome
-	 * @param preco
-	 * @param descricao
-	 * @throws ValoresException
+	 * @param nome String que representa o nome do prato
+	 * @param preco O valor do prato, em double
+	 * @param descricao String que descreve informacoes sobre o prato
+	 * @throws ValoresException Caso os valores de entrada sejam invalidos
 	 */
 	public Prato(String nome, double preco, String descricao) throws ValoresException {
 		
@@ -34,32 +37,35 @@ public class Prato extends Comida {
 
 	
 	/**
-	 * Altera o atributo nome do prato, realizando verificacao
+	 * Altera o atributo nome do prato, realizando verificacao.
 	 * 
-	 * @param nome
-	 * @throws ValoresException
+	 * @param nome Nome do prato
+	 * @throws StringException Caso a string de entrada seja invalida 
 	 */
-	public void setNome(String nome) throws ValoresException {
+	@Override
+	public void setNome(String nome) throws StringException {
 		Excecoes.checaString(nome, "O nome do prato nao pode ser nulo ou vazio.");
 		this.nome = nome;
 	}
 
 	/**
-	 * Retorna a descricao do prato
+	 * Retorna a descricao do prato.
 	 * 
-	 * @return descricao
+	 * @return descricao Uma string que descreve informacoes uteis sobre o prato
 	 */
+	@Override
 	public String getDescricao() {
 		return descricao;
 	}
 
 	/**
-	 * Altera o atributo descricao do prato, realizando verificacao
+	 * Altera o atributo descricao do prato, realizando verificacao.
 	 * 
-	 * @param descricao
-	 * @throws ValoresException
+	 * @param descricao A nova descricao do prato
+	 * @throws StringException Caso a string de entrada seja invalida
 	 */
-	public void setDescricao(String descricao) throws ValoresException {
+	@Override
+	public void setDescricao(String descricao) throws StringException {
 		if (descricao == null || nome.trim().isEmpty()) {
 			throw new StringException("O nome do prato nao pode ser nulo ou vazio.");
 		}
@@ -67,21 +73,22 @@ public class Prato extends Comida {
 	}
 
 	/**
-	 * Retorna o preco do prato
+	 * Retorna o preco do prato.
 	 * 
-	 * @return preco
+	 * @return preco O valor do atributo preco
 	 */
+	@Override
 	public double getPreco() {
 		return this.preco;
 	}
 
 	/**
-	 * Altera o atributo preco do prato, realizando verificacao
+	 * Altera o atributo preco do prato, realizando verificacao.
 	 * 
-	 * @param preco
-	 * @throws ValoresException
+	 * @param preco O novo preco do Prato
+	 * @throws ValorException Caso o novo preco seja menor que zero
 	 */
-	public void setPreco(double preco) throws ValoresException {
+	public void setPreco(double preco) throws ValorException {
 		if (preco < 0) {
 			throw new ValorException("O preco do prato nao pode ser negativo.");
 		}
@@ -89,7 +96,7 @@ public class Prato extends Comida {
 	}
 
 	/**
-	 * Representacao em String de um Prato
+	 * Representacao em String de um Prato.
 	 */
 	@Override
 	public String toString() {
@@ -97,7 +104,8 @@ public class Prato extends Comida {
 	}
 
 	/**
-	 * Dois pratos sao iguais caso possuam o mesmo nome
+	 * Comparacao entre um objeto do tipo Prato com outro objeto. Dois pratos sao 
+	 * iguais caso possuam o mesmo nome.
 	 */
 	@Override
 	public boolean equals(Object anotherObject) {
@@ -110,7 +118,7 @@ public class Prato extends Comida {
 	}
 
 	/**
-	 * Codigo hash de um objeto do tipo Prato
+	 * Codigo hash de um objeto do tipo Prato.
 	 */
 	@Override
 	public int hashCode() {

@@ -3,6 +3,7 @@ package restaurante.comida;
 import java.util.ArrayList;
 
 import verificacao.excecoes.Excecoes;
+import verificacao.excecoes.StringException;
 import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
 
@@ -44,13 +45,13 @@ public class RefeicaoCompleta extends Comida {
 		this.pratos = pratos;
 	}
 
-		/**
-	 * Altera o nome da refeicao
+	/**
+	 * Altera o atributo nome da refeicao.
 	 * 
-	 * @param nome
-	 * @throws ValoresException
+	 * @param nome O novo nome da refeicao
+	 * @throws StringException
 	 */
-	public void setNome(String nome) throws ValoresException {
+	public void setNome(String nome) throws StringException {
 		Excecoes.checaString(nome, "O nome da refeicao nao pode ser nulo ou vazio.");
 		this.nome = nome;
 	}
@@ -70,13 +71,18 @@ public class RefeicaoCompleta extends Comida {
 		return retorno.replaceFirst(", ", "") + ".";
 	}
 	
+	/**
+	 * Altera a descricao da refeicao.
+	 * 
+	 * @param descricao A nova descricao da refeicao
+	 */
 	public void setDescricao(String descricao) throws ValoresException {
 		Excecoes.checaString(descricao, "A descricao da refeicao nao pode ser nula ou vazia.");
 		this.descricao = descricao;
 	}
 
 	/**
-	 * Retorna a lista que contem os pratos que compoem refeicao
+	 * Retorna a lista que contem os pratos que compoem refeicao.
 	 * 
 	 * @return lista de pratos
 	 */
@@ -85,10 +91,10 @@ public class RefeicaoCompleta extends Comida {
 	}
 
 	/**
-	 * Calcula o valor total da refeicao. Eh oferecido um desconto sobre a soma
-	 * total dos pratos dessa refeicao.
+	 * Calcula o valor total da refeicao. Eh oferecido um desconto sobre o valor
+	 * da soma dos pratos dessa refeicao.
 	 * 
-	 * @return valor total da refeicao
+	 * @return Valor total da refeicao
 	 */
 	public double getPreco() {
 		double soma = 0;
@@ -100,6 +106,9 @@ public class RefeicaoCompleta extends Comida {
 		return soma - (soma * DESCONTO);
 	}
 
+	/**
+	 * Representacao em String de um objeto do tipo RefeicaoCompleta.
+	 */
 	@Override
 	public String toString() {
 		String toString = "Pratos contidos nessa refeicao:";
@@ -113,7 +122,7 @@ public class RefeicaoCompleta extends Comida {
 
 	/**
 	 * Dois objetos do tipo Refeicao sao iguais se possuirem o mesmo nome ou o
-	 * mesmo conjunto de pratos
+	 * mesmo conjunto de pratos.
 	 */
 	@Override
 	public boolean equals(Object anotherObject) {
@@ -127,7 +136,7 @@ public class RefeicaoCompleta extends Comida {
 	}
 
 	/**
-	 * Codigo hash de um objeto do tipo Refeicao
+	 * Codigo hash de um objeto do tipo Refeicao.
 	 */
 	@Override
 	public int hashCode() {

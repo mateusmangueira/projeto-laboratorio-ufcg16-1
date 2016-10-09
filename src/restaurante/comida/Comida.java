@@ -2,6 +2,17 @@ package restaurante.comida;
 
 import verificacao.excecoes.ValoresException;
 
+/**
+ * Classe que representa a abstração de uma Comida do Restaurante. Uma comida possui
+ * nome, descricao, e metodos para alterar e retornar esses atributos. Com excecao
+ * do metodo getNome, todos os outros metodos possuem diferentes implementacoes
+ * nas subclasses, portanto sao declarados como abstratos.
+ * 
+ * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
+ * @author Kleber Diogo - 115211239 <kleber.albuquerque@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
+ */
 public abstract class Comida {
 	
 	protected String nome;
