@@ -12,19 +12,9 @@ package hotel_gotemburgo.hospedagem.cartao;
  */
 public class PadraoStrategy implements CartaoFidelidade {
 
-	private final double RECOMPENSA;
-
+	private static final double RECOMPENSA = 0.10;
 	// Para cada ponto de fidelidade, o hospede consegue sacar R$0,10;
-	private final double RATE_SAQUE;
-
-	/**
-	 * construtor da classe Padrao que implementa a Inteface: Cartao de
-	 * Fidelidade esse contruto inicializa os pontos e a recompensa
-	 */
-	public PadraoStrategy() {
-		this.RECOMPENSA = 0.10;
-		this.RATE_SAQUE = 0.10;
-	}
+	private static final double RATE_SAQUE = 0.10;
 
 	/**
 	 * Metodo para adicionar pontos ao hospede com cartao fidelidade Padrao
@@ -32,7 +22,7 @@ public class PadraoStrategy implements CartaoFidelidade {
 	 */
 	@Override
 	public int adicionarPontos(double valor) {
-		int recompensa = (int) (this.RECOMPENSA * valor);
+		int recompensa = (int) (PadraoStrategy.RECOMPENSA * valor);
 		return recompensa;
 	}
 
@@ -47,7 +37,7 @@ public class PadraoStrategy implements CartaoFidelidade {
 	
 	@Override
 	public String convertePontos(int qntPontos) {
-		double calculoPadrao = (qntPontos * this.RATE_SAQUE);
+		double calculoPadrao = (qntPontos * PadraoStrategy.RATE_SAQUE);
 		return String.format("R$%.2f", calculoPadrao);
 	}
 

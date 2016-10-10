@@ -21,56 +21,34 @@ import java.math.RoundingMode;
  */
 public class PremiumStrategy implements CartaoFidelidade {
 
-	final double RATE_BONIFICACAO_PADRAO_PONTOS;
-	final int BONIFICACAO_EXTRA_PONTOS;
-	final double RATE_DESCONTO;
-	final double LIMIAR_PADRAO_DESCONTO;
-
-	// Cada ponto de fidelidade vale R$0,30.
-	final double RATE_SAQUE;
-
-	// A base de bonificacao extra eh de a cada 10 pontos convertidos.
-	final double BASE_BONIFICACAO;
-
-	// A cada 10 pontos convertidos, o hospede ganha R$0,20 adicionais.
-	final double BONIFICACAO_EXTRA_SAQUE;
-
+	final static double RATE_BONIFICACAO_PADRAO_PONTOS = 0.30;
+	final static int BONIFICACAO_EXTRA_PONTOS = 10;
+	final static double RATE_DESCONTO = 0.10;
+	final static double LIMIAR_PADRAO_DESCONTO = 100;
+	final static double RATE_SAQUE = 0.30; // Cada ponto de fidelidade vale R$0,30.
+	final static double BASE_BONIFICACAO = 10; // A base de bonificacao extra eh de a cada 10 pontos convertidos.
+	final static double BONIFICACAO_EXTRA_SAQUE = 0.20; // A cada 10 pontos convertidos, o hospede ganha R$0,20 adicionais.
 
 	/**
-	 * Construtor do da Classe Premium que implementa a Interface Cartao
-	 * Fidelidade ele inicializa ah bonificacao, o desconto, o limiar padrao e
-	 * os pontos
-	 */
-	public PremiumStrategy() {
-		this.RATE_BONIFICACAO_PADRAO_PONTOS = 0.30;
-		this.BONIFICACAO_EXTRA_PONTOS = 10;
-		this.RATE_DESCONTO = 0.10;
-		this.LIMIAR_PADRAO_DESCONTO = 100.0;
-		this.RATE_SAQUE = 0.30;
-		this.BONIFICACAO_EXTRA_SAQUE = 0.20;
-		this.BASE_BONIFICACAO = 10;
-	}
-
-	/**
-	 * esse metodo adiciona Pontos para o Hospede com Cartao Premium retorna a
-	 * devida recompensa para o Hospede Premium
+	 * Esse metodo adiciona Pontos para o Hospede com Cartao Premium e retorna a
+	 * devida recompensa.
 	 */
 	@Override
 	public int adicionarPontos(double valor) {
 		int recompensa = 0;
-		recompensa += (this.RATE_BONIFICACAO_PADRAO_PONTOS * valor);
+		recompensa += (PremiumStrategy.RATE_BONIFICACAO_PADRAO_PONTOS * valor);
 
-		if (valor > this.LIMIAR_PADRAO_DESCONTO) {
-			int pontosExtras = (int) ((valor / this.LIMIAR_PADRAO_DESCONTO));
-			pontosExtras = pontosExtras * this.BONIFICACAO_EXTRA_PONTOS;
+		if (valor > PremiumStrategy.LIMIAR_PADRAO_DESCONTO) {
+			int pontosExtras = (int) ((valor / PremiumStrategy.LIMIAR_PADRAO_DESCONTO));
+			pontosExtras = pontosExtras * PremiumStrategy.BONIFICACAO_EXTRA_PONTOS;
 			recompensa += pontosExtras;
 		}
 		return recompensa;
 	}
 
 	/**
-	 * esse metodo calcula o desconto para o Hospede com cartao premium e
-	 * retorna o novo valor
+	 * Esse metodo calcula o desconto em operacoes para um Hospede com Cartao Premium 
+	 * e retorna o novo valor.
 	 */
 	@Override
 	public double aplicarDesconto(double valor) {
@@ -79,14 +57,17 @@ public class PremiumStrategy implements CartaoFidelidade {
 		return valorFormatado.doubleValue();
 	}
 
-	 
+	 /**
+	  * Esse metodo converte pontos para um hospede realizar um saque em dinheiro com
+	  * base nos pontos convertidos, de acordo com a estrategia de calculo Premium.
+	  */
 	@Override
 	public String convertePontos(int qntPontos) {
 		double calculoPremium = 0.0;
-		if (qntPontos >= this.BASE_BONIFICACAO) {
-			calculoPremium = (qntPontos * this.RATE_SAQUE) + ((qntPontos / this.BASE_BONIFICACAO) * this.BONIFICACAO_EXTRA_SAQUE);
+		if (qntPontos >= PremiumStrategy.BASE_BONIFICACAO) {
+			calculoPremium = (qntPontos * PremiumStrategy.RATE_SAQUE) + ((qntPontos / PremiumStrategy.BASE_BONIFICACAO) * PremiumStrategy.BONIFICACAO_EXTRA_SAQUE);
 		} else {
-			calculoPremium = (qntPontos * this.RATE_SAQUE);
+			calculoPremium = (qntPontos * PremiumStrategy.RATE_SAQUE);
 		}
 		return String.format("R$%.2f", calculoPremium);
 	}
