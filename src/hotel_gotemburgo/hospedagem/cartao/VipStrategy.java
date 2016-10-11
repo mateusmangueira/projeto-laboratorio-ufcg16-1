@@ -21,20 +21,15 @@ import java.math.RoundingMode;
  */
 public class VipStrategy implements CartaoFidelidade {
 
-	private final double RATE_DESCONTO = 0.15;
-	private final double RATE_BONIFICACAO_PONTOS = 0.50;
-	/* Desconto no qual pega o valor jah descontado dos 15% e subtrai por esse
-	 * desconto, no qual, a cada 100,0 reais em compras, ele recebe um desconto
-	 * de 10%. */
-	private final double RATE_BASE_DESCONTO_EXTRA = 100.00;
-	// Cada ponto de fidelidade vale R$0,70.
-	final double RATE_SAQUE = 0.70;
-	// A base de bonificacao extra eh de a cada 10 pontos convertidos.
-	final double BASE_BONIFICACAO = 10.00;
-	// A cada 10 pontos convertidos, o hospede ganha R$0,50 adicionais.
-	final double BONIFICACAO_EXTRA_SAQUE = 0.50;
-	// A cada a cada R$100,00 reais gastos, o hospede recebe um desconto de R$10,00 dos R$100,00 pagos.
-	final int LIMIAR_PADRAO_DESCONTO = 10;
+	private static final double RATE_DESCONTO = 0.15;
+	private static final double RATE_BONIFICACAO_PONTOS = 0.50;
+	private final static int LIMIAR_PADRAO_DESCONTO = 10; 	
+	private static final double RATE_BASE_DESCONTO_EXTRA = 100.00; // A cada a cada R$100,00 reais gastos, o hospede recebe um desconto de R$10,00 dos R$100,00 pagos.
+	
+	private final static double RATE_SAQUE = 0.70; // Cada ponto de fidelidade vale R$0,70.
+	private final static int BASE_BONIFICACAO_SAQUE = 10; // A base de bonificacao extra se da a cada 10 pontos convertidos.
+	private final static double BONIFICACAO_EXTRA_SAQUE = 0.50; // A cada 10 pontos convertidos, o hospede ganha R$0,50 adicionais.
+
 
 	/**
 	 * Esse metodo adiciona Pontos para o Hospede com cartao fidelidade Vip
@@ -42,7 +37,7 @@ public class VipStrategy implements CartaoFidelidade {
 	 */
 	@Override
 	public int adicionarPontos(double valor) {
-		int recompensa = (int) (valor * this.RATE_BONIFICACAO_PONTOS);
+		int recompensa = (int) (valor * VipStrategy.RATE_BONIFICACAO_PONTOS);
 		return recompensa;
 	}
 
@@ -52,11 +47,11 @@ public class VipStrategy implements CartaoFidelidade {
 	 */
 	@Override
 	public double aplicarDesconto(double valor) {
-		double valorComDesconto = valor - (valor * this.RATE_DESCONTO);
+		double valorComDesconto = valor - (valor * VipStrategy.RATE_DESCONTO);
 		BigDecimal valorFormatado = new BigDecimal(valorComDesconto).setScale(2, RoundingMode.UP);
 		valorComDesconto = valorFormatado.doubleValue();
-		if (valor > this.RATE_BASE_DESCONTO_EXTRA) {
-			int descontoExtra = (int) (valor / this.LIMIAR_PADRAO_DESCONTO);
+		if (valor > VipStrategy.RATE_BASE_DESCONTO_EXTRA) {
+			int descontoExtra = (int) (valor / VipStrategy.LIMIAR_PADRAO_DESCONTO);
 			
 			//O descontoExtra eh o desconto de R$10,00 reais a cada R$100,00 gastos.
 			valorComDesconto -= descontoExtra;
@@ -71,7 +66,14 @@ public class VipStrategy implements CartaoFidelidade {
 	  */
 	@Override
 	public String convertePontos(int qntPontos) {
-		double calculoVip = (qntPontos * this.RATE_SAQUE) + ((qntPontos / this.BASE_BONIFICACAO) * this.BONIFICACAO_EXTRA_SAQUE);
+		double calculoVip = 0.0;
+		
+		calculoVip = VipStrategy.RATE_SAQUE * qntPontos;
+		
+		if (qntPontos >= VipStrategy.BASE_BONIFICACAO_SAQUE) {
+			double extra = (qntPontos / VipStrategy.BASE_BONIFICACAO_SAQUE) * VipStrategy.BONIFICACAO_EXTRA_SAQUE;
+			calculoVip = calculoVip + extra;
+		}
 		return String.format("R$%.2f", calculoVip);
 	}
 

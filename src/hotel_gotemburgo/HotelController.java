@@ -49,6 +49,7 @@ public class HotelController {
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
 	private ArrayList<Transacao> transacoes;
 	private RestauranteController restaurante;
+	private static final String LINE_SEPARATOR = System.lineSeparator();
 
 	/**
 	 * O construtor do HotelController inicia o Set de hospedes, de quartos e de
@@ -604,7 +605,7 @@ public class HotelController {
 		int pontuacao = hospede.getPontos();
 		pontuacao -= qntPontos;
 		hospede.setPontos(pontuacao);
-		return hospede.getCartao().convertePontos(qntPontos);
+		return hospede.convertePontos(qntPontos);
 		
 	}
 	

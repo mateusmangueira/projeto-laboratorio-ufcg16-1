@@ -26,7 +26,7 @@ public class PremiumStrategy implements CartaoFidelidade {
 	final static double RATE_DESCONTO = 0.10;
 	final static double LIMIAR_PADRAO_DESCONTO = 100;
 	final static double RATE_SAQUE = 0.30; // Cada ponto de fidelidade vale R$0,30.
-	final static double BASE_BONIFICACAO = 10; // A base de bonificacao extra eh de a cada 10 pontos convertidos.
+	final static int BASE_BONIFICACAO_SAQUE = 10; // A base de bonificacao extra eh de a cada 10 pontos convertidos.
 	final static double BONIFICACAO_EXTRA_SAQUE = 0.20; // A cada 10 pontos convertidos, o hospede ganha R$0,20 adicionais.
 
 	/**
@@ -64,10 +64,12 @@ public class PremiumStrategy implements CartaoFidelidade {
 	@Override
 	public String convertePontos(int qntPontos) {
 		double calculoPremium = 0.0;
-		if (qntPontos >= PremiumStrategy.BASE_BONIFICACAO) {
-			calculoPremium = (qntPontos * PremiumStrategy.RATE_SAQUE) + ((qntPontos / PremiumStrategy.BASE_BONIFICACAO) * PremiumStrategy.BONIFICACAO_EXTRA_SAQUE);
-		} else {
-			calculoPremium = (qntPontos * PremiumStrategy.RATE_SAQUE);
+		
+		calculoPremium = PremiumStrategy.RATE_SAQUE * qntPontos;
+		
+		if (qntPontos >= PremiumStrategy.BASE_BONIFICACAO_SAQUE) {
+			double extra = (qntPontos / PremiumStrategy.BASE_BONIFICACAO_SAQUE) * PremiumStrategy.BONIFICACAO_EXTRA_SAQUE;
+			calculoPremium = calculoPremium + extra;
 		}
 		return String.format("R$%.2f", calculoPremium);
 	}

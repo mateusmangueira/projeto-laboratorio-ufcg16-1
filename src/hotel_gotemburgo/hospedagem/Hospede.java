@@ -156,7 +156,6 @@ public class Hospede {
 	public void setPontos(int pontos) {
 		this.pontos = pontos;
 		this.upgradeFidelidade();
-
 	}
 	
 	/**
@@ -293,7 +292,18 @@ public class Hospede {
 		
 	}
 	
-
+	/**
+	 * Metodo que utiliza do padrao strategy para converter pontos em dinheiro, de 
+	 * acordo com o tipo do cartao e a quantidade de pontos dada.
+	 * 
+	 * @param qntPontos A quantidade de pontos a ser convertida em dinheiro
+	 * @return Uma String com a representacao em dinheiro dos pontos convertidos
+	 */
+	public String convertePontos(int qntPontos) {
+		setPontos(this.pontos - qntPontos);
+		return this.cartao.convertePontos(qntPontos);
+	}
+	
 	/**
 	 * Este metodo upa o cartao fidelidade de um Hospede. Todo hospede inicia com seu cartao padrao, no qual
 	 * em meio a suas despesas e relacoes com as atividades do Hotel, pode upar de Padrao para Premium ou diretamente
@@ -303,10 +313,10 @@ public class Hospede {
 		if (this.pontos < 350) {
 			this.cartao = new PadraoStrategy();
 		}
-		if (this.pontos >= 350 && this.pontos <= 1000) {
+		else if (this.pontos >= 350 && this.pontos <= 1000) {
 			this.cartao = new PremiumStrategy();
 		}
-		else if (this.pontos > 1000) {
+		else {
 			this.cartao = new VipStrategy();
 		}
 	}
