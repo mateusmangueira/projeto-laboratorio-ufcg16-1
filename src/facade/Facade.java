@@ -72,23 +72,23 @@ public class Facade {
 	
 	/* Funcionalidades do RestauranteController */
 	public boolean cadastraPrato(String nome, double preco, String descricao) throws HotelGotemburgoException {
-		return this.hotelController.cadastraPrato(nome, preco, descricao);
+		return this.restauranteController.cadastraPrato(nome, preco, descricao);
 	}
 
 	public boolean cadastraRefeicao(String nome, String descricao, String componentes) throws HotelGotemburgoException {
-		return this.hotelController.cadastraRefeicao(nome, descricao, componentes);
+		return this.restauranteController.cadastraRefeicao(nome, descricao, componentes);
 	}
 
 	public String consultaRestaurante(String nome, String atributo) throws HotelGotemburgoException {
-		return this.hotelController.consultaRestaurante(nome, atributo);
+		return this.restauranteController.consultaRestaurante(nome, atributo);
 	}
 
 	public String consultaMenuRestaurante() {
-		return this.hotelController.consultaMenuRestaurante();
+		return this.restauranteController.consultaMenuRestaurante();
 	}
 
 	public void ordenaMenu(String atributo) {
-		this.hotelController.ordenaMenu(atributo);
+		this.restauranteController.ordenaMenu(atributo);
 	}
 
 
