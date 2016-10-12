@@ -49,6 +49,7 @@ public class HotelController {
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
 	private ArrayList<Transacao> transacoes;
 	private RestauranteController restaurante;
+	private static final String LINE_SEPARATOR = System.lineSeparator();
 
 	/**
 	 * O construtor do HotelController inicia o Set de hospedes, de quartos e de
@@ -67,7 +68,6 @@ public class HotelController {
 
 		this.ANO_ATUAL = 2016;
 		this.MAIORIDADE = 18;
-
 	}
 
 	/**
@@ -562,7 +562,9 @@ public class HotelController {
 	/**
 	 * Esse metodo eh responsavel por receber de um hospede um pedido de refeicao. Uma transacao
 	 * eh criada para registrar esse pedido e pontos sao adicionados ao cartao fidelidade do hospede
-	 * de acordo com o valor dessa compra.
+	 * de acordo com o valor dessa compra. Essa funcionalidade eh responsabilidade do HotelController
+	 * pois utilizamos a logica na qual o Hotel eh responsavel por intermediar o pedido entre o 
+	 * Hospede e o Restaurante, ja que ele conhece ambos.
 	 * 
 	 * @param email Email do hospede 
 	 * @param item O item que foi pedido
@@ -576,24 +578,74 @@ public class HotelController {
 
 		Hospede hospede = this.buscaHospede(email);
 		Comida refeicao = this.restaurante.buscaRefeicao(item);
+		double precoRefeicao = refeicao.getPreco();
 		
-		double valorComDesconto = hospede.getCartao().aplicarDesconto(refeicao.getPreco());
+		double valorComDesconto = hospede.aplicarDesconto(precoRefeicao);
 		Transacao transacao = new Transacao(hospede.getNome(), valorComDesconto, item);
 		this.transacoes.add(transacao);
 
-		int recompensaPorGasto = hospede.adicionarPontos(refeicao.getPreco());
+		int recompensaPorGasto = hospede.adicionarPontos(precoRefeicao);
 		hospede.setPontos(hospede.getPontos() + recompensaPorGasto);
 
 		return String.format("R$%.2f", valorComDesconto);
 
 	}
 
+	/**
+	 * Metodo responsavel por converter uma dada quantia de pontos de um hospede em dinheiro,
+	 * pesquisando o hospede que deseja realizar a operacao e delegando o metodo convertePontos
+	 * da classe Hospede.
+	 * 
+	 * @param email Email do hospede que sera buscado para realizar a conversao
+	 * @param qntPontos Quantidade de pontos que sera convertida
+	 * @return A String de retorno do convertePontos da classe Hospede
+	 * @throws HotelGotemburgoException Lanca possiveis excecoes recebidas da classe Hospede
+	 */
 	public String convertePontos(String email, int qntPontos) throws HotelGotemburgoException {
-		
+
 		Hospede hospede = this.buscaHospede(email);
 		return hospede.convertePontos(qntPontos);		
 	}
 	
+	/**
+	 * Esse metodo eh responsavel por gravar em um arquivo de texto o registro de hospedes
+	 * do Hotel, juntamente com os detalhes (toString) desses hospedes.
+	 * @throws IOException
+	 */
+	public void gravaArquivoCadastro() throws IOException {
+		
+		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_hospedes.txt"));
+		bf.write("Cadastro de Hospedes: " + this.hospedes.size() +" hospedes registrados" 
+				+ HotelController.LINE_SEPARATOR );
+		
+		int contador = 0;
+		for (Hospede hospede : hospedes) {
+			contador += 1;
+			bf.write("==> Hospede " + contador + ":" + HotelController.LINE_SEPARATOR + 
+					hospede.toString() + HotelController.LINE_SEPARATOR);
+		}
+		bf.close();
+	}
+	
+	/**
+	 * Esse metodo eh responsavel por gravar em um arquivo de texto o cardapio do Restaurante, 
+	 * juntamente com os detalhes (toString) dos itens presentes no cardapio.
+	 * @throws IOException
+	 */
+	public void gravaArquivoMenu() throws IOException { // Eh coeso esse metodo estar no HotelController? #anderson
+		
+		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_restaurante.txt"));
+		bf.write("Menu do Restaurante: " + restaurante.getCardapio().size() + " itens no cardapio");
+		
+		int contador = 0;
+		for (Comida item : restaurante.getCardapio()) {
+			contador += 1;
+			bf.write("==> Item " + contador + ":" + HotelController.LINE_SEPARATOR + item.toString() );
+		}
+		bf.close();
+	}
+	
+	/* Metodos que devem ser movidos para o RestauranteController*/
 	public boolean cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
 		return this.restaurante.cadastraPrato(nome, preco, descricao);
 	}
@@ -614,50 +666,4 @@ public class HotelController {
 		this.restaurante.ordenaMenu(atributo);
 	}
 	
-	public void gravaArquivoCadastro() throws IOException{
-		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_hospedes.txt"));
-		bf.write("Cadastro de Hospedes: " + this.hospedes.size() +" hospedes registrados\n" );
-		int contador = 0;
-		for (Hospede hospede : hospedes) {
-			contador += 1;
-			bf.write("==> Hospede " + contador + ":\nEmail: " + hospede.getEmail() + "\nNome: " + hospede.getNome() + 
-					"\nData de nascimento: " + hospede.getDataNascimento() + "\n");
-			}
-		bf.close();
-	}
-	
-	public void gravaArquivoMenu() throws IOException{
-		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_restaurante.txt"));
-		bf.write("Menu do Restaurante: " + restaurante.getCardapio().size() + " itens no cardapio");
-		int contador = 0;
-		for (Comida itens : restaurante.getCardapio()) {
-			contador += 1;
-			bf.write("==> Item " + contador + ":\n" +
-					"Nome: " + itens.getNome() + "Preco: " + "R$" + itens.getPreco() + "\n" +
-					"Descricao: " + itens.getDescricao() );
-		}
-		bf.close();
-	}
-	
-	
-	
-	
-	/*
-	 * private void gravaArquivoCadastro(String nomeArquivo) throws IOException{
-		BufferedWriter bf = new BufferedWriter(new FileWriter(nomeArquivo));
-		bf.write("Cadastro de Hospedes: " + this.hospedes.size() + " hospedes registrados\n");
-		int hospede = 0;
-		for (Hospede hospedeHotel : hospedes) {
-			hospede += 1;
-			bf.write("==> Hospede " + hospede + ":\nEmail: " + hospedeHotel.getEmail() + "\nNome: " + hospedeHotel.getNome() +
-			"\nData de nascimento: " +  hospedeHotel.getDataNascimento() + "\n");
-		}
-		bf.close();
-	}
-
-	 */
-
-	}
-
-
-	
+}

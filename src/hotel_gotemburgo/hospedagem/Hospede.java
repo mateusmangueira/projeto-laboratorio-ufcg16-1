@@ -35,6 +35,7 @@ public class Hospede {
 	private ArrayList<Estadia> estadias;
 	private CartaoFidelidade cartao;
 	private int pontos;
+	private static final String LINE_SEPARATOR = System.lineSeparator();
 
 	/**
 	 * O construtor recebe 3 parametros, descritos abaixo, e realiza checagem de
@@ -144,14 +145,16 @@ public class Hospede {
 	 * @return Um inteiro que representa a quantidade de pontos que o hospede possui.
 	 */
 	public int getPontos() {
-		return pontos;
+		return this.pontos;
 	}
 
 	/**
 	 * Atualiza o valor do atributo pontos
 	 * 
 	 * @param pontos Recebe uma nova quantidade de pontos como parametro, e substitui
-	 * a quantia antiga de pontos pela nova quantia.
+	 * a quantia antiga de pontos pela nova quantia. Apos a alteracao, chama o metodo
+	 * upgradeFidelidade para verificar se eh necessaria a mudanca do tipo do cartao,
+	 * de acordo com a quantidade atual de pontos do hospede.
 	 */
 	public void setPontos(int pontos) {
 		this.pontos = pontos;
@@ -330,15 +333,16 @@ public class Hospede {
 	}
 	
 	/**
-	 * Representacao em String de um Hospede
+	 * Representacao em String de um Hospede.
 	 */
 	@Override
 	public String toString() {
-		return String.format("%s: %s (%s).", this.getNome(), this.getEmail(), this.getDataNascimento());
+		return String.format("Email: %s%sNome: %s%sData de nascimento: %s", 
+				this.email, Hospede.LINE_SEPARATOR, this.nome, Hospede.LINE_SEPARATOR, this.dataNascimento);
 	}
 
 	/**
-	 * Dois objetos do tipo Hospede sao iguais caso possuam o mesmo email
+	 * Dois objetos do tipo Hospede sao iguais caso possuam o mesmo email.
 	 */
 	@Override
 	public boolean equals(Object outroObjeto) {
@@ -352,7 +356,7 @@ public class Hospede {
 	}
 
 	/**
-	 * Codigo hash de um objeto do tipo Hospede
+	 * Codigo hash de um objeto do tipo Hospede.
 	 */
 	@Override
 	public int hashCode() {

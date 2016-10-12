@@ -21,6 +21,7 @@ import verificacao.excecoes.ValoresException;
 public class RefeicaoCompleta extends Comida {
 
 	private ArrayList<Prato> pratos;
+	private static final String LINE_SEPARATOR = System.lineSeparator();
 
 	/**
 	 * O Construtor recebe como parametro o nome e descricao do prato, alem de
@@ -114,9 +115,9 @@ public class RefeicaoCompleta extends Comida {
 		String toString = "Pratos contidos nessa refeicao:";
 
 		for (Comida prato : pratos)
-			toString += "\n-> " + prato;
+			toString += RefeicaoCompleta.LINE_SEPARATOR + "-> " + prato;
 
-		toString += "\nValor total: " + getPreco();
+		toString += RefeicaoCompleta.LINE_SEPARATOR + "Valor total: " + getPreco();
 		return toString;
 	}
 

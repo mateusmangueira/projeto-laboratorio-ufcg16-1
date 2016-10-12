@@ -17,7 +17,8 @@ public abstract class Comida {
 	
 	protected String nome;
 	protected String descricao;
-	
+	private static final String LINE_SEPARATOR = System.lineSeparator();
+
 	public Comida(String nome, String descricao) {
 		
 		this.nome = nome;
@@ -35,5 +36,11 @@ public abstract class Comida {
 	public abstract void setDescricao(String descricao) throws ValoresException;
 	
 	public abstract double getPreco();
+	
+	@Override
+	public String toString() {
+		return String.format("Nome: %s%sPreco: R$ %.2f%sDescricao: %s", 
+				this.nome, Comida.LINE_SEPARATOR, this.getPreco(), Comida.LINE_SEPARATOR, this.descricao);
+	}
 
 }
