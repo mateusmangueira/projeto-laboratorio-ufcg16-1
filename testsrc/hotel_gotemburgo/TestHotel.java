@@ -8,10 +8,6 @@ import verificacao.excecoes.HotelGotemburgoException;
 
 public class TestHotel {
 
-	// O erro no checkout ainda continua, n consegui achar o bug. So ta passando
-	// aqui pq n estou testando realmente o valor do realizaCheckout e sim a
-	// transacao.
-
 	private Facade facade;
 
 	private String cliente_1;

@@ -49,12 +49,11 @@ public class HotelController {
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
 	private ArrayList<Transacao> transacoes;
 	private RestauranteController restaurante;
-	private static final String LINE_SEPARATOR = System.lineSeparator();
 
 	/**
 	 * O construtor do HotelController inicia o Set de hospedes, de quartos e de
 	 * transacoes. Chama o metodo inicializaTiposDeQuarto para atribuir uma
-	 * String a um tipo de quarto. Define o ano atual e tambÃ©m qual a idade que
+	 * String a um tipo de quarto. Define o ano atual e também qual a idade que
 	 * se atinge a maioridade.
 	 */
 	public HotelController() {
@@ -89,8 +88,7 @@ public class HotelController {
 	 * @return O Hospede criado
 	 * @throws HotelGotemburgoException Caso seja identificado algum erro durante a criacao
 	 */
-	private Hospede criaHospede(String nome, String email, String dataNascimento) 
-			throws HotelGotemburgoException {
+	private Hospede criaHospede(String nome, String email, String dataNascimento) throws HotelGotemburgoException {
 		return new Hospede(nome, email, dataNascimento);
 	}
 
@@ -169,8 +167,7 @@ public class HotelController {
 	 * @throws HotelGotemburgoException Caso: 1)sejam verificados erros no conteudo
 	 * ou formato das strings passadas como parametro; ou 2)hospede menor de idade; 
 	 */
-	public String cadastraHospede(String nome, String email, String dataNascimento) 
-			throws HotelGotemburgoException {
+	public String cadastraHospede(String nome, String email, String dataNascimento) throws HotelGotemburgoException {
 
 		Excecoes.checaString(nome, "Erro no cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 		Excecoes.checaString(email, "Erro no cadastro de Hospede. Email do(a) hospede nao pode ser vazio.");
@@ -271,8 +268,8 @@ public class HotelController {
 
 		Hospede hospede = this.buscaHospede(email);
 		if (!isHospedado(email))
-			throw new ConsultaException(String.format("Erro na consulta de hospedagem."
-					+ " Hospede %s nao esta hospedado(a).", hospede.getNome()));
+			throw new ConsultaException(String
+					.format("Erro na consulta de hospedagem. Hospede %s nao esta hospedado(a).", hospede.getNome()));
 
 		switch (atributo.toUpperCase()) {
 
@@ -295,12 +292,12 @@ public class HotelController {
 	 * @param atributo Uma string representando qual atributo sera alterado,
 	 * podendo ser "nome, "data de nascimento" ou "email
 	 * @param novoValor O atributo atualizado que ira substituir o anterior
-	 * @throws HotelGotemburgoException Em caso de 1) parametros invalidos;
-	 * 2) hospede menor de idade
+	 * @throws HotelGotemburgoException Em caso de 1)parametros invalidos;
+	 * 2)hospede menor de idade
 	 */
 	public void atualizaCadastro(String email, String atributo, String novoValor) throws HotelGotemburgoException {
-		if (atributo.equalsIgnoreCase("nome")) 
-		{
+		if (atributo.equalsIgnoreCase("nome")) {
+
 			Excecoes.checaString(novoValor,
 					"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede nao pode ser vazio.");
 
@@ -309,8 +306,7 @@ public class HotelController {
 						"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede esta invalido.");
 			}
 			this.buscaHospede(email).setNome(novoValor);
-		} else if (atributo.equalsIgnoreCase("data de nascimento")) 
-		{
+		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
 
 			Excecoes.checaString(novoValor,
 					"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
@@ -345,7 +341,7 @@ public class HotelController {
 	/**
 	 * Metodo utilizado no construtor para iniciar o mapa que associa uma String
 	 * que representa um Enum de TipoDeQuarto, a uma constante desse Enum. Ex:
-	 * key- "SIMPLES" value- TipoDeQuarto.SIMPLES.
+	 * key- "SIMPLES" value- TipoDeQuarto.SIMPLES
 	 */
 	private void inicializaTiposDeQuarto() {
 
@@ -397,8 +393,8 @@ public class HotelController {
 
 		for (String quartoOcupado : this.quartosOcupados) {
 			if (quartoOcupado.equalsIgnoreCase(idQuarto))
-				return true; }
-		
+				return true;
+		}
 		return false;
 	}
 
@@ -428,24 +424,24 @@ public class HotelController {
 	 * @param idQuarto ID do quarto da estadia
 	 * @param tipoQuarto Tipo do quarto da estadia
 	 * @throws HotelGotemburgoException Em caso de 1) atributos invalidos;
-	 * 2) hospede nao cadastrado; 3) quarto ja ocupado;
+	 * 2) hospede nao cadastrado; 3)quarto ja ocupado;
 	 */
 	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto)
 			throws HotelGotemburgoException {
 
 		Excecoes.checaString(email, "Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaInt(qntDias, "Erro ao realizar checkin. Quantidade de dias esta invalida.");
-		Excecoes.checaString(idQuarto, "Erro ao realizar checkin. ID do quarto invalido, use apenas numeros "
-				+ "ou letras.");
+		Excecoes.checaString(idQuarto,
+				"Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 
 		if (!Validacoes.validaEmail(email))
 			throw new HotelGotemburgoException("Erro ao realizar checkin. Email do(a) hospede esta invalido.");
 		if (!Validacoes.validaQuarto(idQuarto))
-			throw new HotelGotemburgoException("Erro ao realizar checkin. ID do quarto invalido, use apenas "
-					+ "numeros ou letras.");
+			throw new HotelGotemburgoException(
+					"Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 		if (!isCadastrado(email))
-			throw new ConsultaException("Erro ao realizar checkin. Hospede de email " + email + " nao foi "
-					+ "cadastrado(a).");
+			throw new ConsultaException(
+					"Erro ao realizar checkin. Hospede de email " + email + " nao foi cadastrado(a).");
 		if (!verificaTipoQuarto(tipoQuarto.toUpperCase()))
 			throw new VerificacaoException("Erro ao realizar checkin. Tipo de quarto invalido.");
 		if (this.verificaOcupacao(idQuarto))
@@ -469,7 +465,7 @@ public class HotelController {
 	 * @param email Email do hospede
 	 * @param idQuarto ID do quarto de onde o hospede esta saindo
 	 * @return O valor total gasto por esse hospede no Hotel
-	 * @throws HotelGotemburgoException Caso aconteca erro no checkout
+	 * @throws HotelGotemburgoException
 	 */
 	public String realizaCheckout(String email, String idQuarto) throws HotelGotemburgoException {
 
@@ -478,21 +474,24 @@ public class HotelController {
 		Excecoes.checaString(idQuarto, "Erro ao realizar checkout. O Id do quarto nao pode ser nulo ou vazio.");
 
 		if (!Validacoes.validaQuarto(idQuarto))
-			throw new ValidacaoException("Erro ao realizar checkout. ID do quarto invalido, use apenas numeros "
-					+ "ou letras.");
+			throw new ValidacaoException(
+					"Erro ao realizar checkout. ID do quarto invalido, use apenas numeros ou letras.");
 
 		Hospede hospedeDeSaida = this.buscaHospede(email);
 		double gastosEstadia = hospedeDeSaida.getValorEstadia(idQuarto);
 		double valorComDesconto = hospedeDeSaida.aplicarDesconto(gastosEstadia);
 		Transacao transacao = new Transacao(hospedeDeSaida.getNome(), valorComDesconto, idQuarto);
+
 		this.transacoes.add(transacao);
-		
-		if (this.verificaOcupacao(idQuarto))
+		if (this.verificaOcupacao(idQuarto)) {
 			this.quartosOcupados.remove(idQuarto);
+		}
 		
 		hospedeDeSaida.removeEstadia(idQuarto);
-
+		
+		// Recompensa por um gasto.
 		int recompensaPorGasto = hospedeDeSaida.adicionarPontos(gastosEstadia);
+		
 		hospedeDeSaida.setPontos(hospedeDeSaida.getPontos() + recompensaPorGasto);
 		
 		return String.format("R$%.2f", valorComDesconto);
@@ -589,52 +588,11 @@ public class HotelController {
 
 	}
 
-	/**
-	 * Esse metodo converte pontos de um Hospede em uma quantia em dinheiro
-	 * que sera sacada por ele.
-	 * 
-	 * @param email Email do hospede que efetuara o saque
-	 * @param qntPontos Quantidade de pontos a serem convertidos
-	 * @return Utiliza a estrategia de conversao com base no cartao do hospede
-	 * e converte os pontos
-	 * @throws HotelGotemburgoException Caso haja erro durante a conversao
-	 */	
 	public String convertePontos(String email, int qntPontos) throws HotelGotemburgoException {
 		
 		Hospede hospede = this.buscaHospede(email);
-		int pontuacao = hospede.getPontos();
-		pontuacao -= qntPontos;
-		hospede.setPontos(pontuacao);
-		return hospede.convertePontos(qntPontos);
-		
+		return hospede.convertePontos(qntPontos);		
 	}
-	
-	public void gravaArquivoCadastro() throws IOException {
-		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_hospedes.txt"));
-		bf.write("Cadastro de Hospedes: " + this.hospedes.size() +" hospedes registrados\n" );
-		int contador = 0;
-		for (Hospede hospede : hospedes) {
-			contador += 1;
-			bf.write("==> Hospede " + contador + ":\nEmail: " + hospede.getEmail() + "\nNome: " + hospede.getNome() + 
-					"\nData de nascimento: " + hospede.getDataNascimento() + "\n");
-		}
-		bf.close();
-	}
-	
-	public void gravaArquivoMenu() throws IOException {
-		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_restaurante.txt"));
-		bf.write("Menu do Restaurante: " + restaurante.getCardapio().size() + " itens no cardapio");
-		int contador = 0;
-		for (Comida itens : restaurante.getCardapio()) {
-			contador += 1;
-			bf.write("==> Item " + contador + ":\n" +
-					"Nome: " + itens.getNome() + "Preco: " + "R$" + itens.getPreco() + "\n" +
-					"Descricao: " + itens.getDescricao() );
-		}
-		bf.close();
-	}
-
-	/* Remover os metodos seguintes, devem ficar na facade */ 
 	
 	public boolean cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
 		return this.restaurante.cadastraPrato(nome, preco, descricao);
@@ -656,8 +614,50 @@ public class HotelController {
 		this.restaurante.ordenaMenu(atributo);
 	}
 	
+	public void gravaArquivoCadastro() throws IOException{
+		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_hospedes.txt"));
+		bf.write("Cadastro de Hospedes: " + this.hospedes.size() +" hospedes registrados\n" );
+		int contador = 0;
+		for (Hospede hospede : hospedes) {
+			contador += 1;
+			bf.write("==> Hospede " + contador + ":\nEmail: " + hospede.getEmail() + "\nNome: " + hospede.getNome() + 
+					"\nData de nascimento: " + hospede.getDataNascimento() + "\n");
+			}
+		bf.close();
+	}
+	
+	public void gravaArquivoMenu() throws IOException{
+		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_restaurante.txt"));
+		bf.write("Menu do Restaurante: " + restaurante.getCardapio().size() + " itens no cardapio");
+		int contador = 0;
+		for (Comida itens : restaurante.getCardapio()) {
+			contador += 1;
+			bf.write("==> Item " + contador + ":\n" +
+					"Nome: " + itens.getNome() + "Preco: " + "R$" + itens.getPreco() + "\n" +
+					"Descricao: " + itens.getDescricao() );
+		}
+		bf.close();
+	}
+	
+	
+	
+	
+	/*
+	 * private void gravaArquivoCadastro(String nomeArquivo) throws IOException{
+		BufferedWriter bf = new BufferedWriter(new FileWriter(nomeArquivo));
+		bf.write("Cadastro de Hospedes: " + this.hospedes.size() + " hospedes registrados\n");
+		int hospede = 0;
+		for (Hospede hospedeHotel : hospedes) {
+			hospede += 1;
+			bf.write("==> Hospede " + hospede + ":\nEmail: " + hospedeHotel.getEmail() + "\nNome: " + hospedeHotel.getNome() +
+			"\nData de nascimento: " +  hospedeHotel.getDataNascimento() + "\n");
+		}
+		bf.close();
+	}
 
-}
+	 */
+
+	}
 
 
 	

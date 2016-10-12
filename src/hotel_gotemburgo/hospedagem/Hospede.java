@@ -298,10 +298,18 @@ public class Hospede {
 	 * 
 	 * @param qntPontos A quantidade de pontos a ser convertida em dinheiro
 	 * @return Uma String com a representacao em dinheiro dos pontos convertidos
+	 * @throws ValorException 
 	 */
-	public String convertePontos(int qntPontos) {
-		setPontos(this.pontos - qntPontos);
-		return this.cartao.convertePontos(qntPontos);
+	public String convertePontos(int qntPontos) throws ValorException {
+		
+		if (qntPontos > this.pontos)
+			throw new ValorException("Pontos insuficientes para a operacao");
+		
+		String retorno = this.cartao.convertePontos(qntPontos);
+		int novaPontuacao = this.pontos - qntPontos;
+		setPontos(novaPontuacao);
+		
+		return retorno;
 	}
 	
 	/**
