@@ -29,6 +29,11 @@ public class Excecoes {
 		if(tipo == null) 
 			throw new ValorException(mensagem);
 	}
+	
+	public static void checaIdade(int idade, String mensagem) throws ValorException {
+		if (!Validacoes.validaIdade(idade))
+			throw new ValorException(mensagem);
+	}
 
 	/* Validacoes de formato */
 

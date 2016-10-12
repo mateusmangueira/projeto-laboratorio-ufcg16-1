@@ -2,6 +2,7 @@ package verificacao.validacao;
 
 public class Validacoes {
 	
+	private static final int MAIORIDADE = 18;
 	/**
 	 * Esse metodo determina um padrao de data para nao ocorrer erros de data
 	 * 
@@ -48,6 +49,11 @@ public class Validacoes {
 		return idQuarto.matches(regex);
 	}
 	
-	
+	public static boolean validaIdade(int idade) {
+		if (idade < Validacoes.MAIORIDADE) {
+			return false;
+		}
+		return true;
+	}
 
 }
