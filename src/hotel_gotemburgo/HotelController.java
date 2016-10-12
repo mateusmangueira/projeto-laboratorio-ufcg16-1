@@ -653,9 +653,6 @@ public class HotelController {
 			throw new HotelGotemburgoException(mensagem);
 	}
 
-	
-	/* Metodos que devem ser movidos para o RestauranteController*/
-	
 	public boolean cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
 		return this.restaurante.cadastraPrato(nome, preco, descricao);
 	}

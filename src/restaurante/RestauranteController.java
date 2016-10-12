@@ -21,8 +21,8 @@ import verificacao.excecoes.ValoresException;
  * @since 18 de Setembro de 2016
  * @see Comida.java, Prato.java, RefeicaoCompleta.java
  */
-public class RestauranteController {
 
+public class RestauranteController {
 	private List<Comida> cardapio;
 
 	/**
@@ -31,7 +31,6 @@ public class RestauranteController {
 	 */
 	public RestauranteController() {
 		this.cardapio = new ArrayList<Comida>();
-
 	}
 
 	public List<Comida> getCardapio() {
@@ -50,11 +49,10 @@ public class RestauranteController {
 	 * @throws ValoresException Caso os valores de entrada estejam invalidos
 	 */
 	public boolean cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
-
 		Excecoes.checaString(nome, "Erro no cadastro do prato. Nome do prato esta vazio.");
 		Excecoes.checaString(descricao, "Erro no cadastro do prato. Descricao do prato esta vazia.");
 		Excecoes.checaDouble(preco, "Erro no cadastro do prato. Preco do prato eh invalido.");
-
+		
 		Comida novoPrato = new Prato(nome, preco, descricao);
 
 		return this.cardapio.add(novoPrato);
@@ -123,7 +121,6 @@ public class RestauranteController {
 		Excecoes.checaString(componentes, "Erro no cadastro de refeicao. Componente(s) esta(o) vazio(s).");
 
 		String[] nomeDosPratos = componentes.split(";");
-
 		ArrayList<Prato> pratos = new ArrayList<Prato>();
 
 		if ((nomeDosPratos.length < 3) || (nomeDosPratos.length > 4))
@@ -153,7 +150,6 @@ public class RestauranteController {
 	 * @throws HotelGotemburgoException Caso ocorra um erro na consulta
 	 */
 	public String consultaRestaurante(String nome, String atributo) throws HotelGotemburgoException {
-
 		Excecoes.checaString(nome, "Erro na consulta do restaurante. Nome do prato esto vazio.");
 		Excecoes.checaString(atributo, "Erro na consulta do restaurante. Atributo do prato esta vazio.");
 
@@ -207,7 +203,6 @@ public class RestauranteController {
 	 * ponto e virgula
 	 */
 	public String consultaMenuRestaurante() {
-
 		String retorno = "";
 		for (Comida comida : this.cardapio) {
 			retorno += ";" + comida.getNome();
