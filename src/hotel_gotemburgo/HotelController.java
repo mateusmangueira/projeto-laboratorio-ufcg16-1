@@ -302,11 +302,8 @@ public class HotelController {
 		}
 		
 		hospedeDeSaida.removeEstadia(idQuarto);
-		
 		int recompensaPorGasto = hospedeDeSaida.adicionarPontos(gastosEstadia);
-		
 		hospedeDeSaida.setPontos(hospedeDeSaida.getPontos() + recompensaPorGasto);
-		
 		return String.format("R$%.2f", valorComDesconto);
 	}
 
@@ -399,7 +396,6 @@ public class HotelController {
 
 		int recompensaPorGasto = hospede.adicionarPontos(precoRefeicao);
 		hospede.setPontos(hospede.getPontos() + recompensaPorGasto);
-
 		return String.format("R$%.2f", valorComDesconto);
 
 	}
@@ -415,7 +411,6 @@ public class HotelController {
 	 * @throws HotelGotemburgoException Lanca possiveis excecoes recebidas da classe Hospede
 	 */
 	public String convertePontos(String email, int qntPontos) throws HotelGotemburgoException {
-
 		Hospede hospede = this.buscaHospede(email);
 		return hospede.convertePontos(qntPontos);		
 	}
@@ -467,7 +462,6 @@ public class HotelController {
 	 * @return O valor da soma das transacoes do hotel,
 	 */
 	private double getValorTotalTransacoes() {
-		
 		double valorTotal = 0.0;
 		for (Transacao transacao : transacoes) {
 			valorTotal += transacao.getValor();
@@ -500,7 +494,6 @@ public class HotelController {
 	 * ou caso o Hospede nao tenha sido encontrado (ou seja, nao esta cadastrado)
 	 */
 	private Hospede buscaHospede(String email) throws HotelGotemburgoException {
-		
 		Excecoes.checaString(email, "O email do hospede nao pode ser nulo ou vazio.");
 		
 		for (Hospede hospede : this.hospedes) {
@@ -517,7 +510,6 @@ public class HotelController {
 	 * key- "SIMPLES" value- TipoDeQuarto.SIMPLES
 	 */
 	private void inicializaTiposDeQuarto() {
-
 		this.tiposQuartos = new HashMap<String, TipoDeQuarto>();
 		tiposQuartos.put("SIMPLES", TipoDeQuarto.SIMPLES);
 		tiposQuartos.put("LUXO", TipoDeQuarto.LUXO);
@@ -535,7 +527,6 @@ public class HotelController {
 	 * chave que seja igual ao parametro recebido
 	 */
 	private TipoDeQuarto getTipoQuarto(String tipoQuarto) throws HotelGotemburgoException {
-		
 		if (!tiposQuartos.containsKey(tipoQuarto.toUpperCase()))
 			throw new ConsultaException("Nao existe um tipo de quarto representado por essa String");
 		
@@ -576,7 +567,6 @@ public class HotelController {
 	 * @throws HotelGotemburgoException Em caso de String invaliad
 	 */
 	private boolean isQuartoOcupado(String idQuarto) throws HotelGotemburgoException {
-
 		Excecoes.checaString(idQuarto, "O id do quarto nao pode ser nulo ou vazio.");
 
 		for (String quartoOcupado : this.quartosOcupados) {
@@ -607,7 +597,6 @@ public class HotelController {
 	 * @throws HotelGotemburgoException Caso seja a string seja invalida
 	 */
 	private boolean isCadastrado(String email) throws HotelGotemburgoException {
-		
 		Excecoes.checaString(email, "O email do hospede nao pode ser nulo ou vazio.");
 		
 		for (Hospede hospede : this.hospedes) {
@@ -641,7 +630,6 @@ public class HotelController {
 	 * esteja cadastrado no Hotel
 	 */
 	private boolean isHospedado(String email) throws HotelGotemburgoException {
-		
 		if (!isCadastrado(email))
 			throw new CadastroException("Este hospede nao estah cadastrado.");
 		
