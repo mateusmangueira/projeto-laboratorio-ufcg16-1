@@ -70,7 +70,7 @@ public class Hospede {
 	 * @return nome
 	 */
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	/**
@@ -87,20 +87,20 @@ public class Hospede {
 	}
 
 	/**
-	 * Retorna o atributo email do hospede
+	 * Retorna o atributo email do hospede.
 	 * 
-	 * @return email
+	 * @return email String representando o email do Hospede
 	 */
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	/**
 	 * Recebe um novo email como parametro e altera o email atual do hospede,
-	 * realizando checagem de excecao
+	 * realizando checagem de excecao.
 	 * 
-	 * @param email
-	 * @throws StringException
+	 * @param email Novo email que substituira o antigo
+	 * @throws StringException Caso o novo email seja invalido
 	 */
 	public void setEmail(String email) throws StringException {
 		Excecoes.checaString(email, "Erro na atualizacao do cadastro de Hospede. Email do(a) hospede esta invalido.");
@@ -108,8 +108,9 @@ public class Hospede {
 	}
 
 	/**
-	 * @return data de nascimento
-	 
+	 * Retorna a data de nascimento do hospede.
+	 * 
+	 * @return data de nascimento Uma string representando a data de nascimento do hospede
 	 */
 	public String getDataNascimento() {
 		return dataNascimento;
@@ -128,28 +129,18 @@ public class Hospede {
 				"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode ser vazio.");
 		this.dataNascimento = dataNascimento;
 	}
-	
-	/**
-	 * Retorma o atributo cartao fidelidade
-	 * 
-	 * @return um objeto do tipo CartaoFidelidade, que representa o tipo do cartao
-	 * que o hospede tem
-	 */
-	public CartaoFidelidade getCartao() {
-		return this.cartao;
-	}
 
 	/**
-	 * Retorna a quantidade de pontos do hospede
+	 * Retorna o atributo quantidade de pontos do hospede.
 	 * 
-	 * @return Um inteiro que representa a quantidade de pontos que o hospede possui.
+	 * @return Um inteiro que representa a quantidade de pontos que o hospede possui
 	 */
 	public int getPontos() {
 		return this.pontos;
 	}
 
 	/**
-	 * Atualiza o valor do atributo pontos
+	 * Atualiza o valor do atributo pontos.
 	 * 
 	 * @param pontos Recebe uma nova quantidade de pontos como parametro, e substitui
 	 * a quantia antiga de pontos pela nova quantia. Apos a alteracao, chama o metodo
@@ -159,19 +150,6 @@ public class Hospede {
 	public void setPontos(int pontos) {
 		this.pontos = pontos;
 		this.upgradeFidelidade();
-	}
-	
-	/**
-	 * Esse metodo eh o responsavel por incrementar a pontuacao do Hospede. Recebe um
-	 * valor de pontos que serao adicionados, e chama o metodo setPontos() para 
-	 * atualizar o atributo.
-	 * 
-	 * @param valor Inteiro representando a quantidade de pontos que sera adicionada
-	 * ao hospede
-	 */
-	public void atualizaPontuacao(int valor) {
-		int recompensa = this.cartao.adicionarPontos(valor);
-		this.setPontos(this.pontos + recompensa);
 	}
 
 	/**
@@ -186,7 +164,7 @@ public class Hospede {
 		if (estadia == null) {
 			throw new ValorException("Estadia nao pode ser null");
 		}
-		this.getEstadias().add(estadia);
+		this.estadias.add(estadia);
 	}
 
 	/**
@@ -196,7 +174,7 @@ public class Hospede {
 	 * @param idQuarto
 	 */
 	public boolean removeEstadia(String idQuarto) {
-		ArrayList<Estadia> estadias = this.getEstadias();
+		ArrayList<Estadia> estadias = this.estadias;
 		Iterator<Estadia> i = estadias.iterator();
 		while (i.hasNext()) {
 			Estadia estadia = i.next();
@@ -220,17 +198,9 @@ public class Hospede {
 			info += "," + estadia.getIdQuarto();
 		}
 		return info.replaceFirst(",", "");
-
 	}
 
-	/**
-	 * Retorna a lista de estadias
-	 * 
-	 * @return O ArrayList de estadias do Hospede
-	 */
-	public ArrayList<Estadia> getEstadias() {
-		return this.estadias;
-	}
+
 
 	/**
 	 * Metodo responsavel por retornar a quantidade de estadias que esse Hospede possui

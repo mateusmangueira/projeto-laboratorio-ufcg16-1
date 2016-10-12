@@ -1,14 +1,22 @@
 package hotel_gotemburgo.transacao;
 
-import verificacao.excecoes.Excecoes;
-import verificacao.excecoes.ValoresException;
-
+/**
+ * A classe Transacao eh responsavel por representar uma transacao do sistema, que possui o nome
+ * de um Hospede, o valor dessa transacao e sua descricao.
+ */
 public class Transacao {
 
 	private String nomeHospede;
 	private double valor;
 	private String descricao;
 
+	/**
+	 * O construtor recebe 3 parametros, instanciando todos os atributos da classe.
+	 * 
+	 * @param nome Uma String que representa nome do Hospede que esta efetuando a transacao
+	 * @param valor Um double que representa o valor total da transacao que esta sendo efetuada
+	 * @param descricao Uma String que descreve detalhes sobre a transacao
+	 */
 	public Transacao(String nome, double valor, String descricao) {
 		
 		this.nomeHospede = nome;
@@ -16,28 +24,33 @@ public class Transacao {
 		this.descricao = descricao;
 	}
 
+	/**
+	 * Retorna o atributo nome do hospede.
+	 * @return A string que representa o nome do hospede que esta realizando a transacao
+	 */
 	public String getNomeHospede() {
-		return nomeHospede;
+		return this.nomeHospede;
 	}
 
-	public void setNomeHospede(String nomeHospede) throws ValoresException {
-		Excecoes.checaString(nomeHospede, "O nome do hospede nao pode ser nulo ou vazio.");
-		this.nomeHospede = nomeHospede;
-	}
-
+	/**
+	 * Retorna o atributo valor da transacao.
+	 * @return O double que representa o valor da transacao
+	 */
 	public double getValor() {
-		return valor;
+		return this.valor;
 	}
 
-	public void setValor(double valor) throws ValoresException {
-		Excecoes.checaDouble(valor, "O valor da transacao nao pode ser menor ou igual a zero.");
-		this.valor = valor;
-	}
-
+	/**
+	 * Retorna o atributo descricao da transacao.
+	 * @return A String que representa a descricao dos detalhes da transacao
+	 */
 	public String getDescricao() {
 		return this.descricao;
 	}
 
+	/**
+	 * Codigo hash de um objeto do tipo Transacao.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -49,6 +62,9 @@ public class Transacao {
 		return result;
 	}
 
+	/**
+	 * Duas transacoes sao iguais caso possuam o mesmo nome de hospede, o mesmo valor e a mesma descricao.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -28,10 +28,10 @@ public class RefeicaoCompleta extends Comida {
 	 * uma lista de objetos do tipo Prato que compoe uma refeicao (3 ou 4
 	 * pratos).
 	 * 
-	 * @param nome
-	 * @param descricao
-	 * @param pratos
-	 * @throws ValoresException
+	 * @param nome O nome da refeicao completa
+	 * @param descricao Detalhes sobre a refeicao
+	 * @param pratos Uma lista de pratos que compoe a refeicao
+	 * @throws ValoresException Caso o construtor recebe valores invalidos como parametros
 	 */
 	public RefeicaoCompleta(String nome, String descricao, ArrayList<Prato> pratos) throws ValoresException {
 		
@@ -50,8 +50,9 @@ public class RefeicaoCompleta extends Comida {
 	 * Altera o atributo nome da refeicao.
 	 * 
 	 * @param nome O novo nome da refeicao
-	 * @throws StringException
+	 * @throws StringException Caso o novo nome seja invalido
 	 */
+	@Override
 	public void setNome(String nome) throws StringException {
 		Excecoes.checaString(nome, "O nome da refeicao nao pode ser nulo ou vazio.");
 		this.nome = nome;
@@ -64,10 +65,11 @@ public class RefeicaoCompleta extends Comida {
 	 * 
 	 * @return Descricao da refeicao
 	 */
+	@Override
 	public String getDescricao() {
 		String retorno = this.descricao + " Serao servidos: ";
-		for (int i = 0; i < this.getPratos().size(); i++) {
-			retorno += ", (" + (i + 1) + ") " + this.getPratos().get(i).getNome();
+		for (int i = 0; i < this.pratos.size(); i++) {
+			retorno += ", (" + (i + 1) + ") " + this.pratos.get(i).getNome();
 		}
 		return retorno.replaceFirst(", ", "") + ".";
 	}
@@ -77,18 +79,10 @@ public class RefeicaoCompleta extends Comida {
 	 * 
 	 * @param descricao A nova descricao da refeicao
 	 */
+	@Override
 	public void setDescricao(String descricao) throws ValoresException {
 		Excecoes.checaString(descricao, "A descricao da refeicao nao pode ser nula ou vazia.");
 		this.descricao = descricao;
-	}
-
-	/**
-	 * Retorna a lista que contem os pratos que compoem refeicao.
-	 * 
-	 * @return lista de pratos
-	 */
-	public ArrayList<Prato> getPratos() {
-		return this.pratos;
 	}
 
 	/**
@@ -101,7 +95,7 @@ public class RefeicaoCompleta extends Comida {
 		double soma = 0;
 		final double DESCONTO = 0.1;
 
-		for (Comida prato : getPratos())
+		for (Comida prato : this.pratos)
 			soma = soma + prato.getPreco();
 
 		return soma - (soma * DESCONTO);
@@ -133,7 +127,7 @@ public class RefeicaoCompleta extends Comida {
 			return false;
 
 		RefeicaoCompleta outra = (RefeicaoCompleta) anotherObject;
-		return this.getNome().equalsIgnoreCase(outra.getNome()) || this.getPratos().equals(outra.getPratos());
+		return this.getNome().equalsIgnoreCase(outra.getNome()) || this.pratos.equals(outra.pratos);
 	}
 
 	/**

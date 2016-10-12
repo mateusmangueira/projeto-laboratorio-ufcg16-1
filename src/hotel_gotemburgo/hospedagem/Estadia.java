@@ -55,28 +55,12 @@ public class Estadia {
 	}
 
 	/**
-	 * Modifica o ID do quarto atual para um novo
-	 * @param idQuarto Novo ID do quarto que substituira o antigo
-	 */
-	public void setIdQuarto(String idQuarto) {
-		this.idQuarto = idQuarto;
-	}
-
-	/**
 	 * Retorna uma constante do Enum TipoDeQuarto. Essa constante representa o tipo
 	 * do quarto que compoe a estadia
 	 * @return Constante de um enum TipoDeQuarto, representando o tipo do quarto
 	 */
 	public TipoDeQuarto getTipoQuarto() {
 		return this.tipoQuarto;
-	}
-
-	/**
-	 * Modifica o ID do quarto atual para um novo valor
-	 * @param idQuarto Novo ID do quarto que substituira o antigo
-	 */
-	public void setTipo(TipoDeQuarto tipo) {
-		this.tipoQuarto = tipo;
 	}
 	
 	/**

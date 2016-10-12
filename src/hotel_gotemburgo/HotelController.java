@@ -71,14 +71,6 @@ public class HotelController {
 	}
 
 	/**
-	 * Acessa o atributo restaurante e o retorna
-	 * @return O atributo restaurante, que representa o RestauranteController do Hotel
-	 */
-	public RestauranteController getRestaurante() {
-		return this.restaurante;
-	}
-
-	/**
 	 * Esse metodo cria e retorna um objeto do tipo Hospede, com base nos
 	 * parametros recebidos de entrada.
 	 * 

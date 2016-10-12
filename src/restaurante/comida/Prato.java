@@ -2,7 +2,6 @@ package restaurante.comida;
 
 import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.StringException;
-import verificacao.excecoes.ValorException;
 import verificacao.excecoes.ValoresException;
 
 /**
@@ -34,7 +33,6 @@ public class Prato extends Comida {
 		
 		this.preco = preco;
 	}
-
 	
 	/**
 	 * Altera o atributo nome do prato, realizando verificacao.
@@ -80,19 +78,6 @@ public class Prato extends Comida {
 	@Override
 	public double getPreco() {
 		return this.preco;
-	}
-
-	/**
-	 * Altera o atributo preco do prato, realizando verificacao.
-	 * 
-	 * @param preco O novo preco do Prato
-	 * @throws ValorException Caso o novo preco seja menor que zero
-	 */
-	public void setPreco(double preco) throws ValorException {
-		if (preco < 0) {
-			throw new ValorException("O preco do prato nao pode ser negativo.");
-		}
-		this.preco = preco;
 	}
 
 	/**
