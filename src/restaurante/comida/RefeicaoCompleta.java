@@ -26,7 +26,6 @@ import verificacao.excecoes.ValoresException;
 public class RefeicaoCompleta extends Comida {
 
 	private ArrayList<Prato> pratos;
-	private static final String LINE_SEPARATOR = System.lineSeparator();
 
 	/**
 	 * O Construtor recebe como parametro o nome e descricao do prato, alem de
@@ -104,46 +103,6 @@ public class RefeicaoCompleta extends Comida {
 			soma = soma + prato.getPreco();
 
 		return soma - (soma * DESCONTO);
-	}
-
-	/**
-	 * Representacao em String de um objeto do tipo RefeicaoCompleta.
-	 */
-	@Override
-	public String toString() {
-		String toString = "Pratos contidos nessa refeicao:";
-
-		for (Comida prato : pratos)
-			toString += RefeicaoCompleta.LINE_SEPARATOR + "-> " + prato;
-
-		toString += RefeicaoCompleta.LINE_SEPARATOR + "Valor total: " + getPreco();
-		return toString;
-	}
-
-	/**
-	 * Dois objetos do tipo Refeicao sao iguais se possuirem o mesmo nome ou o
-	 * mesmo conjunto de pratos.
-	 */
-	@Override
-	public boolean equals(Object anotherObject) {
-		if (anotherObject == null)
-			return false;
-		if (!anotherObject.getClass().equals(this.getClass()))
-			return false;
-
-		RefeicaoCompleta outra = (RefeicaoCompleta) anotherObject;
-		return this.getNome().equalsIgnoreCase(outra.getNome()) || this.pratos.equals(outra.pratos);
-	}
-
-	/**
-	 * Codigo hash de um objeto do tipo Refeicao.
-	 */
-	@Override
-	public int hashCode() {
-		final int PRIME = 7;
-		int result = 1;
-		return PRIME * result + (this.nome == null ? 0 : this.nome.hashCode())
-				+ (this.pratos == null ? 0 : this.pratos.hashCode());
 	}
 
 }

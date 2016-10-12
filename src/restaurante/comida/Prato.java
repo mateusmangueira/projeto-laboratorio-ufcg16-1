@@ -85,36 +85,4 @@ public class Prato extends Comida {
 		return this.preco;
 	}
 
-	/**
-	 * Representacao em String de um Prato.
-	 */
-	@Override
-	public String toString() {
-		return String.format("%s: %s. (R$ %.2f)", getNome(), getDescricao(), getPreco());
-	}
-
-	/**
-	 * Comparacao entre um objeto do tipo Prato com outro objeto. Dois pratos sao 
-	 * iguais caso possuam o mesmo nome.
-	 */
-	@Override
-	public boolean equals(Object anotherObject) {
-		if (anotherObject == null)
-			return false;
-		if (!anotherObject.getClass().equals(this.getClass()))
-			return false;
-		Prato outro = (Prato) anotherObject;
-		return this.getNome().equalsIgnoreCase(outro.getNome());
-	}
-
-	/**
-	 * Codigo hash de um objeto do tipo Prato.
-	 */
-	@Override
-	public int hashCode() {
-		final int PRIME = 7;
-		int result = 1;
-		return PRIME * result + (this.nome == null ? 0 : this.nome.hashCode());
-	}
-
 }

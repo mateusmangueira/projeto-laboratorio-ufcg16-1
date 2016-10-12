@@ -37,10 +37,37 @@ public abstract class Comida {
 	
 	public abstract double getPreco();
 	
+	/**
+	 * Representacao em String de uma Comida.
+	 */
 	@Override
 	public String toString() {
 		return String.format("Nome: %s%sPreco: R$ %.2f%sDescricao: %s", 
 				this.nome, Comida.LINE_SEPARATOR, this.getPreco(), Comida.LINE_SEPARATOR, this.descricao);
+	}
+
+	/**
+	 * Comparacao entre uma Comida com outro objeto. Duas comidas sao 
+	 * iguais caso possuam o mesmo nome.
+	 */
+	@Override
+	public boolean equals(Object anotherObject) {
+		if (anotherObject == null)
+			return false;
+		if (!anotherObject.getClass().equals(this.getClass()))
+			return false;
+		Prato outro = (Prato) anotherObject;
+		return this.getNome().equalsIgnoreCase(outro.getNome());
+	}
+	
+	/**
+	 * Codigo hash de uma Comida.
+	 */
+	@Override
+	public int hashCode() {
+		final int PRIME = 7;
+		int result = 1;
+		return PRIME * result + (this.nome == null ? 0 : this.nome.hashCode());
 	}
 
 }
