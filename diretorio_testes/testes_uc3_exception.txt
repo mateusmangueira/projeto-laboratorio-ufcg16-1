@@ -3,7 +3,7 @@
 # Trabalhando Exceptions #
 ##########################
 
-#iniciaSistema
+iniciaSistema
 
 #####################################################
 #            Checkout com Exception                 #
@@ -26,4 +26,4 @@ expectError "Erro ao realizar checkout. ID do quarto invalido, use apenas numero
 
 expectError "Erro na consulta de transacoes. Indice invalido." consultaTransacoes atributo="Total" indice=-1
 
-#fechaSistema
+fechaSistema

@@ -672,6 +672,4 @@ public class HotelController {
 	public void ordenaMenu(String atributo) {
 		this.restaurante.ordenaMenu(atributo);
 	}
-	
-	
 }

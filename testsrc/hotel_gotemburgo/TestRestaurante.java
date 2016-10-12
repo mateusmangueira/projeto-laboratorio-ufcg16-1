@@ -8,8 +8,6 @@ import facade.Facade;
 import verificacao.excecoes.HotelGotemburgoException;
 
 public class TestRestaurante {
-	
-	//Visualizei algo estranho ao tentar pegar o preco de uma Refeicao completa. Tem um teste comentado que deveria estar certo, mas esta somando errado.
 
 	private Facade facade;
 
@@ -33,9 +31,6 @@ public class TestRestaurante {
 		facade.cadastraRefeicao("Moda Nordestina", "Comidas tipicas da regiao Nordeste","Rubacao;Delicia de Macaxeira;Doce de Leite");
 
 		Assert.assertEquals("R$3,00", facade.consultaRestaurante("Tapioca", "Preco"));
-		
-		// Deveria ser 25,90, mas ta dando 23,31.
-		//Assert.assertEquals("R$25,90", facade.consultaRestaurante("Moda Nordestina", "Preco"));
 		
 		Assert.assertEquals("Doce de leite caseiro", facade.consultaRestaurante("Doce de Leite", "Descricao"));
 		Assert.assertEquals("Comidas tipicas da regiao Nordeste Serao servidos: (1) Rubacao, (2) Delicia de Macaxeira, (3) Doce de Leite.", facade.consultaRestaurante("Moda Nordestina", "Descricao"));

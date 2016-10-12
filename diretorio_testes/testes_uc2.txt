@@ -2,7 +2,7 @@
 # Caso de Uso 2 #
 #################
 
-#iniciaSistema
+iniciaSistema
 
 # Alfred Nobel originalmente nasceu em 1833.
 id1=cadastraHospede nome="Alfred Nobel" email="nobel@got.se" dataNascimento="21/10/1983"
@@ -53,4 +53,4 @@ atualizaCadastro id=agnetha@monomusic.se atributo="Email" valor="agnetha@abba.se
 
 expectError "Erro ao realizar checkin. Quarto 1A ja esta ocupado." realizaCheckin email="ines@brasil.com.br" dias=10 quarto="1A" tipoQuarto="Presidencial"
 
-#fechaSistema
+fechaSistema

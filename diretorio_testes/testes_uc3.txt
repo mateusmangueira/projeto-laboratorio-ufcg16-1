@@ -2,7 +2,7 @@
 # Caso de Uso 3 #
 #################
 
-#iniciaSistema
+iniciaSistema
 
 #####################################################
 # Realiza checkin de alguns hospedes ja cadastrados #
@@ -89,4 +89,4 @@ expect "Agnetha Faltskog" consultaTransacoes atributo="Nome" indice=2
 expect "R$450,00" consultaTransacoes atributo="Total" indice=3
 expect "Alfred Nobel" consultaTransacoes atributo="Nome" indice=3
 
-#fechaSistema
+fechaSistema

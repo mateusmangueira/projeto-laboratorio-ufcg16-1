@@ -11,6 +11,11 @@ import verificacao.excecoes.ValoresException;
  * 
  * @see Comida.java
  * @since 18 de Setembro de 2016
+ * 
+ * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
+ * @author Kleber Diogo - 115211239 <kleber.albuquerque@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  */
 public class Prato extends Comida {
 

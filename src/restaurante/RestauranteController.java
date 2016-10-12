@@ -15,11 +15,16 @@ import verificacao.excecoes.ValoresException;
 
 /**
  * O RestauranteController eh uma entidade responsavel pela administracao de
- * atividades relacionadas a Comida. Ele cadastra, atualiza e remove pratos
- * e refeicoes para oferece-los a hospedes do Hotel.
+ * atividades relacionadas a Comida. Ele cadastra, atualiza e remove pratos e
+ * refeicoes para oferece-los a hospedes do Hotel.
  * 
  * @since 18 de Setembro de 2016
  * @see Comida.java, Prato.java, RefeicaoCompleta.java
+ * 
+ * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
+ * @author Kleber Diogo - 115211239 <kleber.albuquerque@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  */
 
 public class RestauranteController {
@@ -42,17 +47,21 @@ public class RestauranteController {
 	 * atributos do prato a ser criado e retorna um boolean confirmando a
 	 * criacao.
 	 * 
-	 * @param nome Nome do prato que sera cadastrado
-	 * @param preco Preco do prato que sera cadastrado
-	 * @param descricao Descricao do prato que sera cadastrado
+	 * @param nome
+	 *            Nome do prato que sera cadastrado
+	 * @param preco
+	 *            Preco do prato que sera cadastrado
+	 * @param descricao
+	 *            Descricao do prato que sera cadastrado
 	 * @return Um boolean que representa o sucesso da operacao
-	 * @throws ValoresException Caso os valores de entrada estejam invalidos
+	 * @throws ValoresException
+	 *             Caso os valores de entrada estejam invalidos
 	 */
 	public boolean cadastraPrato(String nome, double preco, String descricao) throws ValoresException {
 		Excecoes.checaString(nome, "Erro no cadastro do prato. Nome do prato esta vazio.");
 		Excecoes.checaString(descricao, "Erro no cadastro do prato. Descricao do prato esta vazia.");
 		Excecoes.checaDouble(preco, "Erro no cadastro do prato. Preco do prato eh invalido.");
-		
+
 		Comida novoPrato = new Prato(nome, preco, descricao);
 
 		return this.cardapio.add(novoPrato);
@@ -62,7 +71,8 @@ public class RestauranteController {
 	 * Varre o Set de pratos procurando um prato com um nome especifico. Caso
 	 * encontrado, retorna true.
 	 * 
-	 * @param nome Nome do prato a ser procurado
+	 * @param nome
+	 *            Nome do prato a ser procurado
 	 * @return Um boolean que representa o sucesso da operacao
 	 */
 	private boolean contemPrato(String nome) {
@@ -79,9 +89,11 @@ public class RestauranteController {
 	 * Varre o Set de pratos procurando um prato com um nome especifico. Caso
 	 * encontrado, retorna a referencia ao objeto.
 	 * 
-	 * @param nome Nome do prato a ser buscado
+	 * @param nome
+	 *            Nome do prato a ser buscado
 	 * @return A referencia ao objeto Prato buscado
-	 * @throws ConsultaException Caso o objeto buscado nao tenha sido encontrado 
+	 * @throws ConsultaException
+	 *             Caso o objeto buscado nao tenha sido encontrado
 	 */
 	private Prato buscaPrato(String nome) throws LogicaException {
 		Prato novoPrato = null;
@@ -105,14 +117,18 @@ public class RestauranteController {
 	 * instancia de Refeicao e a adiciona no set de refeicoes do restaurante.
 	 * Adiciona tambem essa refeicao ao menu.
 	 * 
-	 * @param nome Nome da refeicao
-	 * @param descricao Descricao da refeicao
-	 * @param componentes Os pratos que irao compor a refeicao, recebidos como 
-	 * String e depois separados. Depois eh verificado se existem pratos com 
-	 * esses nomes no set, para entao poder ser criada uma colecao com os objetos 
-	 * correspondentes aos nomes.
+	 * @param nome
+	 *            Nome da refeicao
+	 * @param descricao
+	 *            Descricao da refeicao
+	 * @param componentes
+	 *            Os pratos que irao compor a refeicao, recebidos como String e
+	 *            depois separados. Depois eh verificado se existem pratos com
+	 *            esses nomes no set, para entao poder ser criada uma colecao
+	 *            com os objetos correspondentes aos nomes.
 	 * @return Um boolean que representa o sucesso do cadastro
-	 * @throws HotelGotemburgoException Caso haja um problema no cadastro
+	 * @throws HotelGotemburgoException
+	 *             Caso haja um problema no cadastro
 	 */
 	public boolean cadastraRefeicao(String nome, String descricao, String componentes) throws HotelGotemburgoException {
 
@@ -140,21 +156,23 @@ public class RestauranteController {
 	}
 
 	/**
-	 * Esse metodo consulta informacoes de uma comida do restaurante.
-	 * A informacao que sera retornada eh definida atraves do parametro
+	 * Esse metodo consulta informacoes de uma comida do restaurante. A
+	 * informacao que sera retornada eh definida atraves do parametro
 	 * "atributo".
 	 * 
-	 * @param nome Nome da comida
-	 * @param atributo Qual informacao que se deseja obter
+	 * @param nome
+	 *            Nome da comida
+	 * @param atributo
+	 *            Qual informacao que se deseja obter
 	 * @return A informacao desejada
-	 * @throws HotelGotemburgoException Caso ocorra um erro na consulta
+	 * @throws HotelGotemburgoException
+	 *             Caso ocorra um erro na consulta
 	 */
 	public String consultaRestaurante(String nome, String atributo) throws HotelGotemburgoException {
 		Excecoes.checaString(nome, "Erro na consulta do restaurante. Nome do prato esto vazio.");
 		Excecoes.checaString(atributo, "Erro na consulta do restaurante. Atributo do prato esta vazio.");
 
-		switch (atributo.toUpperCase()) 
-		{
+		switch (atributo.toUpperCase()) {
 		case "PRECO":
 			for (Comida comida : this.cardapio) {
 				if (comida.getNome().equalsIgnoreCase(nome))
@@ -172,13 +190,15 @@ public class RestauranteController {
 	}
 
 	/**
-	 * Esse metodo ordena os elementos do atributo cardapio de acordo com um criterio
-	 * passado como parametro.
+	 * Esse metodo ordena os elementos do atributo cardapio de acordo com um
+	 * criterio passado como parametro.
 	 * 
-	 * @param tipoOrdenacao Uma String representando o criterio de ordenacao que deseja-se
-	 * aplicar para ordenar o Menu. As diferentes formas de ordenacao sao implementadas
-	 * atraves de um sort que utiliza expressoes lambda para efetuar as operacoes,
-	 * que mudam de acordo com a String recebida.
+	 * @param tipoOrdenacao
+	 *            Uma String representando o criterio de ordenacao que deseja-se
+	 *            aplicar para ordenar o Menu. As diferentes formas de ordenacao
+	 *            sao implementadas atraves de um sort que utiliza expressoes
+	 *            lambda para efetuar as operacoes, que mudam de acordo com a
+	 *            String recebida.
 	 */
 	public void ordenaMenu(String tipoOrdenacao) {
 
@@ -197,10 +217,11 @@ public class RestauranteController {
 	}
 
 	/**
-	 * Acessa o cardapio e retorna o nome das comidas separados por ponto e virgula.
+	 * Acessa o cardapio e retorna o nome das comidas separados por ponto e
+	 * virgula.
 	 * 
-	 * @return Uma String que contem o nome das comidas do cardapio, separadas por
-	 * ponto e virgula
+	 * @return Uma String que contem o nome das comidas do cardapio, separadas
+	 *         por ponto e virgula
 	 */
 	public String consultaMenuRestaurante() {
 		String retorno = "";
@@ -213,9 +234,11 @@ public class RestauranteController {
 	/**
 	 * Procura uma comida no cardapio do Restaurante, com base no seu nome.
 	 * 
-	 * @param nome Nome da comida que sera buscada
+	 * @param nome
+	 *            Nome da comida que sera buscada
 	 * @return Uma referencia ao objeto encontrado, do tipo Comida
-	 * @throws ConsultaException Caso nao exista uma comida com esse nome no cardapio
+	 * @throws ConsultaException
+	 *             Caso nao exista uma comida com esse nome no cardapio
 	 */
 	public Comida buscaRefeicao(String nome) throws ConsultaException {
 		for (Comida refeicao : this.getCardapio()) {
@@ -224,5 +247,5 @@ public class RestauranteController {
 		}
 		throw new ConsultaException("Refeicao nao existe no cardapio.");
 	}
-	
+
 }
