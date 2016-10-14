@@ -13,7 +13,8 @@ import verificacao.excecoes.HotelGotemburgoException;
  * 
  * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
  * @author Kleber Diogo - 115211239 <kleber.albuquerque@ccc.ufcg.edu.br>
- * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934
+ *         <lucas.christopher.silva@ccc.ufcg.edu.br>
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  * 
@@ -28,13 +29,15 @@ public class Facade {
 		this.restauranteController = new RestauranteController();
 	}
 
-	public void iniciaSistema() {
-	}
-
-	public void fechaSistema() {
-	}
-
 	/* Funcionalidades do HotelController */
+	public void iniciaSistema() {
+		this.hotelController.iniciaSistema();
+	}
+	
+	public void fechaSistema() {
+		this.hotelController.fechaSistema();
+	}
+	
 	public String cadastraHospede(String nome, String email, String dataNascimento) throws HotelGotemburgoException {
 		return this.hotelController.cadastraHospede(nome, email, dataNascimento);
 	}
@@ -100,6 +103,7 @@ public class Facade {
 	public void ordenaMenu(String atributo) throws HotelGotemburgoException {
 		this.restauranteController.ordenaMenu(atributo);
 	}
+
 
 	/**
 	 * Metodo main utilizado para controle e execucao dos testes de aceitacao.

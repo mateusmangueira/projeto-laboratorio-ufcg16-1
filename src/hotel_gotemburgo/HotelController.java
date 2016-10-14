@@ -3,6 +3,7 @@ package hotel_gotemburgo;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -39,8 +40,13 @@ import hotel_gotemburgo.transacao.*;
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
-public class HotelController {
+public class HotelController implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Set<Hospede> hospedes;
 	private Set<String> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
@@ -61,8 +67,13 @@ public class HotelController {
 		this.quartosOcupados = new HashSet<String>();
 		this.transacoes = new ArrayList<Transacao>();
 		this.restaurante = new RestauranteController();
-
 		this.inicializaTiposDeQuarto();
+	}
+	
+	public void iniciaSistema() {
+	}
+
+	public void fechaSistema() {
 	}
 
 	/**
@@ -108,10 +119,8 @@ public class HotelController {
 	 * ser invalido
 	 */
 	public boolean removeHospede(String email) throws HotelGotemburgoException {
-
 		Excecoes.checaFormatoEmail(email, "Erro na remocao do Hospede. Formato de email invalido.");
 		Hospede hospede = this.buscaHospede(email);
-
 		return this.hospedes.remove(hospede);
 	}
 

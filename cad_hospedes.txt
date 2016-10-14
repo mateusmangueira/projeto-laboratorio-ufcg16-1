@@ -1,0 +1,26 @@
+Historico de Transacoes:
+==> Nome: Sven Gudmar Svenson Preco: R$2250,00 Detalhes: 1A
+==> Nome: Ines Brasil Preco: R$500,00 Detalhes: 1B
+==> Nome: Agnetha Faltskog Preco: R$200,00 Detalhes: 15A
+==> Nome: Alfred Nobel Preco: R$450,00 Detalhes: 1A
+==> Nome: Alfred Nobel Preco: R$50,85 Detalhes: Delicia da serra
+==> Nome: Alfred Nobel Preco: R$3,00 Detalhes: Tapioca
+==> Nome: Ines Brasil Preco: R$3,00 Detalhes: Tapioca
+==> Nome: Sven Gudmar Svenson Preco: R$1350,00 Detalhes: 2A
+==> Nome: Ines Brasil Preco: R$750,00 Detalhes: 2B
+==> Nome: Sven Gudmar Svenson Preco: R$45,77 Detalhes: Delicia da serra
+==> Nome: Sven Gudmar Svenson Preco: R$1620,00 Detalhes: 5A
+==> Nome: Sven Gudmar Svenson Preco: R$43,23 Detalhes: Delicia da serra
+==> Nome: Sven Gudmar Svenson Preco: R$675,00 Detalhes: 5A
+==> Nome: Ines Brasil Preco: R$50,85 Detalhes: Delicia da serra
+==> Nome: Ines Brasil Preco: R$2250,00 Detalhes: 5B
+==> Nome: Ines Brasil Preco: R$45,77 Detalhes: Delicia da serra
+==> Nome: Ines Brasil Preco: R$1215,00 Detalhes: 5B
+==> Nome: Ines Brasil Preco: R$45,77 Detalhes: Delicia da serra
+==> Nome: Sven Gudmar Svenson Preco: R$43,23 Detalhes: Delicia da serra
+==> Nome: Ines Brasil Preco: R$50,85 Detalhes: Delicia da serra
+==> Nome: Sven Gudmar Svenson Preco: R$45,77 Detalhes: Delicia da serra
+===== Resumo de transacoes =====
+Lucro total: R$11688,07
+Total de transacoes: 21
+Lucro medio por transacao: R$556,57

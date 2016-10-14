@@ -103,8 +103,6 @@ public class TestHotel {
 	public void testeAtualizaCadastro() throws HotelGotemburgoException{
 		 facade.atualizaCadastro(cliente_1,"Email", "porquito@Negresco.com");
 		 facade.atualizaCadastro(cliente_1,"Nome", "Porquito Negresco Branco");
-	
-	
 	}
 
 	@Test
