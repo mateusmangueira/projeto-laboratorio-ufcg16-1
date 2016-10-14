@@ -1,19 +1,12 @@
 package facade;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import arquivos.ManipuladorArquivos;
 import easyaccept.EasyAccept;
 import hotel_gotemburgo.HotelController;
 import restaurante.RestauranteController;
 import verificacao.excecoes.HotelGotemburgoException;
-import verificacao.excecoes.LogicaException;
+
 
 /**
  * Utilizamos o padrao de projeto Facade para fornecer uma interface
