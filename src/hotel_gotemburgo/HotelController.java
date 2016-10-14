@@ -1,14 +1,9 @@
 package hotel_gotemburgo;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-
 import restaurante.RestauranteController;
 import restaurante.comida.Comida;
 import verificacao.excecoes.*;
@@ -26,27 +21,22 @@ import hotel_gotemburgo.transacao.*;
  * associar os tipos de quarto do hotel a uma chave em string com o seu nome. Ha
  * tambem um Set de quartos ocupados, que registra quais quartos estao ocupados
  * no momento. O array de Transacoes armazena referencias do tipo Transacao para
- * registrar os checkouts do Hotel. 
- * Alem disso, o HotelController possui um outro controller, RestauranteController,
- * que eh responsavel pelas operacoes no sistema referentes ao sistema de venda
- * de alimentacao no Hotel.
+ * registrar os checkouts do Hotel. Alem disso, o HotelController possui um
+ * outro controller, RestauranteController, que eh responsavel pelas operacoes
+ * no sistema referentes ao sistema de venda de alimentacao no Hotel.
  * 
  * @since 12 de Setembro de 2016
- * @see Hospede.java, Transacao.java, TipoDeQuarto.java
+ * @see Hospede.java, Transacao.java, TipoDeQuarto.java	
  * 
  * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
  * @author Kleber Diogo - 115211239 <kleber.albuquerque@ccc.ufcg.edu.br>
- * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934
+ *         <lucas.christopher.silva@ccc.ufcg.edu.br>
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
-public class HotelController implements Serializable {
+public class HotelController {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	private Set<Hospede> hospedes;
 	private Set<String> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;
@@ -67,13 +57,8 @@ public class HotelController implements Serializable {
 		this.quartosOcupados = new HashSet<String>();
 		this.transacoes = new ArrayList<Transacao>();
 		this.restaurante = new RestauranteController();
-		this.inicializaTiposDeQuarto();
-	}
-	
-	public void iniciaSistema() {
-	}
 
-	public void fechaSistema() {
+		this.inicializaTiposDeQuarto();
 	}
 
 	/**
@@ -82,12 +67,16 @@ public class HotelController implements Serializable {
 	 * nao exista, cria um novo objeto Hospede com os valores recebidos como
 	 * parametros, em seguida adiciona-o ao set de hospedes.
 	 * 
-	 * @param nome Nome do hospede realizando cadastro
-	 * @param email Email do hospede realizando cadastro
-	 * @param dataNascimento Data de nascimento do hospede realizando cadastro
+	 * @param nome
+	 *            Nome do hospede realizando cadastro
+	 * @param email
+	 *            Email do hospede realizando cadastro
+	 * @param dataNascimento
+	 *            Data de nascimento do hospede realizando cadastro
 	 * @return O email do hospede recem-cadastrado
-	 * @throws HotelGotemburgoException Caso: 1)sejam verificados erros no conteudo
-	 * ou formato das strings passadas como parametro; ou 2)hospede menor de idade; 
+	 * @throws HotelGotemburgoException
+	 *             Caso: 1)sejam verificados erros no conteudo ou formato das
+	 *             strings passadas como parametro; ou 2)hospede menor de idade;
 	 */
 	public String cadastraHospede(String nome, String email, String dataNascimento) throws HotelGotemburgoException {
 
@@ -111,16 +100,19 @@ public class HotelController implements Serializable {
 	}
 
 	/**
-	 * Caso um hospede com o email passado como parametro esteja cadastrado no Hotel 
-	 * ele eh removido.
+	 * Caso um hospede com o email passado como parametro esteja cadastrado no
+	 * Hotel ele eh removido.
 	 * 
-	 * @param email Email do hospede que deseja-se remover
-	 * @throws HotelGotemburgoException No caso do conteudo do parametro email
-	 * ser invalido
+	 * @param email
+	 *            Email do hospede que deseja-se remover
+	 * @throws HotelGotemburgoException
+	 *             No caso do conteudo do parametro email ser invalido
 	 */
 	public boolean removeHospede(String email) throws HotelGotemburgoException {
+
 		Excecoes.checaFormatoEmail(email, "Erro na remocao do Hospede. Formato de email invalido.");
 		Hospede hospede = this.buscaHospede(email);
+
 		return this.hospedes.remove(hospede);
 	}
 
@@ -128,12 +120,15 @@ public class HotelController implements Serializable {
 	 * Retorna informacoes relativas a um hospede (pesquisado atraves do email)
 	 * de acordo com o atributo recebido na entrada.
 	 * 
-	 * @param email Email do hospede do qual deseja-se consultar informacoes
-	 * @param atributo Representa qual informacao a respeito do hospede 
-	 * sera consultada e retornada, podendo ser seu/sua:
-	 * 1)nome 2)data de nascimento 3)email 4)pontos
+	 * @param email
+	 *            Email do hospede do qual deseja-se consultar informacoes
+	 * @param atributo
+	 *            Representa qual informacao a respeito do hospede sera
+	 *            consultada e retornada, podendo ser seu/sua: 1)nome 2)data de
+	 *            nascimento 3)email 4)pontos
 	 * @return Uma string com informacao requisitada
-	 * @throws HotelGotemburgoException Em caso de parametros invalidos ou opcao invalida
+	 * @throws HotelGotemburgoException
+	 *             Em caso de parametros invalidos ou opcao invalida
 	 */
 	public String getInfoHospede(String email, String atributo) throws HotelGotemburgoException {
 
@@ -161,16 +156,20 @@ public class HotelController implements Serializable {
 	 * Hotel. A informacao que sera retornada eh determinada pelo parametro
 	 * atributo.
 	 * 
-	 * @param email Email do hospede que tera suas informacoes de hospedagem
-	 * consultadas
-	 * @param atributo Definira qual opcao sera consultada, podendo ser:
-	 * 1) "Hospedagem ativa" - retorna a quantidade de estadias do hospede; 
-	 * 2)"Quarto" - retorna uma string com o id dos quartos de suas estadias; 
-	 * 3)"Total" - retorna os gastos com estadia do hospede
+	 * @param email
+	 *            Email do hospede que tera suas informacoes de hospedagem
+	 *            consultadas
+	 * @param atributo
+	 *            Definira qual opcao sera consultada, podendo ser: 1)
+	 *            "Hospedagem ativa" - retorna a quantidade de estadias do
+	 *            hospede; 2)"Quarto" - retorna uma string com o id dos quartos
+	 *            de suas estadias; 3)"Total" - retorna os gastos com estadia do
+	 *            hospede
 	 * @return Uma String representando a informacao desejada
-	 * @throws HotelGotemburgoException 1)Em caso de parametros invalidos;
-	 * 2) se o hospede nao estiver cadastrado ou hospedado no Hotel;
-	 * 3) se a opcao escolhida for invalida
+	 * @throws HotelGotemburgoException
+	 *             1)Em caso de parametros invalidos; 2) se o hospede nao
+	 *             estiver cadastrado ou hospedado no Hotel; 3) se a opcao
+	 *             escolhida for invalida
 	 */
 	public String getInfoHospedagem(String email, String atributo) throws HotelGotemburgoException {
 
@@ -178,11 +177,10 @@ public class HotelController implements Serializable {
 		this.checaCadastro(email, "Erro ao checar hospedagem ativa. Email do(a) hospede esta invalido.");
 
 		Hospede hospede = this.buscaHospede(email);
-		this.checaHospedagem(email, String.format("Erro na consulta de hospedagem. Hospede %s nao esta "
-				+ "hospedado(a).", hospede.getNome()));
+		this.checaHospedagem(email, String
+				.format("Erro na consulta de hospedagem. Hospede %s nao esta " + "hospedado(a).", hospede.getNome()));
 
-		switch (atributo.toUpperCase()) 
-		{
+		switch (atributo.toUpperCase()) {
 		case "HOSPEDAGENS ATIVAS":
 			return String.format("%d", hospede.getQtdEstadias());
 		case "QUARTO":
@@ -198,51 +196,49 @@ public class HotelController implements Serializable {
 	 * Atualiza um atributo do cadastro de um hospede, de acordo com uma nova
 	 * informacao (valor) recebido na entrada.
 	 * 
-	 * @param email Email do hospede que tera alguma informacao alterada
-	 * @param atributo Uma string representando qual atributo sera alterado,
-	 * podendo ser "nome, "data de nascimento" ou "email
-	 * @param novoValor O atributo atualizado que ira substituir o anterior
-	 * @throws HotelGotemburgoException Em caso de 1)parametros invalidos;
-	 * 2)hospede menor de idade
+	 * @param email
+	 *            Email do hospede que tera alguma informacao alterada
+	 * @param atributo
+	 *            Uma string representando qual atributo sera alterado, podendo
+	 *            ser "nome, "data de nascimento" ou "email
+	 * @param novoValor
+	 *            O atributo atualizado que ira substituir o anterior
+	 * @throws HotelGotemburgoException
+	 *             Em caso de 1)parametros invalidos; 2)hospede menor de idade
 	 */
 	public void atualizaCadastro(String email, String atributo, String novoValor) throws HotelGotemburgoException {
-		
-		if (atributo.equalsIgnoreCase("nome")) 
-		{
-			Excecoes.checaString(novoValor, "Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede "
-					+ "nao pode ser vazio.");
-			Excecoes.checaFormatoNome(novoValor, "Erro na atualizacao do cadastro de Hospede. Nome do(a) "
-					+ "hospede esta invalido.");
-			
+
+		if (atributo.equalsIgnoreCase("nome")) {
+			Excecoes.checaString(novoValor,
+					"Erro na atualizacao do cadastro de Hospede. Nome do(a) hospede " + "nao pode ser vazio.");
+			Excecoes.checaFormatoNome(novoValor,
+					"Erro na atualizacao do cadastro de Hospede. Nome do(a) " + "hospede esta invalido.");
+
 			this.buscaHospede(email).setNome(novoValor);
-		}
-		else if (atributo.equalsIgnoreCase("data de nascimento")) 
-		{
+		} else if (atributo.equalsIgnoreCase("data de nascimento")) {
 			Excecoes.checaString(novoValor,
 					"Erro na atualizacao do cadastro de Hospede. Data de Nascimento do(a) hospede nao pode "
-					+ "ser vazio.");
-			Excecoes.checaFormatoData(novoValor, "Erro na atualizacao do cadastro de Hospede. Formato de "
-					+ "data invalido.");
+							+ "ser vazio.");
+			Excecoes.checaFormatoData(novoValor,
+					"Erro na atualizacao do cadastro de Hospede. Formato de " + "data invalido.");
 
 			String[] data = novoValor.split("/");
 			int anoNascimento = Integer.parseInt(data[2]);
-			
+
 			int idade = HotelController.ANO_ATUAL - anoNascimento;
 			Excecoes.checaIdade(idade, "Erro na atualizacao do cadastro de Hospede. A idade do(a) hospede "
 					+ "deve ser maior que 18 anos.");
-			
-			this.buscaHospede(email).setDataNascimento(novoValor);
-		}
-		else if (atributo.equalsIgnoreCase("email")) 
-		{
-			Excecoes.checaString(novoValor, "Erro na atualizacao do cadastro de Hospede. Email do(a) hospede "
-					+ "nao pode ser vazio.");
 
-			Excecoes.checaFormatoEmail(novoValor, "Erro na atualizacao do cadastro de Hospede. Email do(a) "
-						+ "hospede esta invalido.");
+			this.buscaHospede(email).setDataNascimento(novoValor);
+		} else if (atributo.equalsIgnoreCase("email")) {
+			Excecoes.checaString(novoValor,
+					"Erro na atualizacao do cadastro de Hospede. Email do(a) hospede " + "nao pode ser vazio.");
+
+			Excecoes.checaFormatoEmail(novoValor,
+					"Erro na atualizacao do cadastro de Hospede. Email do(a) " + "hospede esta invalido.");
 			this.buscaHospede(email).setEmail(novoValor);
 		}
-		
+
 	}
 
 	/**
@@ -253,21 +249,28 @@ public class HotelController implements Serializable {
 	 * atributos recebidos como parametro) e uma quantidade de dias (tambem
 	 * recebida como parametro).
 	 * 
-	 * @param email Email do hospede
-	 * @param qntDias Quantidade de dias que o Hospede esta na estadia
-	 * @param idQuarto ID do quarto da estadia
-	 * @param tipoQuarto Tipo do quarto da estadia
-	 * @throws HotelGotemburgoException Em caso de 1) atributos invalidos;
-	 * 2) hospede nao cadastrado; 3)quarto ja ocupado;
+	 * @param email
+	 *            Email do hospede
+	 * @param qntDias
+	 *            Quantidade de dias que o Hospede esta na estadia
+	 * @param idQuarto
+	 *            ID do quarto da estadia
+	 * @param tipoQuarto
+	 *            Tipo do quarto da estadia
+	 * @throws HotelGotemburgoException
+	 *             Em caso de 1) atributos invalidos; 2) hospede nao cadastrado;
+	 *             3)quarto ja ocupado;
 	 */
 	public void realizaCheckin(String email, int qntDias, String idQuarto, String tipoQuarto)
 			throws HotelGotemburgoException {
 
 		Excecoes.checaString(email, "Erro ao realizar checkin. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaInt(qntDias, "Erro ao realizar checkin. Quantidade de dias esta invalida.");
-		Excecoes.checaString(idQuarto, "Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
+		Excecoes.checaString(idQuarto,
+				"Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 		Excecoes.checaFormatoEmail(email, "Erro ao realizar checkin. Email do(a) hospede esta invalido.");
-		Excecoes.checaFormatoIdQuarto(idQuarto, "Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
+		Excecoes.checaFormatoIdQuarto(idQuarto,
+				"Erro ao realizar checkin. ID do quarto invalido, use apenas numeros ou letras.");
 
 		this.checaCadastro(email, "Erro ao realizar checkin. Hospede de email " + email + " nao foi cadastrado(a).");
 		this.checaTipoQuarto(tipoQuarto.toUpperCase(), "Erro ao realizar checkin. Tipo de quarto invalido.");
@@ -288,8 +291,10 @@ public class HotelController implements Serializable {
 	 * transacoes. Tambem eh calculado e retornado o valor total gasto por esse
 	 * hospede no Hotel.
 	 * 
-	 * @param email Email do hospede
-	 * @param idQuarto ID do quarto de onde o hospede esta saindo
+	 * @param email
+	 *            Email do hospede
+	 * @param idQuarto
+	 *            ID do quarto de onde o hospede esta saindo
 	 * @return O valor total gasto por esse hospede no Hotel
 	 * @throws HotelGotemburgoException
 	 */
@@ -298,7 +303,8 @@ public class HotelController implements Serializable {
 		Excecoes.checaString(email, "Erro ao realizar checkout. Email do(a) hospede nao pode ser vazio.");
 		Excecoes.checaFormatoEmail(email, "Erro ao realizar checkout. Email do(a) hospede esta invalido.");
 		Excecoes.checaString(idQuarto, "Erro ao realizar checkout. O Id do quarto nao pode ser nulo ou vazio.");
-		Excecoes.checaFormatoIdQuarto(idQuarto, "Erro ao realizar checkout. ID do quarto invalido, use apenas numeros ou letras.");
+		Excecoes.checaFormatoIdQuarto(idQuarto,
+				"Erro ao realizar checkout. ID do quarto invalido, use apenas numeros ou letras.");
 
 		Hospede hospedeDeSaida = this.buscaHospede(email);
 		double gastosEstadia = hospedeDeSaida.getValorEstadia(idQuarto);
@@ -309,7 +315,7 @@ public class HotelController implements Serializable {
 		if (this.isQuartoOcupado(idQuarto)) {
 			this.quartosOcupados.remove(idQuarto);
 		}
-		
+
 		hospedeDeSaida.removeEstadia(idQuarto);
 		int recompensaPorGasto = hospedeDeSaida.adicionarPontos(gastosEstadia);
 		hospedeDeSaida.setPontos(hospedeDeSaida.getPontos() + recompensaPorGasto);
@@ -320,18 +326,19 @@ public class HotelController implements Serializable {
 	 * Consulta o array de hospedes que realizaram checkout e retorna uma
 	 * informacao, referente ao atributo recebido.
 	 * 
-	 * @param atributo Representa a informacao desejada sobre as transacoes
-	 * registradas no sistema, podendo ser:
-	 * "quantidade" - a quantidade de transacoes ;
-	 * "total" - o valor total das transacoes;
-	 * "nome" - a lista do nome dos hospedes que realizaram transacoes.
+	 * @param atributo
+	 *            Representa a informacao desejada sobre as transacoes
+	 *            registradas no sistema, podendo ser: "quantidade" - a
+	 *            quantidade de transacoes ; "total" - o valor total das
+	 *            transacoes; "nome" - a lista do nome dos hospedes que
+	 *            realizaram transacoes.
 	 * @return A informacao solicitada
-	 * @throws HotelGotemburgoException Em caso de opcao invalida
+	 * @throws HotelGotemburgoException
+	 *             Em caso de opcao invalida
 	 */
 	public String consultaTransacoes(String atributo) throws HotelGotemburgoException {
 
-		switch (atributo.toUpperCase()) 
-		{
+		switch (atributo.toUpperCase()) {
 		case "QUANTIDADE":
 			return String.format("%d", this.transacoes.size());
 
@@ -354,11 +361,13 @@ public class HotelController implements Serializable {
 	 * um Hospede especifico no array de transacoes. As informacoes solicitadas
 	 * sao agora "nome" e "total", e se referem apenas ao hospede em questao.
 	 * 
-	 * @param atributo Representa a informacao desejada
-	 * @param indice Posicao do hospede no array de transacoes
+	 * @param atributo
+	 *            Representa a informacao desejada
+	 * @param indice
+	 *            Posicao do hospede no array de transacoes
 	 * @return A informacao solicitada
-	 * @throws HotelGotemburgoException Caso o atributo nao corresponda a uma
-	 * opcao valida
+	 * @throws HotelGotemburgoException
+	 *             Caso o atributo nao corresponda a uma opcao valida
 	 */
 	public String consultaTransacoes(String atributo, int indice) throws HotelGotemburgoException {
 
@@ -379,16 +388,20 @@ public class HotelController implements Serializable {
 	}
 
 	/**
-	 * Esse metodo eh responsavel por receber de um hospede um pedido de refeicao. Uma transacao
-	 * eh criada para registrar esse pedido e pontos sao adicionados ao cartao fidelidade do hospede
-	 * de acordo com o valor dessa compra. Essa funcionalidade eh responsabilidade do HotelController
-	 * pois utilizamos a logica na qual o Hotel eh responsavel por intermediar o pedido entre o 
-	 * Hospede e o Restaurante, ja que ele conhece ambos.
+	 * Esse metodo eh responsavel por receber de um hospede um pedido de
+	 * refeicao. Uma transacao eh criada para registrar esse pedido e pontos sao
+	 * adicionados ao cartao fidelidade do hospede de acordo com o valor dessa
+	 * compra. Essa funcionalidade eh responsabilidade do HotelController pois
+	 * utilizamos a logica na qual o Hotel eh responsavel por intermediar o
+	 * pedido entre o Hospede e o Restaurante, ja que ele conhece ambos.
 	 * 
-	 * @param email Email do hospede 
-	 * @param item O item que foi pedido
+	 * @param email
+	 *            Email do hospede
+	 * @param item
+	 *            O item que foi pedido
 	 * @return Uma string representando o valor desse pedido
-	 * @throws HotelGotemburgoException Em caso de atributos invalidos
+	 * @throws HotelGotemburgoException
+	 *             Em caso de atributos invalidos
 	 */
 	public String realizaPedido(String email, String item) throws HotelGotemburgoException {
 
@@ -398,7 +411,7 @@ public class HotelController implements Serializable {
 		Hospede hospede = this.buscaHospede(email);
 		Comida refeicao = this.restaurante.buscaRefeicao(item);
 		double precoRefeicao = refeicao.getPreco();
-		
+
 		double valorComDesconto = hospede.aplicarDesconto(precoRefeicao);
 		Transacao transacao = new Transacao(hospede.getNome(), valorComDesconto, item);
 		this.transacoes.add(transacao);
@@ -410,63 +423,28 @@ public class HotelController implements Serializable {
 	}
 
 	/**
-	 * Metodo responsavel por converter uma dada quantia de pontos de um hospede em dinheiro,
-	 * pesquisando o hospede que deseja realizar a operacao e delegando o metodo convertePontos
-	 * da classe Hospede.
+	 * Metodo responsavel por converter uma dada quantia de pontos de um hospede
+	 * em dinheiro, pesquisando o hospede que deseja realizar a operacao e
+	 * delegando o metodo convertePontos da classe Hospede.
 	 * 
-	 * @param email Email do hospede que sera buscado para realizar a conversao
-	 * @param qntPontos Quantidade de pontos que sera convertida
+	 * @param email
+	 *            Email do hospede que sera buscado para realizar a conversao
+	 * @param qntPontos
+	 *            Quantidade de pontos que sera convertida
 	 * @return A String de retorno do convertePontos da classe Hospede
-	 * @throws HotelGotemburgoException Lanca possiveis excecoes recebidas da classe Hospede
+	 * @throws HotelGotemburgoException
+	 *             Lanca possiveis excecoes recebidas da classe Hospede
 	 */
 	public String convertePontos(String email, int qntPontos) throws HotelGotemburgoException {
 		Hospede hospede = this.buscaHospede(email);
-		return hospede.convertePontos(qntPontos);		
+		return hospede.convertePontos(qntPontos);
 	}
-	
-	/**
-	 * Esse metodo eh responsavel por gravar em um arquivo de texto o registro de hospedes
-	 * do Hotel, juntamente com os detalhes (toString) desses hospedes.
-	 * @throws IOException
-	 */
-	public void gravaArquivoCadastro() throws IOException {
-		
-		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_hospedes.txt"));
-		bf.write("Cadastro de Hospedes: " + this.hospedes.size() +" hospedes registrados" 
-				+ HotelController.LINE_SEPARATOR );
-		
-		int contador = 0;
-		for (Hospede hospede : hospedes) {
-			contador += 1;
-			bf.write("==> Hospede " + contador + ":" + HotelController.LINE_SEPARATOR + 
-					hospede.toString() + HotelController.LINE_SEPARATOR);
-		}
-		bf.close();
-	}
-	
-	/**
-	 * Esse metodo eh responsavel por gravar em um arquivo de texto o cardapio do Restaurante, 
-	 * juntamente com os detalhes (toString) dos itens presentes no cardapio.
-	 * @throws IOException
-	 */
-	public void gravaArquivoMenu() throws IOException { // Eh coeso esse metodo estar no HotelController? #anderson
-		
-		BufferedWriter bf = new BufferedWriter(new FileWriter("cad_restaurante.txt"));
-		bf.write("Menu do Restaurante: " + restaurante.getCardapio().size() + " itens no cardapio");
-		
-		int contador = 0;
-		for (Comida item : restaurante.getCardapio()) {
-			contador += 1;
-			bf.write("==> Item " + contador + ":" + HotelController.LINE_SEPARATOR + item.toString() );
-		}
-		bf.close();
-	}
-	
+
 	/* Metodos privados */
 
 	/**
-	 * Calcula o valor da soma de todas as transacoes realizadas no hotel, percorrendo
-	 * a lista de transacoes.
+	 * Calcula o valor da soma de todas as transacoes realizadas no hotel,
+	 * percorrendo a lista de transacoes.
 	 * 
 	 * @return O valor da soma das transacoes do hotel,
 	 */
@@ -477,34 +455,40 @@ public class HotelController implements Serializable {
 		}
 		return valorTotal;
 	}
-	
+
 	/**
 	 * Esse metodo cria e retorna um objeto do tipo Hospede, com base nos
 	 * parametros recebidos de entrada.
 	 * 
-	 * @param nome Nome do hospede que sera criado
-	 * @param email Email do hospede que sera criado
-	 * @param anoNascimento Ano de nascimento do hospede que sera criado
+	 * @param nome
+	 *            Nome do hospede que sera criado
+	 * @param email
+	 *            Email do hospede que sera criado
+	 * @param anoNascimento
+	 *            Ano de nascimento do hospede que sera criado
 	 * @return O Hospede criado
-	 * @throws HotelGotemburgoException Caso seja identificado algum erro durante a criacao
+	 * @throws HotelGotemburgoException
+	 *             Caso seja identificado algum erro durante a criacao
 	 */
 	private Hospede criaHospede(String nome, String email, String dataNascimento) throws HotelGotemburgoException {
 		return new Hospede(nome, email, dataNascimento);
 	}
-	
+
 	/**
 	 * Com base no email recebido de entrada, realiza uma busca no set de
 	 * hospedes. Caso um dos hospedes possua esse email, o hospede em questao eh
 	 * retornado.
 	 * 
-	 * @param email Email do hospede buscado
+	 * @param email
+	 *            Email do hospede buscado
 	 * @return Um hospede, caso encontrado
-	 * @throws HotelGotemburgoException Caso seja identificado algum erro de valor
-	 * ou caso o Hospede nao tenha sido encontrado (ou seja, nao esta cadastrado)
+	 * @throws HotelGotemburgoException
+	 *             Caso seja identificado algum erro de valor ou caso o Hospede
+	 *             nao tenha sido encontrado (ou seja, nao esta cadastrado)
 	 */
 	private Hospede buscaHospede(String email) throws HotelGotemburgoException {
 		Excecoes.checaString(email, "O email do hospede nao pode ser nulo ou vazio.");
-		
+
 		for (Hospede hospede : this.hospedes) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return hospede;
@@ -529,16 +513,18 @@ public class HotelController implements Serializable {
 	 * Consulta o mapa de tipos e retorna o valor (constante do Enum)
 	 * correspondente a string recebida como parametro, se houver
 	 * 
-	 * @param tipoQuarto String representando o tipo do quarto, que deve
-	 * ser igual a alguma das chaves do mapa de Tipos presente no Controller.
+	 * @param tipoQuarto
+	 *            String representando o tipo do quarto, que deve ser igual a
+	 *            alguma das chaves do mapa de Tipos presente no Controller.
 	 * @return constante do Enum TipoDeQuarto
-	 * @throws HotelGotemburgoException Caso nao exista, no mapa de tipos, uma
-	 * chave que seja igual ao parametro recebido
+	 * @throws HotelGotemburgoException
+	 *             Caso nao exista, no mapa de tipos, uma chave que seja igual
+	 *             ao parametro recebido
 	 */
 	private TipoDeQuarto getTipoQuarto(String tipoQuarto) throws HotelGotemburgoException {
 		if (!tiposQuartos.containsKey(tipoQuarto.toUpperCase()))
 			throw new ConsultaException("Nao existe um tipo de quarto representado por essa String");
-		
+
 		return tiposQuartos.get(tipoQuarto.toUpperCase());
 	}
 
@@ -546,21 +532,25 @@ public class HotelController implements Serializable {
 	 * Metodo utilizado para garantir que uma string que supostamente representa
 	 * um Tipo de Quarto esta de acordo com o esperado.
 	 * 
-	 * @param tipo String representando o tipo de quarto
+	 * @param tipo
+	 *            String representando o tipo de quarto
 	 * @return boolean representando a confirmacao da verificacao
 	 */
 	private boolean verificaTipoQuarto(String tipo) {
 		return this.tiposQuartos.containsKey(tipo);
 	}
-	
+
 	/**
-	 * Metodo utilizado para encapsulamento da checagem de excecoes no caso do tipo do quarto
-	 * nao ser verificado, chamando o metodo verificaTipoQuarto.
+	 * Metodo utilizado para encapsulamento da checagem de excecoes no caso do
+	 * tipo do quarto nao ser verificado, chamando o metodo verificaTipoQuarto.
 	 * 
-	 * @param tipo Tipo do quarto que sera checado
-	 * @param mensagem A mensagem da excecao que pode ser lancada
-	 * @throws HotelGotemburgoException Caso o tipo do quarto nao tenha sido verificado pelo
-	 * metodo verificaTipoQuarto
+	 * @param tipo
+	 *            Tipo do quarto que sera checado
+	 * @param mensagem
+	 *            A mensagem da excecao que pode ser lancada
+	 * @throws HotelGotemburgoException
+	 *             Caso o tipo do quarto nao tenha sido verificado pelo metodo
+	 *             verificaTipoQuarto
 	 */
 	private void checaTipoQuarto(String tipo, String mensagem) throws HotelGotemburgoException {
 		if (!this.verificaTipoQuarto(tipo))
@@ -571,9 +561,11 @@ public class HotelController implements Serializable {
 	 * Metodo utilizado para verificar se um determinado quarto - que sera
 	 * buscado atraves do ID - esta ou nao ocupado.
 	 * 
-	 * @param idQuarto ID do quarto a ser verificado
+	 * @param idQuarto
+	 *            ID do quarto a ser verificado
 	 * @return boolean boolean representando a confirmacao da verificacao
-	 * @throws HotelGotemburgoException Em caso de String invaliad
+	 * @throws HotelGotemburgoException
+	 *             Em caso de String invaliad
 	 */
 	private boolean isQuartoOcupado(String idQuarto) throws HotelGotemburgoException {
 		Excecoes.checaString(idQuarto, "O id do quarto nao pode ser nulo ou vazio.");
@@ -584,78 +576,92 @@ public class HotelController implements Serializable {
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Metodo utilizado para encapsulamento da checagem de excecoes no caso do quarto estar
-	 * ocupado, chamando o metodo isQuartoOcupado.
+	 * Metodo utilizado para encapsulamento da checagem de excecoes no caso do
+	 * quarto estar ocupado, chamando o metodo isQuartoOcupado.
 	 * 
-	 * @param idQuarto ID do quarto que sera checado
-	 * @param mensagem A mensagem da excecao que pode ser lancada
-	 * @throws HotelGotemburgoException Caso o quarto com esse ID esteja ocupado
+	 * @param idQuarto
+	 *            ID do quarto que sera checado
+	 * @param mensagem
+	 *            A mensagem da excecao que pode ser lancada
+	 * @throws HotelGotemburgoException
+	 *             Caso o quarto com esse ID esteja ocupado
 	 */
 	private void checaOcupacao(String idQuarto, String mensagem) throws HotelGotemburgoException {
 		if (this.isQuartoOcupado(idQuarto))
 			throw new HotelGotemburgoException(mensagem);
 	}
-	
+
 	/**
-	 * Verifica um hospede com determinado email esta presente no set de hospedes.
+	 * Verifica um hospede com determinado email esta presente no set de
+	 * hospedes.
 	 * 
-	 * @param email Email do hospede a ser verificado
+	 * @param email
+	 *            Email do hospede a ser verificado
 	 * @return boolean representando a sua presenca no set de Hospedes do hotel
-	 * @throws HotelGotemburgoException Caso seja a string seja invalida
+	 * @throws HotelGotemburgoException
+	 *             Caso seja a string seja invalida
 	 */
 	private boolean isCadastrado(String email) throws HotelGotemburgoException {
 		Excecoes.checaString(email, "O email do hospede nao pode ser nulo ou vazio.");
-		
+
 		for (Hospede hospede : this.hospedes) {
 			if (hospede.getEmail().equalsIgnoreCase(email))
 				return true;
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Metodo utilizado para encapsulamento da checagem de excecoes no caso de um determinado
-	 * hospede nao estar cadastrado no sistema do Hotel.
+	 * Metodo utilizado para encapsulamento da checagem de excecoes no caso de
+	 * um determinado hospede nao estar cadastrado no sistema do Hotel.
 	 * 
-	 * @param email Email do hospede que sera checado
-	 * @param mensagem A mensagem da excecao que pode ser lancada
-	 * @throws HotelGotemburgoException Caso o hospede nao esteja cadastrado
+	 * @param email
+	 *            Email do hospede que sera checado
+	 * @param mensagem
+	 *            A mensagem da excecao que pode ser lancada
+	 * @throws HotelGotemburgoException
+	 *             Caso o hospede nao esteja cadastrado
 	 */
 	private void checaCadastro(String email, String mensagem) throws HotelGotemburgoException {
 		if (!this.isCadastrado(email))
 			throw new HotelGotemburgoException(mensagem);
 	}
-	
+
 	/**
 	 * Verifica se um hospede esta hospedado no hotel, pela quantidade de
 	 * estadias que ele possui (0 = nao esta hospedado)
 	 * 
-	 * @param email Email do hospede que sera verificada a situacao de hospedagem
-	 * no Hotel.
+	 * @param email
+	 *            Email do hospede que sera verificada a situacao de hospedagem
+	 *            no Hotel.
 	 * @return boolean representando sua hospedagem no Hotel
-	 * @throws HotelGotemburgoException Caso o email recebido como parametro nao
-	 * esteja cadastrado no Hotel
+	 * @throws HotelGotemburgoException
+	 *             Caso o email recebido como parametro nao esteja cadastrado no
+	 *             Hotel
 	 */
 	private boolean isHospedado(String email) throws HotelGotemburgoException {
 		if (!isCadastrado(email))
 			throw new CadastroException("Este hospede nao estah cadastrado.");
-		
+
 		Hospede hospede = buscaHospede(email);
 		if (hospede.getQtdEstadias() == 0)
 			return false;
-		
+
 		return true;
 	}
-	
+
 	/**
-	 * Metodo utilizado para encapsulamento da checagem de excecoes no caso de um determinado
-	 * hospede nao estar hospedado no sistema do Hotel.
+	 * Metodo utilizado para encapsulamento da checagem de excecoes no caso de
+	 * um determinado hospede nao estar hospedado no sistema do Hotel.
 	 * 
-	 * @param email Email do hospede que sera checado
-	 * @param mensagem A mensagem da excecao que pode ser lancada
-	 * @throws HotelGotemburgoException Caso o hospede nao esteja hospedado
+	 * @param email
+	 *            Email do hospede que sera checado
+	 * @param mensagem
+	 *            A mensagem da excecao que pode ser lancada
+	 * @throws HotelGotemburgoException
+	 *             Caso o hospede nao esteja hospedado
 	 */
 	private void checaHospedagem(String email, String mensagem) throws HotelGotemburgoException {
 		if (!this.isHospedado(email))
@@ -681,4 +687,70 @@ public class HotelController implements Serializable {
 	public void ordenaMenu(String atributo) {
 		this.restaurante.ordenaMenu(atributo);
 	}
+
+	/* Funcionalidades para o Manipulador */
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String stringArquivoHospedes() {
+		String stringRetorno = "Cadastro de Hospedes: " + this.hospedes.size() + " hospedes registrados"
+				+ HotelController.LINE_SEPARATOR;
+		int contador = 0;
+		for (Hospede hospede : this.hospedes) {
+			contador += 1;
+			stringRetorno += "==> Hospede " + contador + ":" + HotelController.LINE_SEPARATOR + hospede.toString()
+					+ HotelController.LINE_SEPARATOR;
+		}
+		return stringRetorno;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String stringArquivoMenu() {
+		String stringRetorno = "Menu do Restaurante: " + restaurante.getCardapio().size() + " itens no cardapio";
+		int contador = 0;
+		for (Comida item : this.restaurante.getCardapio()) {
+			contador += 1;
+			stringRetorno += "==> Item " + contador + ":" + HotelController.LINE_SEPARATOR + item.toString();
+		}
+		return stringRetorno;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String stringArquivoTransacoes() {
+		String stringRetorno = "Historico de Transacoes: " + HotelController.LINE_SEPARATOR;
+		int contador = 0;
+		for (Transacao transacao : this.transacoes) {
+			contador += 1;
+			stringRetorno += "==> Nome: " + transacao.getNomeHospede() + " Gasto: " + "R$" + transacao.getValor() +
+					" Detalhes: " + transacao.getDescricao() + HotelController.LINE_SEPARATOR;
+		}
+		stringRetorno += "===== Resumo de transacoes =====" + HotelController.LINE_SEPARATOR + "Lucro total: " 
+		+ this.getValorTotalTransacoes() + HotelController.LINE_SEPARATOR + "Total de Transacoes: " + this.transacoes.size() +
+		HotelController.LINE_SEPARATOR + "Lucro medio por transacao: " + this.getValorTotalTransacoes() / this.transacoes.size();
+		
+		return stringRetorno;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String stringArquivoEstadoHotel() {
+		String fimDeDados = "======================================================";
+		String stringRetorno = this.stringArquivoHospedes() + HotelController.LINE_SEPARATOR + fimDeDados + 
+				this.stringArquivoMenu() + HotelController.LINE_SEPARATOR + fimDeDados + 
+				this.stringArquivoTransacoes();
+		
+		return stringRetorno;
+		
+	}
+
 }

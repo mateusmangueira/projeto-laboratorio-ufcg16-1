@@ -1,5 +1,7 @@
 package facade;
 
+import java.io.IOException;
+import arquivos.ManipuladorArquivos;
 import easyaccept.EasyAccept;
 import hotel_gotemburgo.HotelController;
 import restaurante.RestauranteController;
@@ -13,8 +15,7 @@ import verificacao.excecoes.HotelGotemburgoException;
  * 
  * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
  * @author Kleber Diogo - 115211239 <kleber.albuquerque@ccc.ufcg.edu.br>
- * @author Lucas Christopher - 115210934
- *         <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  * 
@@ -23,21 +24,41 @@ public class Facade {
 
 	private HotelController hotelController;
 	private RestauranteController restauranteController;
+	private ManipuladorArquivos manipulador;
 
 	public Facade() {
 		this.hotelController = new HotelController();
 		this.restauranteController = new RestauranteController();
+		this.manipulador = new ManipuladorArquivos();
 	}
+	
+	public void iniciaSistema() {}
+	
+	public void fechaSistema() {}
+	
+	/* Funcionalidades do Manipulador de Arquivos */
+	public void gravaArquivoMenu() throws IOException {
+		String arquivo = this.hotelController.stringArquivoHospedes();
+		this.manipulador.gravaArquivoMenu(arquivo);
+	}
+	
+	public void gravaArquivoCadastro() throws IOException {
+		String arquivo = this.hotelController.stringArquivoMenu();
+		this.manipulador.gravaArquivoCadastro(arquivo);
+	}
+	
+	public void gravaArquivoTransacoes() throws IOException {
+		String arquivo = this.hotelController.stringArquivoTransacoes();
+		this.manipulador.gravaArquivoTransacoes(arquivo);
+	}
+	
+	public void gravaArquivoEstadoHotel() throws IOException {
+		String arquivo = this.hotelController.stringArquivoEstadoHotel();
+		this.manipulador.gravaArquivoEstadoHotel(arquivo);
+	}
+	
 
 	/* Funcionalidades do HotelController */
-	public void iniciaSistema() {
-		this.hotelController.iniciaSistema();
-	}
-	
-	public void fechaSistema() {
-		this.hotelController.fechaSistema();
-	}
-	
 	public String cadastraHospede(String nome, String email, String dataNascimento) throws HotelGotemburgoException {
 		return this.hotelController.cadastraHospede(nome, email, dataNascimento);
 	}
@@ -103,7 +124,6 @@ public class Facade {
 	public void ordenaMenu(String atributo) throws HotelGotemburgoException {
 		this.restauranteController.ordenaMenu(atributo);
 	}
-
 
 	/**
 	 * Metodo main utilizado para controle e execucao dos testes de aceitacao.
