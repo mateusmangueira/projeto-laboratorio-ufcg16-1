@@ -1,5 +1,6 @@
 package restaurante;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +28,12 @@ import verificacao.excecoes.ValoresException;
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  */
 
-public class RestauranteController {
+public class RestauranteController implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4949390217807437562L;
+	
 	private List<Comida> cardapio;
 
 	/**

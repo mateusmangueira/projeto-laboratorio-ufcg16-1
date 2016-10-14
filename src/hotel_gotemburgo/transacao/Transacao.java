@@ -1,5 +1,7 @@
 package hotel_gotemburgo.transacao;
 
+import java.io.Serializable;
+
 /**
  * A classe Transacao eh responsavel por representar uma transacao do sistema, que possui o nome
  * de um Hospede, o valor dessa transacao e sua descricao.
@@ -10,8 +12,13 @@ package hotel_gotemburgo.transacao;
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
-public class Transacao {
+public class Transacao implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4084223959368361456L;
+	
 	private String nomeHospede;
 	private double valor;
 	private String descricao;

@@ -25,6 +25,11 @@ import verificacao.excecoes.ValoresException;
  */
 public class RefeicaoCompleta extends Comida {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9084588864161480098L;
+	
 	private ArrayList<Prato> pratos;
 
 	/**

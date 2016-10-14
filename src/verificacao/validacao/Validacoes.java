@@ -1,6 +1,13 @@
 package verificacao.validacao;
 
-public class Validacoes {
+import java.io.Serializable;
+
+public class Validacoes implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2271062252376046866L;
 	
 	private static final int MAIORIDADE = 18;
 	/**

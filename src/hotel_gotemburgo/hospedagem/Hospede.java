@@ -5,6 +5,7 @@ import hotel_gotemburgo.hospedagem.cartao.PadraoStrategy;
 import hotel_gotemburgo.hospedagem.cartao.PremiumStrategy;
 import hotel_gotemburgo.hospedagem.cartao.VipStrategy;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -27,8 +28,13 @@ import verificacao.excecoes.ValoresException;
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
-public class Hospede {
+public class Hospede implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6215041567856321599L;
+	
 	private String nome;
 	private String email;
 	private String dataNascimento;

@@ -1,5 +1,7 @@
 package restaurante.comida;
 
+import java.io.Serializable;
+
 import verificacao.excecoes.ValoresException;
 
 /**
@@ -13,7 +15,12 @@ import verificacao.excecoes.ValoresException;
  * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  */
-public abstract class Comida {
+public abstract class Comida implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9050532268097788573L;
 	
 	protected String nome;
 	protected String descricao;

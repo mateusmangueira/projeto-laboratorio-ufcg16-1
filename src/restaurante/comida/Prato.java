@@ -19,6 +19,11 @@ import verificacao.excecoes.ValoresException;
  */
 public class Prato extends Comida {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2433940485224415727L;
+	
 	private double preco;
 
 	/**

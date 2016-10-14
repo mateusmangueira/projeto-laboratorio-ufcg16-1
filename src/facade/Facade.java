@@ -1,11 +1,19 @@
 package facade;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import arquivos.ManipuladorArquivos;
 import easyaccept.EasyAccept;
 import hotel_gotemburgo.HotelController;
 import restaurante.RestauranteController;
 import verificacao.excecoes.HotelGotemburgoException;
+import verificacao.excecoes.LogicaException;
 
 /**
  * Utilizamos o padrao de projeto Facade para fornecer uma interface
@@ -32,9 +40,25 @@ public class Facade {
 		this.manipulador = new ManipuladorArquivos();
 	}
 	
-	public void iniciaSistema() {}
+	/**
+	 * 
+	 * @throws HotelGotemburgoException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
+	public void iniciaSistema() throws HotelGotemburgoException, ClassNotFoundException, IOException {
+		this.hotelController = this.manipulador.leHotel(); 
+		this.restauranteController = this.manipulador.leRestaurante();
+	}
 	
-	public void fechaSistema() {}
+	/**
+	 * 
+	 * @throws IOException
+	 */
+	public void fechaSistema() throws IOException {
+		this.manipulador.gravaHotel(hotelController);
+		this.manipulador.gravaRestaurante(restauranteController);
+	}
 	
 	/* Funcionalidades do Manipulador de Arquivos */
 	public void gravaArquivoMenu() throws IOException {
@@ -44,7 +68,7 @@ public class Facade {
 	
 	public void gravaArquivoCadastro() throws IOException {
 		String arquivo = this.hotelController.stringArquivoMenu();
-		this.manipulador.gravaArquivoCadastro(arquivo);
+		this.manipulador.gravaArquivoCadastroHospede(arquivo);
 	}
 	
 	public void gravaArquivoTransacoes() throws IOException {

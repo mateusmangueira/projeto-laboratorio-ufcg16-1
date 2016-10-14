@@ -1,5 +1,6 @@
 package hotel_gotemburgo.hospedagem.cartao;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -19,8 +20,13 @@ import java.math.RoundingMode;
  * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  */
-public class VipStrategy implements CartaoFidelidade {
+public class VipStrategy implements CartaoFidelidade, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6797430220866532601L;
+	
 	private static final double RATE_DESCONTO = 0.15;
 	private static final double RATE_BONIFICACAO_PONTOS = 0.50;
 	private final static int LIMIAR_PADRAO_DESCONTO = 10; 	

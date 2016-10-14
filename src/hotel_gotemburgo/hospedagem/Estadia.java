@@ -2,6 +2,9 @@ package hotel_gotemburgo.hospedagem;
 
 import verificacao.excecoes.Excecoes;
 import verificacao.excecoes.ValoresException;
+
+import java.io.Serializable;
+
 import hotel_gotemburgo.quartos.TipoDeQuarto;
 
 /**
@@ -20,8 +23,13 @@ import hotel_gotemburgo.quartos.TipoDeQuarto;
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
-public class Estadia {
+public class Estadia implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3163399657084187312L;
+	
 	private String idQuarto;
 	private TipoDeQuarto tipoQuarto;
 	private int dias;

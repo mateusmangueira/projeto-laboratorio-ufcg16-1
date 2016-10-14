@@ -1,5 +1,6 @@
 package hotel_gotemburgo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,8 +36,13 @@ import hotel_gotemburgo.transacao.*;
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
-public class HotelController {
+public class HotelController implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4474781735931140315L;
+	
 	private Set<Hospede> hospedes;
 	private Set<String> quartosOcupados;
 	private HashMap<String, TipoDeQuarto> tiposQuartos;

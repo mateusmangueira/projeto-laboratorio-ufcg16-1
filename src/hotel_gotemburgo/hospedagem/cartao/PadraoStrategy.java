@@ -1,5 +1,7 @@
 package hotel_gotemburgo.hospedagem.cartao;
 
+import java.io.Serializable;
+
 /**
  * Classe que implementa a interface CartaoFidelidade para descrever uma nova estrategia
  * de calculo para as operacoes relacionadas a um cartao. O comportamento descrito
@@ -10,8 +12,13 @@ package hotel_gotemburgo.hospedagem.cartao;
  * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br> *
  */
-public class PadraoStrategy implements CartaoFidelidade {
+public class PadraoStrategy implements CartaoFidelidade, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2660445807527707161L;
+	
 	private static final double RECOMPENSA = 0.10;
 	// Para cada ponto de fidelidade, o hospede consegue sacar R$0,10;
 	private static final double RATE_SAQUE = 0.10;
