@@ -17,11 +17,15 @@ import verificacao.excecoes.VerificacaoException;
 
 public class ManipuladorArquivos implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2124687044623072966L;
 
+	/**
+	 * Metodo no qual grava arquivos, recebendo como parametro uma string de balanco total (balando de Hospedes, Menu ou Transacoes)
+	 * e um caminho no qual o arquivo criado serah armazenado.
+	 * @param string Balanco total (Seja de Hospedes, do Menu ou de Transacoes)
+	 * @param filename string que representa o caminho no qual serah gravado o arquivo a ser criado
+	 * @throws IOException Caso a criacao do arquivo for invalida
+	 */
 	public void gravaArquivo(String string, String filename) throws IOException {
 		File meuArquivo = new File(filename);
 		if (!meuArquivo.exists()) {
@@ -32,6 +36,8 @@ public class ManipuladorArquivos implements Serializable {
 		bf.close();
 
 	}
+	
+	/*Metodos delegadores de gravaArquivo*/
 
 	public void gravaArquivoCadastroHospede(String string) throws IOException {
 		this.gravaArquivo(string, "C:\\Users\\Christopher\\Documents\\Projeto_Lp2\\arquivos_sistema\\relatorios\\cad_hospedes.txt");
@@ -50,7 +56,7 @@ public class ManipuladorArquivos implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Este metodo armazena um objeto do tipo Hotel em um arquivo, guardando seu estado atual e serializando-o.
 	 * @throws IOException
 	 */
 	public void gravaHotel(HotelController hotel) throws IOException {
@@ -66,8 +72,8 @@ public class ManipuladorArquivos implements Serializable {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Este metodo carrega um objeto do tipo Hotel e retorna-o para o sistema.
+	 * @return Um objeto do tipo Hotel.
 	 * @throws IOException
 	 * @throws LogicaException 
 	 * @throws ClassNotFoundException 
@@ -86,7 +92,7 @@ public class ManipuladorArquivos implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Este metodo armazena um objeto do tipo Restaurante em um arquivo, guardando seu estado atual e serializando-o.
 	 * @throws IOException
 	 */
 	public void gravaRestaurante(RestauranteController restaurante) throws IOException {
@@ -102,8 +108,8 @@ public class ManipuladorArquivos implements Serializable {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Este metodo carrega um objeto do tipo Restaurante e retorna-o para o sistema.
+	 * @return Um objeto do tipo Restaurante
 	 * @throws IOException
 	 * @throws LogicaException
 	 * @throws ClassNotFoundException

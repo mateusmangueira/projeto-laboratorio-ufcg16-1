@@ -31,16 +31,12 @@ import hotel_gotemburgo.transacao.*;
  * 
  * @author Anderson Vital - 115210091 <anderson.vital@ccc.ufcg.edu.br>
  * @author Kleber Diogo - 115211239 <kleber.albuquerque@ccc.ufcg.edu.br>
- * @author Lucas Christopher - 115210934
- *         <lucas.christopher.silva@ccc.ufcg.edu.br>
+ * @author Lucas Christopher - 115210934 <lucas.christopher.silva@ccc.ufcg.edu.br>
  * @author Mateus Pinto Mangueira - 115211466 <mateus.mangueira@ccc.ufcg.edu.br>
  * 
  */
 public class HotelController implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4474781735931140315L;
 	
 	private Set<Hospede> hospedes;
@@ -697,8 +693,9 @@ public class HotelController implements Serializable {
 	/* Funcionalidades para o Manipulador */
 
 	/**
-	 * 
-	 * @return
+	 * Este metodo retorna uma string que trata-se do balando de Hospedes no Hotel, tal como tambem a quantidade
+	 * de hospedes registrados.
+	 * @return Uma string que representa o balando de Hospedes.
 	 */
 	public String stringArquivoHospedes() {
 		String stringRetorno = "Cadastro de Hospedes: " + this.hospedes.size() + " hospedes registrados"
@@ -713,8 +710,9 @@ public class HotelController implements Serializable {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Este metodo retorna uma String que representa o balanco dos pratos e das refeicoes do Restaurante, ou seja,
+	 * o balando de comidas do cardapio. 
+	 * @return Uma string que representa o balando do Menu (cardapio)
 	 */
 	public String stringArquivoMenu() {
 		String stringRetorno = "Menu do Restaurante: " + restaurante.getCardapio().size() + " itens no cardapio";
@@ -727,14 +725,13 @@ public class HotelController implements Serializable {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Este metodo retorna uma String que representa o balanco das Transacoes: Transacoes feitas por cada cliente, total
+	 * de Transacoes e o lucro medio por Transacao.
+	 * @return Uma string que representa o balando de Transacoes
 	 */
 	public String stringArquivoTransacoes() {
 		String stringRetorno = "Historico de Transacoes: " + HotelController.LINE_SEPARATOR;
-		int contador = 0;
 		for (Transacao transacao : this.transacoes) {
-			contador += 1;
 			stringRetorno += "==> Nome: " + transacao.getNomeHospede() + " Gasto: " + "R$" + transacao.getValor() +
 					" Detalhes: " + transacao.getDescricao() + HotelController.LINE_SEPARATOR;
 		}
@@ -746,8 +743,9 @@ public class HotelController implements Serializable {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Este metodo retorna uma String que representa o estado atual do Hotel, tais como: balanco de Hospedes,
+	 * balanco do Menu e balando das Transacoes.
+	 * @return Uma string que representa a situacao atual do Hotel
 	 */
 	public String stringArquivoEstadoHotel() {
 		String fimDeDados = "======================================================";

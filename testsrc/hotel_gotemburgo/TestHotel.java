@@ -71,6 +71,29 @@ public class TestHotel {
 		Assert.assertNotEquals("12/10/1996", facade.getInfoHospede(cliente_1, "Data de Nascimento"));
 		Assert.assertNotEquals("13/02/1994", facade.getInfoHospede(cliente_4, "Data de Nascimento"));
 	}
+	
+	@Test
+	public void testeGetInfoHospedePorPontos() throws HotelGotemburgoException {
+
+		Assert.assertEquals("2", facade.getInfoHospedagem(cliente_1, "Hospedagens Ativas"));
+		Assert.assertEquals("101A,102A", facade.getInfoHospedagem(cliente_1, "Quarto"));
+		//Cliente_1 ainda tem cartao Padrao.
+		facade.realizaCheckout(cliente_1, "101A"); // gastou 1000,00
+		facade.realizaCheckout(cliente_1, "102A"); // gastou 500,00
+		Assert.assertEquals("R$1500,00", facade.consultaTransacoes("Total"));
+		Assert.assertEquals("150", facade.getInfoHospede(cliente_1, "Pontos"));
+		
+		//Cliente_1 passara a ser Premium.
+		facade.realizaCheckin(cliente_1, 5, "101A", "Presidencial");
+		facade.realizaCheckout(cliente_1, "101A");
+		
+		//Premium tem 10% de desconto em gastos no Hotel.
+		Assert.assertEquals("375", facade.getInfoHospede(cliente_1, "Pontos"));
+		facade.realizaCheckin(cliente_1, 3, "505C", "Luxo");
+		facade.realizaCheckout(cliente_1, "505C");
+		
+		Assert.assertEquals("R$675,00", facade.consultaTransacoes("total", 3));
+	}
 
 	@Test
 	public void testeGetInfoHospedagemPorQuantidade() throws HotelGotemburgoException {
@@ -128,27 +151,4 @@ public class TestHotel {
 	}
 	
 	
-	
-	@Test
-	public void testeGetInfoHospedePorPontos() throws HotelGotemburgoException {
-
-		Assert.assertEquals("2", facade.getInfoHospedagem(cliente_1, "Hospedagens Ativas"));
-		Assert.assertEquals("101A,102A", facade.getInfoHospedagem(cliente_1, "Quarto"));
-		//Cliente_1 ainda tem cartao Padrao.
-		facade.realizaCheckout(cliente_1, "101A"); // gastou 1000,00
-		facade.realizaCheckout(cliente_1, "102A"); // gastou 500,00
-		Assert.assertEquals("R$1500,00", facade.consultaTransacoes("Total"));
-		Assert.assertEquals("150", facade.getInfoHospede(cliente_1, "Pontos"));
-		
-		//Cliente_1 passara a ser Premium.
-		facade.realizaCheckin(cliente_1, 5, "101A", "Presidencial");
-		facade.realizaCheckout(cliente_1, "101A");
-		
-		//Premium tem 10% de desconto em gastos no Hotel.
-		Assert.assertEquals("375", facade.getInfoHospede(cliente_1, "Pontos"));
-		facade.realizaCheckin(cliente_1, 3, "505C", "Luxo");
-		facade.realizaCheckout(cliente_1, "505C");
-		
-		Assert.assertEquals("R$675,00", facade.consultaTransacoes("total", 3));
-	}
 }

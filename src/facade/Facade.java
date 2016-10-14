@@ -34,7 +34,8 @@ public class Facade {
 	}
 	
 	/**
-	 * 
+	 * Este metodo inicializa-se junto com o sistema, verificando sua situacao atual e carregando seus dados, lendo e desserializando
+	 * objetos em arquivos.
 	 * @throws HotelGotemburgoException
 	 * @throws ClassNotFoundException
 	 * @throws IOException
@@ -45,7 +46,7 @@ public class Facade {
 	}
 	
 	/**
-	 * 
+	 * Este sistema grava a situacao atual do sistema do Hotel, gravando e serializando objetos em arquivos.
 	 * @throws IOException
 	 */
 	public void fechaSistema() throws IOException {
